@@ -21,7 +21,7 @@ npm i -D stylelint postcss-scss
 
 ```json
 {
-  "extends": "@aurora/design-system/stylelint-config",
+  "extends": "@nikolaynn/design-system/stylelint-config",
   "overrides": [
     { "files": ["**/*.scss"], "customSyntax": "postcss-scss" }
   ]

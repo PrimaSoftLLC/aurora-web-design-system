@@ -6,7 +6,7 @@
    [data-ds-appearance] or [data-ds-density] changes and re-`setOption`.
 
    Angular usage (typed wrapper: templates/angular/aurora-echarts.ts):
-     import { dsEChartsTheme } from '@ORG/design-system/echarts-theme';
+     import { dsEChartsTheme } from '@nikolaynn/design-system/echarts-theme';
      const opt = {...dsEChartsTheme(this.host.nativeElement), series: [...]};
      this.chart.setOption(opt, true);
 

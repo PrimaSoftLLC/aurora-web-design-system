@@ -8,12 +8,12 @@ git-репозитория. Как они связаны и кто где пиш
 Готовое дерево репозитория собирает сессия Claude (первая синхронизация). Дальше:
 
 ```bash
-cd aurora-design-system
-git remote add origin git@github.com:ORG/aurora-design-system.git
+cd aurora-web-design-system
+git remote add origin git@github.com:NikolayNN/aurora-web-design-system.git
 git push -u origin main
 ```
 
-`ORG` — ваш GitHub-аккаунт или организация. Scope пакета в `package.json`
+`NikolayNN` — ваш GitHub-аккаунт или организация. Scope пакета в `package.json`
 (`@aurora/…`) должен совпадать с ним: GitHub Packages публикует только в scope
 владельца репозитория.
 

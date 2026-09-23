@@ -8,7 +8,7 @@
 ## 1. Установка
 
 ```bash
-npm i @aurora/design-system
+npm i @nikolaynn/design-system
 ```
 
 `angular.json` → `projects.<app>.architect.build.options.styles`, первой строкой,
@@ -16,7 +16,7 @@ npm i @aurora/design-system
 
 ```json
 "styles": [
-  "node_modules/@aurora/design-system/dist/styles.css",
+  "node_modules/@nikolaynn/design-system/dist/styles.css",
   "src/styles.scss"
 ]
 ```
@@ -93,7 +93,7 @@ compact-таблица внутри cozy-страницы это один атр
 
 В репозитории есть готовая обвязка — `templates/angular/`: сервис трёх скоупов,
 директива `[auroraScope]`, типы, миксины SCSS и конфиг `ng-packagr`.
-Подробности и два способа подключения — `templates/angular/README.md`.
+Подробности и подключение — `templates/angular/README.md`, раздел «Подключение».
 
 ```ts
 providers: [provideAurora({ theme: 'DEFAULT' })]   // тема из FRONT_BRAND
@@ -104,7 +104,7 @@ providers: [provideAurora({ theme: 'DEFAULT' })]   // тема из FRONT_BRAND
 `components/charts/echartsTheme.js` — скрипт с глобалом; ES-модульная обёртка над ним лежит рядом (`echartsTheme.mjs`) и именно на неё указывает экспорт пакета `./echarts-theme`:
 
 ```ts
-import { dsEChartsTheme } from '@ORG/design-system/echarts-theme';
+import { dsEChartsTheme } from '@nikolaynn/design-system/echarts-theme';
 
 const option = { ...dsEChartsTheme(this.host.nativeElement), series, xAxis: { type: 'time' } };
 this.chart.setOption(option, true);

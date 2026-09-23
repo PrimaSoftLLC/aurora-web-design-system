@@ -7,6 +7,11 @@ Policy: [VERSIONING.md](VERSIONING.md).
 
 ### Changed — BREAKING
 
+- Пакет называется `@nikolaynn/design-system` и ставится из GitHub Packages
+  (`@nikolaynn:registry=https://npm.pkg.github.com`). `styles.css` и `tokens.css` — собранные файлы из `dist/`
+  (`@nikolaynn/design-system/styles.css`, `…/tokens.css`), а не `components/bundle.css` и корневой `tokens.css`.
+  Angular-слой подключается алиасом `@nikolaynn/design-system/angular` в `tsconfig.json` (templates/angular/README.md).
+- `react`, `react-dom` — необязательные peer-зависимости: приложению на Angular они не нужны.
 - `DsTable`: `onToggleAll` устарел — `onToggleVisible(visibleIds, next)`.
   Старый проп работает (получает `next`) и пишет одно предупреждение в консоль.
 - `DsIconButton`: `aria-pressed` ставится, только если `active` задан (true или

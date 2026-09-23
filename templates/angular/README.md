@@ -20,22 +20,27 @@
 
 ## Подключение
 
-Слой входит в пакет системы: `@aurora/design-system/angular`. Стили — как в
-[ANGULAR.md](../../ANGULAR.md), `node_modules/@aurora/design-system/dist/styles.css`.
+Слой едет в пакете системы исходниками (`components/src/templates/angular/`), компилирует их приложение.
+Стили — как в [ANGULAR.md](../../ANGULAR.md), `node_modules/@nikolaynn/design-system/dist/styles.css`.
 
-```ts
-// tsconfig.json — TypeScript-исходники слоя компилирует приложение
-"paths": { "@aurora/ds": ["node_modules/@aurora/design-system/components/src/templates/angular/index.ts"] }
+```jsonc
+// tsconfig.json
+"paths": {
+  "@nikolaynn/design-system/angular": [
+    "node_modules/@nikolaynn/design-system/components/src/templates/angular/index.ts"
+  ]
+}
 ```
 
-Отдельная сборка слоя через `ng-packagr` (`ng-package.json` рядом) нужна, только
-если слой когда-нибудь станет самостоятельным пакетом.
+Импорты слоя — только через этот алиас. Имя совпадает с будущим собранным входом пакета: когда слой станет
+отдельной сборкой, из `tsconfig.json` удалится строка `paths`, а код приложения не изменится. Приложению нужен
+`echarts` в зависимостях: `aurora-echarts.ts` берёт из него типы.
 
 ## Старт
 
 ```ts
 // app.config.ts
-import { provideAurora } from '@aurora/ds';
+import { provideAurora } from '@nikolaynn/design-system/angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideAurora({ theme: 'DEFAULT' })],  // тема из FRONT_BRAND

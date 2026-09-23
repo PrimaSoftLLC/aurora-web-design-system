@@ -1,8 +1,8 @@
 /* Package entry. Every component the system ships, re-exported by name.
-   Styles are NOT imported here — link or import "@aurora/design-system/styles.css"
+   Styles are NOT imported here — link or import "@nikolaynn/design-system/styles.css"
    once at the app root, then set the three scopes on <body>.
    components/charts/echartsTheme.js is a plain global script, not an ES module:
-   import "@aurora/design-system/echarts-theme" for its named export (that path
+   import "@nikolaynn/design-system/echarts-theme" for its named export (that path
    resolves to the ESM wrapper echartsTheme.mjs), or load the .js with a script tag. */
 export * from './components/buttons/DsButton.jsx';
 export * from './components/buttons/DsFab.jsx';

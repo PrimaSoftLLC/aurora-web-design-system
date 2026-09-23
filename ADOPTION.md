@@ -131,7 +131,7 @@
 Система поставляет свои правила stylelint — [LINT.md](LINT.md). Подключение:
 
 ```json
-{ "extends": "@aurora/design-system/stylelint-config" }
+{ "extends": "@nikolaynn/design-system/stylelint-config" }
 ```
 
 Они закрывают пункты 1–5 раздела «Что значит экран на системе»: несуществующий
