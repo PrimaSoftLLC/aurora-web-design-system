@@ -14,7 +14,7 @@ has() { printf '%s' "$input" | grep -Eq "$1"; }
 blocked=""
 if has '(^|[^[:alnum:]_./-])npm[[:space:]]+publish([[:space:]]|\\?"|$)'; then
     blocked="npm publish"
-elif has 'git[[:space:]]+push[^"]*[[:space:]](master|--tags|--follow-tags|v[0-9]+\.[0-9]+)'; then
+elif has 'git[[:space:]]+push[^"]*([[:space:]]|:)(master|--tags|--follow-tags|v[0-9]+(\.[0-9]+)+)([[:space:]]|"|$)'; then
     blocked="git push в master или тега версии"
 elif has 'git[[:space:]]+tag[[:space:]]+(-a[[:space:]]+|-s[[:space:]]+)?v[0-9]'; then
     blocked="git tag v*"
