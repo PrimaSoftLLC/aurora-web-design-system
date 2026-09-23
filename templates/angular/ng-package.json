@@ -1,0 +1,6 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/aurora-ds",
+  "assets": ["../../styles.css", "../../tokens", "../../assets", "./_aurora.scss"],
+  "lib": { "entryFile": "index.ts" }
+}

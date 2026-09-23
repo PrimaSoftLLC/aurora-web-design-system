@@ -1,0 +1,69 @@
+{
+  "$comment": "Параметры регламента имён (NAMING.md). Проверяет lint/scripts/check-names.js.",
+  "prefixes": [
+    "v2",
+    "ds"
+  ],
+  "ladders": {
+    "default": [
+      "3xs",
+      "2xs",
+      "xs",
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "2xl",
+      "3xl"
+    ],
+    "bp": [
+      "s",
+      "m",
+      "l",
+      "xl"
+    ],
+    "weight": [
+      "regular",
+      "medium",
+      "semibold",
+      "bold"
+    ]
+  },
+  "debts": [
+    {
+      "code": "bare-base",
+      "name": "ds-gap",
+      "note": "Закрыт алиасом: значение перенесено в `ds-gap-sm-plus`, `ds-gap` — устаревший алиас до 3.0.0 (см. aliases). Долг снимается вместе с удалением алиаса."
+    },
+    {
+      "code": "bare-base",
+      "name": "ds-pad",
+      "note": "Закрыт алиасом: значение перенесено в `ds-pad-sm`, `ds-pad` — устаревший алиас до 3.0.0 (см. aliases). Долг снимается вместе с удалением алиаса."
+    },
+    {
+      "code": "orphan-on",
+      "name": "ds-fresh-on",
+      "note": "Закрыт алиасом: значение перенесено в `ds-fresh-fg`, `ds-fresh-on` — устаревший алиас до 3.0.0 (см. aliases). Долг снимается вместе с удалением алиаса."
+    }
+  ],
+  "aliases": [
+    {
+      "old": "ds-gap",
+      "new": "ds-gap-sm-plus",
+      "since": "2.0.0",
+      "removeIn": "3.0.0"
+    },
+    {
+      "old": "ds-pad",
+      "new": "ds-pad-sm",
+      "since": "2.0.0",
+      "removeIn": "3.0.0"
+    },
+    {
+      "old": "ds-fresh-on",
+      "new": "ds-fresh-fg",
+      "since": "2.0.0",
+      "removeIn": "3.0.0"
+    }
+  ]
+}

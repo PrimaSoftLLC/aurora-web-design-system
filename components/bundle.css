@@ -1,0 +1,708 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+/* ── styles.css ── */
+/* UI webfont delivery — ONE switchable line. webfonts-cdn.css for design time;
+   swap to webfonts-selfhost.css for production/on-prem (see assets/fonts/README.md). */
+/* ── tokens/webfonts-cdn.css ── */
+/* UI webfont delivery — DESIGN TIME (default).
+   Inter Tight and JetBrains Mono are fetched from Google Fonts. This is the right
+   choice inside this design system and for mocks: no binaries in the repo, every
+   machine renders a card identically.
+
+   It is the WRONG choice for the product. Aurora ships as a container into
+   customer infrastructure, often without egress to the public internet, so a
+   CDN font silently degrades the whole UI to the Helvetica fallback — and the
+   px type scale is measured on Inter Tight's metrics.
+
+   ON-PREM / PRODUCTION: swap the one line in styles.css to
+   `@import "tokens/webfonts-selfhost.css";` and drop the six .woff2 files into
+   assets/fonts/ as listed in assets/fonts/README.md. Nothing else changes:
+   tokens/v2/type.css only NAMES the families, it never loads them. */
+
+
+/* ── styles.css ── */
+
+/* ── tokens/type.css ── */
+/* v2 typography. Inter Tight replaces the system Helvetica stack: same neutral
+   voice, tighter default tracking, real 500/600 weights that do not depend on the
+   OS. JetBrains Mono is added for telemetry columns only (speeds, coordinates,
+   IMEI, timestamps) where digit alignment is load-bearing.
+   All sizes are px. The 1rem = 10px trick from the Angular product does NOT
+   apply to v2 tokens.
+   This file only NAMES the families. Font files are loaded by one switchable
+   @import in styles.css — webfonts-cdn.css (design time) or
+   webfonts-selfhost.css (production). See assets/fonts/README.md. */
+:root{
+--ds-font-sans:"Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+--ds-font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+/* role tokens */
+--ds-type-display:var(--ds-weight-semibold) var(--ds-text-30)/var(--ds-lh-tight) var(--ds-font-sans);
+--ds-type-title:var(--ds-weight-semibold) var(--ds-text-20)/var(--ds-lh-tight) var(--ds-font-sans);
+--ds-type-section:var(--ds-weight-semibold) var(--ds-text-16)/var(--ds-lh-snug) var(--ds-font-sans);
+--ds-type-body:var(--ds-weight-regular) var(--ds-text-14)/var(--ds-lh-normal) var(--ds-font-sans);
+--ds-type-body-strong:var(--ds-weight-medium) var(--ds-text-14)/var(--ds-lh-normal) var(--ds-font-sans);
+--ds-type-ui:var(--ds-weight-medium) var(--ds-text-13)/var(--ds-lh-snug) var(--ds-font-sans);
+--ds-type-caption:var(--ds-weight-regular) var(--ds-text-12)/var(--ds-lh-snug) var(--ds-font-sans);
+--ds-type-eyebrow:var(--ds-weight-semibold) var(--ds-text-11)/var(--ds-lh-snug) var(--ds-font-sans);
+--ds-type-mono:var(--ds-weight-regular) var(--ds-text-13)/var(--ds-lh-snug) var(--ds-font-mono);
+}
+
+/* ── styles.css ── */
+
+/* ── tokens/neutrals.css ── */
+/* v2 neutral ramp. The legacy system had six unrelated greys (#212121, #757575,
+   #BDBDBD, #d3d3d3, rgba(230,230,230,.85), #f0f0f0) with no consistent hue or
+   step; this is one cool-neutral ramp at even lightness steps, so a border, a
+   hover fill and a muted label can never disagree about their undertone.
+   Hue is a constant slight blue (~255) at very low chroma, which reads as
+   "instrument panel" rather than "warm paper" and sits calmly next to map tiles. */
+:root{
+}
+
+/* ── styles.css ── */
+
+/* ── tokens/brand.css ── */
+/* v2 brand palettes. The white-label mechanism is unchanged — a scope on the root
+   element swaps a handful of custom properties, nothing else. What changed:
+   1. every palette now ships four brand roles instead of two (fill, subtle,
+      border, text) plus five accent roles, so a theme can tint a surface and
+      colour a label without a component inventing an opacity;
+   2. there are no -hover / -active brand values: hover and press are a universal
+      overlay in the control's own ink (--ds-overlay-hover 10%, --ds-overlay-press
+      16%), so a filled tone needs one colour, not three;
+   3. --ds-brand and --ds-accent are guaranteed to carry white (or --ds-accent-on)
+      text at WCAG AA, which #FF4081 and #F8D030 never did;
+   4. --ds-accent-mark is the accent in its GRAPHIC role — the unread dot and the
+      unread badge, which are shapes, not text, and owe 3:1 against the surface
+      (WCAG 1.4.11). DEFAULT's yellow accent cannot hold that at its fill value, so
+      the token exists; in dark it is simply var(--ds-accent);
+   5. --ds-brand-text is a separate, darker value for brand-coloured TEXT on a
+      light surface, because a fill colour and a text colour cannot be the same
+      token and still pass AA.
+
+   TWO PALETTES SHIP: DEFAULT and RED2 — the two brands actually in production.
+   Speculative palettes (BLUE, RED, PURPLE, GREEN, GRAY) were removed in September
+   2026: nothing rendered them, so nothing kept their contrast honest. A new tenant
+   gets its own block derived from its real brand colours — see the card
+   the DsBrandPick card — never a pick from a pre-baked set.
+
+   Scope with [data-ds-theme="RED2"]; in production Angular keep the existing
+   class (.theme-RED2) and map it to the same properties.
+
+   THEME × APPEARANCE IS A MATRIX, NOT TWO INDEPENDENT SWITCHES. A brand value
+   depends on both scopes, but the two attributes may sit on different elements and
+   in either order (AuroraScopeDirective sets them independently). A custom property
+   is also substituted where it is DECLARED, so an element that sets only one of the
+   two must re-declare the whole palette. Each of the four palettes below therefore
+   lists every scope shape that resolves to it: the attribute alone, the two
+   attributes compounded, and one level of nesting in BOTH directions, with :not()
+   guards so an intervening opposite scope wins. One override level is the contract —
+   deeper than that, put both attributes on the same element.
+
+   Dark appearance re-lights every palette: a fill that was a mid brand becomes a
+   light brand so white-on-brand flips to brand-on-dark, and the subtle tint becomes
+   a low-alpha wash of the same hue instead of a pale tint. */
+
+/* DEFAULT · light */
+:root,
+[data-ds-theme="DEFAULT"]:not([data-ds-appearance="dark"]):not([data-ds-appearance="dark"] *),
+[data-ds-appearance="light"]:not([data-ds-theme="RED2"]):not([data-ds-theme="RED2"] *),
+[data-ds-appearance="light"][data-ds-theme="DEFAULT"],
+[data-ds-appearance="light"] [data-ds-theme="DEFAULT"],
+[data-ds-theme="DEFAULT"] [data-ds-appearance="light"]:not([data-ds-theme="RED2"]){
+}
+/* RED2 · light */
+[data-ds-theme="RED2"]:not([data-ds-appearance="dark"]):not([data-ds-appearance="dark"] *),
+[data-ds-appearance="light"][data-ds-theme="RED2"],
+[data-ds-appearance="light"] [data-ds-theme="RED2"],
+[data-ds-theme="RED2"] [data-ds-appearance="light"]:not([data-ds-theme="DEFAULT"]){
+}
+/* DEFAULT · dark */
+[data-ds-appearance="dark"]:not([data-ds-theme="RED2"]):not([data-ds-theme="RED2"] *),
+[data-ds-appearance="dark"][data-ds-theme="DEFAULT"],
+[data-ds-appearance="dark"] [data-ds-theme="DEFAULT"]:not([data-ds-appearance="light"]):not([data-ds-appearance="light"] *),
+[data-ds-theme="DEFAULT"] [data-ds-appearance="dark"]:not([data-ds-theme="RED2"]){
+}
+/* RED2 · dark */
+[data-ds-appearance="dark"][data-ds-theme="RED2"],
+[data-ds-appearance="dark"] [data-ds-theme="RED2"]:not([data-ds-appearance="light"]):not([data-ds-appearance="light"] *),
+[data-ds-theme="RED2"] [data-ds-appearance="dark"]:not([data-ds-theme="DEFAULT"]){
+}
+/* --ds-on-brand for dark lives in semantic.css, in that file's own dark block:
+   declared here it tied with `:root` in semantic.css and lost on source order
+   whenever both attributes sat on the same element as :root (i.e. on <html>). */
+
+/* ── styles.css ── */
+
+/* ── tokens/semantic.css ── */
+/* v2 semantic layer. Components read ONLY from here and from shape/density —
+   never from the neutral ramp or a brand palette directly. That is what makes one
+   [data-ds-appearance="dark"] attribute enough to relight the whole product.
+   Status colours stay theme-independent, as in the legacy system: a vehicle that
+   is offline must look offline in both brands.
+
+   The light values are declared on `:root` AND on `[data-ds-appearance="light"]`, so a
+   light-scoped subtree inside a dark page really returns to the light palette instead
+   of inheriting dark values: a declaration on the element always beats an inherited
+   one, whatever the source order of the two blocks. Every alias below is part of that
+   reset — the brand-derived ones are re-resolved once more by the [data-ds-theme]
+   block that follows. */
+:root,[data-ds-appearance="light"]{
+}
+/* Theme re-resolve. data-ds-theme is an independent, inheritable scope, but a custom
+   property that CONTAINS var() is substituted where it is DECLARED, not where it is
+   used: --ds-header-indicator:var(--ds-brand) declared only in :root computes once on
+   <html> and inherits into a nested [data-ds-theme] subtree as a literal DEFAULT blue,
+   which is why a RED2 header used to draw a blue indicator. So every alias that points
+   at a brand or accent value is restated here, on the theme scope itself, where
+   --ds-brand* already carries the tenant's values. Nothing new is decided in this
+   block — it is the same mapping as :root, re-resolved.
+   It sits BEFORE the band blocks on purpose: a band overrides these with its own ink,
+   and equal specificity means source order decides. */
+[data-ds-theme]{
+}
+[data-ds-appearance="dark"]{
+}
+
+
+/* ── styles.css ── */
+
+/* ── tokens/shape.css ── */
+/* v2 shape. Two changes from legacy: the radius scale is real (2px everywhere
+   read as "unfinished Material"), and elevation is demoted — a v2 surface is
+   separated by a 1px --ds-border, and shadow appears only on things that truly
+   float above the map or the page (menus, popovers, dialogs, toasts).
+   Material z-levels are intentionally NOT carried over.
+   Light shadows are attached to [data-ds-appearance="light"] as well, so a light
+   panel inside a dark page stops inheriting the heavier dark shadows. */
+:root,[data-ds-appearance="light"]{
+}
+[data-ds-appearance="dark"]{
+}
+
+/* ── styles.css ── */
+
+/* ── tokens/focus.css ── */
+/* v2 focus. One real :focus-visible ring for the whole system, so a ring never
+   appears on a mouse click and no component draws its own with JS.
+   --ds-focus-width (shape.css) is finally what sets the thickness.
+   Native inputs are deliberately NOT in the list: DsField, DsDuration and
+   DsFilterBar light their whole container, and two rings would read as noise.
+   The visually hidden checkbox/radio of DsCheckbox and DsSwitch hands its ring
+   to the box drawn next to it.
+   Text-entry containers are NOT in the list either, for the same reason: they light
+   the whole shell from :focus-within in tokens/v2/field.css. Two files, one
+   mechanism — CSS. No component tracks focus in order to draw a ring. */
+:root{}
+/* restated because a var() alias is substituted where it is declared, not where it is used */
+[data-ds-appearance="dark"],[data-ds-appearance="light"]{--ds-focus-color:var(--ds-brand)}
+[data-ds-theme]{}
+:where(button,a[href],[role="button"],[role="menuitem"],[role="tab"],[role="checkbox"],[role="switch"],[role="option"],[tabindex]:not([tabindex="-1"])):focus-visible{outline:var(--ds-focus-width) solid var(--ds-focus-color);outline-offset:var(--ds-focus-offset)}
+:where(input[type="checkbox"],input[type="radio"]):focus-visible+span{outline:var(--ds-focus-width) solid var(--ds-focus-color);outline-offset:var(--ds-focus-offset)}
+
+/* ── styles.css ── */
+
+/* ── tokens/field.css ── */
+/* v2 field shell — the one rule that draws a text-entry container.
+   Until this file existed, DsField, DsDuration and DsFilterBar each held a React
+   focus state and painted --ds-focus-ring themselves. Two problems: the ring then
+   appeared on a mouse click as well (:focus-visible is keyboard-only, a JS onFocus
+   is not), and the system had two focus mechanisms while the readme promised one.
+   Border, hover, error/warning and the focus ring now all resolve here from
+   :focus-within, and no component tracks focus in order to draw a ring.
+   Components still own their own background, height, padding and content.
+   The marker is data-ds-field="default" | "error" | "warning". */
+[data-ds-field]{border:var(--ds-border-width) solid var(--ds-border-field);border-radius:var(--ds-radius-field)}
+[data-ds-field]:hover{border-color:var(--ds-border-field-hover)}
+[data-ds-field="error"]{border-color:var(--ds-danger-solid)}
+[data-ds-field="warning"]{border-color:var(--ds-warning-solid)}
+[data-ds-field]:focus-within{border-color:var(--ds-brand);box-shadow:var(--ds-focus-ring)}
+[data-ds-field="error"]:focus-within{border-color:var(--ds-danger-solid);box-shadow:var(--ds-focus-ring-danger)}
+
+/* ── styles.css ── */
+
+/* ── tokens/chart.css ── */
+/* v2 charts. The product draws its graphs with ECharts (sensor charts, fuel, speed,
+   eco-driving) and took the library's stock palette, stock grey axes and a
+   hard-coded `#808080` split line. Three problems: the stock palette collides with
+   the status palette (an ECharts red line next to a red "offline" chip means two
+   different things), nothing in it reacted to dark mode, and a sensor changed colour
+   between screens.
+
+   The series palette is THEME-INDEPENDENT, exactly like status. An operator learns
+   that speed is blue and fuel is teal; that must not move when a tenant switches to
+   theme RED2. It is also deliberately NOT the status palette: series colour encodes a
+   QUANTITY, status colour encodes a STATE. Only the light/dark pair changes.
+
+   Axis, grid, crosshair and zoom chrome are semantic aliases — but an alias holding
+   var() is substituted where it is DECLARED, so every one of them is restated in the
+   dark block below and the light values are also attached to
+   [data-ds-appearance="light"]. Without that, a plot under a dark scope kept light
+   labels, grid, markers and tooltip while its surfaces and series were already dark,
+   and a light panel inside a dark page never came back. */
+:root,[data-ds-appearance="light"]{
+}
+[data-ds-appearance="dark"]{
+}
+
+/* brand-derived chart aliases, re-resolved per theme scope (see semantic.css) */
+[data-ds-theme]{}
+
+/* ── styles.css ── */
+
+/* ── tokens/density.css ── */
+/* v2 density. The legacy system hard-coded one set of heights (36px control,
+   56px object row, 55px strips). An operator on a 1080p laptop and an operator on
+   a 27" wall display do not want the same row height, so v2 ships two and every
+   component sizes itself from these tokens instead of from a literal.
+   Default is "cozy". Set [data-ds-density="compact"] on any subtree —
+   it is a scope, not a global switch, so one dense table can live inside a
+   cozy page. */
+:root,[data-ds-density="cozy"]{
+--ds-control-h:36px;
+--ds-control-h-sm:28px;
+--ds-control-h-lg:44px;
+--ds-control-pad-x:14px;
+--ds-field-h:40px;
+--ds-row-h:44px;
+--ds-row-h-lg:56px;
+--ds-cell-pad-x:14px;
+--ds-cell-pad-y:10px;
+--ds-header-h:56px;
+--ds-toolbar-h:52px;
+--ds-panel-w:340px;
+--ds-gap-2xs:2px;
+--ds-gap-xs:4px;
+--ds-gap-sm:8px;
+--ds-gap-sm-plus:12px;--ds-gap:var(--ds-gap-sm-plus);
+--ds-gap-md:16px;
+--ds-gap-lg:24px;
+--ds-gap-xl:32px;
+--ds-pad-tight:8px;
+--ds-pad-sm:12px;--ds-pad:var(--ds-pad-sm);
+--ds-pad-md:16px;
+--ds-pad-lg:20px;
+--ds-pad-xl:24px;
+--ds-icon-xs:14px;
+--ds-icon-sm:16px;
+--ds-icon:20px;
+--ds-icon-lg:24px;
+}
+[data-ds-density="compact"]{
+--ds-control-h:30px;
+--ds-control-h-sm:24px;
+--ds-control-h-lg:36px;
+--ds-control-pad-x:10px;
+--ds-field-h:32px;
+--ds-row-h:34px;
+--ds-row-h-lg:44px;
+--ds-cell-pad-x:10px;
+--ds-cell-pad-y:6px;
+--ds-header-h:48px;
+--ds-toolbar-h:42px;
+--ds-panel-w:300px;
+--ds-gap-2xs:2px;--ds-gap-xs:3px;--ds-gap-sm:6px;--ds-gap-sm-plus:8px;--ds-gap:var(--ds-gap-sm-plus);--ds-gap-md:12px;--ds-gap-lg:16px;--ds-gap-xl:24px;
+--ds-pad-tight:6px;--ds-pad-sm:8px;--ds-pad:var(--ds-pad-sm);--ds-pad-md:12px;--ds-pad-lg:14px;--ds-pad-xl:18px;
+--ds-icon-xs:12px;--ds-icon-sm:14px;--ds-icon:18px;--ds-icon-lg:20px;
+}
+
+/* ── styles.css ── */
+
+/* ── tokens/layout.css ── */
+/* v2 layout. Four fixed breakpoints, taken verbatim from the Angular product's
+   ViewBreakpointService — these numbers are a contract with ~45 components that
+   already branch on them (size.equal('s'), size.more('m'), labelsFrom), so they
+   are documented, not redesigned.
+   The service compares STRICTLY: size.more('m') is true on L and XL, not on M.
+   Read every threshold as ">= L" and never as "more than M".
+   There is no fifth tier and there will not be one: each tier multiplies across
+   every branching component. Anything narrower than a page is a container query
+   on that component, not a global breakpoint.
+   Upper bound is not a breakpoint either — it is a max width on the content
+   column, so a form or a text page stops growing while a map or a table keeps
+   the full viewport. */
+:root{ /* @kind other */
+}
+
+/* ── styles.css ── */
+
+/* ── tokens/motion.css ── */
+/* v2 motion. Still almost none — this is a console, not a landing page — but the
+   one legacy duration (150ms background-color) is replaced by a two-step scale
+   and one shared easing, so hover, menu-open and toast-in stop being three
+   different ad-hoc numbers. No entrance animations on data. */
+:root{
+}
+@media (prefers-reduced-motion:reduce){:root{
+--ds-dur-instant:0ms; /* @kind other */
+--ds-dur-fast:0ms; /* @kind other */
+--ds-dur:0ms; /* @kind other */
+--ds-dur-slow:0ms; /* @kind other */
+--ds-transition-control:none; /* @kind other */
+}}
+@keyframes ds-spin{to{transform:rotate(360deg)}}
+@keyframes ds-pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* ── styles.css ── */
+
+/* ── assets/icons/material-symbols/material-symbols.css ── */
+/* @font-face Material Symbols Outlined 400 normal: declared by tokens.json (fonts/MaterialSymbolsOutlined.woff2) */
+
+.material-symbols-outlined {
+  direction: ltr;
+  display: inline-block;
+  font-family: 'Material Symbols Outlined';
+  font-feature-settings: 'liga';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── styles.css ── */
+
+
+/* ── tokens/webfonts-cdn.css ── */
+
+/* ── tokens/type.css ── */
+
+/* ── tokens/neutrals.css ── */
+
+/* ── tokens/brand.css ── */
+
+/* ── tokens/semantic.css ── */
+
+/* ── tokens/shape.css ── */
+
+/* ── tokens/focus.css ── */
+
+/* ── tokens/field.css ── */
+
+/* ── tokens/chart.css ── */
+
+/* ── tokens/density.css ── */
+
+/* ── tokens/layout.css ── */
+
+/* ── tokens/motion.css ── */
+
+/* ── assets/icons/material-symbols/material-symbols.css ── */
+
+/* ── artifact-scopes: begin ── */
+/* Вложенные скоупы для превью артефакта — сгенерировано tools/build.js из tokens.json. Не править: node tools/artifact-scopes.js write */
+
+/* appearance: light */
+[data-ds-appearance="light"] {
+  --ds-fg: var(--ds-n-900);
+  --ds-fg-strong: var(--ds-n-950);
+  --ds-fg-muted: var(--ds-n-600);
+  --ds-fg-subtle: #697182;
+  --ds-fg-disabled: var(--ds-n-400);
+  --ds-on-brand: #ffffff;
+  --ds-on-solid: #ffffff;
+  --ds-bg: var(--ds-n-50);
+  --ds-bg-sunken: var(--ds-n-100);
+  --ds-surface: var(--ds-n-0);
+  --ds-surface-raised: var(--ds-n-0);
+  --ds-surface-hover: var(--ds-n-50);
+  --ds-surface-active: var(--ds-n-100);
+  --ds-surface-disabled: var(--ds-n-100);
+  --ds-surface-inverse: var(--ds-n-900);
+  --ds-fg-on-inverse: var(--ds-n-50);
+  --ds-border: var(--ds-n-200);
+  --ds-border-strong: var(--ds-n-300);
+  --ds-border-field: var(--ds-n-300);
+  --ds-border-field-hover: var(--ds-n-400);
+  --ds-divider: var(--ds-n-100);
+  --ds-neutral-bg: #eef0f4;
+  --ds-neutral-fg: #454c5a;
+  --ds-neutral-line: #cdd2dc;
+  --ds-neutral-solid: #5e6676;
+  --ds-info-bg: #eaf1fd;
+  --ds-info-fg: #1a56a8;
+  --ds-info-line: #c3d8f5;
+  --ds-info-solid: #1a56a8;
+  --ds-success-bg: #e7f4ec;
+  --ds-success-fg: #12653a;
+  --ds-success-line: #bce0cb;
+  --ds-success-solid: #157a45;
+  --ds-warning-bg: #fdf3e0;
+  --ds-warning-fg: #8a5a00;
+  --ds-warning-line: #f0dcae;
+  --ds-warning-solid: #9a6400;
+  --ds-danger-bg: #fdecea;
+  --ds-danger-fg: #b3261e;
+  --ds-danger-line: #f5c9c5;
+  --ds-danger-solid: #c1291f;
+  --ds-fresh-fg: #ffffff;
+  --ds-fresh-on: var(--ds-fresh-fg);
+  --ds-series-1: #3a6ecf;
+  --ds-series-2: #0f7a70;
+  --ds-series-3: #a86b12;
+  --ds-series-4: #b8407f;
+  --ds-series-5: #6b57c4;
+  --ds-series-6: #417f27;
+  --ds-series-7: #b3512c;
+  --ds-series-8: #1f6f92;
+  --ds-chart-tooltip-muted: #f6f7f99e;
+  --ds-chart-zoom-preview: var(--ds-n-300);
+  --ds-chart-mark-area: #9a640024;
+  --ds-chart-nodata: var(--ds-n-300);
+  --ds-shadow-xs: 0 1px 2px rgba(18,21,28,0.05);
+  --ds-shadow-sm: 0 1px 2px rgba(18,21,28,0.06),0 1px 1px rgba(18,21,28,0.04);
+  --ds-shadow-md: 0 4px 12px -2px rgba(18,21,28,0.10),0 1px 3px rgba(18,21,28,0.05);
+  --ds-shadow-lg: 0 12px 32px -8px rgba(18,21,28,0.18),0 2px 6px rgba(18,21,28,0.06);
+  --ds-shadow-map: 0 2px 8px rgba(18,21,28,0.16);
+  --ds-focus-ring-danger: 0 0 0 3px #c1291f52;
+}
+
+/* appearance: dark */
+[data-ds-appearance="dark"] {
+  --ds-fg: var(--ds-n-100);
+  --ds-fg-strong: var(--ds-n-25);
+  --ds-fg-muted: var(--ds-n-400);
+  --ds-fg-subtle: var(--ds-n-500);
+  --ds-fg-disabled: var(--ds-n-600);
+  --ds-on-brand: #0d1520;
+  --ds-on-solid: #12151c;
+  --ds-bg: #0d1015;
+  --ds-bg-sunken: #090b0f;
+  --ds-surface: #15191f;
+  --ds-surface-raised: #1c2129;
+  --ds-surface-hover: #1f242d;
+  --ds-surface-active: #262c36;
+  --ds-surface-disabled: #1a1e25;
+  --ds-surface-inverse: var(--ds-n-100);
+  --ds-fg-on-inverse: var(--ds-n-900);
+  --ds-border: #272d37;
+  --ds-border-strong: #363d49;
+  --ds-border-field: #333a45;
+  --ds-border-field-hover: #464f5d;
+  --ds-divider: #1f242d;
+  --ds-neutral-bg: #242a34;
+  --ds-neutral-fg: #b6bdc9;
+  --ds-neutral-line: #343c48;
+  --ds-neutral-solid: #8c94a3;
+  --ds-info-bg: rgba(91,146,212,0.16);
+  --ds-info-fg: #9cc0ea;
+  --ds-info-line: rgba(91,146,212,0.34);
+  --ds-info-solid: #5b92d4;
+  --ds-success-bg: rgba(56,176,118,0.16);
+  --ds-success-fg: #7ed4a6;
+  --ds-success-line: rgba(56,176,118,0.32);
+  --ds-success-solid: #38b076;
+  --ds-warning-bg: rgba(214,158,46,0.16);
+  --ds-warning-fg: #e8c477;
+  --ds-warning-line: rgba(214,158,46,0.32);
+  --ds-warning-solid: #d69e2e;
+  --ds-danger-bg: rgba(231,98,86,0.16);
+  --ds-danger-fg: #f0a39a;
+  --ds-danger-line: rgba(231,98,86,0.32);
+  --ds-danger-solid: #e76256;
+  --ds-fresh-fg: #0d1520;
+  --ds-fresh-on: var(--ds-fresh-fg);
+  --ds-series-1: #7ea6f0;
+  --ds-series-2: #4fc0b3;
+  --ds-series-3: #e0b15e;
+  --ds-series-4: #ec8ab8;
+  --ds-series-5: #a99bf0;
+  --ds-series-6: #8ac36d;
+  --ds-series-7: #ef9a76;
+  --ds-series-8: #6fb8db;
+  --ds-chart-tooltip-muted: #1d222ca6;
+  --ds-chart-zoom-preview: var(--ds-n-600);
+  --ds-chart-mark-area: #d69e2e24;
+  --ds-chart-nodata: var(--ds-n-600);
+  --ds-shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+  --ds-shadow-sm: 0 1px 2px rgba(0,0,0,0.45);
+  --ds-shadow-md: 0 4px 12px -2px rgba(0,0,0,0.55);
+  --ds-shadow-lg: 0 12px 32px -8px rgba(0,0,0,0.65);
+  --ds-shadow-map: 0 2px 8px rgba(0,0,0,0.6);
+  --ds-focus-ring-danger: 0 0 0 3px #e7625652;
+}
+
+/* density: cozy */
+[data-ds-density="cozy"] {
+  --ds-control-h: 36px;
+  --ds-control-h-sm: 28px;
+  --ds-control-h-lg: 44px;
+  --ds-control-pad-x: 14px;
+  --ds-field-h: 40px;
+  --ds-row-h: 44px;
+  --ds-row-h-lg: 56px;
+  --ds-cell-pad-x: 14px;
+  --ds-cell-pad-y: 10px;
+  --ds-header-h: 56px;
+  --ds-toolbar-h: 52px;
+  --ds-panel-w: 340px;
+  --ds-gap-xs: 4px;
+  --ds-gap-sm: 8px;
+  --ds-gap-sm-plus: 12px;--ds-gap: var(--ds-gap-sm-plus);
+  --ds-gap-md: 16px;
+  --ds-gap-lg: 24px;
+  --ds-gap-xl: 32px;
+  --ds-pad-tight: 8px;
+  --ds-pad-sm: 12px;--ds-pad: var(--ds-pad-sm);
+  --ds-pad-md: 16px;
+  --ds-pad-lg: 20px;
+  --ds-pad-xl: 24px;
+  --ds-icon-xs: 14px;
+  --ds-icon-sm: 16px;
+  --ds-icon: 20px;
+  --ds-icon-lg: 24px;
+}
+
+/* density: compact */
+[data-ds-density="compact"] {
+  --ds-control-h: 30px;
+  --ds-control-h-sm: 24px;
+  --ds-control-h-lg: 36px;
+  --ds-control-pad-x: 10px;
+  --ds-field-h: 32px;
+  --ds-row-h: 34px;
+  --ds-row-h-lg: 44px;
+  --ds-cell-pad-x: 10px;
+  --ds-cell-pad-y: 6px;
+  --ds-header-h: 48px;
+  --ds-toolbar-h: 42px;
+  --ds-panel-w: 300px;
+  --ds-gap-xs: 3px;
+  --ds-gap-sm: 6px;
+  --ds-gap-sm-plus: 8px;--ds-gap: var(--ds-gap-sm-plus);
+  --ds-gap-md: 12px;
+  --ds-gap-lg: 16px;
+  --ds-gap-xl: 24px;
+  --ds-pad-tight: 6px;
+  --ds-pad-sm: 8px;--ds-pad: var(--ds-pad-sm);
+  --ds-pad-md: 12px;
+  --ds-pad-lg: 14px;
+  --ds-pad-xl: 18px;
+  --ds-icon-xs: 12px;
+  --ds-icon-sm: 14px;
+  --ds-icon: 18px;
+  --ds-icon-lg: 20px;
+}
+
+/* переключатель светлости */
+[data-ds-appearance="light"], :where([data-theme="light"]), :where([data-theme="ds-appearance-light-ds-red2"]) {
+  --ds-_if-dark: ;
+  --ds-_if-light: initial;
+}
+
+[data-ds-appearance="dark"], :where([data-theme="ds-appearance-dark-ds-default"]), :where([data-theme="ds-appearance-dark-ds-red2"]) {
+  --ds-_if-dark: initial;
+  --ds-_if-light: ;
+}
+
+/* тема DEFAULT: значения для обеих светлостей */
+[data-ds-theme="DEFAULT"], :where([data-theme="light"]), :where([data-theme="ds-appearance-dark-ds-default"]) {
+  --ds-_brand--light: #2b5f9e;
+  --ds-_brand--dark: #5b92d4;
+  --ds-_brand-subtle--light: #eef3fa;
+  --ds-_brand-subtle--dark: rgba(91,146,212,0.14);
+  --ds-_brand-border--light: #bcd0e8;
+  --ds-_brand-border--dark: rgba(91,146,212,0.34);
+  --ds-_brand-text--light: #235081;
+  --ds-_brand-text--dark: #9dc0ea;
+  --ds-_accent--light: #efd63c;
+  --ds-_accent--dark: #efd63c;
+  --ds-_accent-on--light: #2d2a15;
+  --ds-_accent-on--dark: #2d2a15;
+  --ds-_accent-subtle--light: #fdf8dd;
+  --ds-_accent-subtle--dark: rgba(239,214,60,0.16);
+  --ds-_accent-mark--light: #7f6200;
+  --ds-_accent-mark--dark: var(--ds-accent);
+  --ds-_accent-mark-on--light: #ffffff;
+  --ds-_accent-mark-on--dark: var(--ds-accent-on);
+  --ds-_focus-ring--light: 0 0 0 3px #2b5f9e52;
+  --ds-_focus-ring--dark: 0 0 0 3px #5b92d452;
+}
+
+/* тема RED2: значения для обеих светлостей */
+[data-ds-theme="RED2"], :where([data-theme="ds-appearance-light-ds-red2"]), :where([data-theme="ds-appearance-dark-ds-red2"]) {
+  --ds-_brand--light: #555354;
+  --ds-_brand--dark: #b9b6b7;
+  --ds-_brand-subtle--light: #f2f1f1;
+  --ds-_brand-subtle--dark: rgba(185,182,183,0.14);
+  --ds-_brand-border--light: #d8d6d7;
+  --ds-_brand-border--dark: rgba(185,182,183,0.34);
+  --ds-_brand-text--light: #4a4849;
+  --ds-_brand-text--dark: #dcdadb;
+  --ds-_accent--light: #c8050f;
+  --ds-_accent--dark: #f26a63;
+  --ds-_accent-on--light: #ffffff;
+  --ds-_accent-on--dark: #2d1716;
+  --ds-_accent-subtle--light: #fdeaeb;
+  --ds-_accent-subtle--dark: rgba(242,106,99,0.16);
+  --ds-_accent-mark--light: #c8050f;
+  --ds-_accent-mark--dark: var(--ds-accent);
+  --ds-_accent-mark-on--light: #ffffff;
+  --ds-_accent-mark-on--dark: var(--ds-accent-on);
+  --ds-_focus-ring--light: 0 0 0 3px #55535452;
+  --ds-_focus-ring--dark: 0 0 0 3px #b9b6b752;
+}
+
+/* цвета карты: одно значение на все темы и режимы — тайлы карты светлые всегда */
+:root, [data-ds-theme], [data-ds-appearance] {
+  --ds-map-point: #2b8cf7;
+  --ds-map-ground: #ffffff;
+}
+
+/* пересчёт при вложенных скоупах */
+[data-ds-theme], [data-ds-appearance], [data-ds-density] {
+  --ds-brand: var(--ds-_if-dark, var(--ds-_brand--dark)) var(--ds-_if-light, var(--ds-_brand--light));
+  --ds-brand-subtle: var(--ds-_if-dark, var(--ds-_brand-subtle--dark)) var(--ds-_if-light, var(--ds-_brand-subtle--light));
+  --ds-brand-border: var(--ds-_if-dark, var(--ds-_brand-border--dark)) var(--ds-_if-light, var(--ds-_brand-border--light));
+  --ds-brand-text: var(--ds-_if-dark, var(--ds-_brand-text--dark)) var(--ds-_if-light, var(--ds-_brand-text--light));
+  --ds-accent: var(--ds-_if-dark, var(--ds-_accent--dark)) var(--ds-_if-light, var(--ds-_accent--light));
+  --ds-accent-on: var(--ds-_if-dark, var(--ds-_accent-on--dark)) var(--ds-_if-light, var(--ds-_accent-on--light));
+  --ds-accent-subtle: var(--ds-_if-dark, var(--ds-_accent-subtle--dark)) var(--ds-_if-light, var(--ds-_accent-subtle--light));
+  --ds-accent-mark: var(--ds-_if-dark, var(--ds-_accent-mark--dark)) var(--ds-_if-light, var(--ds-_accent-mark--light));
+  --ds-accent-mark-on: var(--ds-_if-dark, var(--ds-_accent-mark-on--dark)) var(--ds-_if-light, var(--ds-_accent-mark-on--light));
+  --ds-focus-ring: var(--ds-_if-dark, var(--ds-_focus-ring--dark)) var(--ds-_if-light, var(--ds-_focus-ring--light));
+  --ds-surface-selected: var(--ds-brand-subtle);
+  --ds-header-bg: var(--ds-surface);
+  --ds-header-fg: var(--ds-fg-strong);
+  --ds-header-fg-muted: var(--ds-fg-muted);
+  --ds-header-icon-fg: var(--ds-fg);
+  --ds-header-border: var(--ds-border);
+  --ds-header-hover: var(--ds-surface-hover);
+  --ds-header-chip-bg: var(--ds-surface-hover);
+  --ds-header-chip-border: var(--ds-border);
+  --ds-header-indicator: var(--ds-brand);
+  --ds-header-tab-fg-active: var(--ds-brand-text);
+  --ds-header-plate: var(--ds-brand);
+  --ds-header-env-bg: var(--ds-brand-subtle);
+  --ds-header-env-fg: var(--ds-brand-text);
+  --ds-header-badge-bg: var(--ds-accent);
+  --ds-header-badge-fg: var(--ds-accent-on);
+  --ds-state-moving: var(--ds-success-solid);
+  --ds-state-parked: var(--ds-neutral-solid);
+  --ds-state-offline: var(--ds-danger-solid);
+  --ds-state-invalid: var(--ds-info-solid);
+  --ds-state-alarm: var(--ds-warning-solid);
+  --ds-state-nodata: var(--ds-neutral-solid);
+  --ds-fresh-live: var(--ds-success-solid);
+  --ds-fresh-recent: var(--ds-warning-solid);
+  --ds-fresh-late: var(--ds-danger-solid);
+  --ds-fresh-none: var(--ds-neutral-solid);
+  --ds-focus-color: var(--ds-brand);
+  --ds-chart-axis: var(--ds-border-strong);
+  --ds-chart-grid: var(--ds-border);
+  --ds-chart-label: var(--ds-fg-muted);
+  --ds-chart-crosshair: var(--ds-fg-subtle);
+  --ds-chart-marker-stroke: var(--ds-surface);
+  --ds-chart-tooltip-bg: var(--ds-surface-inverse);
+  --ds-chart-tooltip-fg: var(--ds-fg-on-inverse);
+  --ds-chart-zoom-bg: var(--ds-bg-sunken);
+  --ds-chart-zoom-handle: var(--ds-brand);
+  --ds-chart-threshold: var(--ds-danger-solid);
+}
+/* ── artifact-scopes: end ── */

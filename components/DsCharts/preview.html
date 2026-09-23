@@ -1,0 +1,61 @@
+<!-- @dsCard group="2 · Основы" height=560 subtitle="Восемь независимых от темы цветов серий, семантические чернила осей и правило выбора типа графика" page -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><title>v2 · графики</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;gap:16px}
+.eb{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle)}
+.mono{font:var(--ds-type-mono);font-size:11px;color:var(--ds-fg-muted)}
+.row{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.sw{height:44px;border-radius:var(--ds-radius-md);border:1px solid var(--ds-border)}
+.note{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty;max-width:78ch}
+.box{border:1px solid var(--ds-border);border-radius:var(--ds-radius-container);padding:12px}
+a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
+body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26px}
+</style></head><body>
+<div>
+<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px"><span class="eb">палитра серий — light</span><span class="note">Не зависит от темы, как и статусы. Датчик сохраняет свой цвет во всех восьми брендах.</span></div>
+<div class="row">
+<div><div class="sw" style="background:var(--ds-series-1)"></div><div class="mono">series-1</div></div>
+<div><div class="sw" style="background:var(--ds-series-2)"></div><div class="mono">series-2</div></div>
+<div><div class="sw" style="background:var(--ds-series-3)"></div><div class="mono">series-3</div></div>
+<div><div class="sw" style="background:var(--ds-series-4)"></div><div class="mono">series-4</div></div>
+<div><div class="sw" style="background:var(--ds-series-5)"></div><div class="mono">series-5</div></div>
+<div><div class="sw" style="background:var(--ds-series-6)"></div><div class="mono">series-6</div></div>
+<div><div class="sw" style="background:var(--ds-series-7)"></div><div class="mono">series-7</div></div>
+<div><div class="sw" style="background:var(--ds-series-8)"></div><div class="mono">series-8</div></div>
+</div></div>
+<div data-ds-appearance="dark" style="background:var(--ds-bg);border-radius:var(--ds-radius-container);padding:12px">
+<div class="eb" style="margin-bottom:8px">палитра серий — dark</div>
+<div class="row">
+<div><div class="sw" style="background:var(--ds-series-1)"></div></div><div><div class="sw" style="background:var(--ds-series-2)"></div></div>
+<div><div class="sw" style="background:var(--ds-series-3)"></div></div><div><div class="sw" style="background:var(--ds-series-4)"></div></div>
+<div><div class="sw" style="background:var(--ds-series-5)"></div></div><div><div class="sw" style="background:var(--ds-series-6)"></div></div>
+<div><div class="sw" style="background:var(--ds-series-7)"></div></div><div><div class="sw" style="background:var(--ds-series-8)"></div></div>
+</div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div class="box">
+<div class="eb" style="margin-bottom:10px">хром области построения</div>
+<div style="display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;align-items:center;gap:8px"><span style="width:52px;height:0;border-top:1px solid var(--ds-chart-axis)"></span><span class="mono">chart-axis</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="width:52px;height:0;border-top:1px dotted var(--ds-chart-grid)"></span><span class="mono">chart-grid — точками, как в продукте</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="width:52px;height:0;border-top:1px dashed var(--ds-chart-crosshair)"></span><span class="mono">chart-crosshair</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="width:52px;height:0;border-top:1px dashed var(--ds-chart-threshold)"></span><span class="mono">chart-threshold</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="width:52px;height:14px;background:var(--ds-chart-mark-area);border-radius:2px"></span><span class="mono">chart-mark-area</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="width:52px;height:14px;background:var(--ds-chart-zoom-bg);border:1px solid var(--ds-border);border-radius:2px"></span><span class="mono">chart-zoom-bg / -window / -handle</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="padding:3px 8px;border-radius:var(--ds-radius-sm);background:var(--ds-chart-tooltip-bg);color:var(--ds-chart-tooltip-fg);font:var(--ds-type-mono);font-size:11px">62 км/ч</span><span class="mono">chart-tooltip-bg / -fg</span></div>
+</div>
+<p class="note" style="margin:10px 0 0">У области построения нет своего фона: <span class="mono">chart-plot</span> прозрачен, сквозь него видна поверхность панели. Чернила осей, сетка и хром зума — семантические алиасы, поэтому <span class="mono">[data-ds-appearance]</span> переосвещает весь график без второй палитры.</p>
+</div>
+<div class="box">
+<div class="eb" style="margin-bottom:10px">выбор графика</div>
+<div style="display:flex;flex-direction:column;gap:8px;font:var(--ds-type-caption);color:var(--ds-fg-muted)">
+<div><strong style="color:var(--ds-fg)">Линия</strong> — датчик во времени. Значение по умолчанию и то, чем является график датчика в продукте.</div>
+<div><strong style="color:var(--ds-fg)">Ступенчатая линия</strong> — дискретное состояние: зажигание, цифровой датчик, режим. Никогда не интерполируйте между двумя состояниями, которых не было.</div>
+<div><strong style="color:var(--ds-fg)">Площадь</strong> — одна величина с осмысленным нулём: уровень топлива, объём бака. Ось значений система сама продлевает до 0, потому что площадь, нарисованная от минимального показания, объявляет «пусто» на этом показании. Максимум две площади и никогда стопкой над общим нулём, который оператору придётся вычитать в голове.</div>
+<div><strong style="color:var(--ds-fg)">Столбцы</strong> — количество за период: нарушения в день, поездки на водителя.</div>
+<div><strong style="color:var(--ds-fg)">Спарклайн</strong> — направление внутри строки. Без осей, без значения.</div>
+<div><strong style="color:var(--ds-fg)">Шкала оценки</strong> — одно значение на именованных зонах: рейтинг эко-вождения.</div>
+<div style="color:var(--ds-danger-fg)"><strong>Никаких пирогов, донатов, радаров, радиальных шкал, 3D и градиентных заливок.</strong> Вопросы про парк — это сравнения во времени, а кольцо невозможно прочитать в высоту строки.</div>
+</div>
+</div>
+</div>
+<p class="note" style="margin:0">Три правила, которые дефолты ECharts нарушают. <strong style="color:var(--ds-fg)">Цвет серии — это величина, цвет статуса — это состояние</strong>: красную линию и красный чип «нет связи» нельзя путать, поэтому рампа серий не является рампой статусов. <strong style="color:var(--ds-fg)">Разрыв в телеметрии остаётся разрывом</strong>: <span class="mono">connectNulls</span> по умолчанию выключен, потому что прямая через молчащий трекер — это показание, которого никто не присылал. <strong style="color:var(--ds-fg)">Анимация выключена</strong>: экран оператора перерисовывается на каждое входящее сообщение. В продакшене графики берут эти значения из <span class="mono">components/charts/echartsTheme.js</span>, который читает токены из DOM, поэтому смена темы или оформления — это один повторный <span class="mono">setOption</span>, а не вторая палитра.</p>
+</body></html>

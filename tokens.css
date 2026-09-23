@@ -1,0 +1,586 @@
+/* Aurora Web Design System — generated from tokens.json */
+:root, [data-theme="light"] {
+  --ds-n-0: #ffffff; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это светлая поверхность (`ds-surface`, `ds-surface-raised`). */
+  --ds-n-25: #fbfcfd; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это основной текст в dark (`ds-fg-strong`). */
+  --ds-n-50: #f6f7f9; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это фон страницы и ховер строки в light (`ds-bg`, `ds-surface-hover`), текст на инверсной поверхности. */
+  --ds-n-100: #eef0f4; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это утопленный фон, разделитель, нажатое и отключённое в light (`ds-bg-sunken`, `ds-divider`, `ds-surface-active`, `ds-surface-disabled`); текст в dark. */
+  --ds-n-200: #e2e5ec; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это граница контейнера в light (`ds-border`). */
+  --ds-n-300: #cdd2dc; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это граница поля и сильная граница в light (`ds-border-field`, `ds-border-strong`); превью в зуме графика. */
+  --ds-n-400: #a7aebd; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это граница поля на ховере и отключённый текст в light (`ds-border-field-hover`, `ds-fg-disabled`). */
+  --ds-n-500: #7e8697; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это подписи и единицы измерения в dark (`ds-fg-subtle`). */
+  --ds-n-600: #5e6676; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это второстепенный текст в light (`ds-fg-muted`); отключённое и «нет данных» в dark. */
+  --ds-n-700: #454c5a; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это чернила нейтрального статуса (то же значение, что `ds-neutral-fg`). */
+  --ds-n-800: #2d3340; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это ступень тёмной части рампы; алиасы на неё сейчас не ссылаются. */
+  --ds-n-900: #1d222c; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это основной текст и инверсная поверхность в light (`ds-fg`, `ds-surface-inverse`). */
+  --ds-n-950: #12151c; /* Ступень холодной нейтральной рампы из 13 шагов. Экран её не называет — берёт семантический алиас; сейчас это самый сильный текст в light (`ds-fg-strong`). */
+  --ds-n-a4: rgba(18,21,28,0.04); /* Нейтраль с альфой 4% — самая тихая подложка поверх поверхности в light (карточка решений по брейкпоинтам). */
+  --ds-n-a8: rgba(18,21,28,0.08); /* Нейтраль с альфой 8%. Компоненты на неё сейчас не ссылаются. */
+  --ds-n-a12: rgba(18,21,28,0.12); /* Нейтраль с альфой 12%. Компоненты на неё сейчас не ссылаются. */
+  --ds-n-a60: rgba(18,21,28,0.60); /* Скрим под модальным окном (`DsDialog`): затемняет экран на 60%. */
+  --ds-w-a8: rgba(255,255,255,0.08); /* Белый с альфой 8% — пара к `ds-n-a8` для тёмной поверхности. Компоненты на него сейчас не ссылаются. */
+  --ds-w-a12: rgba(255,255,255,0.12); /* Белый с альфой 12% — пара к `ds-n-a12` для тёмной поверхности. Компоненты на него сейчас не ссылаются. */
+  --ds-w-a16: rgba(255,255,255,0.16); /* Белый с альфой 16% для тёмной поверхности. Компоненты на него сейчас не ссылаются. */
+  --ds-brand: #2b5f9e; /* Заливка главного действия, активного таба, выбранного чекбокса. Несёт подпись `ds-on-brand`. Никогда не цвет текста — для текста есть `ds-brand-text`. Ховер и нажатие — оверлей `ds-overlay-hover` / `-press`, отдельных hover-значений нет. В dark поднимается по светлоте, а не инвертируется. */
+  --ds-brand-subtle: #eef3fa; /* Подложка выбранного: строка списка, чип выбора, метка среды. В light — заливка, подмешанная в поверхность на 8%; в dark — альфа-вош 14%, который ложится на любой уровень грунта. */
+  --ds-brand-border: #bcd0e8; /* Граница вокруг `ds-brand-subtle` и брендового блока. Отделяет, а не сообщает, поэтому порог текста к ней не применяется, но она должна отличаться от `ds-border`. */
+  --ds-brand-text: #235081; /* Брендовые чернила на поверхности: ссылка, подпись активного таба. Никогда не заливка. Читается на `ds-bg`, `ds-surface` и `ds-brand-subtle`. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-bg` ≥ 7,73:1; `ds-surface` ≥ 8,28:1; `ds-brand-subtle` ≥ 7,43:1. */
+  --ds-accent: #efd63c; /* Акцент тенанта — только внимание: счётчик в шапке, метка среды. Значит «здесь новое», а не «нажми»; выбор и нажимаемое — бренд. Подпись на нём — `ds-accent-on`. */
+  --ds-accent-on: #2d2a15; /* Чернила на заливке `ds-accent`. Белое или тёмное того же оттенка — что даёт 4,5:1; задаётся руками, не выводится. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-accent` ≥ 5,63:1. */
+  --ds-accent-subtle: #fdf8dd; /* Мягкая акцентная подсветка — например, новая строка в списке. В dark — альфа-вош 16%. */
+  --ds-accent-mark: #7f6200; /* Акцент как фигура без текста: точка и бейдж непрочитанного. Порог 3:1 к грунту (WCAG 1.4.11); у жёлтого DEFAULT поэтому своё затемнённое значение. В dark равен `ds-accent`. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,75:1; `ds-bg` ≥ 5,37:1. */
+  --ds-accent-mark-on: #ffffff; /* Цифра на `ds-accent-mark`. Считается к метке, а не к акценту. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-accent-mark` ≥ 5,63:1. */
+  --ds-fg: var(--ds-n-900); /* Основной текст: проза, ячейки, значения полей. На `ds-bg`, `ds-surface`, `ds-surface-raised`. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-bg` ≥ 14,87:1; `ds-surface` ≥ 15,46:1; `ds-surface-raised` ≥ 14,17:1. */
+  --ds-fg-strong: var(--ds-n-950); /* Самый сильный текст: заголовки экрана и панели, итоговые значения. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-bg` ≥ 17,04:1; `ds-surface` ≥ 17,17:1. */
+  --ds-fg-muted: var(--ds-n-600); /* Второстепенный текст: подписи полей, счётчики, вторая строка. На `ds-bg`, `ds-surface`, `ds-surface-hover`. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-bg` ≥ 5,38:1; `ds-surface` ≥ 5,77:1; `ds-surface-hover` ≥ 5,38:1. */
+  --ds-fg-subtle: #697182; /* Подписи, единицы измерения, иконка поиска в поле, заголовки столбцов (eyebrow). Контраст: light — 4,57:1 на `ds-bg`, 4,9:1 на `ds-surface`; dark (`ds-n-500`) — 5,21:1 на `ds-bg`, 4,82:1 на `ds-surface`. */
+  --ds-fg-disabled: var(--ds-n-400); /* Текст и глиф отключённого элемента. Отключённое — это цвет, а не прозрачность; к нему порог контраста не применяется. */
+  --ds-on-brand: #ffffff; /* Чернила на заливке `ds-brand`. Меняется в dark, потому что заливка там светлеет. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-brand` ≥ 5,68:1. */
+  --ds-on-solid: #ffffff; /* Чернила на любой плотной статусной заливке `ds-*-solid`. Меняется в dark вместе с заливками. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-neutral-solid` ≥ 5,77:1; `ds-info-solid` ≥ 5,66:1; `ds-success-solid` ≥ 5,38:1; `ds-warning-solid` ≥ 5:1; `ds-danger-solid` ≥ 5,46:1. */
+  --ds-bg: var(--ds-n-50); /* Фон страницы. Панели и карточки лежат на нём поверхностью `ds-surface`; соседние панели разделяет просвет этого фона. */
+  --ds-bg-sunken: var(--ds-n-100); /* Утопленный фон: подложка зума графика, углублённая область внутри панели. */
+  --ds-surface: var(--ds-n-0); /* Поверхность карточки, панели, поля, таблицы. */
+  --ds-surface-raised: var(--ds-n-0); /* Поверхность того, что парит: меню, тост, bulk-бар. В dark светлее `ds-surface`, чтобы отделиться без тени. */
+  --ds-surface-hover: var(--ds-n-50); /* Ховер строки и незаливных тонов кнопок (`secondary`, `ghost`), которые двигают фон вместо оверлея. */
+  --ds-surface-active: var(--ds-n-100); /* Нажатие незаливных тонов (`secondary`, `ghost`); трек шкалы `DsScoreBar`. */
+  --ds-surface-selected: var(--ds-brand-subtle); /* Выбранная строка и активный элемент списка. Алиас `ds-brand-subtle`; переобъявляется на `[data-ds-theme]`, чтобы вложенная тема его пересчитала. */
+  --ds-surface-disabled: var(--ds-n-100); /* Заливка отключённой кнопки или поля. */
+  --ds-surface-inverse: var(--ds-n-900); /* Инверсная поверхность: тост и подсказка — чтобы тост нельзя было спутать с баннером. Текст на ней — `ds-fg-on-inverse`. */
+  --ds-fg-on-inverse: var(--ds-n-50); /* Текст на `ds-surface-inverse`. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface-inverse` ≥ 13,97:1. */
+  --ds-fg-action-on-inverse: #9dc0ea; /* Действие на `ds-surface-inverse`: кнопка-ссылка в тосте. Это брендовые чернила противоположного оформления — инверсная поверхность и есть противоположное оформление. ≥ 4,5:1 к `ds-surface-inverse` во всех наборах (проверяет `lint/test/run.js`). В RED2 бренд почти нейтрален, поэтому действие всегда несёт и нецветовой признак — подчёркивание. */
+  --ds-border: var(--ds-n-200); /* Граница контейнера на скруглённой поверхности — основной способ иерархии вместо тени. */
+  --ds-border-strong: var(--ds-n-300); /* Более заметная граница: ось графика, край парящего bulk-бара, пунктир устаревшего. */
+  --ds-border-field: var(--ds-n-300); /* Граница поля ввода и незаливной кнопки (`secondary`) — там, где у элемента есть второй признак: подпись, плейсхолдер или текст кнопки. 1,52:1 к `ds-surface` оставлено по решению владельца. Для контролов, у которых граница — единственный признак (чекбокс, радио, выключенный переключатель), — `ds-border-control`. */
+  --ds-border-control: var(--ds-n-500); /* Граница контрола, у которого она — единственный признак: пустой чекбокс и радио, трек выключенного переключателя. WCAG 1.4.11 — ≥ 3:1 к `ds-surface`, `ds-bg`, `ds-surface-hover` и `ds-surface-selected` во всех наборах DEFAULT/RED2 × light/dark (проверяет `lint/test/run.js`). */
+  --ds-border-control-hover: var(--ds-n-600); /* Граница контрола на ховере — на ступень контрастнее `ds-border-control`. */
+  --ds-border-field-hover: var(--ds-n-400); /* Граница поля ввода на ховере (правило `[data-ds-field]:hover` в `bundle.css`). */
+  --ds-divider: var(--ds-n-100); /* Разделитель строк таблицы и списка. */
+  --ds-neutral-bg: #eef0f4; /* Нет данных, выключено, не применимо. Слот `bg` — подложка бейджа, баннера, диска состояния. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-neutral-fg: #454c5a; /* Нет данных, выключено, не применимо. Слот `fg` — чернила на `ds-neutral-bg` и на поверхности. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-neutral-bg` ≥ 7,56:1; `ds-surface` ≥ 8,63:1. */
+  --ds-neutral-line: #cdd2dc; /* Нет данных, выключено, не применимо. Слот `line` — граница бейджа и баннера. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-neutral-solid: #5e6676; /* Нет данных, выключено, не применимо. Слот `solid` — плотная заливка: сплошной бейдж, серия на карте, глиф состояния; подпись на ней — `ds-on-solid`. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-info-bg: #eaf1fd; /* Нейтральное сообщение, подсказка, «в работе». Слот `bg` — подложка бейджа, баннера, диска состояния. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-info-fg: #1a56a8; /* Нейтральное сообщение, подсказка, «в работе». Слот `fg` — чернила на `ds-info-bg` и на поверхности. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-info-bg` ≥ 6,29:1; `ds-surface` ≥ 7,14:1. */
+  --ds-info-line: #c3d8f5; /* Нейтральное сообщение, подсказка, «в работе». Слот `line` — граница бейджа и баннера. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-info-solid: #1a56a8; /* Нейтральное сообщение, подсказка, «в работе». Слот `solid` — плотная заливка: сплошной бейдж, серия на карте, глиф состояния; подпись на ней — `ds-on-solid`. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-success-bg: #e7f4ec; /* Норма: объект на связи, действие удалось. Слот `bg` — подложка бейджа, баннера, диска состояния. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-success-fg: #12653a; /* Норма: объект на связи, действие удалось. Слот `fg` — чернила на `ds-success-bg` и на поверхности. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-success-bg` ≥ 6,29:1; `ds-surface` ≥ 7,12:1. */
+  --ds-success-line: #bce0cb; /* Норма: объект на связи, действие удалось. Слот `line` — граница бейджа и баннера. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-success-solid: #157a45; /* Норма: объект на связи, действие удалось. Слот `solid` — плотная заливка: сплошной бейдж, серия на карте, глиф состояния; подпись на ней — `ds-on-solid`. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-warning-bg: #fdf3e0; /* Предупреждение: данные устаревают, значение у порога. Слот `bg` — подложка бейджа, баннера, диска состояния. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-warning-fg: #8a5a00; /* Предупреждение: данные устаревают, значение у порога. Слот `fg` — чернила на `ds-warning-bg` и на поверхности. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-warning-bg` ≥ 5,38:1; `ds-surface` ≥ 5,93:1. */
+  --ds-warning-line: #f0dcae; /* Предупреждение: данные устаревают, значение у порога. Слот `line` — граница бейджа и баннера. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-warning-solid: #9a6400; /* Предупреждение: данные устаревают, значение у порога. Слот `solid` — плотная заливка: сплошной бейдж, серия на карте, глиф состояния; подпись на ней — `ds-on-solid`. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-danger-bg: #fdecea; /* Ошибка, офлайн, необратимое действие. Слот `bg` — подложка бейджа, баннера, диска состояния. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-danger-fg: #b3261e; /* Ошибка, офлайн, необратимое действие. Слот `fg` — чернила на `ds-danger-bg` и на поверхности. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-danger-bg` ≥ 5,72:1; `ds-surface` ≥ 6,54:1. */
+  --ds-danger-line: #f5c9c5; /* Ошибка, офлайн, необратимое действие. Слот `line` — граница бейджа и баннера. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-danger-solid: #c1291f; /* Ошибка, офлайн, необратимое действие. Слот `solid` — плотная заливка: сплошной бейдж, серия на карте, глиф состояния; подпись на ней — `ds-on-solid`. Статус темонезависим: офлайн читается как офлайн в любом бренде и в dark. */
+  --ds-header-bg: var(--ds-surface); /* Фон шапки приложения. Шапка нейтральна: бренд в ней — только плашка логотипа и индикатор активного таба. Тенант, которому нужна цветная полоса, переопределяет `ds-header-*` в своём блоке темы. */
+  --ds-header-fg: var(--ds-fg-strong); /* Заголовок продукта и подписи в шапке. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-bg` ≥ 17,17:1. */
+  --ds-header-fg-muted: var(--ds-fg-muted); /* Второстепенный текст в шапке: раздел после разделителя. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-bg` ≥ 5,77:1. */
+  --ds-header-icon-fg: var(--ds-fg); /* Иконки в шапке (`DsIconButton tone="onHeader"`) — почти полная непрозрачность, не приглушённое значение подписи. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-bg` ≥ 15,46:1. */
+  --ds-header-border: var(--ds-border); /* Нижняя граница шапки в покое; при прокрутке шапка поднимает `ds-shadow-sm`. */
+  --ds-header-hover: var(--ds-surface-hover); /* Ховер кнопок и табов в шапке. */
+  --ds-header-chip-bg: var(--ds-surface-hover); /* Фон чипа пользователя в шапке (`DsHeaderChip`). */
+  --ds-header-chip-border: var(--ds-border); /* Граница чипа пользователя в шапке. */
+  --ds-header-indicator: var(--ds-brand); /* Индикатор активного таба в шапке, 3px. Брендовый алиас: переобъявляется на `[data-ds-theme]`. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-bg` ≥ 5,46:1. */
+  --ds-header-tab-fg-active: var(--ds-brand-text); /* Глиф и подпись выбранного таба в шапке — брендовые чернила, чтобы выбор читался раньше индикатора. В RED2 почти нейтрален: там выбор несут индикатор и ховер. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-bg` ≥ 8,28:1. */
+  --ds-header-plate: var(--ds-brand); /* Квадрат 34px под логотипом: штатный знак белый на прозрачном и без плашки на нейтральном хроме не виден. Тенант с тёмным знаком ставит `transparent`. */
+  --ds-header-env-bg: var(--ds-brand-subtle); /* Фон метки среды (`DEV`, `LOCAL`) в шапке. */
+  --ds-header-env-fg: var(--ds-brand-text); /* Текст метки среды в шапке. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-env-bg` ≥ 7,43:1. */
+  --ds-header-badge-bg: var(--ds-accent); /* Фон счётчика уведомлений в шапке — сама заливка акцента, одинаковая на любой полосе. */
+  --ds-header-badge-fg: var(--ds-accent-on); /* Цифра счётчика уведомлений и его 1px обводка, дающая плашке 3:1 на светлом хроме. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-badge-bg` ≥ 5,63:1. */
+  --ds-state-moving: var(--ds-success-solid); /* Состояние объекта «в движении» — глиф `DsStateIcon`, `DsObjectRow`. Алиас статуса success. */
+  --ds-state-parked: var(--ds-neutral-solid); /* Состояние «стоянка». Нейтрально, как и «нет данных» — их различает глиф, а не ступень серого. */
+  --ds-state-offline: var(--ds-danger-solid); /* Состояние «нет связи». Алиас статуса danger. */
+  --ds-state-invalid: var(--ds-info-solid); /* Состояние «некорректные данные». Алиас статуса info. */
+  --ds-state-alarm: var(--ds-warning-solid); /* Состояние «тревога». Алиас статуса warning. */
+  --ds-state-nodata: var(--ds-neutral-solid); /* Состояние «нет данных». Нейтрально, как стоянка — отличается глифом. */
+  --ds-fresh-live: var(--ds-success-solid); /* Свежесть последнего сообщения: «на связи». Красит диск в строке объекта. Свежесть и состояние — разные факты: стоянка может быть свежей. */
+  --ds-fresh-recent: var(--ds-warning-solid); /* Свежесть: «недавно». */
+  --ds-fresh-late: var(--ds-danger-solid); /* Свежесть: «давно». */
+  --ds-fresh-none: var(--ds-neutral-solid); /* Свежесть: «сообщений нет». */
+  --ds-fresh-fg: #ffffff; /* Чернила на дисках свежести. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-fresh-live` ≥ 5,38:1; `ds-fresh-recent` ≥ 5:1; `ds-fresh-late` ≥ 5,48:1; `ds-fresh-none` ≥ 5,77:1. */
+  --ds-fresh-on: var(--ds-fresh-fg); /* Устарел: алиас `ds-fresh-fg`. */
+  --ds-focus-color: var(--ds-brand); /* Цвет кольца фокуса: `:focus-visible` на всём нажимаемом и `:focus-within` оболочки поля. Алиас бренда; переобъявляется на скоупах. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,46:1; `ds-bg` ≥ 5,9:1. */
+  --ds-series-1: #3a6ecf; /* Цвет 1-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 4,87:1. */
+  --ds-series-2: #0f7a70; /* Цвет 2-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,2:1. */
+  --ds-series-3: #a86b12; /* Цвет 3-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 4,4:1. */
+  --ds-series-4: #b8407f; /* Цвет 4-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,15:1. */
+  --ds-series-5: #6b57c4; /* Цвет 5-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,55:1. */
+  --ds-series-6: #417f27; /* Цвет 6-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 4,9:1. */
+  --ds-series-7: #b3512c; /* Цвет 7-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,08:1. */
+  --ds-series-8: #1f6f92; /* Цвет 8-й серии графика. Серии темонезависимы — одна полоса светлоты, восемь оттенков, стабильны во всех брендах; меняется только пара light/dark. Серия кодирует количество, а не состояние — статусные цвета для неё не берутся. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,6:1. */
+  --ds-chart-plot: #00000000; /* Фон области построения — прозрачный: график лежит на поверхности панели. */
+  --ds-chart-axis: var(--ds-border-strong); /* Линия оси категорий. У оси значений линии нет. */
+  --ds-chart-grid: var(--ds-border); /* Пунктирные линии сетки. */
+  --ds-chart-label: var(--ds-fg-muted); /* Подписи осей. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface` ≥ 5,77:1. */
+  --ds-chart-crosshair: var(--ds-fg-subtle); /* Вертикальная линия курсора при наведении. */
+  --ds-chart-marker-stroke: var(--ds-surface); /* Обводка точек мин/макс и точки под курсором — отделяет её от линии серии. */
+  --ds-chart-tooltip-bg: var(--ds-surface-inverse); /* Фон подсказки графика — инверсный грунт. */
+  --ds-chart-tooltip-fg: var(--ds-fg-on-inverse); /* Значения в подсказке графика. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-chart-tooltip-bg` ≥ 13,97:1. */
+  --ds-chart-tooltip-muted: #f6f7f99e; /* Подписи и единицы в подсказке графика. Контраст на `ds-chart-tooltip-bg` в dark — 4,76:1. */
+  --ds-chart-zoom-bg: var(--ds-bg-sunken); /* Подложка полосы зума под графиком. */
+  --ds-chart-zoom-preview: var(--ds-n-300); /* Линия превью данных в полосе зума. */
+  --ds-chart-zoom-window: #2b5f9e1f; /* Заливка выбранного окна в полосе зума. Брендовый оттенок; переобъявляется на `[data-ds-theme]`. */
+  --ds-chart-zoom-handle: var(--ds-brand); /* Края окна в полосе зума. Алиас бренда; переобъявляется на `[data-ds-theme]`. */
+  --ds-chart-mark-area: #9a640024; /* Заливка отмеченного диапазона (`markAreas`). */
+  --ds-chart-threshold: var(--ds-danger-solid); /* Пунктир порога без собственного тона: лимит скорости, норма расхода. */
+  --ds-chart-nodata: var(--ds-n-300); /* Отметка разрыва телеметрии. Разрыв остаётся разрывом — линия через молчание не проводится. */
+  --ds-shadow-xs: 0 1px 2px rgba(18,21,28,0.05); /* Самая лёгкая тень: бегунок переключателя, выбранный сегмент в табах `segmented`. Тень — только для того, что действительно парит. */
+  --ds-shadow-sm: 0 1px 2px rgba(18,21,28,0.06),0 1px 1px rgba(18,21,28,0.04); /* Тень шапки, когда под неё уехал контент (`scrolled`). */
+  --ds-shadow-md: 0 4px 12px -2px rgba(18,21,28,0.10),0 1px 3px rgba(18,21,28,0.05); /* Тень FAB в покое, подсказки графика, меню. */
+  --ds-shadow-lg: 0 12px 32px -8px rgba(18,21,28,0.18),0 2px 6px rgba(18,21,28,0.06); /* Тень модального окна, парящего bulk-бара, FAB на ховере. */
+  --ds-shadow-map: 0 2px 8px rgba(18,21,28,0.16); /* Тень элементов, лежащих поверх карты: рейка карты, карточка объекта на экране мониторинга. */
+  --ds-focus-ring: 0 0 0 3px #2b5f9e52; /* Кольцо фокуса оболочки поля (`:focus-within` на `[data-ds-field]`): 3px цвета `ds-focus-color` (бренд) с прозрачностью 32%. Значение задано на каждую тему; новый арендатор добавляет своё вместе с палитрой. */
+  --ds-focus-ring-danger: 0 0 0 3px #c1291f52; /* Кольцо фокуса поля с ошибкой (`[data-ds-field="error"]`): 3px цвета `ds-danger-solid` с прозрачностью 32%. */
+}
+[data-theme="ds-appearance-light-ds-red2"] {
+  --ds-brand: #555354;
+  --ds-brand-subtle: #f2f1f1;
+  --ds-brand-border: #d8d6d7;
+  --ds-brand-text: #4a4849;
+  --ds-accent: #c8050f;
+  --ds-accent-on: #ffffff;
+  --ds-accent-subtle: #fdeaeb;
+  --ds-accent-mark: #c8050f;
+  --ds-fg: var(--ds-n-900);
+  --ds-fg-strong: var(--ds-n-950);
+  --ds-fg-muted: var(--ds-n-600);
+  --ds-fg-disabled: var(--ds-n-400);
+  --ds-bg: var(--ds-n-50);
+  --ds-bg-sunken: var(--ds-n-100);
+  --ds-surface: var(--ds-n-0);
+  --ds-surface-raised: var(--ds-n-0);
+  --ds-surface-hover: var(--ds-n-50);
+  --ds-surface-active: var(--ds-n-100);
+  --ds-surface-selected: var(--ds-brand-subtle);
+  --ds-surface-disabled: var(--ds-n-100);
+  --ds-surface-inverse: var(--ds-n-900);
+  --ds-fg-on-inverse: var(--ds-n-50);
+  --ds-fg-action-on-inverse: #dcdadb;
+  --ds-border: var(--ds-n-200);
+  --ds-border-strong: var(--ds-n-300);
+  --ds-border-field: var(--ds-n-300);
+  --ds-border-control: var(--ds-n-500);
+  --ds-border-control-hover: var(--ds-n-600);
+  --ds-border-field-hover: var(--ds-n-400);
+  --ds-divider: var(--ds-n-100);
+  --ds-header-bg: var(--ds-surface);
+  --ds-header-fg: var(--ds-fg-strong);
+  --ds-header-fg-muted: var(--ds-fg-muted);
+  --ds-header-icon-fg: var(--ds-fg);
+  --ds-header-border: var(--ds-border);
+  --ds-header-hover: var(--ds-surface-hover);
+  --ds-header-chip-bg: var(--ds-surface-hover);
+  --ds-header-chip-border: var(--ds-border);
+  --ds-header-indicator: var(--ds-brand);
+  --ds-header-tab-fg-active: var(--ds-brand-text);
+  --ds-header-plate: var(--ds-brand);
+  --ds-header-env-bg: var(--ds-brand-subtle);
+  --ds-header-env-fg: var(--ds-brand-text);
+  --ds-header-badge-bg: var(--ds-accent);
+  --ds-header-badge-fg: var(--ds-accent-on);
+  --ds-state-moving: var(--ds-success-solid);
+  --ds-state-parked: var(--ds-neutral-solid);
+  --ds-state-offline: var(--ds-danger-solid);
+  --ds-state-invalid: var(--ds-info-solid);
+  --ds-state-alarm: var(--ds-warning-solid);
+  --ds-state-nodata: var(--ds-neutral-solid);
+  --ds-fresh-live: var(--ds-success-solid);
+  --ds-fresh-recent: var(--ds-warning-solid);
+  --ds-fresh-late: var(--ds-danger-solid);
+  --ds-fresh-none: var(--ds-neutral-solid);
+  --ds-focus-color: var(--ds-brand);
+  --ds-chart-axis: var(--ds-border-strong);
+  --ds-chart-grid: var(--ds-border);
+  --ds-chart-label: var(--ds-fg-muted);
+  --ds-chart-crosshair: var(--ds-fg-subtle);
+  --ds-chart-marker-stroke: var(--ds-surface);
+  --ds-chart-tooltip-bg: var(--ds-surface-inverse);
+  --ds-chart-tooltip-fg: var(--ds-fg-on-inverse);
+  --ds-chart-zoom-bg: var(--ds-bg-sunken);
+  --ds-chart-zoom-preview: var(--ds-n-300);
+  --ds-chart-zoom-handle: var(--ds-brand);
+  --ds-chart-threshold: var(--ds-danger-solid);
+  --ds-chart-nodata: var(--ds-n-300);
+  --ds-focus-ring: 0 0 0 3px #55535452;
+}
+[data-theme="ds-appearance-dark-ds-default"] {
+  --ds-brand: #5b92d4;
+  --ds-brand-subtle: rgba(91,146,212,0.14);
+  --ds-brand-border: rgba(91,146,212,0.34);
+  --ds-brand-text: #9dc0ea;
+  --ds-accent-subtle: rgba(239,214,60,0.16);
+  --ds-accent-mark: var(--ds-accent);
+  --ds-accent-mark-on: var(--ds-accent-on);
+  --ds-fg: var(--ds-n-100);
+  --ds-fg-strong: var(--ds-n-25);
+  --ds-fg-muted: var(--ds-n-400);
+  --ds-fg-subtle: var(--ds-n-500);
+  --ds-fg-disabled: var(--ds-n-600);
+  --ds-on-brand: #0d1520;
+  --ds-on-solid: #12151c;
+  --ds-bg: #0d1015;
+  --ds-bg-sunken: #090b0f;
+  --ds-surface: #15191f;
+  --ds-surface-raised: #1c2129;
+  --ds-surface-hover: #1f242d;
+  --ds-surface-active: #262c36;
+  --ds-surface-selected: var(--ds-brand-subtle);
+  --ds-surface-disabled: #1a1e25;
+  --ds-surface-inverse: var(--ds-n-100);
+  --ds-fg-on-inverse: var(--ds-n-900);
+  --ds-fg-action-on-inverse: #235081;
+  --ds-border: #272d37;
+  --ds-border-strong: #363d49;
+  --ds-border-field: #333a45;
+  --ds-border-control: #737c8e;
+  --ds-border-control-hover: #9aa2b1;
+  --ds-border-field-hover: #464f5d;
+  --ds-divider: #1f242d;
+  --ds-neutral-bg: #242a34;
+  --ds-neutral-fg: #b6bdc9;
+  --ds-neutral-line: #343c48;
+  --ds-neutral-solid: #8c94a3;
+  --ds-info-bg: rgba(91,146,212,0.16);
+  --ds-info-fg: #9cc0ea;
+  --ds-info-line: rgba(91,146,212,0.34);
+  --ds-info-solid: #5b92d4;
+  --ds-success-bg: rgba(56,176,118,0.16);
+  --ds-success-fg: #7ed4a6;
+  --ds-success-line: rgba(56,176,118,0.32);
+  --ds-success-solid: #38b076;
+  --ds-warning-bg: rgba(214,158,46,0.16);
+  --ds-warning-fg: #e8c477;
+  --ds-warning-line: rgba(214,158,46,0.32);
+  --ds-warning-solid: #d69e2e;
+  --ds-danger-bg: rgba(231,98,86,0.16);
+  --ds-danger-fg: #f0a39a;
+  --ds-danger-line: rgba(231,98,86,0.32);
+  --ds-danger-solid: #e76256;
+  --ds-header-bg: var(--ds-surface);
+  --ds-header-fg: var(--ds-fg-strong);
+  --ds-header-fg-muted: var(--ds-fg-muted);
+  --ds-header-icon-fg: var(--ds-fg);
+  --ds-header-border: var(--ds-border);
+  --ds-header-hover: var(--ds-surface-hover);
+  --ds-header-chip-bg: var(--ds-surface-hover);
+  --ds-header-chip-border: var(--ds-border);
+  --ds-header-indicator: var(--ds-brand);
+  --ds-header-tab-fg-active: var(--ds-brand-text);
+  --ds-header-plate: var(--ds-brand);
+  --ds-header-env-bg: var(--ds-brand-subtle);
+  --ds-header-env-fg: var(--ds-brand-text);
+  --ds-header-badge-bg: var(--ds-accent);
+  --ds-header-badge-fg: var(--ds-accent-on);
+  --ds-state-moving: var(--ds-success-solid);
+  --ds-state-parked: var(--ds-neutral-solid);
+  --ds-state-offline: var(--ds-danger-solid);
+  --ds-state-invalid: var(--ds-info-solid);
+  --ds-state-alarm: var(--ds-warning-solid);
+  --ds-state-nodata: var(--ds-neutral-solid);
+  --ds-fresh-live: var(--ds-success-solid);
+  --ds-fresh-recent: var(--ds-warning-solid);
+  --ds-fresh-late: var(--ds-danger-solid);
+  --ds-fresh-none: var(--ds-neutral-solid);
+  --ds-fresh-fg: #0d1520;
+  --ds-fresh-on: var(--ds-fresh-fg);
+  --ds-focus-color: var(--ds-brand);
+  --ds-series-1: #7ea6f0;
+  --ds-series-2: #4fc0b3;
+  --ds-series-3: #e0b15e;
+  --ds-series-4: #ec8ab8;
+  --ds-series-5: #a99bf0;
+  --ds-series-6: #8ac36d;
+  --ds-series-7: #ef9a76;
+  --ds-series-8: #6fb8db;
+  --ds-chart-axis: var(--ds-border-strong);
+  --ds-chart-grid: var(--ds-border);
+  --ds-chart-label: var(--ds-fg-muted);
+  --ds-chart-crosshair: var(--ds-fg-subtle);
+  --ds-chart-marker-stroke: var(--ds-surface);
+  --ds-chart-tooltip-bg: var(--ds-surface-inverse);
+  --ds-chart-tooltip-fg: var(--ds-fg-on-inverse);
+  --ds-chart-tooltip-muted: #1d222ca6;
+  --ds-chart-zoom-bg: var(--ds-bg-sunken);
+  --ds-chart-zoom-preview: var(--ds-n-600);
+  --ds-chart-zoom-handle: var(--ds-brand);
+  --ds-chart-mark-area: #d69e2e24;
+  --ds-chart-threshold: var(--ds-danger-solid);
+  --ds-chart-nodata: var(--ds-n-600);
+  --ds-shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+  --ds-shadow-sm: 0 1px 2px rgba(0,0,0,0.45);
+  --ds-shadow-md: 0 4px 12px -2px rgba(0,0,0,0.55);
+  --ds-shadow-lg: 0 12px 32px -8px rgba(0,0,0,0.65);
+  --ds-shadow-map: 0 2px 8px rgba(0,0,0,0.6);
+  --ds-focus-ring: 0 0 0 3px #5b92d452;
+  --ds-focus-ring-danger: 0 0 0 3px #e7625652;
+}
+[data-theme="ds-appearance-dark-ds-red2"] {
+  --ds-brand: #b9b6b7;
+  --ds-brand-subtle: rgba(185,182,183,0.14);
+  --ds-brand-border: rgba(185,182,183,0.34);
+  --ds-brand-text: #dcdadb;
+  --ds-accent: #f26a63;
+  --ds-accent-on: #2d1716;
+  --ds-accent-subtle: rgba(242,106,99,0.16);
+  --ds-accent-mark: var(--ds-accent);
+  --ds-accent-mark-on: var(--ds-accent-on);
+  --ds-fg: var(--ds-n-100);
+  --ds-fg-strong: var(--ds-n-25);
+  --ds-fg-muted: var(--ds-n-400);
+  --ds-fg-subtle: var(--ds-n-500);
+  --ds-fg-disabled: var(--ds-n-600);
+  --ds-on-brand: #0d1520;
+  --ds-on-solid: #12151c;
+  --ds-bg: #0d1015;
+  --ds-bg-sunken: #090b0f;
+  --ds-surface: #15191f;
+  --ds-surface-raised: #1c2129;
+  --ds-surface-hover: #1f242d;
+  --ds-surface-active: #262c36;
+  --ds-surface-selected: var(--ds-brand-subtle);
+  --ds-surface-disabled: #1a1e25;
+  --ds-surface-inverse: var(--ds-n-100);
+  --ds-fg-on-inverse: var(--ds-n-900);
+  --ds-fg-action-on-inverse: #4a4849;
+  --ds-border: #272d37;
+  --ds-border-strong: #363d49;
+  --ds-border-field: #333a45;
+  --ds-border-control: #737c8e;
+  --ds-border-control-hover: #9aa2b1;
+  --ds-border-field-hover: #464f5d;
+  --ds-divider: #1f242d;
+  --ds-neutral-bg: #242a34;
+  --ds-neutral-fg: #b6bdc9;
+  --ds-neutral-line: #343c48;
+  --ds-neutral-solid: #8c94a3;
+  --ds-info-bg: rgba(91,146,212,0.16);
+  --ds-info-fg: #9cc0ea;
+  --ds-info-line: rgba(91,146,212,0.34);
+  --ds-info-solid: #5b92d4;
+  --ds-success-bg: rgba(56,176,118,0.16);
+  --ds-success-fg: #7ed4a6;
+  --ds-success-line: rgba(56,176,118,0.32);
+  --ds-success-solid: #38b076;
+  --ds-warning-bg: rgba(214,158,46,0.16);
+  --ds-warning-fg: #e8c477;
+  --ds-warning-line: rgba(214,158,46,0.32);
+  --ds-warning-solid: #d69e2e;
+  --ds-danger-bg: rgba(231,98,86,0.16);
+  --ds-danger-fg: #f0a39a;
+  --ds-danger-line: rgba(231,98,86,0.32);
+  --ds-danger-solid: #e76256;
+  --ds-header-bg: var(--ds-surface);
+  --ds-header-fg: var(--ds-fg-strong);
+  --ds-header-fg-muted: var(--ds-fg-muted);
+  --ds-header-icon-fg: var(--ds-fg);
+  --ds-header-border: var(--ds-border);
+  --ds-header-hover: var(--ds-surface-hover);
+  --ds-header-chip-bg: var(--ds-surface-hover);
+  --ds-header-chip-border: var(--ds-border);
+  --ds-header-indicator: var(--ds-brand);
+  --ds-header-tab-fg-active: var(--ds-brand-text);
+  --ds-header-plate: var(--ds-brand);
+  --ds-header-env-bg: var(--ds-brand-subtle);
+  --ds-header-env-fg: var(--ds-brand-text);
+  --ds-header-badge-bg: var(--ds-accent);
+  --ds-header-badge-fg: var(--ds-accent-on);
+  --ds-state-moving: var(--ds-success-solid);
+  --ds-state-parked: var(--ds-neutral-solid);
+  --ds-state-offline: var(--ds-danger-solid);
+  --ds-state-invalid: var(--ds-info-solid);
+  --ds-state-alarm: var(--ds-warning-solid);
+  --ds-state-nodata: var(--ds-neutral-solid);
+  --ds-fresh-live: var(--ds-success-solid);
+  --ds-fresh-recent: var(--ds-warning-solid);
+  --ds-fresh-late: var(--ds-danger-solid);
+  --ds-fresh-none: var(--ds-neutral-solid);
+  --ds-fresh-fg: #0d1520;
+  --ds-fresh-on: var(--ds-fresh-fg);
+  --ds-focus-color: var(--ds-brand);
+  --ds-series-1: #7ea6f0;
+  --ds-series-2: #4fc0b3;
+  --ds-series-3: #e0b15e;
+  --ds-series-4: #ec8ab8;
+  --ds-series-5: #a99bf0;
+  --ds-series-6: #8ac36d;
+  --ds-series-7: #ef9a76;
+  --ds-series-8: #6fb8db;
+  --ds-chart-axis: var(--ds-border-strong);
+  --ds-chart-grid: var(--ds-border);
+  --ds-chart-label: var(--ds-fg-muted);
+  --ds-chart-crosshair: var(--ds-fg-subtle);
+  --ds-chart-marker-stroke: var(--ds-surface);
+  --ds-chart-tooltip-bg: var(--ds-surface-inverse);
+  --ds-chart-tooltip-fg: var(--ds-fg-on-inverse);
+  --ds-chart-tooltip-muted: #1d222ca6;
+  --ds-chart-zoom-bg: var(--ds-bg-sunken);
+  --ds-chart-zoom-preview: var(--ds-n-600);
+  --ds-chart-zoom-handle: var(--ds-brand);
+  --ds-chart-mark-area: #d69e2e24;
+  --ds-chart-threshold: var(--ds-danger-solid);
+  --ds-chart-nodata: var(--ds-n-600);
+  --ds-shadow-xs: 0 1px 2px rgba(0,0,0,0.4);
+  --ds-shadow-sm: 0 1px 2px rgba(0,0,0,0.45);
+  --ds-shadow-md: 0 4px 12px -2px rgba(0,0,0,0.55);
+  --ds-shadow-lg: 0 12px 32px -8px rgba(0,0,0,0.65);
+  --ds-shadow-map: 0 2px 8px rgba(0,0,0,0.6);
+  --ds-focus-ring: 0 0 0 3px #b9b6b752;
+  --ds-focus-ring-danger: 0 0 0 3px #e7625652;
+}
+:root {
+  --ds-overlay-hover: 10%; /* Глубина оверлея на ховере: 10% собственных чернил контрола поверх его заливки. Работает для всех заливных и тонированных тонов. */
+  --ds-overlay-press: 16%; /* Глубина оверлея на нажатии: 16% собственных чернил поверх заливки. */
+  --ds-border-width: 1px; /* Толщина обычной границы: контейнер, поле, строка. */
+  --ds-border-width-strong: 1.5px; /* Толщина усиленной границы. */
+  --ds-focus-width: 2px; /* Толщина обводки `:focus-visible`. */
+  --ds-focus-offset: 2px; /* Отступ обводки `:focus-visible` от элемента. */
+  --ds-chart-line-w: 2px; /* Толщина линии серии. */
+  --ds-chart-line-w-thin: 1.5px; /* Тонкая линия: опорная серия, прошлый период, спарклайн. */
+  --ds-chart-dot-r: 3.5px; /* Радиус точки под курсором на графике. */
+  --ds-chart-h-sm: 140px; /* Высота компактного графика. */
+  --ds-chart-h: 260px; /* Высота графика по умолчанию. */
+  --ds-chart-h-lg: 380px; /* Высота большого графика. */
+  --ds-radius-xs: 4px; /* Малое скругление: мелкие плашки, полоса зума. */
+  --ds-radius-sm: 6px; /* Скругление небольших элементов: плитки ассетов, мелкие блоки. */
+  --ds-radius-md: 8px; /* Скругление строки объекта, подсказки графика, плашки логотипа. */
+  --ds-radius-lg: 12px; /* Ступень 12px лестницы скруглений: блоки внутри карточек-разъяснений. Компоненты берут 12px через роль `ds-radius-container`. */
+  --ds-radius-xl: 16px; /* Ступень 16px лестницы скруглений; диалог берёт её через `ds-radius-dialog`. */
+  --ds-radius-2xl: 20px; /* Ступень 20px лестницы скруглений. Компоненты на неё сейчас не ссылаются. */
+  --ds-radius-pill: 999px; /* Пилюля: скругление в половину высоты. */
+  --ds-radius-circle: 50%; /* Круг: FAB без подписи, диск состояния. */
+  --ds-radius-control: 8px; /* Скругление контрола: кнопка, 8px. */
+  --ds-radius-field: 8px; /* Скругление поля ввода. */
+  --ds-radius-container: 12px; /* Скругление контейнера: карточка, bulk-бар, рамка графика, 12px. */
+  --ds-radius-panel: 12px; /* Скругление панели. */
+  --ds-radius-dialog: 16px; /* Скругление модального окна, 16px. */
+  --ds-radius-chip: 999px; /* Скругление чипа — пилюля. */
+  --ds-radius-badge: 999px; /* Скругление бейджа — пилюля. */
+  --ds-radius-icon-button: 8px; /* Скругление квадратной иконки-кнопки. */
+  --ds-chart-bar-radius: 4px; /* Скругление столбика в столбчатом графике. */
+  --ds-text-11: 11px; /* Кегль 11px: eyebrow — заголовок столбца, метка группы. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-12: 12px; /* Кегль 12px: caption — подпись под полем, вторая строка, пагинация. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-13: 13px; /* Кегль 13px: ui и mono — всё нажимаемое, телеметрия. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-14: 14px; /* Кегль 14px: body и body-strong — проза, ячейки, значения. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-16: 16px; /* Кегль 16px: section — раздел внутри панели. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-18: 18px; /* Кегль 18px: промежуточная ступень шкалы. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-20: 20px; /* Кегль 20px: title — заголовок панели и модалки. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-24: 24px; /* Кегль 24px: промежуточная ступень шкалы. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-text-30: 30px; /* Кегль 30px: display — единственный заголовок экрана. Собирать шрифт руками не нужно — роли `ds-type-*` задают весь шорткат. */
+  --ds-dur-instant: 80ms; /* Длительность 80ms. Компоненты на неё сейчас не ссылаются. Движения почти нет, намеренно: экран оператора перерисовывается на каждом сообщении. Под `prefers-reduced-motion` — 0ms (правило в `bundle.css`). */
+  --ds-dur-fast: 120ms; /* Длительность 120ms — все переходы контролов: фон, граница, цвет, прозрачность, бегунок переключателя; на ней же `ds-transition-control`. Движения почти нет, намеренно: экран оператора перерисовывается на каждом сообщении. Под `prefers-reduced-motion` — 0ms (правило в `bundle.css`). */
+  --ds-dur: 180ms; /* Длительность 180ms — тень шапки при прокрутке (`scrolled`). Движения почти нет, намеренно: экран оператора перерисовывается на каждом сообщении. Под `prefers-reduced-motion` — 0ms (правило в `bundle.css`). */
+  --ds-dur-slow: 240ms; /* Длительность 240ms. Компоненты на неё сейчас не ссылаются. Движения почти нет, намеренно: экран оператора перерисовывается на каждом сообщении. Под `prefers-reduced-motion` — 0ms (правило в `bundle.css`). */
+  --ds-ease: cubic-bezier(0.2,0,0.2,1); /* Кривая для переходов фона, границы и цвета контролов. */
+  --ds-ease-out: cubic-bezier(0.16,1,0.3,1); /* Кривая замедления на выходе. Компоненты на неё сейчас не ссылаются. */
+  --ds-lh-tight: 1.2; /* Интерлиньяж 1,2: display, title. */
+  --ds-lh-snug: 1.35; /* Интерлиньяж 1,35: section, ui, caption, eyebrow, mono. */
+  --ds-lh-normal: 1.5; /* Интерлиньяж 1,5: body, body-strong. */
+  --ds-bp-m: 720px; /* Порог брейкпоинта M (планшет вертикально). Компоненты ветвятся по `ViewBreakpointService`, а не по медиа-запросам. */
+  --ds-bp-l: 960px; /* Порог брейкпоинта L: здесь структура переходит в две колонки. */
+  --ds-bp-xl: 1140px; /* Порог брейкпоинта XL: здесь ширина контента ограничивается `ds-content-max`. */
+  --ds-bp-s-max: 719px; /* Верхняя граница S = порог M − 1px. Никогда `max-width: 720px`. */
+  --ds-bp-m-max: 959px; /* Верхняя граница M = порог L − 1px. */
+  --ds-bp-l-max: 1139px; /* Верхняя граница L = порог XL − 1px. */
+  --ds-content-max: 1440px; /* Максимальная ширина контента на XL. */
+  --ds-content-max-prose: 72ch; /* Максимальная длина строки прозы. Компоненты на неё сейчас не ссылаются. */
+  --ds-transition-control: background-color 120ms cubic-bezier(0.2,0,0.2,1),border-color 120ms cubic-bezier(0.2,0,0.2,1),color 120ms cubic-bezier(0.2,0,0.2,1),box-shadow 120ms cubic-bezier(0.2,0,0.2,1); /* Готовый `transition` для контролов: фон, граница, цвет и тень за `ds-dur-fast` (120ms) по `ds-ease`. Под `prefers-reduced-motion` — `none`. */
+  --ds-weight-regular: 400; /* Начертание 400: body, caption, mono. */
+  --ds-weight-medium: 500; /* Начертание 500: ui, body-strong. */
+  --ds-weight-semibold: 600; /* Начертание 600: display, title, section, eyebrow. */
+  --ds-weight-bold: 700; /* Начертание 700. В ролях не используется; файл шрифта грузится для него. */
+  --ds-tracking-tight: -0.015em; /* Трекинг −0,015em для display и title. */
+  --ds-tracking-normal: 0; /* Трекинг по умолчанию. */
+  --ds-tracking-eyebrow: 0.06em; /* Трекинг +0,06em для eyebrow — всегда вместе с капителью: без них 11px читается как сломанный body. */
+  --font-ds-font-sans: "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-font-mono: "JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-ds-type-display: 600 30px/1.2 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-title: 600 20px/1.2 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-section: 600 16px/1.35 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-body: 400 14px/1.5 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-body-strong: 500 14px/1.5 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-ui: 500 13px/1.35 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-caption: 400 12px/1.35 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-eyebrow: 600 11px/1.35 "Inter Tight","Helvetica Neue",Helvetica,system-ui,sans-serif;
+  --font-ds-type-mono: 400 13px/1.35 "JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --text-ds-type-display: 600 30px/1.2 var(--font-ds-font-sans); /* Единственный заголовок экрана, один на страницу. Шорткат целиком — `var(--ds-type-display)`; кегль `ds-text-30`. */
+  --text-ds-type-title: 600 20px/1.2 var(--font-ds-font-sans); /* Заголовок панели, модального окна, шапка карточки. Шорткат целиком — `var(--ds-type-title)`; кегль `ds-text-20`. */
+  --text-ds-type-section: 600 16px/1.35 var(--font-ds-font-sans); /* Раздел внутри панели или формы; заголовок продукта в шапке. Шорткат целиком — `var(--ds-type-section)`; кегль `ds-text-16`. */
+  --text-ds-type-body: 400 14px/1.5 var(--font-ds-font-sans); /* Проза, ячейки таблиц, значения полей. Базовый кегль продукта. Шорткат целиком — `var(--ds-type-body)`; кегль `ds-text-14`. */
+  --text-ds-type-body-strong: 500 14px/1.5 var(--font-ds-font-sans); /* Опорная ячейка строки, имя объекта, итог. Не для выделения внутри абзаца. Шорткат целиком — `var(--ds-type-body-strong)`; кегль `ds-text-14`. */
+  --text-ds-type-ui: 500 13px/1.35 var(--font-ds-font-sans); /* Всё, что нажимается: кнопки, табы, чипы, пункты меню, поля ввода. Шорткат целиком — `var(--ds-type-ui)`; кегль `ds-text-13`. */
+  --text-ds-type-caption: 400 12px/1.35 var(--font-ds-font-sans); /* Подпись под полем, вторая строка ячейки, хинт, пагинация. Шорткат целиком — `var(--ds-type-caption)`; кегль `ds-text-12`. */
+  --text-ds-type-eyebrow: 600 11px/1.35 var(--font-ds-font-sans); /* Заголовок столбца, метка группы. Всегда капитель и трекинг `ds-tracking-eyebrow`: без них 11px читается как сломанный body. Шорткат целиком — `var(--ds-type-eyebrow)`; кегль `ds-text-11`. */
+  --text-ds-type-mono: 400 13px/1.35 var(--font-ds-font-mono); /* Только телеметрия: скорость, координаты, IMEI, таймстемпы, ID. Шорткат целиком — `var(--ds-type-mono)`; кегль `ds-text-13`. */
+}
+.ds-type-display {
+  font-family: var(--font-ds-font-sans);
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.ds-type-title {
+  font-family: var(--font-ds-font-sans);
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.ds-type-section {
+  font-family: var(--font-ds-font-sans);
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.ds-type-body {
+  font-family: var(--font-ds-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.ds-type-body-strong {
+  font-family: var(--font-ds-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.ds-type-ui {
+  font-family: var(--font-ds-font-sans);
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.ds-type-caption {
+  font-family: var(--font-ds-font-sans);
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.ds-type-eyebrow {
+  font-family: var(--font-ds-font-sans);
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.ds-type-mono {
+  font-family: var(--font-ds-font-mono);
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+@font-face {
+  font-family: "Material Symbols Outlined";
+  src: url("fonts/MaterialSymbolsOutlined.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

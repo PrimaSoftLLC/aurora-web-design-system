@@ -1,0 +1,21 @@
+<!-- @dsCard group="3 · Компоненты · данные" height=220 subtitle="Строка панели объектов: глиф состояния, две строки, значение справа" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){var a=React.useState(1);
+  return h('div',{className:'col',style:{gap:2,maxWidth:380}},
+    h(S.DsListRow,{title:'MAZ 5440',subtitle:'AB 1234-7 · 14:32:07',state:'moving',course:135,value:'62 км/ч',valueMeta:'Иванов П.',active:a[0]===1,onClick:function(){a[1](1);},
+      actions:h(S.DsIconButton,{icon:'more_vert',label:'Действия',size:'sm'})}),
+    h(S.DsListRow,{title:'Volvo FH16',subtitle:'AC 8871-2 · 13:05:44',state:'parked',value:'0 км/ч',active:a[0]===2,onClick:function(){a[1](2);},badge:h(S.DsBadge,{tone:'info',size:'sm'},'Pro')}),
+    h(S.DsListRow,{title:'Склад №2',subtitle:'геозона',icon:'place',selected:true}));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

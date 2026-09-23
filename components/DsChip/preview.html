@@ -1,0 +1,22 @@
+<!-- @dsCard group="3 · Компоненты · данные" height=110 subtitle="Чип-фильтр с выбором и счётчиком или удаляемое значение" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){var s=React.useState(true);
+  return h('div',{className:'row'},
+    h(S.DsChip,{selected:s[0],count:12,onClick:function(){s[1](!s[0]);}},'Нет связи'),
+    h(S.DsChip,{icon:'local_shipping',onClick:function(){}},'Грузовики'),
+    h(S.DsChip,{removable:true,onRemove:function(){}},'Топливо · стандарт'),
+    h(S.DsChip,{icon:'add',onClick:function(){}},'Добавить'),
+    h(S.DsChip,{disabled:true},'Архив'));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

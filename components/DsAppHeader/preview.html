@@ -1,0 +1,19 @@
+<!-- @dsCard group="3 · Компоненты · навигация" height=160 subtitle="Нейтральная шапка приложения: плашка знака, заголовок тенанта, табы, действия" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){var t=React.useState('m');
+  return h(S.DsAppHeader,{product:'Aurora',section:'Мониторинг',env:'DEV',user:'a.ivanov',
+    actions:[h(S.DsIconButton,{key:'n',icon:'notifications',label:'Оповещения',tone:'onHeader',dot:true}),h(S.DsIconButton,{key:'h',icon:'help',label:'Справка',tone:'onHeader'})]},
+    h(S.DsTabs,{tone:'onHeader',active:t[0],onChange:t[1],items:[{id:'m',label:'Мониторинг',icon:'travel_explore'},{id:'r',label:'Отчёты',icon:'assessment'},{id:'n',label:'Оповещения',icon:'notifications',badge:3}]}));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

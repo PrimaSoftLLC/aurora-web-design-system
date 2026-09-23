@@ -1,0 +1,1097 @@
+{
+  "manifestVersion": 3,
+  "name": "Aurora Web Design System",
+  "namespace": "AuroraWebDesignSystem_96e210",
+  "files": [
+    "ADOPTION.md",
+    "ANGULAR.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LINT.md",
+    "MIGRATION.md",
+    "NAMING.md",
+    "PUBLISHING.md",
+    "REVIEW.md",
+    "VERSIONING.md",
+    "assets/fonts/README.md",
+    "assets/notes/MIGRATION-REPORT.md",
+    "assets/notes/README.legacy.md",
+    "assets/notes/SKILL.from-standalone.md",
+    "components/Admin/README.md",
+    "components/AppShell/README.md",
+    "components/BrandLogoLockup/README.md",
+    "components/BrandLogoMark/README.md",
+    "components/DsAppHeader/DsAppHeader.d.ts",
+    "components/DsAppHeader/README.md",
+    "components/DsAppearance/README.md",
+    "components/DsBadge/DsBadge.d.ts",
+    "components/DsBadge/README.md",
+    "components/DsBanner/DsBanner.d.ts",
+    "components/DsBanner/README.md",
+    "components/DsBrandPick/README.md",
+    "components/DsBrandThemes/README.md",
+    "components/DsBreakpoints/README.md",
+    "components/DsBreakpointsDecisions/README.md",
+    "components/DsBulkBar/DsBulkBar.d.ts",
+    "components/DsBulkBar/README.md",
+    "components/DsButton/DsButton.d.ts",
+    "components/DsButton/README.md",
+    "components/DsChart/DsChart.d.ts",
+    "components/DsChart/README.md",
+    "components/DsChartLegend/README.md",
+    "components/DsChartTooltip/README.md",
+    "components/DsCharts/README.md",
+    "components/DsCheck/DsCheck.d.ts",
+    "components/DsCheck/README.md",
+    "components/DsCheckButton/README.md",
+    "components/DsCheckbox/DsCheckbox.d.ts",
+    "components/DsCheckbox/README.md",
+    "components/DsChip/DsChip.d.ts",
+    "components/DsChip/README.md",
+    "components/DsDensity/README.md",
+    "components/DsDialog/DsDialog.d.ts",
+    "components/DsDialog/README.md",
+    "components/DsDuration/DsDuration.d.ts",
+    "components/DsDuration/README.md",
+    "components/DsEmptyState/DsEmptyState.d.ts",
+    "components/DsEmptyState/README.md",
+    "components/DsFab/DsFab.d.ts",
+    "components/DsFab/README.md",
+    "components/DsField/DsField.d.ts",
+    "components/DsField/README.md",
+    "components/DsFilterBar/DsFilterBar.d.ts",
+    "components/DsFilterBar/README.md",
+    "components/DsFilterMenu/DsFilterMenu.d.ts",
+    "components/DsFilterMenu/README.md",
+    "components/DsHeader/README.md",
+    "components/DsHeaderChip/README.md",
+    "components/DsHover/README.md",
+    "components/DsIcon/DsIcon.d.ts",
+    "components/DsIcon/README.md",
+    "components/DsIconButton/DsIconButton.d.ts",
+    "components/DsIconButton/README.md",
+    "components/DsListRow/DsListRow.d.ts",
+    "components/DsListRow/README.md",
+    "components/DsMenu/DsMenu.d.ts",
+    "components/DsMenu/README.md",
+    "components/DsNeutrals/README.md",
+    "components/DsObjectRow/DsObjectRow.d.ts",
+    "components/DsObjectRow/README.md",
+    "components/DsPageHeader/DsPageHeader.d.ts",
+    "components/DsPageHeader/README.md",
+    "components/DsPageLayout/DsPageLayout.d.ts",
+    "components/DsPageLayout/README.md",
+    "components/DsPagination/DsPagination.d.ts",
+    "components/DsPagination/README.md",
+    "components/DsPanel/DsPanel.d.ts",
+    "components/DsPanel/README.md",
+    "components/DsScoreBar/DsScoreBar.d.ts",
+    "components/DsScoreBar/README.md",
+    "components/DsSelectBox/DsSelectBox.d.ts",
+    "components/DsSelectBox/README.md",
+    "components/DsSelectionBar/DsSelectionBar.d.ts",
+    "components/DsSelectionBar/README.md",
+    "components/DsShape/README.md",
+    "components/DsSkeleton/README.md",
+    "components/DsSorting/README.md",
+    "components/DsSortingMenu/README.md",
+    "components/DsSparkline/DsSparkline.d.ts",
+    "components/DsSparkline/README.md",
+    "components/DsSpinner/DsSpinner.d.ts",
+    "components/DsSpinner/README.md",
+    "components/DsStateIcon/DsStateIcon.d.ts",
+    "components/DsStateIcon/README.md",
+    "components/DsStatus/README.md",
+    "components/DsStepper/DsStepper.d.ts",
+    "components/DsStepper/README.md",
+    "components/DsSwitch/DsSwitch.d.ts",
+    "components/DsSwitch/README.md",
+    "components/DsTable/DsTable.d.ts",
+    "components/DsTable/README.md",
+    "components/DsTabs/DsTabs.d.ts",
+    "components/DsTabs/README.md",
+    "components/DsToast/DsToast.d.ts",
+    "components/DsToast/README.md",
+    "components/DsToastStack/README.md",
+    "components/DsTreeRow/DsTreeRow.d.ts",
+    "components/DsTreeRow/README.md",
+    "components/DsType/README.md",
+    "components/DsUserMenu/README.md",
+    "components/IconsArrows/README.md",
+    "components/IconsMapAssets/README.md",
+    "components/MapTrack/README.md",
+    "components/Monitoring/README.md",
+    "components/assets/images/arrow-accent.svg",
+    "components/assets/images/arrow-blue.svg",
+    "components/assets/images/finish-track-marker.svg",
+    "components/assets/images/start-track-marker.svg",
+    "components/bundle.css",
+    "components/bundle.js",
+    "components/lib/react-dom.production.min.js",
+    "components/lib/react.production.min.js",
+    "components/src/components/primitives/DsStrings.jsx",
+    "fonts/MaterialSymbolsOutlined.woff2",
+    "lint/README.md",
+    "lint/config.js",
+    "lint/index.js",
+    "lint/lib/contrast.js",
+    "lint/lib/tokens.js",
+    "lint/lib/value.js",
+    "lint/naming.config.json",
+    "lint/rules/focus-from-tokens.js",
+    "lint/rules/known-token.js",
+    "lint/rules/no-deprecated-token.js",
+    "lint/rules/no-literal-color.js",
+    "lint/rules/no-rem.js",
+    "lint/rules/shadow-token-only.js",
+    "lint/scripts/build-allowlist.js",
+    "lint/scripts/build-scoped-tokens.js",
+    "lint/scripts/check-names.js",
+    "lint/test/run.js",
+    "lint/tokens.allowed.json",
+    "overview.html",
+    "templates/angular/README.md",
+    "templates/angular/ng-package.json",
+    "templates/leadership-deck/LeadershipDeck.dc.html",
+    "templates/leadership-deck/README.md",
+    "templates/leadership-deck/deck-stage.js",
+    "templates/leadership-deck/ds-base.js",
+    "templates/leadership-deck/support.js",
+    "tests/DsFilterMenu.test.js",
+    "tests/a11y-tokens.test.js",
+    "tests/nav-dialog-i18n.test.js",
+    "tests/rows-buttons.test.js",
+    "tokens.css",
+    "tokens/scoped.css",
+    "tokens/webfonts-selfhost.css"
+  ],
+  "libraries": [
+    {
+      "name": "react",
+      "version": "18.3.1",
+      "global": "React",
+      "file": "components/lib/react.production.min.js"
+    },
+    {
+      "name": "react-dom",
+      "version": "18.3.1",
+      "global": "ReactDOM",
+      "file": "components/lib/react-dom.production.min.js"
+    }
+  ],
+  "components": [
+    {
+      "name": "DsButton",
+      "group": "3 · Компоненты · кнопки",
+      "summary": "Кнопка системы: один компонент с tone вместо старой трёхуровневой архитектуры с обёрткой на каждое действие."
+    },
+    {
+      "name": "DsFab",
+      "group": "3 · Компоненты · кнопки",
+      "summary": "Плавающая кнопка действия — единственная кнопка системы с настоящей тенью (--ds-shadow-md, на ховере --ds-shadow-lg), потому что она парит над картой или длинн…"
+    },
+    {
+      "name": "DsIconButton",
+      "group": "3 · Компоненты · кнопки",
+      "summary": "Квадратная кнопка только с иконкой; label обязателен — он становится aria-label и title."
+    },
+    {
+      "name": "DsChartLegend",
+      "group": "3 · Компоненты · графики",
+      "summary": "Легенда отдельно от графика — когда она должна жить вне плота: в подвале панели, поверх карты."
+    },
+    {
+      "name": "DsChartTooltip",
+      "group": "3 · Компоненты · графики",
+      "summary": "Считывание по оси графика: инверсный грунт, моно-значения, строка на каждую видимую серию."
+    },
+    {
+      "name": "DsChart",
+      "group": "3 · Компоненты · графики",
+      "summary": "Декартов график системы: линия, область или столбцы — дизайн того графика, который продукт рисует ECharts."
+    },
+    {
+      "name": "DsScoreBar",
+      "group": "3 · Компоненты · графики",
+      "summary": "Шкала с полосами: одно значение против именованных диапазонов — рейтинг эко-вождения."
+    },
+    {
+      "name": "DsSparkline",
+      "group": "3 · Компоненты · графики",
+      "summary": "Микротренд в ячейке таблицы или строке объекта: только форма, без осей и подписей."
+    },
+    {
+      "name": "DsBadge",
+      "group": "3 · Компоненты · данные",
+      "summary": "Статус-бейдж: пять тонов, тинт или сплошная заливка."
+    },
+    {
+      "name": "DsBulkBar",
+      "group": "3 · Компоненты · данные",
+      "summary": "Панель действий над N выбранными строками таблицы — режим, а не хром: при count 0 её нет."
+    },
+    {
+      "name": "DsChip",
+      "group": "3 · Компоненты · данные",
+      "summary": "Чип в двух ролях: выбираемый токен фильтра (с selected и count) или снимаемый токен значения (removable)."
+    },
+    {
+      "name": "DsFilterBar",
+      "group": "3 · Компоненты · данные",
+      "summary": "Панель инструментов таблицы: поиск, видимые снимаемые чипы применённых фильтров, счётчик результата и переключатель плотности."
+    },
+    {
+      "name": "DsListRow",
+      "group": "3 · Компоненты · данные",
+      "summary": "Строка панели объектов: глиф состояния, двухстрочная идентичность и значение справа."
+    },
+    {
+      "name": "DsObjectRow",
+      "group": "3 · Компоненты · данные",
+      "summary": "Строка объекта в дереве мониторинга: аватар в кольце свежести, состояние, связь, сервисное предупреждение и непрочитанное."
+    },
+    {
+      "name": "DsPagination",
+      "group": "3 · Компоненты · данные",
+      "summary": "Пагинатор — подвал таблицы или панели, а не отдельная полоса."
+    },
+    {
+      "name": "DsSelectionBar",
+      "group": "3 · Компоненты · данные",
+      "summary": "Счётчик выбора и действия над выбранным в панели объектов (дереве)."
+    },
+    {
+      "name": "DsStateIcon",
+      "group": "3 · Компоненты · данные",
+      "summary": "Состояние объекта глифом в тонированном диске; в движении глиф повёрнут по курсу."
+    },
+    {
+      "name": "DsTable",
+      "group": "3 · Компоненты · данные",
+      "summary": "Таблица системы: граница вместо полос, сортировка в заголовке, выбор строк, моно-столбцы, высота строки из плотности."
+    },
+    {
+      "name": "DsTreeRow",
+      "group": "3 · Компоненты · данные",
+      "summary": "Строка дерева пользователь → группа над объектами: раскрытие, агрегированный выбор и счётчик."
+    },
+    {
+      "name": "DsBanner",
+      "group": "3 · Компоненты · обратная связь",
+      "summary": "Баннер — единственная разрешённая постоянная поверхность сообщения: условие, которое остаётся верным, пока его не устранят."
+    },
+    {
+      "name": "DsEmptyState",
+      "group": "3 · Компоненты · обратная связь",
+      "summary": "Пустая область: глиф, заголовок о том, чего нет, одна строка почему и действие, которое это исправит."
+    },
+    {
+      "name": "DsSpinner",
+      "group": "3 · Компоненты · обратная связь",
+      "summary": "Индикатор загрузки."
+    },
+    {
+      "name": "DsSkeleton",
+      "group": "3 · Компоненты · обратная связь",
+      "summary": "Скелетон на месте данных, которые ещё грузятся, — показывает форму будущего содержимого."
+    },
+    {
+      "name": "DsToast",
+      "group": "3 · Компоненты · обратная связь",
+      "summary": "Тост — результат действия на инверсном грунте, чтобы его нельзя было спутать с баннером."
+    },
+    {
+      "name": "DsToastStack",
+      "group": "3 · Компоненты · обратная связь",
+      "summary": "Позиционирует тосты на уровне страницы."
+    },
+    {
+      "name": "DsCheckbox",
+      "group": "3 · Компоненты · формы",
+      "summary": "Чекбокс и радио одним компонентом (флаг radio) для форм и списков фильтров."
+    },
+    {
+      "name": "DsDuration",
+      "group": "3 · Компоненты · формы",
+      "summary": "Поле длительности «дни · часы · минуты» — «стоянка дольше», «поездка короче», интервалы отчётов."
+    },
+    {
+      "name": "DsField",
+      "group": "3 · Компоненты · формы",
+      "summary": "Поле формы одним компонентом: ввод, число, выбор или многострочный текст со статичной подписью 12px над полем 40px."
+    },
+    {
+      "name": "DsFilterMenu",
+      "group": "3 · Компоненты · формы",
+      "summary": "Редактор фильтра в поповере, открываемом подписанной кнопкой; покрывает все восемь типов старого CommonFilter."
+    },
+    {
+      "name": "DsSelectBox",
+      "group": "3 · Компоненты · формы",
+      "summary": "Трёхпозиционный бокс выбора со своей зоной нажатия — для дерева объектов, где у строки нет подписи рядом с боксом."
+    },
+    {
+      "name": "DsSwitch",
+      "group": "3 · Компоненты · формы",
+      "summary": "Переключатель с подписью и необязательным пояснением — замена SlideToggle из старой библиотеки."
+    },
+    {
+      "name": "DsDialog",
+      "group": "3 · Компоненты · раскладка",
+      "summary": "Модальное окно — тратится только на подтверждение необратимого, создание или правку одного объекта и короткую задачу из не более чем трёх шагов."
+    },
+    {
+      "name": "DsPageLayout",
+      "group": "3 · Компоненты · раскладка",
+      "summary": "Каркас обоих порталов: шапка приложения, шапка страницы, левый, главный и правый регионы."
+    },
+    {
+      "name": "DsPanel",
+      "group": "3 · Компоненты · раскладка",
+      "summary": "Поверхность региона: 1px граница на скруглённой поверхности, шапка, тело, подвал."
+    },
+    {
+      "name": "DsAppHeader",
+      "group": "3 · Компоненты · навигация",
+      "summary": "Шапка приложения — нейтральный хром: бренд в ней только плашка логотипа и индикатор активного таба, не залитая полоса."
+    },
+    {
+      "name": "DsMenu",
+      "group": "3 · Компоненты · навигация",
+      "summary": "Якорный поповер с пунктами — один объект для меню строки таблицы, выпадающего фильтра и меню пользователя."
+    },
+    {
+      "name": "DsHeaderChip",
+      "group": "3 · Компоненты · навигация",
+      "summary": "Пилюля пользователя в шапке — её рисуют user в DsAppHeader и триггер DsUserMenu."
+    },
+    {
+      "name": "DsUserMenu",
+      "group": "3 · Компоненты · навигация",
+      "summary": "Меню пользователя в шапке — построено на DsMenu, поэтому оно и меню строки таблицы — один объект."
+    },
+    {
+      "name": "DsPageHeader",
+      "group": "3 · Компоненты · навигация",
+      "summary": "Шапка экрана: хлебные крошки, кнопка «назад», заголовок, мета, действия и полоса табов, которые каждый экран раньше собирал руками."
+    },
+    {
+      "name": "DsStepper",
+      "group": "3 · Компоненты · навигация",
+      "summary": "Шаги короткой задачи: импорт, экспорт, создание набора шаблонов."
+    },
+    {
+      "name": "DsTabs",
+      "group": "3 · Компоненты · навигация",
+      "summary": "Табы в трёх тонах: в шапке приложения, подчёркнутые в контенте и сегменты для переключения двух–трёх вариантов."
+    },
+    {
+      "name": "DsCheck",
+      "group": "3 · Компоненты · примитивы",
+      "summary": "Общий вид и модель состояний любого бокса выбора в системе: 'off' | 'on' | 'some', квадрат с галочкой или круг с точкой."
+    },
+    {
+      "name": "DsCheckButton",
+      "group": "3 · Компоненты · примитивы",
+      "summary": "Настоящая вокруг DsCheck: Enter, Space и кольцо :focus-visible приходят от платформы, а не из самописного обработчика клавиш."
+    },
+    {
+      "name": "DsIcon",
+      "summary": "Единственный примитив иконки: глиф Material Symbols Outlined, самохостящийся шрифт, глиф — текст элемента, а не SVG."
+    },
+    {
+      "name": "Admin",
+      "group": "6 · Эталонные экраны",
+      "summary": "admin-portal: панель фильтров с видимыми применёнными фильтрами, таблица с границами, панель деталей",
+      "page": true
+    },
+    {
+      "name": "AppShell",
+      "group": "6 · Эталонные экраны",
+      "summary": "Шапка, шапка страницы и три региона DsPageLayout уже связаны — каркас, с которого начинается экран",
+      "page": true
+    },
+    {
+      "name": "BrandLogoLockup",
+      "group": "4 · Бренд (общее)",
+      "summary": "Плашка бренда 34px · зазор 8px · заголовок интерфейсным начертанием — нейтральный хром, а не залитая полоса",
+      "page": true
+    },
+    {
+      "name": "BrandLogoMark",
+      "group": "4 · Бренд (общее)",
+      "summary": "AuroraWhite.png — белая стрелка навигатора, кольцо, три жёлтые дуги.",
+      "page": true
+    },
+    {
+      "name": "DsAppearance",
+      "group": "2 · Основы",
+      "summary": "Тёмный режим включается одним атрибутом; компоненты не проверяют режим — они просто читают токены",
+      "page": true
+    },
+    {
+      "name": "DsBrandPick",
+      "group": "2 · Основы",
+      "summary": "Два исходных цвета тенанта → девять значений light и шесть dark: как выведено каждое и что проверяется",
+      "page": true
+    },
+    {
+      "name": "DsBrandThemes",
+      "group": "2 · Основы",
+      "summary": "Переключатель темы и light/dark: что цвет сообщает, какой токен это делает и его значение в выбранном наборе",
+      "page": true
+    },
+    {
+      "name": "DsBreakpoints",
+      "group": "2 · Основы",
+      "summary": "Четыре фиксированных размера из ViewBreakpointService — каждый порог переключает ровно одну вещь",
+      "page": true
+    },
+    {
+      "name": "DsBreakpointsDecisions",
+      "group": "5 · Миграция",
+      "summary": "Откуда взялись четыре порога, семь решений по ним и список долга в SCSS. Решения приняты, токены в layout.css.",
+      "page": true
+    },
+    {
+      "name": "DsCharts",
+      "group": "2 · Основы",
+      "summary": "Восемь независимых от темы цветов серий, семантические чернила осей и правило выбора типа графика",
+      "page": true
+    },
+    {
+      "name": "DsDensity",
+      "group": "2 · Основы",
+      "summary": "[data-ds-density] — это скоуп, а не глобальный тумблер: плотная таблица живёт и на cozy-странице",
+      "page": true
+    },
+    {
+      "name": "DsHeader",
+      "group": "2 · Основы",
+      "summary": "По умолчанию нейтральный — бренд живёт в плашке логотипа и активной вкладке, а не в залитой полосе",
+      "page": true
+    },
+    {
+      "name": "DsHover",
+      "group": "2 · Основы",
+      "summary": "Собственные чернила контрола поверх его же фона, 10% и 16% — ни одному тону не нужны токены hover",
+      "page": true
+    },
+    {
+      "name": "DsNeutrals",
+      "group": "2 · Основы",
+      "summary": "Одна холодная рампа с ровным шагом — вместо шести несвязанных легаси-серых",
+      "page": true
+    },
+    {
+      "name": "DsShape",
+      "group": "2 · Основы",
+      "summary": "Настоящая шкала радиусов; иерархию держат границы, тень только поднимает",
+      "page": true
+    },
+    {
+      "name": "DsSorting",
+      "group": "2 · Основы",
+      "summary": "Порядок задаёт заголовок столбца: три состояния, цикл из двух, серверный ключ — и какие столбцы сортируемы",
+      "page": true
+    },
+    {
+      "name": "DsSortingMenu",
+      "group": "2 · Основы",
+      "summary": "Меню сортировки для поверхностей без заголовков: поле и направление раздельно, дефолт есть всегда",
+      "page": true
+    },
+    {
+      "name": "DsStatus",
+      "group": "2 · Основы",
+      "summary": "Не зависит от темы — одинакова в DEFAULT, в RED2 и в dark — заливка, чернила, линия и solid",
+      "page": true
+    },
+    {
+      "name": "DsType",
+      "group": "2 · Основы",
+      "summary": "Один кегль на задачу; трекинг и моно заданы токеном, плотность на кегль не влияет",
+      "page": true
+    },
+    {
+      "name": "IconsArrows",
+      "group": "4 · Бренд (общее)",
+      "summary": "Стрелки направления так, как их рисует трек — треугольник в цвете трека с белой кромкой 1 px. Десять цветовых вариантов.",
+      "page": true
+    },
+    {
+      "name": "IconsMapAssets",
+      "group": "4 · Бренд (общее)",
+      "summary": "Настоящие SVG-файлы — единственная нешрифтовая иконография. Два вида: глифы, тонируемые внутри белого диска, и готовые пины.",
+      "page": true
+    },
+    {
+      "name": "MapTrack",
+      "group": "4 · Бренд (общее)",
+      "summary": "Линия + треугольники направления + пины начала/финиша. Число стрелок следует масштабу карты — потяните зум.",
+      "page": true
+    },
+    {
+      "name": "Monitoring",
+      "group": "6 · Эталонные экраны",
+      "summary": "user-portal: панель объектов, рейка карты, карточка объекта. Тема / dark / плотность — в полосе сверху",
+      "page": true
+    }
+  ],
+  "assetGroups": [
+    {
+      "name": "flags",
+      "files": [
+        {
+          "path": "assets/flags/France.png",
+          "id": "9e367952f60f932765c82e85af044e76"
+        },
+        {
+          "path": "assets/flags/Germany.png",
+          "id": "34ed82d699a5cf47c84621811191da89"
+        },
+        {
+          "path": "assets/flags/Kazakhstan.png",
+          "id": "f37d2f81dc67ead1930be99fc8e1dc02"
+        },
+        {
+          "path": "assets/flags/Poland.png",
+          "id": "fd4f122e1dd3107548fc18449d2a9dab"
+        },
+        {
+          "path": "assets/flags/Russia.png",
+          "id": "0846f9b27a7cd55da73ee56315342d88"
+        },
+        {
+          "path": "assets/flags/Spain.png",
+          "id": "61b782a98110f0aeb2db4b3745c334cc"
+        },
+        {
+          "path": "assets/flags/Turkey.png",
+          "id": "5ed68ff60d2512a087d5185d8b3d5e87"
+        },
+        {
+          "path": "assets/flags/Ukraine.png",
+          "id": "e170376d7ed11fb8e60f92c127bb226e"
+        },
+        {
+          "path": "assets/flags/United-States.png",
+          "id": "a740d37bd2be96779c10d58ce77616f2"
+        },
+        {
+          "path": "assets/flags/Unknown.png",
+          "id": "f7fe76e4ab5fe29bc61a42f957b79ca1"
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "files": [
+        {
+          "path": "assets/images/arrow-accent.svg",
+          "id": "37c0f0e9d054220da22437e77e5e4495"
+        },
+        {
+          "path": "assets/images/arrow-black.svg",
+          "id": "cee7d2ae71c78556bc3f6ce8c9cc71fc"
+        },
+        {
+          "path": "assets/images/arrow-blue.svg",
+          "id": "6a77b62b7764a96e015001772fa7afbf"
+        },
+        {
+          "path": "assets/images/arrow-brown.svg",
+          "id": "7d24c93466b5f91127c1430cd214e932"
+        },
+        {
+          "path": "assets/images/arrow-gray.svg",
+          "id": "54796605aceb14119b417d711787ff34"
+        },
+        {
+          "path": "assets/images/arrow-green.svg",
+          "id": "c57431e3e6829bbeb3069a071e3b2c10"
+        },
+        {
+          "path": "assets/images/arrow-mauve.svg",
+          "id": "70aa84ec8bfb2d7c3ea7a7dab6511757"
+        },
+        {
+          "path": "assets/images/arrow-orange.svg",
+          "id": "8f4ee2a2ef639d4fe1bb8d4258786fcb"
+        },
+        {
+          "path": "assets/images/arrow-purple.svg",
+          "id": "ce12fe4d812138ee6e7bbf4c6751d58f"
+        },
+        {
+          "path": "assets/images/arrow-red.svg",
+          "id": "b3941874c7e404d910c469d1b113f717"
+        },
+        {
+          "path": "assets/images/burger_point.svg",
+          "id": "75a821110c62860e79b26c882fb16514"
+        },
+        {
+          "path": "assets/images/cut.svg",
+          "id": "8dfc7f5c08be90c9762000c891591064"
+        },
+        {
+          "path": "assets/images/default-avatar.png",
+          "id": "3aeca5a30d35cf9fe5eb952fbe83cdda"
+        },
+        {
+          "path": "assets/images/delivery_point.svg",
+          "id": "c9609d7bddec1a93807c4c5704b3b749"
+        },
+        {
+          "path": "assets/images/duration.svg",
+          "id": "c60597712e6e13baf76ea4371a153d8e"
+        },
+        {
+          "path": "assets/images/finish-track-marker.svg",
+          "id": "622697d210c801b7956f0248b9599070"
+        },
+        {
+          "path": "assets/images/geofence.svg",
+          "id": "554e7e4705eeae41f476cabfe49bd35d"
+        },
+        {
+          "path": "assets/images/image.svg",
+          "id": "38f9d041605eaca145f3c5ab3bea5533"
+        },
+        {
+          "path": "assets/images/job_point.svg",
+          "id": "04b96b1981fd512aeb7d5b5edf332a6c"
+        },
+        {
+          "path": "assets/images/parking-track-marker.svg",
+          "id": "114d28cdea76a4becec611c6189fd641"
+        },
+        {
+          "path": "assets/images/parking-track-selected-marker.svg",
+          "id": "ce4e93f424adc679d2b7ee91df4cf16c"
+        },
+        {
+          "path": "assets/images/parking_point.svg",
+          "id": "04c048148487af8c4e29308c21b6fe5f"
+        },
+        {
+          "path": "assets/images/pickup_point.svg",
+          "id": "c1ca9100dc12c380a1750a56b934ba38"
+        },
+        {
+          "path": "assets/images/place.svg",
+          "id": "1e662909bdd3b2481edb637d82005e42"
+        },
+        {
+          "path": "assets/images/position-marker-red.svg",
+          "id": "b175d30f0f0e76a3b5a7bcc66c009326"
+        },
+        {
+          "path": "assets/images/position-marker.svg",
+          "id": "ac187fc66f8f1828f131664a07c2ff12"
+        },
+        {
+          "path": "assets/images/route_end_point.svg",
+          "id": "7abde6108fdae554877960afedab8fe4"
+        },
+        {
+          "path": "assets/images/route_start_point.svg",
+          "id": "9bebc4feb4fe883171f28a293eafc5c1"
+        },
+        {
+          "path": "assets/images/sensors.svg",
+          "id": "498951f748f5376afe17f0c1c4783852"
+        },
+        {
+          "path": "assets/images/settings.svg",
+          "id": "e04bdadcc395cf00875bf2d0495cf049"
+        },
+        {
+          "path": "assets/images/speed.svg",
+          "id": "7a30b449f3a99242c992428d633fe765"
+        },
+        {
+          "path": "assets/images/start-track-marker.svg",
+          "id": "81f958bc1405a024eed7d2d1c7f816bd"
+        },
+        {
+          "path": "assets/images/unit-moving.png",
+          "id": "983cf3dc102819e707ae4ebe62361b80"
+        },
+        {
+          "path": "assets/images/unit-parking.svg",
+          "id": "2405bc7e1217669beab0f99595fbc4f3"
+        },
+        {
+          "path": "assets/images/video.svg",
+          "id": "532cb44519b6983b7cbc33a4d23bc30b"
+        },
+        {
+          "path": "assets/images/warehouse_point.svg",
+          "id": "4219da4d7596acb0badca580e92bf504"
+        }
+      ]
+    },
+    {
+      "name": "logo",
+      "files": [
+        {
+          "path": "assets/logo/AuroraWhite.png",
+          "id": "f63587e782ac2aefb2e0c814c224c75f"
+        },
+        {
+          "path": "assets/logo/aurora-logo.png",
+          "id": "0892e5ae3d472a08e23691736105256c"
+        }
+      ]
+    },
+    {
+      "name": "notes"
+    },
+    {
+      "name": "fonts"
+    }
+  ],
+  "storage": {
+    "files": {
+      "assets/flags/France.png": {
+        "store": "blob",
+        "id": "9e367952f60f932765c82e85af044e76",
+        "sha256": "b190123483d28c3f75a5ee7b123095829a915d7169b11292fce1d5888edb87e9",
+        "bytes": 5912,
+        "type": "image/png"
+      },
+      "assets/flags/Germany.png": {
+        "store": "blob",
+        "id": "34ed82d699a5cf47c84621811191da89",
+        "sha256": "37ea6316eaf9a775f8a89af04e6559ccbf143c8ce44b2ed3d22c84f5d3887020",
+        "bytes": 5908,
+        "type": "image/png"
+      },
+      "assets/flags/Kazakhstan.png": {
+        "store": "blob",
+        "id": "f37d2f81dc67ead1930be99fc8e1dc02",
+        "sha256": "d9a641036b84bcdca92675063e75c6043e54e8d5253f281815fe34623f627322",
+        "bytes": 7321,
+        "type": "image/png"
+      },
+      "assets/flags/Poland.png": {
+        "store": "blob",
+        "id": "fd4f122e1dd3107548fc18449d2a9dab",
+        "sha256": "b743bd7dd34b7705e898f01a6032f3d3cff663897d97a04ebcf65b9972dcef98",
+        "bytes": 5913,
+        "type": "image/png"
+      },
+      "assets/flags/Russia.png": {
+        "store": "blob",
+        "id": "0846f9b27a7cd55da73ee56315342d88",
+        "sha256": "a9be88070a3ca0e7f90b842bd36dc5505fcf4db70a517173a195527e2ba7f7eb",
+        "bytes": 5907,
+        "type": "image/png"
+      },
+      "assets/flags/Spain.png": {
+        "store": "blob",
+        "id": "61b782a98110f0aeb2db4b3745c334cc",
+        "sha256": "62f6da43391b9314799b58adec70948417af4cf8c6abb2f4792343c66f12f1c7",
+        "bytes": 6535,
+        "type": "image/png"
+      },
+      "assets/flags/Turkey.png": {
+        "store": "blob",
+        "id": "5ed68ff60d2512a087d5185d8b3d5e87",
+        "sha256": "c9a6054c6a13a1b668d84533e4a28c3c0a99010d9c98cf6c4ff5b628d532c071",
+        "bytes": 6233,
+        "type": "image/png"
+      },
+      "assets/flags/Ukraine.png": {
+        "store": "blob",
+        "id": "e170376d7ed11fb8e60f92c127bb226e",
+        "sha256": "b6dbd4ba63df665f470d04c6bb00c8a5a91c3494616fadcc7b78973113c37536",
+        "bytes": 5911,
+        "type": "image/png"
+      },
+      "assets/flags/United-States.png": {
+        "store": "blob",
+        "id": "a740d37bd2be96779c10d58ce77616f2",
+        "sha256": "d7bfeadfb0705d73bd19bffad7be766192fc22ebd1edb6f01c3b4f4189324b39",
+        "bytes": 5985,
+        "type": "image/png"
+      },
+      "assets/flags/Unknown.png": {
+        "store": "blob",
+        "id": "f7fe76e4ab5fe29bc61a42f957b79ca1",
+        "sha256": "0be29236706ae956a8365ed53e7c55229334b2d9d86deb6a9cc68ec5e25e2d31",
+        "bytes": 6088,
+        "type": "image/png"
+      },
+      "assets/images/arrow-accent.svg": {
+        "store": "blob",
+        "id": "37c0f0e9d054220da22437e77e5e4495",
+        "sha256": "27dccebfce35321bceb97024987f25009b923010cead61c569c0c4c04ce02157",
+        "bytes": 8232,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-black.svg": {
+        "store": "blob",
+        "id": "cee7d2ae71c78556bc3f6ce8c9cc71fc",
+        "sha256": "df7d2ce31fd387a731e6ae69b957ca496fd327b857fa282806263707785309ef",
+        "bytes": 8230,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-blue.svg": {
+        "store": "blob",
+        "id": "6a77b62b7764a96e015001772fa7afbf",
+        "sha256": "3bfa5d974b4547382fc4d11b204b03bd4f423f3a32e95ccad49c57f8448dcca4",
+        "bytes": 8232,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-brown.svg": {
+        "store": "blob",
+        "id": "7d24c93466b5f91127c1430cd214e932",
+        "sha256": "b13609c562c725b0ed4aca8882ab12da2fdb503bd13d7bf75d474c846ac6a4dc",
+        "bytes": 8230,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-gray.svg": {
+        "store": "blob",
+        "id": "54796605aceb14119b417d711787ff34",
+        "sha256": "c8a1be1371181fd3f0d1896ef3020519cabf0d2ab95230fda99437cc4ce04742",
+        "bytes": 8229,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-green.svg": {
+        "store": "blob",
+        "id": "c57431e3e6829bbeb3069a071e3b2c10",
+        "sha256": "eeaf30de0021d7088ea670c0b358565346f0487e9d21358ff19f57762b7da7f6",
+        "bytes": 8232,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-mauve.svg": {
+        "store": "blob",
+        "id": "70aa84ec8bfb2d7c3ea7a7dab6511757",
+        "sha256": "f849c57d07da9cf8fd69dfab7294de95460c64915c539d13bf59ae58df518c2c",
+        "bytes": 8232,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-orange.svg": {
+        "store": "blob",
+        "id": "8f4ee2a2ef639d4fe1bb8d4258786fcb",
+        "sha256": "754d80fc6ca38fc8332283a161103ad16e3500f4df0d88126f97078a8512b032",
+        "bytes": 8232,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-purple.svg": {
+        "store": "blob",
+        "id": "ce12fe4d812138ee6e7bbf4c6751d58f",
+        "sha256": "07ef62605998d3fb27acd9799f87d34444e8e8c6089e211330d4cce26be3c812",
+        "bytes": 8231,
+        "type": "image/svg+xml"
+      },
+      "assets/images/arrow-red.svg": {
+        "store": "blob",
+        "id": "b3941874c7e404d910c469d1b113f717",
+        "sha256": "b4710dc40b15207a8974a571b1c6361cf7b1a26a88caedaa555360f867193c1d",
+        "bytes": 8232,
+        "type": "image/svg+xml"
+      },
+      "assets/images/burger_point.svg": {
+        "store": "blob",
+        "id": "75a821110c62860e79b26c882fb16514",
+        "sha256": "5b562788a53ceb14231a0d5e9c0e25bdbc867281e32febb9359b57f4b3987e90",
+        "bytes": 7990,
+        "type": "image/svg+xml"
+      },
+      "assets/images/cut.svg": {
+        "store": "blob",
+        "id": "8dfc7f5c08be90c9762000c891591064",
+        "sha256": "63ecbe328d68fd5a77901ae3db1d37ed16d5aa0225fe638bcc3c8545db8548ee",
+        "bytes": 8556,
+        "type": "image/svg+xml"
+      },
+      "assets/images/default-avatar.png": {
+        "store": "blob",
+        "id": "3aeca5a30d35cf9fe5eb952fbe83cdda",
+        "sha256": "5a27d19e03bb9ead45b069decb0e98fd93d841a6bc4bf640f1f1e1e7daa9f56b",
+        "bytes": 8184,
+        "type": "image/png"
+      },
+      "assets/images/delivery_point.svg": {
+        "store": "blob",
+        "id": "c9609d7bddec1a93807c4c5704b3b749",
+        "sha256": "74d9fa9a8a52f71e78d07bfa0f77e66d29e33aca482a7537f4d6b06eae372d1a",
+        "bytes": 8113,
+        "type": "image/svg+xml"
+      },
+      "assets/images/duration.svg": {
+        "store": "blob",
+        "id": "c60597712e6e13baf76ea4371a153d8e",
+        "sha256": "5b298fae6e5182918e4e717b06a7c690377cbe63a1bbb1404bef2c77979640d2",
+        "bytes": 11812,
+        "type": "image/svg+xml"
+      },
+      "assets/images/finish-track-marker.svg": {
+        "store": "blob",
+        "id": "622697d210c801b7956f0248b9599070",
+        "sha256": "54c98337f5ac4c27d9972c07da9750350c12a77f404422b20aac4c92c595a4e7",
+        "bytes": 19114,
+        "type": "image/svg+xml"
+      },
+      "assets/images/geofence.svg": {
+        "store": "blob",
+        "id": "554e7e4705eeae41f476cabfe49bd35d",
+        "sha256": "4c9b2154673933a18ed75fad84fab1cfab77ac2008970745b7cdc9c3603e3744",
+        "bytes": 10005,
+        "type": "image/svg+xml"
+      },
+      "assets/images/image.svg": {
+        "store": "blob",
+        "id": "38f9d041605eaca145f3c5ab3bea5533",
+        "sha256": "ee8af83b947d2f2e45aaf1d05da5308783e5bbf52ae6c5e2dc0ee8dfbef880a9",
+        "bytes": 8137,
+        "type": "image/svg+xml"
+      },
+      "assets/images/job_point.svg": {
+        "store": "blob",
+        "id": "04b96b1981fd512aeb7d5b5edf332a6c",
+        "sha256": "582015acce15351a81b057a0e9ef23b425dac0a8c811c50d109c6e913bf8dba3",
+        "bytes": 9481,
+        "type": "image/svg+xml"
+      },
+      "assets/images/parking-track-marker.svg": {
+        "store": "blob",
+        "id": "114d28cdea76a4becec611c6189fd641",
+        "sha256": "f14753db8562cc002df1bb5d51418cf12842520467e7399bb5c235ea1cad12ef",
+        "bytes": 10252,
+        "type": "image/svg+xml"
+      },
+      "assets/images/parking-track-selected-marker.svg": {
+        "store": "blob",
+        "id": "ce4e93f424adc679d2b7ee91df4cf16c",
+        "sha256": "760e43d8aecd5bd31e72dbda136ddead7dbe37826c5967c489c8c92de0370bd0",
+        "bytes": 10252,
+        "type": "image/svg+xml"
+      },
+      "assets/images/parking_point.svg": {
+        "store": "blob",
+        "id": "04c048148487af8c4e29308c21b6fe5f",
+        "sha256": "b44bb9b093a5f0a66b13a8db351477ec6eea6e9ff00e72249d43ac9b73420aed",
+        "bytes": 8033,
+        "type": "image/svg+xml"
+      },
+      "assets/images/pickup_point.svg": {
+        "store": "blob",
+        "id": "c1ca9100dc12c380a1750a56b934ba38",
+        "sha256": "698e0f45a9ddb83e3e957f6fdf3051c81087fa963636c639c5b839b382078ef5",
+        "bytes": 8119,
+        "type": "image/svg+xml"
+      },
+      "assets/images/place.svg": {
+        "store": "blob",
+        "id": "1e662909bdd3b2481edb637d82005e42",
+        "sha256": "2d1d2ba9aa5eafa3105b1e20242e89db110470d87d801628cf548c9383470fb5",
+        "bytes": 8097,
+        "type": "image/svg+xml"
+      },
+      "assets/images/position-marker-red.svg": {
+        "store": "blob",
+        "id": "b175d30f0f0e76a3b5a7bcc66c009326",
+        "sha256": "106e088ed6fdded7c67e8d1683bf3d31b27cb61e0e81771a6d7c60b2368179fc",
+        "bytes": 9639,
+        "type": "image/svg+xml"
+      },
+      "assets/images/position-marker.svg": {
+        "store": "blob",
+        "id": "ac187fc66f8f1828f131664a07c2ff12",
+        "sha256": "9aed6c2c2acd92b78a86f984099b9c7fa7c5fe94741019e63f75fa2204e261db",
+        "bytes": 9639,
+        "type": "image/svg+xml"
+      },
+      "assets/images/route_end_point.svg": {
+        "store": "blob",
+        "id": "7abde6108fdae554877960afedab8fe4",
+        "sha256": "5b20bd99ddec7401a7d01ad8d24de3379de193e16e53fe272858db32b08c141e",
+        "bytes": 8106,
+        "type": "image/svg+xml"
+      },
+      "assets/images/route_start_point.svg": {
+        "store": "blob",
+        "id": "9bebc4feb4fe883171f28a293eafc5c1",
+        "sha256": "57a3bbf75434e2575627458634e25043a4078e07147161b9f3fc406f8547a9ce",
+        "bytes": 8117,
+        "type": "image/svg+xml"
+      },
+      "assets/images/sensors.svg": {
+        "store": "blob",
+        "id": "498951f748f5376afe17f0c1c4783852",
+        "sha256": "b0da0ded9b36a7191e947c7e78129eef1c57d0f186ef3dbad62eada9263be947",
+        "bytes": 10122,
+        "type": "image/svg+xml"
+      },
+      "assets/images/settings.svg": {
+        "store": "blob",
+        "id": "e04bdadcc395cf00875bf2d0495cf049",
+        "sha256": "843ff5375465116373fe729149cb0d87533800dee59760111834931f8347eddc",
+        "bytes": 8509,
+        "type": "image/svg+xml"
+      },
+      "assets/images/speed.svg": {
+        "store": "blob",
+        "id": "7a30b449f3a99242c992428d633fe765",
+        "sha256": "8f58b259e65e1b56ab5d7f706f2a78cfeee067e50261837ab6581daff2a2cd41",
+        "bytes": 10128,
+        "type": "image/svg+xml"
+      },
+      "assets/images/start-track-marker.svg": {
+        "store": "blob",
+        "id": "81f958bc1405a024eed7d2d1c7f816bd",
+        "sha256": "70924a9a3a25db2dbb4e0964d645e339a059494d88f10947f67345265f647258",
+        "bytes": 10868,
+        "type": "image/svg+xml"
+      },
+      "assets/images/unit-moving.png": {
+        "store": "blob",
+        "id": "983cf3dc102819e707ae4ebe62361b80",
+        "sha256": "0c29c0edf9efac462ac548f744bffedc34754009234f09010cdaea1677888990",
+        "bytes": 9100,
+        "type": "image/png"
+      },
+      "assets/images/unit-parking.svg": {
+        "store": "blob",
+        "id": "2405bc7e1217669beab0f99595fbc4f3",
+        "sha256": "0c06f989eaf75cd21f91aff26604783a95ab92ad3bab5fb1e06cb6a53f5be3c0",
+        "bytes": 9305,
+        "type": "image/svg+xml"
+      },
+      "assets/images/video.svg": {
+        "store": "blob",
+        "id": "532cb44519b6983b7cbc33a4d23bc30b",
+        "sha256": "a80d3acc1b5b81668191c76dd3b403512d162128d70af2fe782dbde7f61edd00",
+        "bytes": 8044,
+        "type": "image/svg+xml"
+      },
+      "assets/images/warehouse_point.svg": {
+        "store": "blob",
+        "id": "4219da4d7596acb0badca580e92bf504",
+        "sha256": "97cd5a956cc392e47cc577cd6e32ff05eb92011bd2ea95a2c4f976fae81609b3",
+        "bytes": 8083,
+        "type": "image/svg+xml"
+      },
+      "assets/logo/AuroraWhite.png": {
+        "store": "blob",
+        "id": "f63587e782ac2aefb2e0c814c224c75f",
+        "sha256": "853c7848b9f43d59b77f58c600ca4f7aef42f5d6d77bec0780c5a24ef6137117",
+        "bytes": 17024,
+        "type": "image/png"
+      },
+      "assets/logo/aurora-logo.png": {
+        "store": "blob",
+        "id": "0892e5ae3d472a08e23691736105256c",
+        "sha256": "3bcd7aa0616dcc0b473cfa5ea98fb554ef8d4e32ef7de23ec43114d095996810",
+        "bytes": 17024,
+        "type": "image/png"
+      }
+    },
+    "blobBytesUsed": 423878
+  }
+}

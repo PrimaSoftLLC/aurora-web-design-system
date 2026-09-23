@@ -1,0 +1,18 @@
+<!-- @dsCard group="3 · Компоненты · графики" height=110 subtitle="Микротренд в ячейке или строке: только форма, без осей и подписей" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){var D=[12,14,13,17,16,19,18,22,21];
+  return h('div',{className:'row'},h(S.DsSparkline,{data:D,dot:true}),h(S.DsSparkline,{data:[40,38,35,null,30,26,24],tone:'danger',label:'Уровень топлива падает'}),
+    h(S.DsSparkline,{data:D,tone:'brand',area:false,width:120}),h(S.DsSparkline,{data:D,tone:'muted'}));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

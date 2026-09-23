@@ -1,0 +1,17 @@
+<!-- @dsCard group="3 · Компоненты · обратная связь" height=150 subtitle="Скелетон вместо спиннера в таблице и графике — показывает форму данных" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){return h('div',{className:'col',style:{maxWidth:420}},
+  [70,92,55,80].map(function(w,i){return h('div',{key:i,className:'row',style:{flexWrap:'nowrap'}},h(S.DsSkeleton,{width:28,height:28,radius:'50%'}),h(S.DsSkeleton,{width:w+'%',height:12}));}));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

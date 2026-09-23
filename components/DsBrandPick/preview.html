@@ -1,0 +1,217 @@
+<!-- @dsCard group="2 · Основы" height=1720 subtitle="Два исходных цвета тенанта → девять значений light и шесть dark: как выведено каждое и что проверяется" page -->
+<!DOCTYPE html>
+<html lang="ru" data-ds-theme="DEFAULT" data-ds-appearance="light"><head><meta charset="utf-8"><title>v2 · как выбрать цвета темы</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+.mono{font:var(--ds-type-mono)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.q{font:var(--ds-type-body-strong);color:var(--ds-fg-strong)}
+h2{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle);margin:22px 0 8px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 12px;padding:10px 12px;border:1px solid var(--ds-border);border-radius:var(--ds-radius-container);background:var(--ds-bg)}
+.bar label{display:flex;align-items:center;gap:6px}
+.lab{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle)}
+.bar input[type=color]{width:34px;height:var(--ds-control-h);padding:2px;background:var(--ds-surface);border:1px solid var(--ds-border-field);border-radius:var(--ds-radius-control);cursor:pointer}
+.bar input[type=text]{width:88px;height:var(--ds-control-h);padding:0 8px;font:var(--ds-type-mono);color:var(--ds-fg);background:var(--ds-surface);border:1px solid var(--ds-border-field);border-radius:var(--ds-radius-control)}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle);text-align:left;padding:0 10px 6px 0;border-bottom:1px solid var(--ds-border)}
+td{vertical-align:top;padding:9px 10px 10px 0;border-bottom:1px solid var(--ds-divider)}
+col.tokc{width:168px}col.swc{width:118px}col.chkc{width:188px}
+.tok{font:var(--ds-type-mono);color:var(--ds-fg)}
+.role{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.role b{color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)}
+.sw{display:block;height:18px;border-radius:var(--ds-radius-xs);border:1px solid var(--ds-border);box-sizing:border-box}
+.hex{font:var(--ds-type-mono);font-size:10px;color:var(--ds-fg-muted);display:block;margin-top:3px}
+tr.grp td{border-bottom:1px solid var(--ds-border);padding-top:18px}
+.gn{font:var(--ds-type-body-strong);color:var(--ds-fg-strong);margin-right:10px}
+.gd{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.chk{font:var(--ds-type-mono);font-size:10px;display:block;text-wrap:pretty}
+.chk+.chk{margin-top:2px}
+.ok{color:var(--ds-success-fg)}.bad{color:var(--ds-danger-fg)}.inf{color:var(--ds-fg-subtle)}
+.warns{display:grid;gap:6px;margin:0 0 14px}
+.warn{font:var(--ds-type-caption);padding:8px 10px;border-radius:var(--ds-radius-control);text-wrap:pretty}
+.warn.w{background:var(--ds-warning-bg);border:1px solid var(--ds-warning-line);color:var(--ds-warning-fg)}
+.warn.g{background:var(--ds-success-bg);border:1px solid var(--ds-success-line);color:var(--ds-success-fg)}
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pane{padding:14px;border-radius:var(--ds-radius-container);border:1px solid var(--ds-border)}
+.pane .pl{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;display:block;margin:0 0 10px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{height:var(--ds-control-h);padding:0 14px;border-radius:var(--ds-radius-control);border:0;font:var(--ds-type-ui);display:inline-flex;align-items:center}
+.pill{padding:3px 9px;border-radius:999px;font:var(--ds-type-caption);border:1px solid}
+.dot{width:16px;height:16px;border-radius:50%;font:var(--ds-type-mono);font-size:9px;display:grid;place-items:center}
+pre{margin:0;padding:12px;background:var(--ds-bg-sunken);border:1px solid var(--ds-border);border-radius:var(--ds-radius-container);font:var(--ds-type-mono);color:var(--ds-fg);overflow-x:auto;text-wrap:nowrap}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px 34px;margin:18px 0 0;padding-top:16px;border-top:1px solid var(--ds-border)}
+.note h3{font:var(--ds-type-body-strong);color:var(--ds-fg-strong);margin:0 0 7px}
+.note p{margin:0;font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.note p+p{margin-top:7px}
+dl.sfx{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px 12px;margin:0}
+dl.sfx dt{font:var(--ds-type-mono);color:var(--ds-fg)}
+dl.sfx dd{margin:0;font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+ul.nos{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+ul.nos li{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.no{color:var(--ds-danger-fg)}
+a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
+body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26px}
+</style></head><body>
+<p class="q" style="margin:0 0 4px">Тенант даёт два цвета. Тема — это девять значений. Между ними порядок вывода, а не вкус.</p>
+<p class="cap" style="margin:0 0 14px;max-width:96ch">Логотипный цвет — <i>исходник</i>, а не токен. Оттенок исходника сохраняется на всех девяти значениях: двигается только светлота, а насыщенность — лишь настолько, насколько её вмещает sRGB на новой светлоте. Поставьте два цвета тенанта и смотрите, где порог не проходит.</p>
+<div class="bar">
+<label><span class="lab">бренд</span><input type="color" id="bs" value="#2b5f9e"><input type="text" id="bt" value="#2b5f9e" spellcheck="false"></label>
+<label><span class="lab">акцент</span><input type="color" id="as" value="#efd63c"><input type="text" id="at" value="#efd63c" spellcheck="false"></label>
+<label><span class="lab">имя</span><input type="text" id="nm" value="DEFAULT" spellcheck="false" style="width:104px"></label>
+</div>
+<div class="warns" id="warns"></div>
+<table><colgroup><col class="tokc"><col><col class="swc"><col class="chkc"></colgroup>
+<tr><th>Токен</th><th>Что это и как выведено</th><th>Предложение</th><th>Проверка</th></tr>
+<tr class="grp"><td colspan="4"><span class="gn">LIGHT</span><span class="gd">девять значений — всё, что отличает одну тему от другой</span></td></tr>
+<tr><td><span class="tok">--ds-brand</span></td><td class="role"><b>Заливка главного действия</b>, активного таба, выбранного чекбокса. Обязана нести на себе белую подпись, поэтому исходник берётся как есть только если контраст к белому уже ≥ 4,5:1; иначе светлота опускается ровно до этой точки. Вверх — никогда: тёмный фирменный цвет остаётся тёмным.</td><td id="r-brand"></td><td id="c-brand"></td></tr>
+<tr><td><span class="tok">--ds-brand-subtle</span></td><td class="role"><b>Подложка выбранного</b>: строка списка, чип выбора, метка среды. Не отдельный цвет — заливка, подмешанная в поверхность на 8% в oklab. Подобранный «на глаз светлый» почти всегда уезжает в серый и перестаёт быть одного тона с заливкой.</td><td id="r-bsub"></td><td id="c-bsub"></td></tr>
+<tr><td><span class="tok">--ds-brand-border</span></td><td class="role"><b>Линия к этой подложке</b> — та же заливка на 28%. Она отделяет, а не сообщает, поэтому порог текста к ней не применяется; но она должна быть отличима от обычной <span class="mono">--ds-border</span>, иначе выбор не читается.</td><td id="r-bbor"></td><td id="c-bbor"></td></tr>
+<tr><td><span class="tok">--ds-brand-text</span></td><td class="role"><b>Брендовые чернила на светлом грунте</b>: ссылка, подпись активного таба. Считаются к <span class="mono">--ds-bg</span> — самому тёмному из светлых грунтов, а не к чистому белому. Если заливка проходит там, она же и берётся: так живут BLUE и PURPLE. Если нет — затемняется до порога.</td><td id="r-btxt"></td><td id="c-btxt"></td></tr>
+<tr><td><span class="tok">--ds-accent</span></td><td class="role"><b>Акцент тенанта</b>: счётчик непрочитанного, метка среды. Значит «здесь новое», а не «нажми» — поэтому расходится с брендом по оттенку минимум на 40° и не попадает в оттенки статусов. Берётся от второго фирменного цвета, а не выводится из первого.</td><td id="r-acc"></td><td id="c-acc"></td></tr>
+<tr><td><span class="tok">--ds-accent-on</span></td><td class="role"><b>Что кладётся на акцент.</b> Белое или тёмное того же оттенка — что даёт 4,5:1. На жёлтом это всегда тёмное, на красном белое, а в середине диапазона автовыбор ломается: поэтому значение задаётся руками, а не выводится.</td><td id="r-aon"></td><td id="c-aon"></td></tr>
+<tr><td><span class="tok">--ds-accent-subtle</span></td><td class="role"><b>Подложка акцента.</b> Тоже подмешивание, но процент выше: 8% бледного акцента в белом — всё ещё белый. Процент поднимается, пока подложка не отделится от поверхности — у жёлтого это около 20%, у тёмного бренда остаются те же 8%.</td><td id="r-asub"></td><td id="c-asub"></td></tr>
+<tr><td><span class="tok">--ds-accent-mark</span></td><td class="role"><b>Акцент в графической роли</b>: точка непрочитанного, бейдж. Это фигура, а не текст — порог 3:1 к грунту (WCAG 1.4.11). Жёлтый акцент его не держит, поэтому метка живёт отдельным затемнённым значением того же оттенка.</td><td id="r-amark"></td><td id="c-amark"></td></tr>
+<tr><td><span class="tok">--ds-accent-mark-on</span></td><td class="role"><b>Цифра на метке.</b> Считается к <span class="mono">--ds-accent-mark</span>, не к акценту: если метка затемнялась, подпись на ней другая.</td><td id="r-amon"></td><td id="c-amon"></td></tr>
+<tr class="grp"><td colspan="4"><span class="gn">DARK</span><span class="gd">шесть значений: <span class="mono">-mark</span> и <span class="mono">-mark-on</span> здесь равны акценту — на тёмном грунте он держит 3:1 сам</span></td></tr>
+<tr><td><span class="tok">--ds-brand</span></td><td class="role"><b>Перезажигается вверх по светлоте</b>, а не инвертируется: в oklch светлота поднимается в окно L ≈ 0,69 при сохранённом оттенке — там, где сидят все семь отгружаемых тёмных палитр. Из-за этого белая подпись меняется на тёмную <span class="mono">--ds-on-brand</span>.</td><td id="r-dbrand"></td><td id="c-dbrand"></td></tr>
+<tr><td><span class="tok">--ds-brand-subtle</span></td><td class="role"><b>Перестаёт быть краской.</b> Та же заливка с альфой 14% — вош, который совпадает с любым уровнем грунта: <span class="mono">bg</span>, <span class="mono">surface</span> и <span class="mono">surface-raised</span> в тёмном наборе разной светлоты.</td><td id="r-dbsub"></td><td id="c-dbsub"></td></tr>
+<tr><td><span class="tok">--ds-brand-border</span></td><td class="role"><b>Линия</b> — тот же цвет с альфой 34%, по той же причине.</td><td id="r-dbbor"></td><td id="c-dbbor"></td></tr>
+<tr><td><span class="tok">--ds-brand-text</span></td><td class="role"><b>Чернила светлее заливки</b>, не равны ей: окно L ≈ 0,82 при насыщенности около 0,6 от заливки. Порог 4,5:1 к тёмной поверхности мид-тон проходит и сам, но тогда текст и кнопка становятся одним цветом — поэтому значение задаётся окном, а не порогом.</td><td id="r-dbtxt"></td><td id="c-dbtxt"></td></tr>
+<tr><td><span class="tok">--ds-accent</span></td><td class="role"><b>Часто остаётся исходным</b>: светлый акцент на тёмном грунте уже держит 3:1. Поднимается только если не держит — тогда до L ≈ 0,75.</td><td id="r-dacc"></td><td id="c-dacc"></td></tr>
+<tr><td><span class="tok">--ds-accent-on</span></td><td class="role"><b>Подпись на акценте</b> — тёмное того же оттенка. В тёмном наборе белого варианта не бывает: акцент здесь всегда светлее подписи.</td><td id="r-daon"></td><td id="c-daon"></td></tr>
+</table>
+<h2>На чём это видно</h2>
+<div class="proof">
+<div class="pane" id="pl"><span class="pl">light</span>
+<div class="row"><span class="btn" id="p-btn">Построить отчёт</span><span class="pill" id="p-pill">выбрано 4</span><a href="#" id="p-link">Открыть объект</a><span class="dot" id="p-dot">7</span></div>
+</div>
+<div class="pane" id="pd"><span class="pl">dark</span>
+<div class="row"><span class="btn" id="d-btn">Построить отчёт</span><span class="pill" id="d-pill">выбрано 4</span><a href="#" id="d-link">Открыть объект</a><span class="dot" id="d-dot">7</span></div>
+</div>
+</div>
+<h2>В <span class="mono" style="text-transform:none;letter-spacing:0">tokens/brand.css</span></h2>
+<pre id="out"></pre>
+<div class="notes">
+<div class="note">
+<h3>Пороги, к которым всё считается</h3>
+<dl class="sfx">
+<dt>4,5:1</dt><dd>текст на своём фоне — подпись на заливке и брендовый текст на грунте</dd>
+<dt>3:1</dt><dd>крупный текст (от 24px или 19px полужирного) и <i>фигуры</i>: точка, бейдж, индикатор — WCAG 1.4.11</dd>
+<dt>к чему</dt><dd>подпись — к своей заливке; заливка и метка — к <span class="mono">--ds-bg</span>, самому тёмному из светлых грунтов, а не к чистому белому</dd>
+</dl>
+</div>
+<div class="note">
+<h3>Когда исходник брать нельзя</h3>
+<p>Светлый насыщённый цвет — жёлтый, салатовый, голубой — физически не может быть заливкой под белую подпись: <span class="mono">#F8D030</span> даёт к белому 1,7:1. Такой цвет уходит в акцент, а <span class="mono">--ds-brand</span> берётся как затемнённая версия того же оттенка. Ровно это произошло со старыми <span class="mono">#FF4081</span> и <span class="mono">#F8D030</span>.</p>
+<p>Насыщенность выше исходной не поднимаем: перегретая заливка звенит рядом с картой и статусными точками.</p>
+</div>
+<div class="note">
+<h3>Почему акцент проверяется против статусов</h3>
+<p>Статусы темонезависимы: офлайн красный, в движении зелёный, тревога янтарная у всех тенантов. Акцент тенанта, попавший в тот же оттенок, превращает счётчик непрочитанного в сообщение о состоянии объекта. Если у тенанта фирменный красный — он идёт в бренд, а акцент берётся от второго фирменного цвета либо уводится по оттенку.</p>
+</div>
+<div class="note">
+<h3>Что проверить руками после</h3>
+<p>Калькулятор ставит значения на пороги и в окна — это минимум, а не комфорт: отгружаемые палитры сидят на 0,03–0,05 светлоты глубже. Проверьте набор на трёх экранах: список объектов (много мелких чернил), карта (заливка поверх тайлов), диалог подтверждения (danger рядом с брендом) — в light и в dark.</p>
+</div>
+<div class="note">
+<h3>Четыре «не»</h3>
+<ul class="nos">
+<li><b class="no">Не</b> ставить логотипный hex в <span class="mono">--ds-brand</span> без проверки подписи.</li>
+<li><b class="no">Не</b> сочинять <span class="mono">-subtle</span> отдельным цветом — это подмешанный исходник.</li>
+<li><b class="no">Не</b> выводить тёмный набор инверсией светлого — заливка поднимается, а не переворачивается.</li>
+<li><b class="no">Не</b> добавлять <span class="mono">-hover</span> / <span class="mono">-active</span>: наведение и нажатие — универсальный оверлей 10% / 16%.</li>
+</ul>
+</div>
+</div>
+<script>
+const S=v=>v<=0.04045?v/12.92:Math.pow((v+0.055)/1.055,2.4),G=v=>v<=0.0031308?v*12.92:1.055*Math.pow(v,1/2.4)-0.055;
+function hex2rgb(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');return[parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255]}
+function rgb2hex(r){return '#'+r.map(v=>Math.round(Math.min(1,Math.max(0,v))*255).toString(16).padStart(2,'0')).join('')}
+function rgb2lab(rgb){const[r,g,b]=rgb.map(S);
+const l=Math.cbrt(0.4122214708*r+0.5363325363*g+0.0514459929*b),m=Math.cbrt(0.2119034982*r+0.6806995451*g+0.1073969566*b),s=Math.cbrt(0.0883024619*r+0.2817188376*g+0.6299787005*b);
+return[0.2104542553*l+0.7936177850*m-0.0040720468*s,1.9779984951*l-2.4285922050*m+0.4505937099*s,0.0259040371*l+0.7827717662*m-0.8086757660*s]}
+function lab2rgbRaw(L,a,b2){const l=Math.pow(L+0.3963377774*a+0.2158037573*b2,3),m=Math.pow(L-0.1055613458*a-0.0638541728*b2,3),s=Math.pow(L-0.0894841775*a-1.2914855480*b2,3);
+return[G(4.0767416621*l-3.3077115913*m+0.2309699292*s),G(-1.2684380046*l+2.6097574011*m-0.3413193965*s),G(-0.0041960863*l-0.7034186147*m+1.7076147010*s)]}
+function lab2hex(L,a,b2){const inG=r=>r.every(v=>v>=-0.002&&v<=1.002);if(inG(lab2rgbRaw(L,a,b2)))return rgb2hex(lab2rgbRaw(L,a,b2));
+let lo=0,hi=1;for(let i=0;i<22;i++){const mid=(lo+hi)/2;if(inG(lab2rgbRaw(L,a*mid,b2*mid)))lo=mid;else hi=mid}return rgb2hex(lab2rgbRaw(L,a*lo,b2*lo))}
+function oklch(hx){const[L,a,b]=rgb2lab(hex2rgb(hx));let h=Math.atan2(b,a)*180/Math.PI;if(h<0)h+=360;return{L,C:Math.hypot(a,b),h}}
+function fromLCH(L,C,h){return lab2hex(L,C*Math.cos(h*Math.PI/180),C*Math.sin(h*Math.PI/180))}
+function lum(rgb){const[r,g,b]=rgb.map(S);return 0.2126*r+0.7152*g+0.0722*b}
+function cr(h1,h2){const a=lum(hex2rgb(h1)),b=lum(hex2rgb(h2));return(Math.max(a,b)+0.05)/(Math.min(a,b)+0.05)}
+function mix(hx,pct,onto){const A=rgb2lab(hex2rgb(hx)),B=rgb2lab(hex2rgb(onto));return lab2hex(A[0]*pct+B[0]*(1-pct),A[1]*pct+B[1]*(1-pct),A[2]*pct+B[2]*(1-pct))}
+function rgba(hx,al){const[r,g,b]=hex2rgb(hx);return'rgba('+Math.round(r*255)+','+Math.round(g*255)+','+Math.round(b*255)+','+al+')'}
+/* подмешивание с полом отделимости: бледный исходник требует большего процента,
+   иначе подложка на поверхности неотличима от самой поверхности */
+function tint(from,onto,pct,minCr){let p=pct,out=mix(from,p,onto);
+while(p<0.6&&cr(out,onto)<minCr){p+=0.01;out=mix(from,p,onto)}return[out,Math.round(p*100)]}
+/* самая светлая точка оттенка, где контраст к светлому ref ещё >= target */
+function darkenTo(seed,ref,target){const{C,h}=oklch(seed);let lo=0.05,hi=0.99;
+if(cr(fromLCH(lo,C,h),ref)<target)return fromLCH(lo,C,h);
+for(let i=0;i<24;i++){const mid=(lo+hi)/2;if(cr(fromLCH(mid,C,h),ref)>=target)lo=mid;else hi=mid}return fromLCH(lo,C,h)}
+/* цвет в заданном окне светлоты; если порог к тёмному ref там не проходит — выше */
+function lift(seed,L,ref,target,cScale){const{C,h}=oklch(seed);let out=fromLCH(L,C*(cScale||1),h);
+while(L<0.97&&cr(out,ref)<target){L+=0.01;out=fromLCH(L,C*(cScale||1),h)}return out}
+const BG='#f6f7f9',SURF='#ffffff',D_SURF='#15191f',ON_BRAND_D='#0d1520';
+const STATUS={success:'#157a45',danger:'#c1291f',warning:'#9a6400'},SN={success:'success — «в движении»',danger:'danger — «офлайн»',warning:'warning — «тревога»'};
+const el=id=>document.getElementById(id);
+function put(id,hex,label){el('r-'+id).innerHTML='<span class="sw" style="background:'+hex+'"></span><span class="hex">'+(label||hex)+'</span>'}
+function chk(id,parts){el('c-'+id).innerHTML=parts.filter(Boolean).map(p=>p[1]==null?'<span class="chk inf">'+p[0]+'</span>':'<span class="chk '+(p[1]?'ok':'bad')+'">'+(p[1]?'✓':'✗')+' '+p[0]+'</span>').join('')}
+function run(){
+const seed=el('bt').value.trim(),aseed=el('at').value.trim();
+if(!/^#[0-9a-f]{6}$/i.test(seed)||!/^#[0-9a-f]{6}$/i.test(aseed))return;
+const brand=cr(seed,SURF)>=4.5?seed:darkenTo(seed,SURF,4.5);
+const[bsub,bsubP]=tint(brand,SURF,0.08,1.06),[bbor,bborP]=tint(brand,SURF,0.28,1.45);
+const btxt=cr(brand,BG)>=4.5?brand:darkenTo(seed,BG,4.5);
+const aq=oklch(aseed),aDarkInk=fromLCH(0.26,Math.min(aq.C,0.06),aq.h);
+const acc=aseed,accWhite=cr(acc,SURF)>=4.5,aon=accWhite?'#ffffff':aDarkInk;
+const asub=tint(acc,SURF,0.08,1.06);
+const amark=cr(acc,BG)>=3?acc:darkenTo(aseed,BG,3),amon=cr(amark,'#ffffff')>=4.5?'#ffffff':aDarkInk;
+const dbrand=lift(seed,0.69,ON_BRAND_D,4.5),dbtxt=lift(seed,0.82,D_SURF,4.5,0.6);
+const dacc=cr(aseed,D_SURF)>=3?aseed:lift(aseed,0.75,D_SURF,3);
+const dq=oklch(dacc),daon=fromLCH(0.24,Math.min(dq.C,0.06),dq.h);
+put('brand',brand);chk('brand',[['белая подпись '+cr(brand,SURF).toFixed(1)+':1',cr(brand,SURF)>=4.5],['к грунту '+cr(brand,BG).toFixed(1)+':1',cr(brand,BG)>=3],[brand===seed?'исходник подошёл как есть':'исходник затемнён с '+seed,null]]);
+put('bsub',bsub);chk('bsub',[['отделима от поверхности '+cr(bsub,SURF).toFixed(2)+':1',cr(bsub,SURF)>=1.06],['чернила на ней '+cr(btxt,bsub).toFixed(1)+':1',cr(btxt,bsub)>=4.5],['заливка '+bsubP+'% в поверхности',null]]);
+put('bbor',bbor);chk('bbor',[['отличима от --ds-border '+cr(bbor,'#e2e5ec').toFixed(2)+':1',cr(bbor,'#e2e5ec')>=1.15],['оттенок сохранён '+Math.round(oklch(bbor).h)+'°',Math.abs(oklch(bbor).h-oklch(brand).h)<12],['заливка '+bborP+'% в поверхности',null]]);
+put('btxt',btxt);chk('btxt',[['к --ds-bg '+cr(btxt,BG).toFixed(1)+':1',cr(btxt,BG)>=4.5],[brand===btxt?'равен заливке — берём её':'заливка не прошла, затемнён',null]]);
+put('acc',acc);chk('acc',[['подпись '+(accWhite?'белая':'тёмная')+' '+cr(acc,aon).toFixed(1)+':1',cr(acc,aon)>=4.5]]);
+put('aon',aon);chk('aon',[[accWhite?'белое проходит':'белое не проходит — тёмное',null]]);
+put('asub',asub[0]);chk('asub',[['отделима от поверхности '+cr(asub[0],SURF).toFixed(2)+':1',cr(asub[0],SURF)>=1.06],['чернила на ней '+cr(btxt,asub[0]).toFixed(1)+':1',cr(btxt,asub[0])>=4.5],['акцент '+asub[1]+'% в поверхности'+(asub[1]>10?' — бледный исходник':''),null]]);
+put('amark',amark);chk('amark',[['фигура к грунту '+cr(amark,BG).toFixed(1)+':1',cr(amark,BG)>=3],[amark===acc?'равен акценту':'акцент светлее порога, затемнён',null]]);
+put('amon',amon);chk('amon',[['цифра на метке '+cr(amon,amark).toFixed(1)+':1',cr(amon,amark)>=4.5]]);
+put('dbrand',dbrand);chk('dbrand',[['тёмная подпись '+cr(dbrand,ON_BRAND_D).toFixed(1)+':1',cr(dbrand,ON_BRAND_D)>=4.5],['к грунту '+cr(dbrand,D_SURF).toFixed(1)+':1',cr(dbrand,D_SURF)>=3],['L '+oklch(dbrand).L.toFixed(2)+' против '+oklch(brand).L.toFixed(2)+' в light',null]]);
+put('dbsub',rgba(dbrand,0.14),rgba(dbrand,0.14));chk('dbsub',[['вош того же оттенка',null]]);
+put('dbbor',rgba(dbrand,0.34),rgba(dbrand,0.34));chk('dbbor',[['поверх любого грунта',null]]);
+put('dbtxt',dbtxt);chk('dbtxt',[['к --ds-surface '+cr(dbtxt,D_SURF).toFixed(1)+':1',cr(dbtxt,D_SURF)>=4.5],['отделим от заливки '+cr(dbtxt,dbrand).toFixed(2)+':1',cr(dbtxt,dbrand)>=1.35]]);
+put('dacc',dacc);chk('dacc',[['фигура к грунту '+cr(dacc,D_SURF).toFixed(1)+':1',cr(dacc,D_SURF)>=3],[dacc===aseed?'исходник подошёл как есть':'поднят по светлоте',null]]);
+put('daon',daon);chk('daon',[['подпись на акценте '+cr(daon,dacc).toFixed(1)+':1',cr(daon,dacc)>=4.5]]);
+const bh=oklch(brand).h,ah=oklch(acc).h,dh=(x,y)=>{const d=Math.abs(x-y)%360;return d>180?360-d:d};
+const W=[];
+if(dh(bh,ah)<40)W.push(['w','Оттенки бренда и акцента расходятся на '+Math.round(dh(bh,ah))+'° — меньше 40°. «Новое» и «нажми» будут выглядеть одним цветом: уводите акцент по оттенку или берите второй фирменный цвет.']);
+for(const k in STATUS){const d=dh(ah,oklch(STATUS[k]).h);if(d<22)W.push(['w','Акцент лежит в '+Math.round(d)+'° от '+SN[k]+'. Счётчик непрочитанного будет читаться как состояние объекта.'])}
+if(cr(seed,SURF)<4.5)W.push(['w','Исходник бренда не несёт белую подпись ('+cr(seed,SURF).toFixed(1)+':1) — в --ds-brand идёт затемнённая версия того же оттенка, '+brand+'. Логотип при этом остаётся исходным цветом.']);
+if(!W.length)W.push(['g','Порогов не нарушено: исходники садятся в токены без правки оттенка, акцент разведён и с брендом, и со статусами.']);
+el('warns').innerHTML=W.map(w=>'<div class="warn '+w[0]+'">'+w[1]+'</div>').join('');
+const n=(el('nm').value.trim()||'NAME').toUpperCase();
+el('out').textContent='[data-ds-theme="'+n+'"]{\n'+
+'--ds-brand:'+brand+';--ds-brand-subtle:'+bsub+';--ds-brand-border:'+bbor+';--ds-brand-text:'+btxt+';\n'+
+'--ds-accent:'+acc+';--ds-accent-on:'+aon+';--ds-accent-subtle:'+asub[0]+';\n'+
+'--ds-accent-mark:'+amark+';--ds-accent-mark-on:'+amon+';\n}\n'+
+'[data-ds-appearance="dark"][data-ds-theme="'+n+'"],\n[data-ds-appearance="dark"] [data-ds-theme="'+n+'"]:not([data-ds-appearance="light"]){\n'+
+'--ds-brand:'+dbrand+';--ds-brand-subtle:'+rgba(dbrand,0.14)+';--ds-brand-border:'+rgba(dbrand,0.34)+';--ds-brand-text:'+dbtxt+';\n'+
+'--ds-accent:'+dacc+';--ds-accent-on:'+daon+';--ds-accent-subtle:'+rgba(dacc,0.16)+';\n'+
+'--ds-accent-mark:var(--ds-accent);--ds-accent-mark-on:var(--ds-accent-on);\n}';
+const L=el('pl'),D=el('pd');
+L.style.background=BG;L.style.borderColor='#e2e5ec';L.querySelector('.pl').style.color='#7e8697';
+el('p-btn').style.cssText+=';background:'+brand+';color:#fff';
+el('p-pill').style.cssText+=';background:'+bsub+';border-color:'+bbor+';color:'+btxt;
+el('p-link').style.color=btxt;
+el('p-dot').style.cssText+=';background:'+amark+';color:'+amon;
+D.style.background=D_SURF;D.style.borderColor='#272d37';D.querySelector('.pl').style.color='#7e8697';
+el('d-btn').style.cssText+=';background:'+dbrand+';color:'+ON_BRAND_D;
+el('d-pill').style.cssText+=';background:'+rgba(dbrand,0.14)+';border-color:'+rgba(dbrand,0.34)+';color:'+dbtxt;
+el('d-link').style.color=dbtxt;
+el('d-dot').style.cssText+=';background:'+dacc+';color:'+daon;
+}
+function link(c,t){c.addEventListener('input',()=>{t.value=c.value;run()});t.addEventListener('input',()=>{if(/^#[0-9a-f]{6}$/i.test(t.value.trim())){c.value=t.value.trim();run()}})}
+link(el('bs'),el('bt'));link(el('as'),el('at'));el('nm').addEventListener('input',run);
+run();
+</script>
+</body></html>

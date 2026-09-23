@@ -1,0 +1,26 @@
+// Необязательный сахар. Ничего нового не вводит — только повторяющиеся наборы
+// токенов. Цвет всегда через var(), размеры всегда в px.
+
+// Поверхность системы: граница 1px на скруглении, без тени.
+@mixin aurora-panel($radius: var(--ds-radius-container)) {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: #{$radius};
+}
+
+// Строка списка или таблицы: высота и ховер из плотности.
+@mixin aurora-row {
+  height: var(--ds-row-h);
+  padding-inline: var(--ds-cell-pad-x);
+  border-bottom: 1px solid var(--ds-divider);
+
+  &:hover { background: var(--ds-surface-hover); }
+  &[aria-selected='true'] { background: var(--ds-surface-selected); }
+}
+
+// Единственная область прокрутки внутри панели.
+@mixin aurora-scroll {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}

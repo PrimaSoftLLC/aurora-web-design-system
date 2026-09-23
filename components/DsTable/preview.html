@@ -1,0 +1,30 @@
+<!-- @dsCard group="3 · Компоненты · данные" height=300 subtitle="Таблица с границами: сортировка в заголовке, выбор, моно-столбцы, строки из плотности" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+var ROWS=[
+ {id:1,name:'MAZ 5440',plate:'AB 1234-7',group:'Грузовики',state:'moving',speed:'62'},
+ {id:2,name:'Volvo FH16',plate:'AC 8871-2',group:'Грузовики',state:'parked',speed:'0'},
+ {id:3,name:'GAZ Next',plate:'AH 4402-1',group:'Фургоны',state:'offline',speed:'—'},
+ {id:4,name:'Scania R450',plate:'AB 3390-6',group:'Грузовики',state:'alarm',speed:'91'}];
+var TONE={moving:'success',parked:'neutral',offline:'danger',alarm:'warning'},LABEL={moving:'Движение',parked:'Стоянка',offline:'Нет связи',alarm:'Тревога'};
+function App(){var sel=React.useState([2]),sort=React.useState({key:'name',dir:'asc'}),act=React.useState(4);
+  var rows=ROWS.slice().sort(function(a,b){return (a[sort[0].key]>b[sort[0].key]?1:-1)*(sort[0].dir==='asc'?1:-1);});
+  return h('div',{style:{height:260,display:'flex'}},h(S.DsTable,{rows:rows,selectable:true,selectedIds:sel[0],activeId:act[0],
+    onToggleRow:function(id){sel[1](function(x){return x.indexOf(id)>-1?x.filter(function(y){return y!==id;}):x.concat(id);});},
+    onToggleVisible:function(ids,next){sel[1](function(x){return next==='on'?x.concat(ids.filter(function(i){return x.indexOf(i)<0;})):x.filter(function(y){return ids.indexOf(y)<0;});});},
+    sortKey:sort[0].key,sortDir:sort[0].dir,onSort:function(k,d){sort[1]({key:k,dir:d});},onRowClick:function(r){act[1](r.id);},
+    columns:[{key:'name',label:'Объект',sortable:true,strong:true},{key:'plate',label:'Номер',mono:true},{key:'group',label:'Группа',sortable:true},
+      {key:'state',label:'Состояние',render:function(r){return h(S.DsBadge,{tone:TONE[r.state],dot:true},LABEL[r.state]);}},
+      {key:'speed',label:'Скорость, км/ч',mono:true,align:'right'}]}));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

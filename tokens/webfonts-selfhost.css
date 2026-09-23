@@ -1,0 +1,21 @@
+/* UI webfont delivery — PRODUCTION / ON-PREM.
+   The self-hosted half of the pair. Not imported by default: it expects the six
+   .woff2 files named below to be present, and a missing file is worse than a
+   documented CDN dependency. See assets/fonts/README.md for the exact file list
+   and where to get it.
+
+   To use: in styles.css replace
+     @import "tokens/webfonts-cdn.css";
+   with
+     @import "tokens/webfonts-selfhost.css";
+
+   Weights match the four the type roles actually use (400 regular, 500 medium,
+   600 semibold, 700 bold) plus mono 400/500 — do not add faces no role asks for.
+   font-display:swap so a cold cache shows text in the Helvetica fallback rather
+   than nothing: an operator console must never render blank. */
+@font-face{font-family:'Inter Tight';src:url('../assets/fonts/inter-tight/InterTight-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('../assets/fonts/inter-tight/InterTight-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('../assets/fonts/inter-tight/InterTight-SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter Tight';src:url('../assets/fonts/inter-tight/InterTight-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('../assets/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('../assets/fonts/jetbrains-mono/JetBrainsMono-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}

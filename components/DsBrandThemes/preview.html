@@ -1,0 +1,125 @@
+<!-- @dsCard group="2 · Основы" height=1840 subtitle="Переключатель темы и light/dark: что цвет сообщает, какой токен это делает и его значение в выбранном наборе" page -->
+<!DOCTYPE html>
+<html lang="ru" data-ds-theme="DEFAULT" data-ds-appearance="light"><head><meta charset="utf-8"><title>v2 · палитры бренда</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+.mono{font:var(--ds-type-mono)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.q{font:var(--ds-type-body-strong);color:var(--ds-fg-strong)}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:10px 12px;border:1px solid var(--ds-border);border-radius:var(--ds-radius-container);background:var(--ds-bg)}
+.lab{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle);margin-right:2px}
+.bar select{height:var(--ds-control-h);padding:0 8px;font:var(--ds-type-ui);color:var(--ds-fg);background:var(--ds-surface);border:1px solid var(--ds-border-field);border-radius:var(--ds-radius-control);cursor:pointer}
+.bar label{display:flex;align-items:center;gap:6px}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle);text-align:left;padding:0 10px 6px 0;border-bottom:1px solid var(--ds-border)}
+td{vertical-align:top;padding:7px 10px 8px 0;border-bottom:1px solid var(--ds-divider)}
+col.tokc{width:172px}col.setc{width:132px}col.valc{width:236px}
+.set{font:var(--ds-type-caption);color:var(--ds-fg-muted);display:block}
+.set.man{color:var(--ds-fg-strong);font:var(--ds-type-body-strong)}
+.setq{font:var(--ds-type-caption);font-size:11px;color:var(--ds-fg-subtle);display:block;margin-top:2px;text-wrap:pretty}
+.tok{font:var(--ds-type-mono);color:var(--ds-fg)}
+.role{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.sw{display:block;height:18px;border-radius:var(--ds-radius-xs);border:1px solid var(--ds-border);box-sizing:border-box}
+.hex{font:var(--ds-type-mono);font-size:10px;color:var(--ds-fg-muted);display:block;margin-top:3px}
+.chips{display:flex;gap:6px}.chip{flex:1;min-width:0}.lbl{color:var(--ds-fg-subtle)}
+tr.grp td{border-bottom:1px solid var(--ds-border);padding-top:16px}
+.gn{font:var(--ds-type-body-strong);color:var(--ds-fg-strong);margin-right:10px}
+.gd{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.no{color:var(--ds-danger-fg)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px 34px;margin:18px 0 0;padding-top:16px;border-top:1px solid var(--ds-border)}
+.note h3{font:var(--ds-type-body-strong);color:var(--ds-fg-strong);margin:0 0 7px}
+.note p{margin:0;font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.note p+p{margin-top:7px}
+dl.sfx{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px 12px;margin:0 0 7px}
+dl.sfx dt{font:var(--ds-type-mono);color:var(--ds-fg)}
+dl.sfx dd{margin:0;font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+ul.nos{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+ul.nos li{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
+.manual{margin:0 0 14px;padding:12px 14px;background:var(--ds-surface);border:1px solid var(--ds-border);border-radius:var(--ds-radius-control)}
+.manual h3{font:var(--ds-type-body-strong);color:var(--ds-fg-strong);margin:0 0 3px}
+.manual>p{margin:0 0 10px;font:var(--ds-type-caption);color:var(--ds-fg-muted);max-width:96ch;text-wrap:pretty}
+.manual dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px 12px;margin:0}
+.manual dt{font:var(--ds-type-mono);color:var(--ds-fg)}
+.manual dd{margin:0;font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
+.manual>p.both{margin:10px 0 0;padding-top:10px;border-top:1px solid var(--ds-divider)}
+.manual>p:last-child{margin-bottom:0}
+.manual code{font:var(--ds-type-mono);color:var(--ds-fg)}
+body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26px}
+</style></head><body>
+<p class="q" style="margin:0 0 4px">Выбор цвета — один вопрос: <i>что цвет сообщает?</i></p>
+<p class="cap" style="margin:0 0 12px;max-width:96ch">Не «какой оттенок красивее», а какой факт несёт элемент. Ответ даёт группу, роль внутри группы — то, лежит ли на цвете текст. Значения ниже — живые: они читаются из токенов выбранного набора.</p>
+<div class="manual">
+<h3>Что тенант задаёт руками</h3>
+<p>Новая тема — это девять значений в <span class="mono">tokens/brand.css</span> для светлого набора и шесть для тёмного — в таблице ниже они помечены как <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">тенант</b> в колонке «кто задаёт». Всё остальное — нейтрали, границы, статусы, ховеры, хедер — выводится из семантического слоя и меняется само. В системе живут две палитры — <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">DEFAULT</b> и <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">RED2</b>, ровно те, что в продакшене; спекулятивные наборы удалены, потому что никто их не рендерил и контраст в них никто не проверял. Новый тенант получает свой блок от своих настоящих цветов, а не выбирает из готовых. Как подбирать сами значения — <a href="../DsBrandPick/preview.html">«Как выбрать цвета темы»</a>.</p>
+<p class="both">Каждый набор задаётся дважды — один раз в <code>[data-ds-theme="NAME"]</code> и один раз в <code>[data-ds-appearance="dark"][data-ds-theme="NAME"]</code> (плюс дубль как потомок, потому что тему можно переопределить в поддереве отдельно от режима). Тёмный набор не выводится из светлого арифметически: заливка перезажигается вверх по светлоте — средний бренд становится светлым, из-за чего <span class="mono">--ds-on-brand</span> переворачивается с белого на тёмный; <span class="mono">-subtle</span> и <span class="mono">-border</span> перестают быть красками и становятся альфа-вошами того же hue (14% и 34%), чтобы тонировка совпадала с любым уровнем грунта.</p>
+<p>В тёмном наборе шесть значений вместо девяти: <span class="mono">--ds-accent-mark</span> и <span class="mono">-mark-on</span> там равны акценту и его подписи — на тёмном грунте акцент уже держит 3:1 сам.</p>
+</div>
+<div class="bar">
+<label><span class="lab">тема</span><select id="th"><option>DEFAULT</option><option>RED2</option></select></label>
+<label><span class="lab">режим</span><select id="ap"><option value="light">light</option><option value="dark">dark</option></select></label>
+</div>
+<table><colgroup><col class="tokc"><col><col class="setc"><col class="valc"></colgroup>
+<tr><th>Токен</th><th>Когда брать</th><th>Кто задаёт</th><th>Значение в выбранном наборе</th></tr>
+<tr class="grp"><td colspan="4"><span class="gn">BRAND</span><span class="gd">действие и выбор — «это можно нажать» или «это выбрано». Меняется от тенанта: четыре значения здесь плюс пять в ACCENT — и ещё шесть для dark</span></td></tr>
+<tr><td><span class="tok">--ds-brand</span></td><td class="role">Заливка главного действия, активного таба, выбранного чекбокса. Гарантированно несёт белую подпись <span class="mono">--ds-on-brand</span></td><td><span class="set man">тенант</span><span class="setq">в dark поднимается по светлоте</span></td><td><span class="sw" style="background:var(--ds-brand)"></span><span class="hex" data-token="--ds-brand"></span></td></tr>
+<tr><td><span class="tok">--ds-brand-subtle</span></td><td class="role">Фон выбранной строки и мягкая брендовая плашка. В dark это не бледный тон, а низкоальфовый смыв того же оттенка</td><td><span class="set man">тенант</span><span class="setq">в dark — альфа-вош 14%</span></td><td><span class="sw" style="background:var(--ds-brand-subtle)"></span><span class="hex" data-token="--ds-brand-subtle"></span></td></tr>
+<tr><td><span class="tok">--ds-brand-border</span></td><td class="role">Граница вокруг subtle-плашки и брендового блока</td><td><span class="set man">тенант</span><span class="setq">в dark — альфа-вош 34%</span></td><td><span class="sw" style="background:var(--ds-brand-border)"></span><span class="hex" data-token="--ds-brand-border"></span></td></tr>
+<tr><td><span class="tok">--ds-brand-text</span></td><td class="role">Брендовые чернила и ссылки на поверхности. Никогда не заливка</td><td><span class="set man">тенант</span><span class="setq">светлее заливки в dark</span></td><td><span class="sw" style="background:var(--ds-brand-text)"></span><span class="hex" data-token="--ds-brand-text"></span></td></tr>
+<tr class="grp"><td colspan="4"><span class="gn">ACCENT</span><span class="gd">внимание — «здесь появилось новое» или метка тенанта. Не действие и не статус</span></td></tr>
+<tr><td><span class="tok">--ds-accent</span></td><td class="role">Заливка-акцент, на которой лежит подпись: env-бейдж, счётчик в хедере</td><td><span class="set man">тенант</span><span class="setq">в dark обычно перезажигается — совпадает только у жёлтых</span></td><td><span class="sw" style="background:var(--ds-accent)"></span><span class="hex" data-token="--ds-accent"></span></td></tr>
+<tr><td><span class="tok">--ds-accent-on</span></td><td class="role">Чернила на акцентной заливке</td><td><span class="set man">тенант</span><span class="setq">белое или тёмное — что проходит</span></td><td><span class="sw" style="background:var(--ds-accent-on)"></span><span class="hex" data-token="--ds-accent-on"></span></td></tr>
+<tr><td><span class="tok">--ds-accent-subtle</span></td><td class="role">Мягкая акцентная подсветка — например, новая строка в списке</td><td><span class="set man">тенант</span><span class="setq">в dark — альфа-вош 16%</span></td><td><span class="sw" style="background:var(--ds-accent-subtle)"></span><span class="hex" data-token="--ds-accent-subtle"></span></td></tr>
+<tr><td><span class="tok">--ds-accent-mark</span></td><td class="role">Акцент как фигура без текста: точка и бейдж непрочитанного (порог 3:1). В dark совпадает с акцентом</td><td><span class="set man">тенант</span><span class="setq">только light: в dark равен акценту</span></td><td><span class="sw" style="background:var(--ds-accent-mark)"></span><span class="hex" data-token="--ds-accent-mark"></span></td></tr>
+<tr class="grp"><td colspan="4"><span class="gn">STATUS</span><span class="gd">факт о данных. Не зависит от темы — офлайн читается одинаково у всех тенантов; в dark заливки светлеют</span></td></tr>
+<tr><td><span class="tok">--ds-success-*</span></td><td class="role">Норма: объект на связи, действие удалось</td><td><span class="set">система</span><span class="setq">темонезависим</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-success-bg)"></span><span class="hex lbl">bg</span></span><span class="chip"><span class="sw" style="background:var(--ds-success-line)"></span><span class="hex lbl">line</span></span><span class="chip"><span class="sw" style="background:var(--ds-success-fg)"></span><span class="hex lbl">fg</span></span><span class="chip"><span class="sw" style="background:var(--ds-success-solid)"></span><span class="hex lbl">solid</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-warning-*</span></td><td class="role">Предупреждение: данные устаревают, значение у порога</td><td><span class="set">система</span><span class="setq">темонезависим</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-warning-bg)"></span><span class="hex lbl">bg</span></span><span class="chip"><span class="sw" style="background:var(--ds-warning-line)"></span><span class="hex lbl">line</span></span><span class="chip"><span class="sw" style="background:var(--ds-warning-fg)"></span><span class="hex lbl">fg</span></span><span class="chip"><span class="sw" style="background:var(--ds-warning-solid)"></span><span class="hex lbl">solid</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-danger-*</span></td><td class="role">Ошибка, офлайн, необратимое действие</td><td><span class="set">система</span><span class="setq">темонезависим</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-danger-bg)"></span><span class="hex lbl">bg</span></span><span class="chip"><span class="sw" style="background:var(--ds-danger-line)"></span><span class="hex lbl">line</span></span><span class="chip"><span class="sw" style="background:var(--ds-danger-fg)"></span><span class="hex lbl">fg</span></span><span class="chip"><span class="sw" style="background:var(--ds-danger-solid)"></span><span class="hex lbl">solid</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-info-*</span></td><td class="role">Нейтральное сообщение, подсказка, «в работе»</td><td><span class="set">система</span><span class="setq">темонезависим</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-info-bg)"></span><span class="hex lbl">bg</span></span><span class="chip"><span class="sw" style="background:var(--ds-info-line)"></span><span class="hex lbl">line</span></span><span class="chip"><span class="sw" style="background:var(--ds-info-fg)"></span><span class="hex lbl">fg</span></span><span class="chip"><span class="sw" style="background:var(--ds-info-solid)"></span><span class="hex lbl">solid</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-neutral-*</span></td><td class="role">Нет данных, выключено, не применимо</td><td><span class="set">система</span><span class="setq">темонезависим</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-neutral-bg)"></span><span class="hex lbl">bg</span></span><span class="chip"><span class="sw" style="background:var(--ds-neutral-line)"></span><span class="hex lbl">line</span></span><span class="chip"><span class="sw" style="background:var(--ds-neutral-fg)"></span><span class="hex lbl">fg</span></span><span class="chip"><span class="sw" style="background:var(--ds-neutral-solid)"></span><span class="hex lbl">solid</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-state-* / --ds-fresh-*</span></td><td class="role">Словарь парка: состояние объекта и свежесть последнего сообщения. Разные факты — стоянка может быть свежей</td><td><span class="set">система</span><span class="setq">алиасы статусов</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-state-moving)"></span><span class="hex lbl">moving</span></span><span class="chip"><span class="sw" style="background:var(--ds-state-alarm)"></span><span class="hex lbl">alarm</span></span><span class="chip"><span class="sw" style="background:var(--ds-fresh-recent)"></span><span class="hex lbl">recent</span></span><span class="chip"><span class="sw" style="background:var(--ds-fresh-none)"></span><span class="hex lbl">none</span></span></span></td></tr>
+<tr class="grp"><td colspan="4"><span class="gn">НЕЙТРАЛИ</span><span class="gd">всё остальное. Если сомневаетесь — это нейтраль; экран никогда не называет шаг рампы напрямую</span></td></tr>
+<tr><td><span class="tok">--ds-bg / -surface</span></td><td class="role">Фон страницы, фон карточки и полей</td><td><span class="set">система</span><span class="setq">рампа в light, свои значения в dark</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-bg)"></span><span class="hex lbl">bg</span></span><span class="chip"><span class="sw" style="background:var(--ds-surface)"></span><span class="hex lbl">surface</span></span><span class="chip"><span class="sw" style="background:var(--ds-surface-raised)"></span><span class="hex lbl">raised</span></span><span class="chip"><span class="sw" style="background:var(--ds-surface-hover)"></span><span class="hex lbl">hover</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-fg / -muted / -subtle</span></td><td class="role">Основной текст, второстепенный, подписи и единицы</td><td><span class="set">система</span><span class="setq">алиасы рампы в обоих наборах</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-fg-strong)"></span><span class="hex lbl">strong</span></span><span class="chip"><span class="sw" style="background:var(--ds-fg)"></span><span class="hex lbl">fg</span></span><span class="chip"><span class="sw" style="background:var(--ds-fg-muted)"></span><span class="hex lbl">muted</span></span><span class="chip"><span class="sw" style="background:var(--ds-fg-subtle)"></span><span class="hex lbl">subtle</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-border / -divider</span></td><td class="role">Границы контейнеров и полей, разделители строк</td><td><span class="set">система</span><span class="setq">рампа в light, свои значения в dark</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-border)"></span><span class="hex lbl">border</span></span><span class="chip"><span class="sw" style="background:var(--ds-border-strong)"></span><span class="hex lbl">strong</span></span><span class="chip"><span class="sw" style="background:var(--ds-border-field)"></span><span class="hex lbl">field</span></span><span class="chip"><span class="sw" style="background:var(--ds-divider)"></span><span class="hex lbl">divider</span></span></span></td></tr>
+<tr><td><span class="tok">--ds-fg-disabled</span></td><td class="role">Отключённый элемент — это цвет, а не прозрачность</td><td><span class="set">система</span><span class="setq">алиасы рампы в обоих наборах</span></td><td><span class="chips"><span class="chip"><span class="sw" style="background:var(--ds-fg-disabled)"></span><span class="hex lbl">fg</span></span><span class="chip"><span class="sw" style="background:var(--ds-surface-disabled)"></span><span class="hex lbl">surface</span></span></span></td></tr>
+</table>
+<div class="notes">
+<div class="note">
+<h3>Суффиксы статусов</h3>
+<dl class="sfx">
+<dt>-bg</dt><dd>мягкая заливка подложки: бейдж, полоса сообщения</dd>
+<dt>-line</dt><dd>граница к этой заливке</dd>
+<dt>-fg</dt><dd>чернила: текст и иконка на <span class="mono">-bg</span> или на обычной поверхности</dd>
+<dt>-solid</dt><dd>плотная заливка, когда фигура отделяется сама: точка состояния, метка на карте, кнопка danger. Подпись на ней — <span class="mono">--ds-on-solid</span></dd>
+</dl>
+<p>Один и тот же смысл в четырёх значениях. Брать <span class="mono">-fg</span> как заливку или <span class="mono">-solid</span> как цвет текста нельзя: их пороги контраста считаются к разным фонам.</p>
+</div>
+<div class="note">
+<h3>Почему заливка, чернила и метка — разные токены</h3>
+<p>Порог <b style="color:var(--ds-fg)">AA</b> (WCAG: контраст текста к фону под ним ≥ 4,5:1; для крупного — от 24px или 19px полужирного — 3:1) одно значение в двух ролях не проходит. <span class="mono">--ds-brand</span> держит белую подпись на себе, а брендовый текст на светлой поверхности требует более тёмного <span class="mono">--ds-brand-text</span>. У акцента то же: заливка под подпись — <span class="mono">--ds-accent</span>, метка без текста — <span class="mono">--ds-accent-mark</span>, где 3:1 считается к поверхности.</p>
+<p>Это тот минимум, при котором подпись остаётся читаемой при засветке экрана в кабине и на дешёвой матрице.</p>
+</div>
+<div class="note">
+<h3>Скоуп и состояния</h3>
+<p>Набор задаётся через <span class="mono">[data-ds-theme]</span> и <span class="mono">[data-ds-appearance]</span> на любом предке — переключатель выше просто ставит их на корень страницы.</p>
+<p>Отдельных <span class="mono">-hover</span> / <span class="mono">-active</span> у бренда нет: наведение и нажатие — универсальный оверлей собственными чернилами контрола (<span class="mono">--ds-overlay-hover</span> 10%, <span class="mono">--ds-overlay-press</span> 16%).</p>
+</div>
+<div class="note">
+<h3>Что проверять</h3>
+<p>Между брендами меняются только девять значений — группы BRAND и ACCENT. Поэтому экран достаточно проверить в <b style="color:var(--ds-fg)">DEFAULT</b> и <b style="color:var(--ds-fg)">RED2</b> плюс один раз в dark.</p>
+</div>
+<div class="note">
+<h3>Три «не»</h3>
+<ul class="nos">
+<li><b class="no">Не</b> accent на кнопке — акцент не означает «нажми».</li>
+<li><b class="no">Не</b> brand на статусе — офлайн должен читаться одинаково у всех тенантов.</li>
+<li><b class="no">Не</b> заливка под текст — у чернил отдельный, более тёмный токен.</li>
+</ul>
+</div>
+</div>
+<script>const root=document.documentElement;
+function sync(){const cs=getComputedStyle(root);for(const el of document.querySelectorAll('.hex[data-token]')){const v=cs.getPropertyValue(el.dataset.token).trim();el.textContent=v.startsWith('rgba')?v.replace(/\s+/g,''):v}}
+const th=document.getElementById('th'),ap=document.getElementById('ap');
+th.addEventListener('change',()=>{root.setAttribute('data-ds-theme',th.value);sync()});
+ap.addEventListener('change',()=>{root.setAttribute('data-ds-appearance',ap.value);sync()});
+sync();</script>
+</body></html>

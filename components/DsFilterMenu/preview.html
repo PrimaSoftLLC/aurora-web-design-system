@@ -1,0 +1,23 @@
+<!-- @dsCard group="3 · Компоненты · формы" height=110 subtitle="Редактор фильтра в поповере: все восемь типов; значение — черновик до «Применить»" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){var a=React.useState(['moving','parked']),b=React.useState({key:'name',dir:'asc'});
+  return h('div',{className:'row'},
+    h(S.DsFilterMenu,{label:'Состояние',type:'checkbox-list',value:a[0],onApply:a[1],
+      options:[{value:'moving',label:'Движение',count:62},{value:'parked',label:'Стоянка',count:71},{value:'offline',label:'Нет связи',count:15}]}),
+    h(S.DsFilterMenu,{label:'Скорость',type:'number-range',value:{from:'60',to:''},onApply:function(){}}),
+    h(S.DsFilterMenu,{label:'Сортировка',type:'sort-by',value:b[0],onApply:b[1],
+      options:[{value:'name',label:'Название',asc:'А → Я',desc:'Я → А'},{value:'last',label:'Последнее сообщение',asc:'Сначала старые',desc:'Сначала новые'}]}),
+    h('span',{className:'cap'},'Нажмите, чтобы открыть'));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

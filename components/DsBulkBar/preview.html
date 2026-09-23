@@ -1,0 +1,21 @@
+<!-- @dsCard group="3 · Компоненты · данные" height=120 subtitle="Панель действий над N выбранными строками таблицы; в покое её нет" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){var c=React.useState(12);
+  return c[0]?h(S.DsBulkBar,{count:c[0],total:148,noun:'объектов',onSelectAll:function(all){c[1](all?148:0);},onClear:function(){c[1](0);}},
+      h(S.DsButton,{slot:'actions',size:'sm',tone:'secondary',icon:'label'},'В группу'),
+      h(S.DsButton,{slot:'actions',size:'sm',tone:'secondary',icon:'download'},'Экспорт'),
+      h(S.DsButton,{slot:'actions',size:'sm',tone:'danger',icon:'archive'},'В архив'))
+    :h(S.DsButton,{tone:'secondary',onClick:function(){c[1](12);}},'Выбрать 12 строк');}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>

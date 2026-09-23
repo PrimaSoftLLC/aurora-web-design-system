@@ -1,0 +1,21 @@
+<!-- @dsCard group="4 · Бренд (общее)" height=300 subtitle="Стрелки направления так, как их рисует трек — треугольник в цвете трека с белой кромкой 1 px. Десять цветовых вариантов." page -->
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0}*{box-sizing:border-box}
+body{font-family:var(--ds-font-sans);background:var(--ds-surface);color:var(--ds-fg);font:var(--ds-type-body);padding:16px}
+#w{display:flex;flex-direction:column;gap:12px}
+.mono{font:var(--ds-type-mono);font-size:10px;color:var(--ds-fg-muted)}
+.eb{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle)}
+p{margin:0;font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty;max-width:92ch}
+a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px}
+.s{display:flex;flex-direction:column;gap:5px;padding:8px;border:1px solid var(--ds-border);border-radius:var(--ds-radius-sm);background:var(--ds-bg)}
+.s svg{display:block;width:100%;height:auto}
+.s .n{display:flex;justify-content:space-between;gap:6px}</style></head><body>
+<div id="w">
+<div class="grid" id="g"></div>
+<p><b style="font-weight:500;color:var(--ds-fg)">Как это нарисовано.</b> Стрелка — это украшение линии, а не графический ассет: правильная фигура из 3 точек, радиус 6, залита собственным цветом трека и обведена белым в 1 px, чтобы читаться там, где трек пересекает обводку магистрали. Поворот берётся из азимута сегмента, шаг — из вида, см. <a href="../MapTrack/preview.html">Трек на карте</a>.</p>
+</div>
+<script>
+const C=[['accent','#FF4081'],['blue','#2B8CF7'],['green','#589E21'],['red','#FF0000'],['orange','#FFA500'],['black','#000000'],['gray','#808080'],['purple','#800080'],['brown','#A52A2A'],['mauve','#993366']];
+document.getElementById('g').innerHTML=C.map(([n,c])=>'<div class="s"><svg viewBox="0 0 128 26"><path d="M2 13H126" stroke="'+c+'" stroke-width="3" stroke-linecap="round"></path><g fill="'+c+'" stroke="#fff" stroke-width="1"><path d="M0 -7L4.8 5.2L-4.8 5.2Z" transform="translate(40 13) rotate(90)"></path><path d="M0 -7L4.8 5.2L-4.8 5.2Z" transform="translate(92 13) rotate(90)"></path></g></svg><div class="n"><span class="mono">'+n+'</span><span class="mono" style="color:var(--ds-fg-subtle)">'+c+'</span></div></div>').join('');
+</script></body></html>

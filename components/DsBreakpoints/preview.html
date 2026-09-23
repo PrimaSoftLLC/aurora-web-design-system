@@ -1,0 +1,58 @@
+<!-- @dsCard group="2 · Основы" height=720 subtitle="Четыре фиксированных размера из ViewBreakpointService — каждый порог переключает ровно одну вещь" page -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><title>v2 · брейкпоинты</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:22px;box-sizing:border-box;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;gap:18px}
+.eb{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle)}
+.mono{font:var(--ds-type-mono);color:var(--ds-fg-muted)}
+a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
+h3{font:var(--ds-type-section);margin:0 0 8px}
+p{margin:0;text-wrap:pretty}
+table{width:100%;border-collapse:collapse}
+th{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ds-border);font-weight:var(--ds-weight-semibold)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.matrix td:not(:first-child),.matrix th:not(:first-child){text-align:center;padding-right:0}
+.on{font:var(--ds-type-ui);color:var(--ds-fg)}
+.off{font:var(--ds-type-ui);color:var(--ds-fg-muted)}
+.flip{display:inline-block;font:var(--ds-type-ui);color:var(--ds-brand-text);background:var(--ds-brand-subtle);border:1px solid var(--ds-brand-border);border-radius:var(--ds-radius-control,6px);padding:2px 9px}
+body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26px}
+</style></head><body>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--ds-border);border:1px solid var(--ds-border);border-radius:var(--ds-radius-container,10px);overflow:hidden;flex:none">
+<div style="background:var(--ds-surface);padding:12px 14px;display:flex;flex-direction:column;gap:5px"><span class="eb">S</span><span style="font:var(--ds-type-mono);color:var(--ds-fg)">0 – 719</span><span style="font:var(--ds-type-caption);color:var(--ds-fg-subtle)">телефон, узкая панель</span></div>
+<div style="background:var(--ds-surface);padding:12px 14px;display:flex;flex-direction:column;gap:5px"><span class="eb">M</span><span style="font:var(--ds-type-mono);color:var(--ds-fg)">720 – 959</span><span style="font:var(--ds-type-caption);color:var(--ds-fg-subtle)">планшет вертикально</span></div>
+<div style="background:var(--ds-surface);padding:12px 14px;display:flex;flex-direction:column;gap:5px"><span class="eb">L</span><span style="font:var(--ds-type-mono);color:var(--ds-fg)">960 – 1139</span><span style="font:var(--ds-type-caption);color:var(--ds-fg-subtle)">планшет горизонтально, небольшой ноутбук</span></div>
+<div style="background:var(--ds-surface);padding:12px 14px;display:flex;flex-direction:column;gap:5px"><span class="eb">XL</span><span style="font:var(--ds-type-mono);color:var(--ds-fg)">1140 +</span><span style="font:var(--ds-type-caption);color:var(--ds-fg-subtle)">десктоп</span></div></div>
+
+<div><h3>Каждый порог переключает ровно одну вещь</h3>
+<table class="matrix"><thead><tr><th style="width:34%">&nbsp;</th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead><tbody>
+<tr><td>Отступы и высота строки</td><td><span class="flip">compact</span></td><td class="on">полные</td><td class="on">полные</td><td class="on">полные</td></tr>
+<tr><td>Структура страницы</td><td class="on">одна колонка</td><td class="on">одна колонка</td><td><span class="flip">две колонки</span></td><td class="on">две колонки</td></tr>
+<tr><td>Второстепенное содержимое<br><span style="font:var(--ds-type-caption);color:var(--ds-fg-subtle)">действия в строке, края пагинатора, словесный логотип</span></td><td class="off">скрыто</td><td><span class="flip">показано</span></td><td class="on">показано</td><td class="on">показано</td></tr>
+<tr><td>Подписи и имена<br><span style="font:var(--ds-type-caption);color:var(--ds-fg-subtle)">подписи навигации, имя пользователя, вкладки вместо селекта</span></td><td class="off">скрыто</td><td class="off">скрыто</td><td><span class="flip">показано</span></td><td class="on">показано</td></tr>
+<tr><td>Ширина контента</td><td class="on">резиновая</td><td class="on">резиновая</td><td class="on">резиновая</td><td><span class="flip">ограничена 1440</span></td></tr>
+</tbody></table></div>
+
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start">
+
+<div><h3>Сравнения строгие</h3>
+<table><thead><tr><th>Вызов</th><th>Истинно на</th><th>Читается как</th></tr></thead><tbody>
+<tr><td class="mono">equal('s')</td><td>S</td><td>только самый узкий</td></tr>
+<tr><td class="mono">more('s')</td><td>M L XL</td><td>&ge; M</td></tr>
+<tr><td class="mono">more('m')</td><td>L XL</td><td>&ge; L</td></tr>
+<tr><td class="mono">less('l')</td><td>S M</td><td>&le; M</td></tr>
+<tr><td class="mono">more('l')</td><td>XL</td><td>= XL</td></tr>
+</tbody></table>
+<p style="font:var(--ds-type-caption);color:var(--ds-fg-muted);margin-top:9px"><span class="mono">more('m')</span> — это не «M и шире». Называйте классы и пишите документацию по результату: <span class="mono">column_le_l</span>, а не <span class="mono">more_m</span>.</p></div>
+
+<div style="display:flex;flex-direction:column;gap:14px">
+<div><h3>Правила</h3>
+<p style="font:var(--ds-type-body);color:var(--ds-fg-muted)">Четыре глобальных порога, пятого нет. Всё, что мельче, — <b style="color:var(--ds-fg);font-weight:var(--ds-weight-medium)">container query</b> на конкретном компоненте.<br>
+Верхняя граница диапазона = следующий порог &minus; 1px. Никогда <span class="mono">max-width:720px</span>.<br>
+<span class="mono">equal()</span> — только для <span class="mono">'s'</span>; во всех остальных случаях <span class="mono">more()</span> / <span class="mono">less()</span>, чтобы расширение шкалы не спрятало элемент молча.<br>
+Ничто не появляется на двух шагах: имя и его подпись живут на одном пороге.</p></div>
+<div><h3 style="color:var(--ds-danger-fg)">Долг — не расширять</h3>
+<p style="font:var(--ds-type-caption);color:var(--ds-fg-muted)">Пороги в SCSS, не принадлежащие ни одной шкале: <span class="mono">600px</span> file-dropzone, stepper-header, geofence-import · <span class="mono">900px</span> stepper-header, geofence header · <span class="mono">1350px</span> user-portal header · <span class="mono">520 / 380px</span> schedule-common-deviation · <span class="mono">max-width:720px</span> schedule-checkpoint-card, one-off-run (ошибка на 1px).</p></div>
+</div>
+
+</div>
+</body></html>

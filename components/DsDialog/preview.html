@@ -1,0 +1,20 @@
+<!-- @dsCard group="3 · Компоненты · раскладка" height=420 subtitle="Модальное окно: высота по содержимому, действия справа — отмена, затем подтверждение" -->
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:16px;-webkit-font-smoothing:antialiased}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+.sep{width:1px;height:24px;background:var(--ds-divider)}
+.cap{font:var(--ds-type-caption);color:var(--ds-fg-muted)}
+.dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
+</style></head><body><div id="root"></div><script>
+(function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
+function App(){var o=React.useState(true);
+  return h('div',null,h(S.DsButton,{tone:'danger',icon:'archive',onClick:function(){o[1](true);}},'Переместить в архив…'),
+    h(S.DsDialog,{open:o[0],size:'sm',tone:'danger',title:'Переместить объект «Volvo FH16» в архив?',
+      description:'Объект пропадёт с карты. Его история останется доступна в отчётах.',onClose:function(){o[1](false);},
+      actions:[h(S.DsButton,{key:'c',tone:'secondary',onClick:function(){o[1](false);}},'Отмена'),h(S.DsButton,{key:'a',tone:'danger',onClick:function(){o[1](false);}},'Переместить в архив')]}));}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
+</script></body></html>
