@@ -3,6 +3,8 @@
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Policy: [VERSIONING.md](VERSIONING.md).
 
+## [Unreleased]
+
 ## [2.0.0] — 2026-09-23
 
 ### Changed — BREAKING
