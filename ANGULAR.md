@@ -5,10 +5,13 @@
 которому пишутся Angular-компоненты. В бандл попадает только `dist/styles.css`
 (и его источники — см. ниже); `tokens/` из пакета не поставляется.
 
+Пошагово для нового проекта, от токена доступа до CI, — [docs/getting-started.md](docs/getting-started.md).
+
 ## 1. Установка
 
 ```bash
-npm i @nikolaynn/design-system
+npm i -E @nikolaynn/design-system   # точная версия; доступ к пакету — PUBLISHING.md
+npm i echarts                       # нужен Angular-слою (§5)
 ```
 
 `angular.json` → `projects.<app>.architect.build.options.styles`, первой строкой,
@@ -39,11 +42,16 @@ npm i @nikolaynn/design-system
 <body data-ds-theme="DEFAULT" data-ds-appearance="light" data-ds-density="cozy">
 ```
 
-Тема приходит из `FRONT_BRAND` в рантайме, как и сейчас. Существующий механизм
-`theme-*` класса ломать не нужно — достаточно выставлять рядом атрибут:
+Атрибуты ставит `AuroraThemeService` из Angular-слоя (§5): `provideAurora({ theme })` в
+`app.config.ts` и внедрение сервиса в корневом компоненте — он создаётся лениво, и без внедрения атрибутов не
+будет. Тот же набор атрибутов статически в `index.html` убирает мигание до старта Angular. Это путь для нового
+проекта ([docs/getting-started.md](docs/getting-started.md), шаг 6).
+
+Приложение без слоя (легаси с собственным конфигом бренда) может выставлять атрибуты само. Тема приходит из
+`FRONT_BRAND` в рантайме, как и сейчас; механизм `theme-*` класса ломать не нужно — атрибут ставится рядом:
 
 ```ts
-// app.component.ts
+// app.component.ts — только без Angular-слоя
 @Component({ selector: 'app-root', /* … */ })
 export class AppComponent implements OnInit {
   private readonly doc = inject(DOCUMENT);

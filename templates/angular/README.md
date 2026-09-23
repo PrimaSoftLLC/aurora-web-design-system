@@ -53,6 +53,8 @@ private readonly aurora = inject(AuroraThemeService);
 toggleDark() { this.aurora.setAppearance(this.aurora.appearance() === 'dark' ? 'light' : 'dark'); }
 ```
 
+Сервис создаётся лениво: внедрите его в корневом компоненте, иначе атрибутов на `<body>` не будет.
+
 Существующий класс `theme-*` из `FRONT_BRAND` убирать не нужно: сервис ставит
 атрибут рядом, механизм white-label не меняется.
 

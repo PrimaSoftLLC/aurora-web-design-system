@@ -1,5 +1,7 @@
 ## Установка
 
+Пошагово для нового проекта — [docs/getting-started.md](docs/getting-started.md). Коротко:
+
 ```bash
 # .npmrc приложения
 @nikolaynn:registry=https://npm.pkg.github.com
