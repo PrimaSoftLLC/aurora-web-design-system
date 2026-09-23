@@ -14,7 +14,7 @@
 - Токены, компоненты, превью, карточки, `tokens.css`, `components/bundle.css`, `.d.ts` — в артефакте Claude, в
   репозиторий приходят синхронизацией (SYNC.md). Здесь их не править; если без правки не обойтись — строка в
   SYNC.md «перенести в артефакт».
-- Только здесь: `package.json`, `tools/`, `tests/`, `.github/`, `.claude/`, `docs/`, CLAUDE.md, SYNC.md.
+- Только здесь: `package.json`, `tools/`, `tests/`, `.github/`, `.claude/`, `docs/`, CLAUDE.md, SYNC.md, getting-started.md.
 
 ## Релиз
 - Ветки: `master` (релизы), `develop`, фичи `feature/*` от develop. Коммиты на английском.

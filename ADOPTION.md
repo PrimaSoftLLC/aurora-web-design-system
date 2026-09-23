@@ -49,7 +49,7 @@
 
 ## Новый проект (сейчас)
 
-Пошагово, от токена доступа до CI, — [docs/getting-started.md](docs/getting-started.md); подробности по каждому
+Пошагово, от токена доступа до CI, — [getting-started.md](getting-started.md); подробности по каждому
 шагу — в [ANGULAR.md](ANGULAR.md).
 Здесь только то, что относится к пилоту.
 

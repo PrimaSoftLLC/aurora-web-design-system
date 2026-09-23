@@ -24,7 +24,8 @@
     "CHANGELOG.md",
     "MIGRATION.md",
     "ANGULAR.md",
-    "LINT.md"
+    "LINT.md",
+    "getting-started.md"
   ],
   "exports": {
     ".": "./components/src/index.js",

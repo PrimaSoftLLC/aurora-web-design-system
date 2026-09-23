@@ -1,6 +1,6 @@
 ## Установка
 
-Пошагово для нового проекта — [docs/getting-started.md](docs/getting-started.md). Коротко:
+Пошагово для нового проекта — [getting-started.md](getting-started.md). Коротко:
 
 ```bash
 # .npmrc приложения
