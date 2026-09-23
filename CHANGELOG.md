@@ -150,6 +150,8 @@ Policy: [VERSIONING.md](VERSIONING.md).
 - `NAMING.md` — регламент имён токенов, с проверкой `lint/scripts/check-names.js`.
 - `LINT.md` и `lint/` — правила stylelint системы.
 - `ADOPTION.md` — порядок внедрения системы в проект.
+- Шрифты Inter Tight и JetBrains Mono лежат в пакете (латиница и кириллица, OFL 1.1) и подключены в
+  `dist/styles.css`: интерфейс не обращается к Google Fonts.
 
 ## [1.1.0] — 2026-09-17
 

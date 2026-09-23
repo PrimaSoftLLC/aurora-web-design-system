@@ -1,3 +1,16 @@
+## Установка
+
+```bash
+# .npmrc приложения
+@nikolaynn:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+```
+`npm i -E @nikolaynn/design-system`, стили — `@nikolaynn/design-system/styles.css` первой строкой, Angular — алиас
+из `templates/angular/README.md`, линтер — `@nikolaynn/design-system/stylelint-config` (нужен `stylelint` в
+зависимостях приложения — пакет несёт только конфиг). Доступ к пакету — PUBLISHING.md.
+
+---
+
 Aurora — платформа GPS-мониторинга коммерческого автопарка: объекты, водители, датчики, геозоны, маршруты, рейсы, отчёты, эко-вождение, видео, уведомления. Интерфейс плотный, про данные, для десктопа; ближе к пульту диспетчера, чем к потребительскому приложению. Оператор держит карту открытой весь день — рисуйте экран, на который смотрят восемь часов подряд.
 
 | Поверхность | Кто | Форма |

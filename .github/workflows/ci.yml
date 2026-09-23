@@ -1,0 +1,79 @@
+# CI дизайн-системы. Схема — стандарт релизов Aurora (~/.claude/CLAUDE.md), как у aur-billing и locator-front.
+#   PR в develop/master     -> npm run verify
+#   push в develop          -> npm run verify
+#   push в master (= релиз) -> guard «версия ещё не выпущена», verify, npm publish в GitHub Packages,
+#                              тег v<version> и GitHub Release из раздела CHANGELOG
+# Версия — package.json (разрабатываемая, её переводит /aurora-release). Теги ставит только этот workflow.
+# Секретов нет: публикация и чтение реестра под GITHUB_TOKEN.
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, master]
+  push:
+    branches: [develop, master]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+jobs:
+  verify:
+    name: Verify and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@nikolaynn'
+
+      - name: Package version
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Release guard, version must not be released (master only)
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/v$VERSION" >/dev/null; then
+            echo "::error::Version $VERSION is already released (tag v$VERSION exists). Bump the version on develop first (chore: start ...)."
+            exit 1
+          fi
+          if npm view "@nikolaynn/design-system@$VERSION" version >/dev/null 2>&1; then
+            echo "::error::@nikolaynn/design-system@$VERSION is already in GitHub Packages. Bump the version on develop first."
+            exit 1
+          fi
+          node tools/changelog-section.js "$VERSION" > /dev/null
+
+      - run: npm ci
+
+      - name: Verify
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        run: npm run verify
+
+      - name: Publish, tag and release (master only)
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          npm publish
+          git tag "v$VERSION"
+          git push origin "v$VERSION"
+          node tools/changelog-section.js "$VERSION" > release-notes.md
+          gh release create "v$VERSION" --title "v$VERSION" --notes-file release-notes.md

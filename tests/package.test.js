@@ -35,7 +35,7 @@ check('peer-зависимости необязательны', () => {
   for (const dep of Object.keys(pkg.peerDependencies ?? {})) {
     assert.equal(pkg.peerDependenciesMeta?.[dep]?.optional, true, `${dep} должен быть optional`);
   }
-  for (const dep of ['react', 'react-dom', 'echarts', '@angular/core', '@angular/common']) {
+  for (const dep of ['react', 'react-dom', 'echarts', '@angular/core', '@angular/common', 'stylelint']) {
     assert.ok(pkg.peerDependencies?.[dep], `peer ${dep} объявлен`);
   }
 });
