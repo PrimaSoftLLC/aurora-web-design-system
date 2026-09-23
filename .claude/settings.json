@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mise exec -- npm:*)",
+      "Bash(mise exec -- node:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Bash(npm ci:*)",
+      "Bash(npm pack:*)",
+      "Bash(node tools/:*)",
+      "Bash(node tests/:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git ls-files:*)"
+    ],
+    "deny": [
+      "Bash(npm publish:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/guard-bash.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
