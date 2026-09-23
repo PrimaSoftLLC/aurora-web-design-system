@@ -3,6 +3,7 @@
 #   push в develop          -> npm run verify
 #   push в master (= релиз) -> guard «версия ещё не выпущена», verify, npm publish в GitHub Packages,
 #                              тег v<version> и GitHub Release из раздела CHANGELOG
+#   workflow_dispatch       -> то же, что push в выбранную ветку (ручной перезапуск на том же коммите)
 # Версия — package.json (разрабатываемая, её переводит /aurora-release). Теги ставит только этот workflow.
 # Секретов нет: публикация и чтение реестра под GITHUB_TOKEN.
 name: CI
