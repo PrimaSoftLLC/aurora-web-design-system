@@ -38,3 +38,27 @@ export function rebaseUrls(root, fromDir, toDir) {
     });
   });
 }
+
+/** Ищет токен в наборе с откатом: набор → DEFAULT·<светлость> → DEFAULT·light (там нейтральная рампа) → root. */
+export function lookup(sets, set, prop) {
+  const appearance = set.includes('·') ? set.split('·')[1] : 'light';
+  for (const name of [set, `DEFAULT·${appearance}`, 'DEFAULT·light', 'root']) {
+    const value = sets.get(name)?.get(prop);
+    if (value !== undefined) return value;
+  }
+  return undefined;
+}
+
+/** Подставляет var(--x) без запасного значения по наборам tokens.css, пока есть что подставлять; результат нормализован. */
+export function resolve(sets, set, value) {
+  let v = normalize(value ?? '');
+  for (let i = 0; i < 20; i += 1) {
+    const next = v.replace(/var\((--[a-z0-9_-]+)\)/g, (whole, prop) => {
+      const found = lookup(sets, set, prop);
+      return found === undefined ? whole : normalize(found);
+    });
+    if (next === v) break;
+    v = next;
+  }
+  return v;
+}

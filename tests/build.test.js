@@ -3,7 +3,7 @@
  * Запуск: `node tests/build.test.js` после `npm run build`, часть `npm run verify`.
  */
 import { readFileSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import postcss from 'postcss';
@@ -18,22 +18,44 @@ const { styles, tokens } = buildDist({ root });
 const stylesAst = postcss.parse(styles);
 
 check('паритет репозитория чистый', () => {
-  const { mismatches, removed } = checkParity(read('tokens.css'), read('components/bundle.css'));
+  const { mismatches, compared, kinds } = checkParity(read('tokens.css'), read('components/bundle.css'));
   assert.deepEqual(mismatches, []);
-  // Нижней границы на число копий нет: артефакт уже сам очистил правила `:root{}` в bundle.css
-  // (остались пустые заглушки), и сейчас копий 0. Проверка остаётся стражем на случай их возврата.
-  console.log(`     паритет: ${removed.size} копий`);
+  // Замер на 2026-09-23: 164 = appearance 124 (два скоупа светлости по 61 токену + --ds-focus-color в общем
+  // правиле обеих светлостей) + theme 40 (две темы × две светлости × 10 входов бренда --ds-_X--light|dark).
+  // Пол — без общего правила фокуса: если сверка перестанет видеть скоупы, число рухнет ниже.
+  assert.ok(kinds.appearance >= 122, `светлость: сверено ${kinds.appearance} копий, ждали ≥ 122`);
+  assert.ok(kinds.theme >= 40, `темы: сверено ${kinds.theme} входов бренда, ждали ≥ 40`);
+  console.log(`     паритет: ${compared} копий`);
 });
-check('паритет ловит расхождение', () => {
-  const { mismatches } = checkParity(':root{--ds-fg:#111111}', ':root{--ds-fg:#222222}');
-  assert.equal(mismatches.length, 1);
-  assert.match(mismatches[0], /--ds-fg/);
+const PARITY_TOKENS = [
+  ':root, [data-theme="light"]{--ds-n-900:#1d222c;--ds-fg:var(--ds-n-900);--ds-brand:#2b5f9e}',
+  '[data-theme="ds-appearance-light-ds-red2"]{--ds-brand:#555354}',
+  '[data-theme="ds-appearance-dark-ds-default"]{--ds-fg:#eef0f4;--ds-brand:#5b92d4}',
+  ':root{--ds-dur:180ms}',
+].join('');
+const mismatchesOf = (bundle) => checkParity(PARITY_TOKENS, bundle).mismatches;
+check('паритет ловит расхождение каждого вида', () => {
+  const cases = {
+    ':root': ':root{--ds-dur:200ms}',
+    'светлость light': '[data-ds-appearance="light"]{--ds-fg:#00ff00}',
+    'светлость dark': '[data-ds-appearance="dark"], :where([data-theme="x"]){--ds-fg:#00ff00}',
+    'тема RED2·light': '[data-ds-theme="RED2"], :where([data-theme="x"]){--ds-_brand--light:#ff00ff}',
+    'тема RED2·dark → откат на DEFAULT·dark': '[data-ds-theme="RED2"]{--ds-_brand--dark:#ff00ff}',
+    'тема DEFAULT·light': '[data-ds-theme="DEFAULT"]{--ds-_brand--light:#ff00ff}',
+    'вход бренда без токена': '[data-ds-theme="DEFAULT"]{--ds-_nope--light:#ff00ff}',
+  };
+  for (const [name, bundle] of Object.entries(cases)) assert.equal(mismatchesOf(bundle).length, 1, name);
 });
-check('паритет не трогает @media и скоупы', () => {
-  const bundle = ':root{--ds-dur:180ms}@media (prefers-reduced-motion:reduce){:root{--ds-dur:0ms}}[data-ds-theme]{--ds-dur:1ms}';
-  const { mismatches, removed } = checkParity(':root{--ds-dur:180ms}', bundle);
+check('паритет сравнивает после подстановки var()', () => {
+  assert.deepEqual(mismatchesOf('[data-ds-appearance="light"]{--ds-fg:#1d222c}'), []);
+  assert.deepEqual(mismatchesOf('[data-ds-theme="RED2"]{--ds-_brand--light:#555354;--ds-_brand--dark:#5b92d4}'), []);
+});
+check('@media, переключатели и плотность — не копии', () => {
+  const bundle = '@media (prefers-reduced-motion:reduce){:root{--ds-dur:0ms}[data-ds-appearance="light"]{--ds-fg:#000}}'
+    + '[data-ds-appearance="light"]{--ds-_if-dark: ;--ds-control-h:30px}[data-ds-theme]{--ds-dur:1ms}';
+  const { mismatches, compared } = checkParity(PARITY_TOKENS, bundle);
   assert.deepEqual(mismatches, []);
-  assert.deepEqual([...removed], ['--ds-dur']);
+  assert.equal(compared, 0);
 });
 check('нет Google Fonts и рамочных селекторов артефакта', () => {
   assert.doesNotMatch(styles, /fonts\.googleapis\.com/);

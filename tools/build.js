@@ -8,7 +8,10 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import postcss from 'postcss';
 import { rebaseUrls, SET_SELECTORS } from './css.js';
-import { checkParity, copyDecls, rootTokenValues } from './check-parity.js';
+import { checkParity } from './check-parity.js';
+
+/** Рамки артефакта в списках селекторов bundle.css: DEFAULT·light — это :root пакета, остальные рамки не едут. */
+const FRAME_TO_ROOT = ':where([data-theme="light"])';
 
 const HEADER = (what) => `/* @nikolaynn/design-system — ${what}. Собрано tools/build.js, не править. */\n`;
 
@@ -32,12 +35,14 @@ const tokensPart = (onlyTokens) => (ast) => {
   });
 };
 
-export function buildDist({ root = fileURLToPath(new URL('..', import.meta.url)) } = {}) {
+/**
+ * @param {{root?: string, parity?: boolean}} options parity: false — только для теста фальсифицируемости каскада.
+ */
+export function buildDist({ root = fileURLToPath(new URL('..', import.meta.url)), parity = true } = {}) {
   const tokensCss = readFileSync(join(root, 'tokens.css'), 'utf8');
   const bundleCss = readFileSync(join(root, 'components/bundle.css'), 'utf8');
   const { mismatches } = checkParity(tokensCss, bundleCss);
-  if (mismatches.length) throw new Error(`паритет токенов нарушен:\n${mismatches.join('\n')}`);
-  const values = rootTokenValues(tokensCss);
+  if (parity && mismatches.length) throw new Error(`паритет токенов нарушен:\n${mismatches.join('\n')}`);
 
   const styles = HEADER('styles.css') + [
     part(root, 'tokens/webfonts-selfhost.css'),
@@ -45,12 +50,15 @@ export function buildDist({ root = fileURLToPath(new URL('..', import.meta.url))
     part(root, 'tokens/scoped.css'),
     part(root, 'components/bundle.css', (ast) => {
       ast.walkAtRules('import', (r) => r.remove());
-      for (const d of copyDecls(ast, values)) d.remove();
-      // Механизм бренда в bundle.css дублирует свои скоупы на рамки артефакта `:where([data-theme=…])`;
-      // наборы [data-theme=…] из tokens.css сборка не везёт, поэтому и эти члены списков уходят.
+      // Копии токенов в bundle.css не вырезаются: они работают в каскаде, их стережёт паритет.
+      // Механизм бренда дублирует свои скоупы на рамки артефакта `:where([data-theme=…])`. Рамка светлой
+      // DEFAULT становится `:where(:root)` — иначе у элемента с одной плотностью без темы-предка правило
+      // пересчёта собирает пустой --ds-brand; остальные рамки (их наборы из tokens.css не едут) уходят.
       ast.walkRules((r) => {
         if (!r.selector.includes('[data-theme=')) return;
-        const kept = r.selectors.filter((s) => !s.includes('[data-theme='));
+        const kept = [...new Set(r.selectors.map((s) => s.trim())
+          .map((s) => (s === FRAME_TO_ROOT ? ':where(:root)' : s))
+          .filter((s) => !s.includes('[data-theme=')))];
         if (kept.length) r.selectors = kept; else r.remove();
       });
       ast.walkRules((r) => { if (r.nodes.length === 0 || r.nodes.every((n) => n.type === 'comment')) r.remove(); });
