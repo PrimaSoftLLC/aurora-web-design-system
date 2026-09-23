@@ -47,7 +47,8 @@
     "check:parity": "node tools/check-parity.js",
     "check:pack": "node tools/check-pack.js",
     "prepack": "npm run build",
-    "verify": "npm test && npm run build && node tests/build.test.js && node tests/dist-cascade.test.js && npm run check:pack"
+    "verify": "npm test && npm run build && node tests/build.test.js && node tests/dist-cascade.test.js && npm run check:pack",
+    "pretest": "npm run build"
   },
   "peerDependencies": {
     "@angular/common": ">=19.0.0",
