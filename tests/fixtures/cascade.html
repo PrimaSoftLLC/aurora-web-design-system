@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../../dist/styles.css">
+</head>
+<body>
+  <div id="c-default-light" data-ds-theme="DEFAULT" data-ds-appearance="light" data-ds-density="cozy"></div>
+  <div id="c-default-dark" data-ds-theme="DEFAULT" data-ds-appearance="dark" data-ds-density="compact"></div>
+  <div id="c-red2-light" data-ds-theme="RED2" data-ds-appearance="light" data-ds-density="cozy"></div>
+  <div id="c-red2-dark" data-ds-theme="RED2" data-ds-appearance="dark" data-ds-density="compact"></div>
+  <div data-ds-theme="DEFAULT" data-ds-appearance="light" data-ds-density="cozy">
+    <div id="n-dark-in-light" data-ds-appearance="dark"></div>
+    <div id="n-red2-in-default" data-ds-theme="RED2"></div>
+  </div>
+  <pre id="out"></pre>
+  <script>
+    const props = ['--ds-brand', '--ds-bg', '--ds-fg', '--ds-focus-color', '--ds-control-h'];
+    const out = {};
+    for (const el of document.querySelectorAll('[id^="c-"],[id^="n-"]')) {
+      const cs = getComputedStyle(el);
+      out[el.id] = Object.fromEntries(props.map((p) => [p, cs.getPropertyValue(p).trim().toLowerCase()]));
+    }
+    document.getElementById('out').textContent = JSON.stringify(out);
+  </script>
+</body>
+</html>
