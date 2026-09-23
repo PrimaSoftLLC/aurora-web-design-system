@@ -9,3 +9,7 @@ Aurora ставится в инфраструктуру без выхода в �
 которой шкала размеров не выверена. `tokens/webfonts-cdn.css` остаётся только для превью артефакта.
 
 Пересобрать: команды в шапке `tools/fonts/build_fonts.py`; `--verify` проверяет кириллицу и веса.
+
+Иконочный шрифт **Material Symbols Outlined** (`fonts/MaterialSymbolsOutlined.woff2`, отдельная папка
+верхнего уровня) — лицензия Apache License 2.0 (`fonts/LICENSE`), не SIL OFL, как у Inter Tight и
+JetBrains Mono здесь.

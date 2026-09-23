@@ -40,8 +40,10 @@ Policy: [VERSIONING.md](VERSIONING.md).
   `ds-density-compact`. До этого они жили только в `components/bundle.css`, и
   правка размера в редакторе токенов меняла cozy, но не compact.
 - Приложения подключают `dist/styles.css`, собранный в репозитории из
-  `tokens.json` (`ANGULAR.md`). Темы, светлость и плотность в нём адресуются
+  `tokens.css` (`ANGULAR.md`). Темы, светлость и плотность в нём адресуются
   атрибутами `data-ds-*` и работают при любой вложенности скоупов.
+- `dist/tokens.css` несёт только цвет/бренд и корневые токены (без плотности, без
+  `--ds-type-*`); приложения по-прежнему подключают `dist/styles.css`.
 - `DsFilterMenu`: значение числового фильтра — число, а не строка. `number` отдаёт
   `number | null`, `number-range` — `{from, to}` из `number | null`, `date` и
   `date-range` — `'YYYY-MM-DD' | null`; стёртое поле — `null`, а не `''`. Тип

@@ -1,9 +1,15 @@
 """Собирает шесть woff2 для tokens/webfonts-selfhost.css из вариативных TTF Google Fonts.
 
 Разово, результат коммитится. Запуск из корня репозитория:
-    python -m venv .tmp/fonts-venv && .tmp/fonts-venv/Scripts/pip install -r tools/fonts/requirements.txt
+    python -m venv .tmp/fonts-venv
+    # Windows:
+    .tmp/fonts-venv/Scripts/pip install -r tools/fonts/requirements.txt
     .tmp/fonts-venv/Scripts/python tools/fonts/build_fonts.py          # сборка + проверка
     .tmp/fonts-venv/Scripts/python tools/fonts/build_fonts.py --verify # только проверка
+    # Linux/macOS:
+    .tmp/fonts-venv/bin/pip install -r tools/fonts/requirements.txt
+    .tmp/fonts-venv/bin/python tools/fonts/build_fonts.py          # сборка + проверка
+    .tmp/fonts-venv/bin/python tools/fonts/build_fonts.py --verify # только проверка
 Сабсет: латиница + кириллица в одном файле на начертание (assets/fonts/README.md).
 """
 import hashlib

@@ -52,10 +52,10 @@
   "peerDependencies": {
     "@angular/common": ">=19.0.0",
     "@angular/core": ">=19.0.0",
-    "echarts": "^5.5.0",
+    "echarts": "^5.5.0 || ^6.0.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "stylelint": "^16.10.0"
+    "stylelint": "^16.10.0 || ^17.0.0"
   },
   "peerDependenciesMeta": {
     "react": {

@@ -2,8 +2,8 @@
 
 Система поставляется как **CSS-токены + спецификация**. React-файлы `components/*.jsx`
 в Angular-сборку не идут: это эталон внешнего вида, состояний и имён пропсов, по
-которому пишутся Angular-компоненты. В бандл попадают только `styles.css`,
-`tokens/` и `assets/`.
+которому пишутся Angular-компоненты. В бандл попадает только `dist/styles.css`
+(и его источники — см. ниже); `tokens/` из пакета не поставляется.
 
 ## 1. Установка
 
@@ -21,8 +21,10 @@ npm i @nikolaynn/design-system
 ]
 ```
 
-`dist/styles.css` собирается в репозитории системы из `tokens.json` и проверяется
-в браузере на совпадение с ним — это единственная таблица стилей для приложений.
+`dist/styles.css` собирается в репозитории системы из `tokens.css` (плюс
+`tokens/scoped.css`, `components/bundle.css`, `tokens/webfonts-selfhost.css`; копии токенов
+в `components/bundle.css` сверяются с `tokens.css` паритетом, `npm run check:parity`) и
+проверяется в браузере каскадным тестом — это единственная таблица стилей для приложений.
 `tokens.css` со страницы артефакта в приложение не подключается: он для превью.
 
 Иконочный шрифт Material Symbols подтягивается самим `styles.css` относительными
@@ -101,7 +103,7 @@ providers: [provideAurora({ theme: 'DEFAULT' })]   // тема из FRONT_BRAND
 
 ## 6. ECharts
 
-`components/charts/echartsTheme.js` — скрипт с глобалом; ES-модульная обёртка над ним лежит рядом (`echartsTheme.mjs`) и именно на неё указывает экспорт пакета `./echarts-theme`:
+`components/src/components/charts/echartsTheme.js` — скрипт с глобалом; ES-модульная обёртка над ним лежит рядом (`echartsTheme.mjs`) и именно на неё указывает экспорт пакета `./echarts-theme`:
 
 ```ts
 import { dsEChartsTheme } from '@nikolaynn/design-system/echarts-theme';

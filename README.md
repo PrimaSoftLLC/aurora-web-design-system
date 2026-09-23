@@ -5,7 +5,8 @@
 @nikolaynn:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
 ```
-`npm i -E @nikolaynn/design-system`, стили — `@nikolaynn/design-system/styles.css` первой строкой, Angular — алиас
+`npm i -E @nikolaynn/design-system`, стили — первой строкой `styles` в `angular.json`:
+`node_modules/@nikolaynn/design-system/dist/styles.css`, Angular — алиас
 из `templates/angular/README.md`, линтер — `@nikolaynn/design-system/stylelint-config` (нужен `stylelint` в
 зависимостях приложения — пакет несёт только конфиг). Доступ к пакету — PUBLISHING.md.
 

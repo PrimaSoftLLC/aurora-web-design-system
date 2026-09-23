@@ -13,7 +13,7 @@
 |---|---|
 | `aurora-theme.service.ts` | `data-ds-theme` / `-appearance` / `-density` на `<body>`: тема из `FRONT_BRAND`, оформление и плотность с сохранением в `localStorage` |
 | `aurora-scope.directive.ts` | `[auroraScope]` — переопределить любой из трёх скоупов на поддереве |
-| `aurora-echarts.ts` | типизированная обёртка над `components/charts/echartsTheme.js` + пересборка темы при смене скоупа |
+| `aurora-echarts.ts` | типизированная обёртка над `components/src/components/charts/echartsTheme.js` + пересборка темы при смене скоупа |
 | `aurora-tokens.ts` | типы `DsTheme` / `DsAppearance` / `DsDensity` и имена атрибутов — один источник строк |
 | `_aurora.scss` | три миксина-сахара над токенами; необязателен |
 | `ng-package.json` | сборка `ng-packagr`, если слой станет отдельным npm-пакетом; пути `assets` в нём указывают на раскладку до переноса — поправьте при первой такой сборке |
@@ -27,7 +27,7 @@
 // tsconfig.json
 "paths": {
   "@nikolaynn/design-system/angular": [
-    "node_modules/@nikolaynn/design-system/components/src/templates/angular/index.ts"
+    "./node_modules/@nikolaynn/design-system/components/src/templates/angular/index.ts"
   ]
 }
 ```
