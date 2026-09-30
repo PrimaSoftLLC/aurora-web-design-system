@@ -1,11 +1,11 @@
 {
-  "name": "@nikolaynn/design-system",
-  "version": "2.0.1",
+  "name": "@primasoftllc/design-system",
+  "version": "3.0.0",
   "description": "Aurora — дизайн-система веб-интерфейса GPS-мониторинга: токены, компоненты, линтер",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NikolayNN/aurora-web-design-system.git"
+    "url": "git+https://github.com/PrimaSoftLLC/aurora-web-design-system.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

@@ -1,6 +1,6 @@
 # aurora-web-design-system: правила для агентов
 
-Пакет `@nikolaynn/design-system` в GitHub Packages. Первый потребитель — aur-billing (пилот, спека
+Пакет `@primasoftllc/design-system` в GitHub Packages. Первый потребитель — aur-billing (пилот, спека
 `D:\projects\aur-billing\docs\superpowers\specs\2026-09-22-frontend-design.md`).
 
 ## Команды

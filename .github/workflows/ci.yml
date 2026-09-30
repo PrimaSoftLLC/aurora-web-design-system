@@ -37,7 +37,7 @@ jobs:
           node-version: '22'
           cache: npm
           registry-url: https://npm.pkg.github.com
-          scope: '@nikolaynn'
+          scope: '@primasoftllc'
 
       - name: Package version
         id: version
@@ -73,8 +73,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.version.outputs.version }}
         run: |
-          if npm view "@nikolaynn/design-system@$VERSION" version >/dev/null 2>&1; then
-            echo "::notice::@nikolaynn/design-system@$VERSION is already in GitHub Packages — resuming a partial release, skipping npm publish."
+          if npm view "@primasoftllc/design-system@$VERSION" version >/dev/null 2>&1; then
+            echo "::notice::@primasoftllc/design-system@$VERSION is already in GitHub Packages — resuming a partial release, skipping npm publish."
           else
             npm publish
           fi

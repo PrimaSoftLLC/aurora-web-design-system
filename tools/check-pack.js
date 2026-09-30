@@ -27,7 +27,7 @@ try {
   const tgz = JSON.parse(sh(['pack', '--json', '--ignore-scripts', '--pack-destination', work], root))[0].filename;
   writeFileSync(join(work, 'package.json'), JSON.stringify({ name: 'consumer', private: true, type: 'module' }));
   sh(['install', '--offline', '--no-audit', '--no-fund', join(work, tgz)], work);
-  const pkgDir = join(work, 'node_modules/@nikolaynn/design-system');
+  const pkgDir = join(work, 'node_modules/@primasoftllc/design-system');
   const req = createRequire(join(work, 'index.js'));
 
   // lint/rules/*.js импортируют голый 'stylelint' (стандартный паттерн плагина, как stylelint-scss) —
@@ -39,7 +39,7 @@ try {
 
   await check('входы резолвятся', () => {
     for (const entry of ['styles.css', 'tokens.css', 'stylelint-config', 'tokens.json', 'package.json']) {
-      assert.ok(existsSync(req.resolve(`@nikolaynn/design-system/${entry}`)), entry);
+      assert.ok(existsSync(req.resolve(`@primasoftllc/design-system/${entry}`)), entry);
     }
   });
   await check('url() из dist/styles.css ведут к файлам', () => {
@@ -57,7 +57,7 @@ try {
     assert.ok(existsSync(join(pkgDir, 'components/src/components/charts/echartsTheme.mjs')));
   });
   await check('stylelint-конфиг ловит литерал и пропускает токен', async () => {
-    const configFile = req.resolve('@nikolaynn/design-system/stylelint-config');
+    const configFile = req.resolve('@primasoftllc/design-system/stylelint-config');
     const lint = (code) => stylelint.lint({ code, config: { extends: [pathToFileURL(configFile).href] } })
       .then((r) => r.results[0].warnings.filter((w) => w.severity === 'error').length);
     assert.equal(await lint('.a { color: #ffffff; }'), 1);

@@ -7,9 +7,9 @@
 
 ## 1. Доступ к пакету
 
-Пакет `@nikolaynn/design-system` приватный и лежит в GitHub Packages.
+Пакет `@primasoftllc/design-system` приватный и лежит в GitHub Packages.
 
-1. Попросите владельца выдать вам доступ к репозиторию `NikolayNN/aurora-web-design-system`.
+1. Попросите владельца выдать вам доступ к репозиторию `PrimaSoftLLC/aurora-web-design-system`.
 2. Создайте PAT **classic** со scope `read:packages` (GitHub → Settings → Developer settings → Personal access
    tokens → Tokens (classic)). Fine-grained токен GitHub Packages не принимает.
 3. Положите токен в переменную окружения `NODE_AUTH_TOKEN` (в профиль оболочки, не в репозиторий).
@@ -17,7 +17,7 @@
 ## 2. `.npmrc` в корне приложения
 
 ```
-@nikolaynn:registry=https://npm.pkg.github.com
+@primasoftllc:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
 ```
 
@@ -26,7 +26,7 @@
 ## 3. Установка
 
 ```bash
-npm i -E @nikolaynn/design-system   # точная версия, без ^: обновление — отдельный коммит
+npm i -E @primasoftllc/design-system # точная версия, без ^: обновление — отдельный коммит
 npm i echarts                        # нужен Angular-слою (шаг 5), даже если графиков пока нет
 npm i -D stylelint postcss-scss      # линтер (шаг 7)
 ```
@@ -40,7 +40,7 @@ npm i -D stylelint postcss-scss      # линтер (шаг 7)
 
 ```json
 "styles": [
-  "node_modules/@nikolaynn/design-system/dist/styles.css",
+  "node_modules/@primasoftllc/design-system/dist/styles.css",
   "src/styles.scss"
 ]
 ```
@@ -53,8 +53,8 @@ npm i -D stylelint postcss-scss      # линтер (шаг 7)
 ```json
 "compilerOptions": {
   "paths": {
-    "@nikolaynn/design-system/angular": [
-      "./node_modules/@nikolaynn/design-system/components/src/templates/angular/index.ts"
+    "@primasoftllc/design-system/angular": [
+      "./node_modules/@primasoftllc/design-system/components/src/templates/angular/index.ts"
     ]
   }
 }
@@ -68,7 +68,7 @@ npm i -D stylelint postcss-scss      # линтер (шаг 7)
 `app.config.ts`:
 
 ```ts
-import { provideAurora } from '@nikolaynn/design-system/angular';
+import { provideAurora } from '@primasoftllc/design-system/angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideAurora({ theme: 'DEFAULT' })],   // тема тенанта; RED2 — другой тенант
@@ -110,7 +110,7 @@ toggleDark(): void {
 
 ```json
 {
-  "extends": "@nikolaynn/design-system/stylelint-config",
+  "extends": "@primasoftllc/design-system/stylelint-config",
   "overrides": [{ "files": ["**/*.scss"], "customSyntax": "postcss-scss" }]
 }
 ```
@@ -124,7 +124,7 @@ toggleDark(): void {
 - Свой `:focus`, рамку текстового поля и `box-shadow` не рисовать: кольцо фокуса и рамка уже в системе.
 - Шрифт — ролью: `font: var(--ds-type-body)`.
 - Литералы цветов в TypeScript (конфиги ECharts) линтер не видит — берите `dsEChartsTheme` из
-  `@nikolaynn/design-system/echarts-theme` и перестраивайте график при смене скоупа (`auroraWatchScopes`,
+  `@primasoftllc/design-system/echarts-theme` и перестраивайте график при смене скоупа (`auroraWatchScopes`,
   ANGULAR.md §6).
 
 Пример — ANGULAR.md §3.
@@ -155,7 +155,7 @@ steps:
       node-version: '22'
       cache: npm
       registry-url: https://npm.pkg.github.com
-      scope: '@nikolaynn'
+      scope: '@primasoftllc'
   - run: npm ci
     env:
       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -169,7 +169,7 @@ RED2/light/cozy, RED2/dark/compact. Плюс AXE без нарушений, ви
 
 ## 12. Обновление системы
 
-`npm i -E @nikolaynn/design-system@X.Y.Z` отдельным коммитом. MAJOR — ломающие изменения: прочитайте раздел версии в
+`npm i -E @primasoftllc/design-system@X.Y.Z` отдельным коммитом. MAJOR — ломающие изменения: прочитайте раздел версии в
 CHANGELOG.md и MIGRATION.md, правки кода — в том же коммите (VERSIONING.md).
 
 ## Если что-то не так
@@ -179,7 +179,7 @@ CHANGELOG.md и MIGRATION.md, правки кода — в том же комм�
 | `npm i` — 401/403 от `npm.pkg.github.com` | нет `NODE_AUTH_TOKEN`, токен fine-grained или без `read:packages`, нет доступа к репозиторию системы |
 | `npm i` — ERESOLVE по `echarts` или `stylelint` | мажор вне поддерживаемых: echarts 5–6, stylelint 16–17 |
 | `Cannot find module 'echarts'` при сборке | не установлен `echarts` — он нужен Angular-слою (шаг 3) |
-| TS5090 или «Could not resolve "@nikolaynn/design-system/angular"» | в `paths` нет `./` в начале пути |
+| TS5090 или «Could not resolve "@primasoftllc/design-system/angular"» | в `paths` нет `./` в начале пути |
 | Интерфейс в Helvetica, иконки — текстом | `styles.css` пакета не первой строкой `styles` или подключён не `dist/styles.css` |
 | Тема не меняется, на `<body>` нет `data-ds-*` | `AuroraThemeService` никто не внедрил (шаг 6) |
 | CI: 403 на `npm ci` | репозиторию приложения не выдан доступ в настройках пакета (шаг 10) |

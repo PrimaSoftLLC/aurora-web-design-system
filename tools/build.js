@@ -13,7 +13,7 @@ import { checkParity } from './check-parity.js';
 /** Рамки артефакта в списках селекторов bundle.css: DEFAULT·light — это :root пакета, остальные рамки не едут. */
 const FRAME_TO_ROOT = ':where([data-theme="light"])';
 
-const HEADER = (what) => `/* @nikolaynn/design-system — ${what}. Собрано tools/build.js, не править. */\n`;
+const HEADER = (what) => `/* @primasoftllc/design-system — ${what}. Собрано tools/build.js, не править. */\n`;
 
 function part(root, file, transform) {
   const ast = postcss.parse(readFileSync(join(root, file), 'utf8'), { from: file });

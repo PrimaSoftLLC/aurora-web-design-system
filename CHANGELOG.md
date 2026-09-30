@@ -5,6 +5,16 @@ Policy: [VERSIONING.md](VERSIONING.md).
 
 ## [Unreleased]
 
+### Changed — BREAKING
+
+- Пакет переехал в организацию PrimaSoftLLC и называется `@primasoftllc/design-system` (репозиторий
+  `PrimaSoftLLC/aurora-web-design-system`). В приложении: `.npmrc` — `@primasoftllc:registry=https://npm.pkg.github.com`,
+  `scope: '@primasoftllc'` у `actions/setup-node`, зависимость и все пути `@nikolaynn/design-system…` →
+  `@primasoftllc/design-system…` (стили в `angular.json`, алиас Angular-слоя в `tsconfig.json`, `extends` в
+  `.stylelintrc.json`, `echarts-theme`). Доступ CI приложения на чтение выдаётся в настройках нового пакета
+  (PUBLISHING.md). API не изменился. `@nikolaynn/design-system@2.0.0` остаётся в реестре, новых версий под
+  старым именем не будет.
+
 ## [2.0.0] — 2026-09-23
 
 ### Changed — BREAKING
