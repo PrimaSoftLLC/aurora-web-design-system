@@ -21,13 +21,13 @@
 ## Подключение
 
 Слой едет в пакете системы исходниками (`components/src/templates/angular/`), компилирует их приложение.
-Стили — как в [ANGULAR.md](../../ANGULAR.md), `node_modules/@nikolaynn/design-system/dist/styles.css`.
+Стили — как в [ANGULAR.md](../../ANGULAR.md), `node_modules/@primasoftllc/design-system/dist/styles.css`.
 
 ```jsonc
 // tsconfig.json
 "paths": {
-  "@nikolaynn/design-system/angular": [
-    "./node_modules/@nikolaynn/design-system/components/src/templates/angular/index.ts"
+  "@primasoftllc/design-system/angular": [
+    "./node_modules/@primasoftllc/design-system/components/src/templates/angular/index.ts"
   ]
 }
 ```
@@ -40,7 +40,7 @@
 
 ```ts
 // app.config.ts
-import { provideAurora } from '@nikolaynn/design-system/angular';
+import { provideAurora } from '@primasoftllc/design-system/angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideAurora({ theme: 'DEFAULT' })],  // тема из FRONT_BRAND

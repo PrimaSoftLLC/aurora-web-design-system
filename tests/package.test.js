@@ -14,11 +14,11 @@ const lock = JSON.parse(readFileSync(join(root, 'package-lock.json'), 'utf8'));
 const check = (name, fn) => { fn(); console.log(`ok   пакет: ${name}`); };
 
 check('имя и реестр', () => {
-  assert.equal(pkg.name, '@nikolaynn/design-system');
+  assert.equal(pkg.name, '@primasoftllc/design-system');
   assert.equal(lock.name, pkg.name);
   assert.equal(pkg.private, undefined, 'private: true не даёт npm publish');
   assert.equal(pkg.publishConfig?.registry, 'https://npm.pkg.github.com');
-  assert.match(pkg.repository?.url ?? '', /github\.com\/NikolayNN\/aurora-web-design-system/);
+  assert.match(pkg.repository?.url ?? '', /github\.com\/PrimaSoftLLC\/aurora-web-design-system/);
 });
 check('версия semver и совпадает с lock', () => {
   assert.match(pkg.version, /^\d+\.\d+\.\d+$/);
@@ -57,7 +57,7 @@ check('старого имени нет в коде и документах', ()
       if (!/\.(js|jsx|mjs|ts|json|md|html|css)$/.test(name) || rel === 'CHANGELOG.md') continue;
       if (rel === 'tests/package.test.js') continue;
       const text = readFileSync(path, 'utf8');
-      if (/@aurora\/design-system|@aurora\/ds\b|@ORG\//.test(text)) bad.push(rel);
+      if (/@aurora\/design-system|@aurora\/ds\b|@ORG\/|@nikolaynn\//.test(text)) bad.push(rel);
     }
   };
   walk(root);

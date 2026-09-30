@@ -40,7 +40,7 @@
 ## Подключение в приложении
 
 ```json
-{ "extends": "@nikolaynn/design-system/stylelint-config" }
+{ "extends": "@primasoftllc/design-system/stylelint-config" }
 ```
 
 Дальше `npm run lint:css` в CI рядом с тестами. Подробности и SCSS-синтаксис —

@@ -1,6 +1,6 @@
 # Репозиторий и публикация
 
-Репозиторий — `github.com/NikolayNN/aurora-web-design-system` (приватный), пакет — `@nikolaynn/design-system` в
+Репозиторий — `github.com/PrimaSoftLLC/aurora-web-design-system` (приватный), пакет — `@primasoftllc/design-system` в
 GitHub Packages. Как артефакт и репозиторий обмениваются правками — SYNC.md.
 
 ## Выпуск версии
@@ -30,7 +30,7 @@ GitHub Packages. Как артефакт и репозиторий обмени�
   `NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}`.
 - **Локально.** PAT **classic** со scope `read:packages` (fine-grained PAT GitHub Packages не поддерживает) в
   `NODE_AUTH_TOKEN`; в `.npmrc` приложения:
-  `@nikolaynn:registry=https://npm.pkg.github.com` и `//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}`.
+  `@primasoftllc:registry=https://npm.pkg.github.com` и `//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}`.
 
 ## Лицензия
 

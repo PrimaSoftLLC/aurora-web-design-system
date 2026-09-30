@@ -10,8 +10,8 @@
 ## 1. Установка
 
 ```bash
-npm i -E @nikolaynn/design-system   # точная версия; доступ к пакету — PUBLISHING.md
-npm i echarts                       # нужен Angular-слою (§5)
+npm i -E @primasoftllc/design-system # точная версия; доступ к пакету — PUBLISHING.md
+npm i echarts                        # нужен Angular-слою (§5)
 ```
 
 `angular.json` → `projects.<app>.architect.build.options.styles`, первой строкой,
@@ -19,7 +19,7 @@ npm i echarts                       # нужен Angular-слою (§5)
 
 ```json
 "styles": [
-  "node_modules/@nikolaynn/design-system/dist/styles.css",
+  "node_modules/@primasoftllc/design-system/dist/styles.css",
   "src/styles.scss"
 ]
 ```
@@ -114,7 +114,7 @@ providers: [provideAurora({ theme: 'DEFAULT' })]   // тема из FRONT_BRAND
 `components/src/components/charts/echartsTheme.js` — скрипт с глобалом; ES-модульная обёртка над ним лежит рядом (`echartsTheme.mjs`) и именно на неё указывает экспорт пакета `./echarts-theme`:
 
 ```ts
-import { dsEChartsTheme } from '@nikolaynn/design-system/echarts-theme';
+import { dsEChartsTheme } from '@primasoftllc/design-system/echarts-theme';
 
 const option = { ...dsEChartsTheme(this.host.nativeElement), series, xAxis: { type: 'time' } };
 this.chart.setOption(option, true);

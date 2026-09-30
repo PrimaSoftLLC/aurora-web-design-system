@@ -1,7 +1,7 @@
 /**
  * Готовый конфиг системы. Потребитель пишет в `.stylelintrc.json`:
  *
- *   { "extends": "@nikolaynn/design-system/stylelint-config" }
+ *   { "extends": "@primasoftllc/design-system/stylelint-config" }
  *
  * Пороги и исключения меняются в приложении поверх этого конфига — но каждое
  * исключение должно быть видно в дифе, поэтому здесь их нет.
