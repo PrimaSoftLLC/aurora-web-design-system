@@ -13,17 +13,19 @@ function implementations(root){
   const key=path+JSON.stringify(names);if(seen.has(key))return;seen.add(key);
   const source=readSource(path);
   const register=(local,node,isExport)=>{
-   const name=names?names.find(n=>n.local===local)?.name:isExport?local:null;
-   if(!name?.startsWith('Ds'))return;
-   if(result.has(name))throw Error(`${path}: duplicate public component ${name}`);
-   result.set(name,{node,source,path});
+   const publicNames=names?names.filter(n=>n.local===local).map(n=>n.name):isExport?[local]:[];
+   for(const name of publicNames.filter(name=>name.startsWith('Ds'))){
+    if(result.has(name))throw Error(`${path}: duplicate public component ${name}`);
+    result.set(name,{node,source,path});
+   }
   };
   for(const statement of source.statements){
    if(ts.isExportDeclaration(statement)&&statement.moduleSpecifier){
     const target=join(dirname(path),statement.moduleSpecifier.text);
     if(!existsSync(target))throw Error(`${slash(relative(root,path))}: missing export ${statement.moduleSpecifier.text}`);
     const selected=statement.exportClause&&ts.isNamedExports(statement.exportClause)?statement.exportClause.elements.map(e=>({local:e.propertyName?.text??e.name.text,name:e.name.text})):null;
-    visit(target,selected);continue;
+    const next=names?(selected?selected.flatMap(item=>names.filter(outer=>outer.local===item.name).map(outer=>({local:item.local,name:outer.name}))):names):selected;
+    visit(target,next);continue;
    }
    if(ts.isFunctionDeclaration(statement)&&statement.name)register(statement.name.text,statement,exported(statement));
    if(ts.isVariableStatement(statement))for(const declaration of statement.declarationList.declarations){
@@ -43,7 +45,27 @@ function literal(node){
  return ts.isStringLiteral(node)||ts.isNumericLiteral(node)||[ts.SyntaxKind.TrueKeyword,ts.SyntaxKind.FalseKeyword,ts.SyntaxKind.NullKeyword].includes(node.kind)
   ||(ts.isPrefixUnaryExpression(node)&&ts.isNumericLiteral(node.operand))
   ||(ts.isArrayLiteralExpression(node)&&node.elements.every(literal))
-  ||(ts.isObjectLiteralExpression(node)&&node.properties.every(p=>ts.isPropertyAssignment(p)&&literal(p.initializer)));
+  ||(ts.isObjectLiteralExpression(node)&&node.properties.every(p=>ts.isPropertyAssignment(p)&&(!ts.isComputedPropertyName(p.name)||literal(p.name.expression))&&literal(p.initializer)));
+}
+function validateDefaults({root,files,program,options,defaults}){
+ if(!defaults.length)return;
+ const path=slash(join(root,'__aurora_api_defaults__.ts')),ranges=[];let text='';
+ for(const[index,entry]of defaults.entries()){
+  const module='./'+slash(relative(root,entry.path)).replace(/\.d\.ts$/,'');
+  text+=`import type {${entry.name} as Component${index}} from ${JSON.stringify(module)};\n`;
+  const start=text.length;
+  text+=`const value${index}: Parameters<typeof Component${index}>[0][${JSON.stringify(entry.prop)}] = ${entry.value};\n`;
+  ranges.push({start,end:text.length,entry});
+ }
+ const host=ts.createCompilerHost(options),read=host.readFile.bind(host),exists=host.fileExists.bind(host),source=host.getSourceFile.bind(host);
+ host.readFile=file=>file===path?text:read(file);host.fileExists=file=>file===path||exists(file);
+ host.getSourceFile=(file,language,onError,newFile)=>file===path?ts.createSourceFile(file,text,language,true):source(file,language,onError,newFile);
+ const checked=ts.createProgram([...files,path],options,host,program);
+ const errors=ts.getPreEmitDiagnostics(checked);
+ if(errors.length)throw Error(errors.map(d=>{
+  const entry=d.file?.fileName===path?ranges.find(r=>d.start>=r.start&&d.start<r.end)?.entry:null;
+  return `${entry?entry.name+'.'+entry.prop+': default incompatible with prop type':slash(d.file?.fileName??root)}: ${ts.flattenDiagnosticMessageText(d.messageText,' ')}`;
+ }).join('\n'));
 }
 function forwarded(node){
  const parameter=node.parameters[0];if(!parameter||!ts.isObjectBindingPattern(parameter.name))return false;
@@ -74,7 +96,7 @@ function forwarded(node){
  visit(node);return found;
 }
 export function extractApi({root}){
- const files=declarationFiles(root),program=ts.createProgram(files,{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext,moduleResolution:ts.ModuleResolutionKind.Bundler,strict:true,types:['react'],typeRoots,skipLibCheck:false});
+ const files=declarationFiles(root),options={target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext,moduleResolution:ts.ModuleResolutionKind.Bundler,strict:true,types:['react'],typeRoots,skipLibCheck:false,noEmit:true},program=ts.createProgram(files,options),defaults=[];
  const diagnostics=ts.getPreEmitDiagnostics(program);
  if(diagnostics.length)throw Error(diagnostics.map(d=>`${slash(d.file?.fileName??root)}: ${ts.flattenDiagnosticMessageText(d.messageText,' ')}`).join('\n'));
  const checker=program.getTypeChecker(),contracts=new Map();
@@ -111,10 +133,12 @@ export function extractApi({root}){
     const annotation=ts.createSourceFile('default.ts',`const value=${defaultDescription}`,ts.ScriptTarget.Latest,true).statements[0]?.declarationList?.declarations[0]?.initializer;
     if(annotation&&literal(annotation)&&annotation.getText().replaceAll('"',"'")!==defaultValue.replaceAll('"',"'"))throw Error(`${name}.${symbol.name}: @default differs from implementation`);
    }
+   if(binding?.initializer&&literal(binding.initializer))defaults.push({name,prop:symbol.name,value:defaultValue,path:contract.path});
    return{name:symbol.name,type:declaration?.type?ts.createPrinter().printNode(ts.EmitHint.Unspecified,declaration.type,declaration.getSourceFile()):checker.typeToString(checker.getTypeOfSymbolAtLocation(symbol,contract.node),undefined,ts.TypeFormatFlags.NoTruncation),required:!(symbol.flags&ts.SymbolFlags.Optional),description:ts.displayPartsToString(symbol.getDocumentationComment(checker)),defaultValue,defaultDescription,forwarded:!binding};
   });
   docs.push({name,sourcePath:slash(relative(root,implementation.path)),declarationPath:slash(relative(root,contract.path)),description:ts.displayPartsToString(checker.getSymbolAtLocation(contract.node.name).getDocumentationComment(checker)),props,forwardsNativeAttributes:forwarding});
  }
  for(const[name,contract]of contracts)if(name.startsWith('Ds')&&!publicFunctions.has(name))throw Error(`${slash(relative(root,contract.path))}: documented component ${name} is not exported`);
+ validateDefaults({root,files,program,options,defaults});
  return docs.sort((a,b)=>a.name.localeCompare(b.name));
 }

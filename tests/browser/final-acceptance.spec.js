@@ -26,5 +26,7 @@ test('fixture token, card and broken contract edits rebuild and recover in dev',
   await expect(page.locator('#build-error')).toContainText('DsButton.tone: @default differs from implementation');await expect(page.locator('nav a[data-id="NewCard"]')).toBeVisible();
   writeFileSync(contract,original);await expect(page.locator('#build-error')).toBeHidden();await expect(page.locator('nav a[data-id="NewCard"]')).toBeVisible();
   writeFileSync(contract,original+'\nexport declare const invalidContract: MissingContractType;');await expect(page.locator('#build-error')).toContainText('MissingContractType');writeFileSync(contract,original);await expect(page.locator('#build-error')).toBeHidden();
+  const readme=join(fixture,'components/Example/README.md');writeFileSync(readme,'# Example\n\n[Broken](#does-not-exist)');await expect(page.locator('#build-error')).toContainText('missing-anchor');await expect(page.locator('#build-error')).toContainText('#does-not-exist');await expect(page.locator('nav a[data-id="NewCard"]')).toBeVisible();
+  writeFileSync(readme,'# Example\n\n[Valid](#example)');await expect(page.locator('#build-error')).toBeHidden();await expect(page.locator('nav a[data-id="NewCard"]')).toBeVisible();
  }finally{await page.goto('about:blank');if(dev)await dev.close();rmSync(fixture,{recursive:true,force:true});}
 });

@@ -10,6 +10,7 @@ import {readTokenModel} from '../tokens/model.mjs';
 import {extractApi} from '../docs/api.mjs';
 import {renderMarkdown,renderProps,documentPage} from '../docs/markdown.mjs';
 import {renderTokenReference} from '../docs/tokens.mjs';
+import {validateLinks} from '../docs/links.mjs';
 export async function buildCatalogue({ root, outDir }) {
   if (resolve(root) === resolve(outDir)) throw new Error('Catalogue output must not replace source root');
   const cards = readCards(root);
@@ -62,6 +63,8 @@ export async function buildCatalogue({ root, outDir }) {
   for (const path of assets) if (path && !['dist/styles.css', 'components/bundle.js', 'components/lib/react.production.min.js', 'components/lib/react-dom.production.min.js'].includes(path.replaceAll('\\','/'))) copyAsset({ root, outDir, path });
   writeFileSync(join(outDir, 'cards.json'), JSON.stringify(cards, null, 2) + '\n');
   for (const file of ['index.html', 'app.js', 'styles.css','search.js','families.js','state.js']) writeFileSync(join(outDir, file), readFileSync(new URL(`../../catalog/${file}`, import.meta.url)));
+  const problems=validateLinks({root,siteRoot:outDir});
+  if(problems.length)throw Error(problems.map(p=>`${p.source}: ${p.target}: ${p.reason}`).join('\n'));
   return cards;
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

@@ -9,6 +9,7 @@ const steps=[
  ['angular-consumer-inputs',['tests/angular-consumer-inputs.test.js']],
  ['angular-doc-examples',['tests/angular-doc-examples.test.js']],
  ['docs-api',['tests/docs-api.test.js']],
+ ['docs-review',['tests/docs-review.test.js']],
  ['docs-links',['tests/docs-links.test.js']],
  ['catalog-search',['tests/catalog-search.test.js']],
  ...['DsFilterMenu','a11y-tokens','rows-buttons','nav-dialog-i18n','guard-command','guard-hook','ci-toolchain','package','fonts','changelog-section','migration-baseline','token-model','component-build','build','catalog-build','dev-server','clean-build','deterministic-build'].map(name=>[name,[`tests/${name}.test.js`]]),
