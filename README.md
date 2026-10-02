@@ -1,3 +1,12 @@
+## Разработка каталога
+
+Репозиторий — источник дизайн-системы. Node 22 запускается через mise:
+`mise exec -- npm ci`, затем `mise exec -- npm run dev` — каталог на
+`http://127.0.0.1:5173` с обновлением при правках. `npm run build` создаёт пакет
+в `dist/` и статический каталог в `site/`; `npm run verify` проверяет поставку.
+Токены редактируются в `tokens/source.json`, компоненты — в `components/src`,
+примеры — в `components/*/preview.html`. Правила: [AGENTS.md](AGENTS.md).
+
 ## Установка
 
 Пошагово для нового проекта — [getting-started.md](getting-started.md). Коротко:

@@ -8,7 +8,7 @@ function setAttr(node, name, value) {
   const found = node.attrs.find(a => a.name === name);
   if (found) found.value = value; else node.attrs.push({ name, value });
 }
-export async function renderPreview({ root, card, mode = 'legacy', scope }) {
+export async function renderPreview({ root, card, mode = 'legacy', scope, standalone = false }) {
   if (!['legacy', 'current'].includes(mode)) throw new Error(`Unknown preview mode: ${mode}`);
   const doc = parse(readFileSync(join(root, card.previewPath), 'utf8'));
   let head, html;
@@ -38,7 +38,7 @@ export async function renderPreview({ root, card, mode = 'legacy', scope }) {
       if (['script', 'img', 'link'].includes(node.tagName) && !node._remove) {
         if (relative(root, resolve(root, path)).startsWith('..') || !existsSync(join(root, path))) throw new Error(`${card.previewPath}: missing asset ${path}`);
       }
-      a.value = url.pathname + url.search + url.hash;
+      a.value = posix.relative(posix.dirname(card.previewPath), path) + url.search + url.hash;
     }
     for (const child of node.childNodes ?? []) walk(child);
     if (node.childNodes) node.childNodes = node.childNodes.filter(n => !n._remove);
@@ -50,7 +50,9 @@ export async function renderPreview({ root, card, mode = 'legacy', scope }) {
     ? ['/components/lib/react.production.min.js', '/components/lib/react-dom.production.min.js', '/components/bundle.js']
     : ['/runtime.js', '/components.js'];
   const base = posix.dirname(card.previewPath);
-  const injected = parseFragment(`<base href="/${base === '.' ? '' : base + '/'}"><link rel="stylesheet" href="/dist/styles.css">${scripts.map(src => `<script src="${src}"></script>`).join('')}`).childNodes;
+  const local = file => posix.relative(base, file.replace(/^\//, ''));
+  const baseHref = standalone ? './' : '/' + (base === '.' ? '' : base + '/');
+  const injected = parseFragment(`<base href="${baseHref}"><link rel="stylesheet" href="${local('dist/styles.css')}">${scripts.map(src => `<script src="${local(src)}"></script>`).join('')}`).childNodes;
   for (const n of injected) n.parentNode = head;
   head.childNodes.unshift(...injected);
   return serialize(doc);

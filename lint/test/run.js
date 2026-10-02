@@ -294,9 +294,8 @@ const cliCases = [];
     const want = [
       'components/A/preview.html:broken-link', 'components/A/preview.html:broken-link',
       'components/A/preview.html:legacy', 'components/A/x.js:legacy', 'components/A/x.js:legacy',
-      'components/C/preview.html:preview-fetch', 'components/C/preview.html:preview-fetch',
     ].sort();
-    cliCases.push({ title: 'поставка: ловит старые имена, битые ссылки и картинки по путям в превью; пропускает историю и прозу',
+    cliCases.push({ title: 'поставка: ловит старые имена и битые ссылки; разрешает существующие локальные ресурсы, историю и прозу',
       ok: JSON.stringify(got) === JSON.stringify(want), got: JSON.stringify(got) });
   } finally {
     rmSync(root, { recursive: true, force: true });

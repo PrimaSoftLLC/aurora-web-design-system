@@ -1,6 +1,6 @@
 /**
  * Проверка поставки: действующие файлы не ссылаются на старые идентификаторы,
- * не содержат битых локальных ссылок, а превью каталога не грузят картинки по путям.
+ * не содержат битых локальных ссылок, а локальные ресурсы превью существуют.
  * Запуск: `node lint/scripts/check-delivery.js`, часть `lint/test/run.js`.
  *
  * Старые идентификаторы — имена до миграции: компоненты `V2*`, токены
@@ -21,6 +21,9 @@ export const EXCLUDE = [
   { path: 'lint/scripts/check-delivery.js', why: 'сам содержит шаблоны старых имён' },
   { path: 'lint/test/', why: 'фикстуры проверок' },
   { path: 'node_modules/', why: 'зависимости' },
+  { path: 'site/', why: 'генерируемый каталог проверяется в браузере' },
+  { path: 'dist/', why: 'генерируемая поставка проверяется отдельно' },
+  { path: 'catalog/index.html', why: 'HTML-шаблон: ссылки разрешаются в site/, проверяется браузером' },
 ];
 
 const CODE = /\.(html|js|mjs|cjs|jsx|ts|css|json)$/;
@@ -57,13 +60,12 @@ export function checkDelivery(root) {
         problems.push({ file: rel, line: lineOf(text, m.index), code: 'legacy', message: `${what}: ${m[0]}` });
       }
     }
-    // Превью каталога рендерится в рамке и ничего не загружает по относительным
-    // путям (контракт preview.html): картинка по ссылке там — битая иконка, даже
-    // если файл лежит рядом. Картинки в превью — только data: URI.
+    // Локальные изображения допускаются: проверяем достижимый файл, включая query/hash.
     if (/^components\/[^/]+\/preview\.html$/.test(rel)) {
-      for (const m of text.matchAll(/(?:\bsrc|logoSrc|avatarSrc)\s*[=:]\s*["']([^"']+\.(?:png|jpe?g|gif|webp|svg))["']/gi)) {
+      for (const m of text.matchAll(/(?:\bsrc|logoSrc|avatarSrc)\s*[=:]\s*["']([^"']+\.(?:png|jpe?g|gif|webp|svg)(?:[?#][^"']*)?)["']/gi)) {
         if (/^(?:data:|https?:)/i.test(m[1])) continue;
-        problems.push({ file: rel, line: lineOf(text, m.index), code: 'preview-fetch', message: `картинка по пути в превью (нужен data: URI): ${m[1]}` });
+        const target = normalize(join(dirname(abs), m[1].split(/[?#]/)[0]));
+        if (!existsSync(target)) problems.push({ file: rel, line: lineOf(text, m.index), code: 'preview-fetch', message: `нет ресурса превью: ${m[1]}` });
       }
     }
     if (rel.endsWith('.html')) {
