@@ -46,7 +46,7 @@ check('состав пакета', () => {
   assert.ok(pkg.files.includes('!lint/test/'), 'фикстуры линтера не публикуются');
 });
 check('старого имени нет в коде и документах', () => {
-  const skip = ['node_modules', '.git', 'assets/notes', 'dist', 'docs/plans', '.superpowers'];
+  const skip = ['node_modules', '.git', '.tmp', '.worktrees', 'site', 'assets/notes', 'dist', 'docs/plans', '.superpowers'];
   const bad = [];
   const walk = (dir) => {
     for (const name of readdirSync(dir)) {
