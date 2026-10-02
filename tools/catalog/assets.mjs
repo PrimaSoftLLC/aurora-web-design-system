@@ -11,10 +11,21 @@ export function assetPath(root, from, url) {
   if (!existsSync(path)) throw new Error(`${from}: missing asset ${url}`);
   return rel;
 }
-export function previewAssets(root, from, html) {
+export function previewAssets(root, from, html, ignoredPaths = []) {
   const refs = new Set();
-  const add = url => { const path = assetPath(root, from, url); if (path) refs.add(path); };
-  const urls = text => { for (const m of text.matchAll(/url\(\s*['"]?([^)'"\s]+)['"]?\s*\)/g)) add(m[1]); };
+  const add = (url, owner=from) => {
+    const candidate=new URL(url,`http://aurora.local/${owner}`);
+    if(candidate.origin==='http://aurora.local' && ignoredPaths.includes(decodeURIComponent(candidate.pathname).slice(1)))return;
+    const path = assetPath(root, owner, url);
+    if (!path || refs.has(path)) return;
+    refs.add(path);
+    if (/\.css$/i.test(path)) {
+      const text=readFileSync(resolve(root,path),'utf8');
+      urls(text,path.replaceAll('\\','/'));
+      for(const match of text.matchAll(/@import\s+['"]([^'"]+)['"]/g)) add(match[1],path.replaceAll('\\','/'));
+    }
+  };
+  const urls = (text,owner=from) => { for (const m of text.matchAll(/url\(\s*['"]?([^)'"\s]+)['"]?\s*\)/g)) add(m[1],owner); };
   const walk = node => {
     for (const a of node.attrs ?? []) {
       if ((a.name === 'src' || a.name === 'poster' || (node.tagName === 'link' && a.name === 'href'))) add(a.value);

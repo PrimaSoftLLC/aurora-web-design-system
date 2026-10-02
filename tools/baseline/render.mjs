@@ -47,32 +47,42 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     pages.set(`/frames/${key}.html`, await renderPreview({ root, card, mode, scope }));
   }
   const served = await serveRoot(root, pages);
-  const context = await browser.newContext();
-  await context.addInitScript(() => {
+  let context, page;
+  const freshPage=async()=>{
+   if(context)await context.close();
+   context=await browser.newContext();
+   await context.addInitScript(() => {
     const RealDate = Date;
     window.Date = class extends RealDate { constructor(...args) { super(...(args.length ? args : [1760000000000])); } static now() { return 1760000000000; } };
     let seed = 1; Math.random = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
   });
-  await context.route('**/*', route => {
+   await context.route('**/*', route => {
     const url = route.request().url();
     if (url.startsWith(served.url + '/') || /^(?:data:|blob:)/.test(url)) return route.continue();
     return route.abort('blockedbyclient');
   });
-  const page = await context.newPage();
+   page=await context.newPage();
+   page.on('pageerror', e => errors.push(e.message));
+   page.on('response', r => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
+  };
   const errors = [];
-  page.on('pageerror', e => errors.push(e.message));
-  page.on('response', r => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
   try {
     for (const card of cards) for (const scope of ACCEPTANCE_SCOPES) {
       const key = `${card.id}-${scope.theme}-${scope.appearance}-${scope.density}`;
       errors.length = 0;
+      // Isolate Chromium's variable-font glyph cache from preceding viewports.
+      await freshPage();
       await page.setViewportSize(card.viewport);
       await page.goto(`${served.url}/frames/${key}.html`);
+      // React's initial commit may start font loading after navigation completes.
+      // Wait for that commit before taking the font-ready promise.
+      if (await page.locator('#root').count()) await page.waitForFunction(() => document.getElementById('root').childNodes.length > 0 || document.querySelector('[role="dialog"]') !== null);
       await page.evaluate(() => document.fonts.ready);
+      await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       assert.deepEqual(errors, [], `${key}: browser errors`);
       const buffer = await page.screenshot({ animations: 'disabled', caret: 'hide' });
       writeFileSync(join(outDir, `${key}.png`), buffer);
-      if (compareDir) assert.deepEqual(buffer, readFileSync(join(compareDir, `${key}.png`)), `${key}: visual mismatch`);
+      if (compareDir) assert.ok(buffer.equals(readFileSync(join(compareDir, `${key}.png`))), `${key}: visual mismatch; inspect PNG files in ${outDir} and ${compareDir}`);
     }
     const computed = {};
     for (const scope of SCOPES) {
@@ -92,7 +102,7 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     if (compareDir) assert.deepEqual(computed, JSON.parse(readFileSync(join(compareDir, 'computed.json'), 'utf8')), 'Computed token baseline mismatch');
     console.log(`${mode}: ${cards.length} cards × 4 scopes and 8 computed sets, SHA256 ${createHash('sha256').update(json).digest('hex')}`);
   } finally {
-    await context.close();
+    if(context)await context.close();
     await new Promise(resolve => served.server.close(resolve));
   }
 }

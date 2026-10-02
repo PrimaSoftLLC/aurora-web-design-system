@@ -39,6 +39,8 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@primasoftllc'
 
+      - uses: jdx/mise-action@v5
+
       - name: Package version
         id: version
         run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"

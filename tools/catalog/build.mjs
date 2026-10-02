@@ -16,10 +16,9 @@ export async function buildCatalogue({ root, outDir }) {
   const assets = new Set();
   for (const m of css.styles.matchAll(/url\(\s*['"]?([^)'"\s]+)['"]?\s*\)/g)) assets.add(assetPath(root, 'dist/styles.css', m[1]));
   for (const card of cards) {
-    const source = readFileSync(join(root, card.previewPath), 'utf8');
-    for (const path of previewAssets(root, card.previewPath, source.replace(/<script\b[^>]*src=["'][^"']*(?:babel|react|bundle)[^"']*["'][^>]*><\/script>/g, ''))) assets.add(path);
     const html = await renderPreview({ root, card, mode: 'current', standalone: true,
       scope: { theme: 'DEFAULT', appearance: 'light', density: 'cozy' } });
+    for (const path of previewAssets(root, card.previewPath, html, ['dist/styles.css','runtime.js','components.js'])) assets.add(path);
     mkdirSync(dirname(join(outDir, card.previewPath)), { recursive: true });
     writeFileSync(join(outDir, card.previewPath), html);
   }

@@ -13,15 +13,21 @@ export function renderTokenCss(model) {
   const themed = names.filter(n => Object.values(sets).some(values => values[n] !== sets['DEFAULT.light'][n]));
   const internals = (theme) => Object.fromEntries(themed.flatMap(name => ['light', 'dark'].map(mode => [`--ds-_${name.slice(5)}--${mode}`, sets[`${theme}.${mode}`][name]])));
   const typography = roleAliases(model.source);
-  let css = rule(':root', { ...sets['DEFAULT.light'], ...typography, ...internals('DEFAULT'), '--ds-_if-dark': '', '--ds-_if-light': 'initial' });
+  let css = rule(':root', { ...sets['DEFAULT.light'], ...typography, ...internals('DEFAULT'), '--ds-_if-dark': '', '--ds-_if-light': 'initial', '--ds-_if-red2': '', '--ds-_if-default': 'initial' });
   for (const mode of ['light', 'dark']) {
     const values = Object.fromEntries(names.filter(n => !themed.includes(n) && sets['DEFAULT.light'][n] !== sets['DEFAULT.dark'][n]).map(n => [n, sets[`DEFAULT.${mode}`][n]]));
     css += rule(`[data-ds-appearance="${mode}"]`, { ...values, '--ds-_if-dark': mode === 'dark' ? 'initial' : '', '--ds-_if-light': mode === 'light' ? 'initial' : '' });
   }
-  for (const theme of ['DEFAULT', 'RED2']) css += rule(`[data-ds-theme="${theme}"]`, internals(theme));
+  for (const theme of ['DEFAULT', 'RED2']) css += rule(`[data-ds-theme="${theme}"]`, {...internals(theme), '--ds-_if-red2': theme === 'RED2' ? 'initial' : '', '--ds-_if-default': theme === 'DEFAULT' ? 'initial' : ''});
   for (const mode of ['cozy', 'compact']) css += rule(`[data-ds-density="${mode}"]`, density[mode]);
   const recalculated = Object.fromEntries(names.filter(n => aliases[n].length && !themed.includes(n)).map(n => [n, sets['DEFAULT.light'][n]]));
   Object.assign(recalculated, typography);
+  // Re-evaluate alias expressions against primitives on this scope boundary.
+  // Inherited private aliases would otherwise retain their ancestor's values.
+  for (const name of themed.filter(n => aliases[n].length)) for (const mode of ['light', 'dark']) {
+    const normal=sets[`DEFAULT.${mode}`][name], red=sets[`RED2.${mode}`][name];
+    recalculated[`--ds-_${name.slice(5)}--${mode}`] = normal === red ? normal : `var(--ds-_if-red2, ${red}) var(--ds-_if-default, ${normal})`;
+  }
   for (const name of themed) {
     const internal = `--ds-_${name.slice(5)}`;
     recalculated[name] = `var(--ds-_if-dark, var(${internal}--dark)) var(--ds-_if-light, var(${internal}--light))`;

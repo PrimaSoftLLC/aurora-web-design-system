@@ -4,6 +4,7 @@ const root=fixtureRoot();let dev;
 const waitFor=async predicate=>{const end=Date.now()+15000;while(Date.now()<end){if(await predicate())return;await new Promise(r=>setTimeout(r,50));}throw Error('dev event timed out');};
 try{
  dev=await startDev({root,port:0});assert.equal((await fetch(dev.url)).status,200);
+ const preview=await(await fetch(dev.url+'/components/Example/preview.html')).text();assert.ok(preview.includes("new EventSource('/__events')"),'standalone preview listens for rebuilds');
  assert.equal((await fetch(dev.url+'/%2e%2e%2fpackage.json')).status,403);
  const events=await fetch(dev.url+'/__events');const reader=events.body.getReader();let received='';
  const pump=(async()=>{while(true){const r=await reader.read();if(r.done)return;received+=new TextDecoder().decode(r.value);}})();

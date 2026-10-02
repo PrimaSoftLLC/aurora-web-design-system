@@ -18,19 +18,24 @@ export async function startDev({root,port=5173}){
  };
  await rebuild();
  const server=createServer((req,res)=>{
+  if(closed){res.writeHead(503);res.end();return;}
   try{
    const pathname=decodeURIComponent(new URL(req.url,'http://127.0.0.1').pathname);
    if(pathname==='/__events'){res.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'no-cache','Connection':'keep-alive'});res.write(': connected\n\n');clients.add(res);if(lastError)res.write(`event: error\ndata: ${JSON.stringify(lastError)}\n\n`);req.on('close',()=>clients.delete(res));return;}
    const path=resolve(current,pathname==='/'?'index.html':'.'+pathname);const rel=relative(current,path);
    if(rel==='..'||rel.startsWith(`..${sep}`)||isAbsolute(rel)||rel.includes('.git')){res.writeHead(403);res.end();return;}
    let bytes=readFileSync(path);res.setHeader('Content-Type',mime[extname(path)]??'application/octet-stream');
-   if(extname(path)==='.html')bytes=bytes.toString().replace('</head>','<script>window.__AURORA_DEV__=true</script></head>');res.end(bytes);
+   if(extname(path)==='.html')bytes=bytes.toString().replace('</head>',`<script>
+const events=new EventSource('/__events');
+events.addEventListener('reload',()=>location.reload());
+events.addEventListener('error',event=>{if(!event.data)return;let box=document.getElementById('build-error');if(!box){box=document.createElement('pre');box.id='build-error';box.setAttribute('role','alert');box.style.cssText='position:fixed;inset:0 0 auto;z-index:2147483647;padding:16px;background:#fff;color:#a00;white-space:pre-wrap';document.body.append(box);}box.textContent=JSON.parse(event.data);box.hidden=false;});
+</script></head>`);res.end(bytes);
   }catch{res.writeHead(404);res.end();}
  });
  await new Promise(r=>server.listen(port,'127.0.0.1',r));
  const excluded=/^(?:\.git|node_modules|dist|site|\.tmp|\.worktrees|\.superpowers)(?:\/|$)|^(?:tokens\.json|tokens\.css|tokens\/scoped\.css|components\/bundle\.(?:js|css)|lint\/tokens.allowed.json|runtime\.js|components\.js)$/;
  const watcher=watch(root,{recursive:true},(_,filename)=>{if(!filename||closed)return;const name=String(filename).replaceAll('\\','/');if(excluded.test(name))return;clearTimeout(timer);timer=setTimeout(()=>{rebuild().catch(error=>{lastError=error.message;send('error',lastError);});},80);});
- return{url:`http://127.0.0.1:${server.address().port}`,close:async()=>{closed=true;clearTimeout(timer);watcher.close();while(running)await new Promise(r=>setTimeout(r,20));for(const res of clients)res.end();await new Promise(r=>server.close(r));}};
+ return{url:`http://127.0.0.1:${server.address().port}`,close:async()=>{closed=true;clearTimeout(timer);watcher.close();while(running)await new Promise(r=>setTimeout(r,20));for(const res of clients)res.end();await new Promise(r=>{server.close(r);server.closeAllConnections();});}};
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)){
  const root=fileURLToPath(new URL('../',import.meta.url));const dev=await startDev({root});console.log(`Aurora catalogue: ${dev.url}`);

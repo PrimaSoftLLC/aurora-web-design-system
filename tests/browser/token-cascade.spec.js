@@ -51,3 +51,15 @@ test('changing a brand changes frozen values and dependent focus', async ({page}
   const values=await page.locator('#scope').evaluate(el=>{const s=getComputedStyle(el);return [s.getPropertyValue('--ds-brand').trim(),s.getPropertyValue('--ds-focus-color').trim()];});
   expect(values).toEqual(['#ff00ff','#ff00ff']);expect(values[0]).not.toBe('#555354');
 });
+
+test('appearance aliases resolve local primitive overrides at each boundary', async ({page}) => {
+  const {styles}=buildDist({root});
+  await page.setContent(`<style>${styles}</style><div data-ds-appearance="dark" style="--ds-n-100:#123456"><div id="alias" data-ds-density="compact" style="--ds-n-100:#abcdef"></div></div>`);
+  expect(await page.locator('#alias').evaluate(el=>getComputedStyle(el).getPropertyValue('--ds-fg').trim())).toBe('#abcdef');
+});
+
+test('brand alias chains stay live across appearance and density boundaries',async({page})=>{
+  const {styles}=buildDist({root});
+  await page.setContent(`<style>${styles}</style><div data-ds-theme="RED2" data-ds-appearance="light"><div id="dark" data-ds-appearance="dark"><div id="compact" data-ds-density="compact"></div></div></div>`);
+  for(const id of ['dark','compact']) expect(await page.locator('#'+id).evaluate(el=>{const s=getComputedStyle(el);return ['--ds-accent','--ds-accent-mark','--ds-accent-on','--ds-accent-mark-on'].map(p=>s.getPropertyValue(p).trim());})).toEqual(['#f26a63','#f26a63','#2d1716','#2d1716']);
+});

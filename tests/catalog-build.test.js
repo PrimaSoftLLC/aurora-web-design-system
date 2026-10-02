@@ -10,6 +10,16 @@ const fixture=fixtureRoot();try{
  writeFileSync(path,original.replace('</body>','<img src="icon.svg?v=1#part"></body>'));
  await buildCatalogue({root:fixture,outDir:join(fixture,'site')});assert.ok(readFileSync(join(fixture,'site/components/Example/icon.svg')).length);
  const rendered=readFileSync(join(fixture,'site/components/Example/preview.html'),'utf8');assert.ok(rendered.includes('icon.svg?v=1#part'));assert.ok(!rendered.includes('unpkg.com'));
+ writeFileSync(join(fixture,'components/Example/nested.css'),'@import "example.css"; .icon {background:url(icon.svg?v=2#part)}');
+ writeFileSync(join(fixture,'components/Example/example.css'),'@import "nested.css";');
+ writeFileSync(path,original.replace('</head>','<link rel="stylesheet" href="example.css"></head>'));
+ rmSync(join(fixture,'site/components/Example/icon.svg'));
+ await buildCatalogue({root:fixture,outDir:join(fixture,'site')});assert.ok(readFileSync(join(fixture,'site/components/Example/icon.svg')).length);
+ rmSync(join(fixture,'components/Example/icon.svg'));
+ await assert.rejects(buildCatalogue({root:fixture,outDir:join(fixture,'site')}),/missing.*icon.svg/);
+ writeFileSync(join(fixture,'components/Example/nested.css'),'@import "https://example.com/external.css";');
+ await assert.rejects(buildCatalogue({root:fixture,outDir:join(fixture,'site')}),/external asset/);
+ writeFileSync(path,original);
  writeFileSync(join(fixture,'components/Example/README.md'),'');await buildCatalogue({root:fixture,outDir:join(fixture,'site')});
  writeFileSync(path,original.replace('</body>','<img src="missing.svg"></body>'));await assert.rejects(buildCatalogue({root:fixture,outDir:join(fixture,'site')}),/missing.*missing.svg/);
  writeFileSync(path,original.replace('height=180','viewport="bad"'));assert.throws(()=>readCards(fixture),/invalid viewport/);
