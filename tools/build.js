@@ -4,11 +4,13 @@ import { buildTokens } from './tokens/build.mjs';
 import { join } from 'node:path';
 import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, renameSync, rmSync, existsSync } from 'node:fs';
 import { buildCatalogue } from './catalog/build.mjs';
+import { buildAngular } from './build-angular.mjs';
 export function buildDist({root = fileURLToPath(new URL('..', import.meta.url))} = {}) {
   const {styles, tokens} = buildTokens({root});
   return {styles, tokens};
 }
 export async function buildAll({root = fileURLToPath(new URL('..', import.meta.url))} = {}) {
+  if(existsSync(join(root,'angular/tsconfig.lib.json')))await buildAngular({root});
   const temporary = join(root,'.tmp');mkdirSync(temporary,{recursive:true});
   const stage = mkdtempSync(join(temporary,'catalogue-build-'));
   const previous = join(stage,'previous-site');

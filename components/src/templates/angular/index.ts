@@ -1,4 +1,2 @@
-export * from './aurora-tokens';
-export * from './aurora-theme.service';
-export * from './aurora-scope.directive';
-export * from './aurora-echarts';
+export * from '../../../../dist/angular/core.mjs';
+export * from '../../../../dist/angular/echarts.mjs';

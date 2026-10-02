@@ -26,7 +26,7 @@ const work = mkdtempSync(join(tmpdir(), 'ds-pack-'));
 try {
   const packed = JSON.parse(sh(['pack', '--json', '--ignore-scripts', '--pack-destination', work], root))[0];
   assert.equal(packed.files.some(f=>/^(?:site|catalog|tests|tools|\.tmp)\//.test(f.path)),false,'catalogue and build/test tooling must not ship');
-  for(const path of ['dist/styles.css','dist/tokens.css','tokens.json'])assert.ok(packed.files.some(f=>f.path===path),path);
+  for(const path of ['dist/styles.css','dist/tokens.css','tokens.json','dist/angular/core.mjs','dist/angular/core.d.mts','dist/angular/echarts.mjs','dist/angular/echarts.d.mts'])assert.ok(packed.files.some(f=>f.path===path),path);
   const tgz = packed.filename;
   writeFileSync(join(work, 'package.json'), JSON.stringify({ name: 'consumer', private: true, type: 'module' }));
   sh(['install', '--offline', '--no-audit', '--no-fund', join(work, tgz)], work);
@@ -41,7 +41,7 @@ try {
   symlinkSync(join(root, 'node_modules/stylelint'), join(work, 'node_modules/stylelint'), 'junction');
 
   await check('входы резолвятся', () => {
-    for (const entry of ['styles.css', 'tokens.css', 'stylelint-config', 'tokens.json', 'package.json']) {
+    for (const entry of ['styles.css', 'tokens.css', 'stylelint-config', 'tokens.json', 'package.json','angular','angular/echarts']) {
       assert.ok(existsSync(req.resolve(`@primasoftllc/design-system/${entry}`)), entry);
     }
   });
@@ -55,7 +55,7 @@ try {
     const index = join(pkgDir, 'components/src/templates/angular/index.ts');
     assert.ok(existsSync(index));
     for (const [, spec] of readFileSync(index, 'utf8').matchAll(/from '(\.[^']+)'/g)) {
-      assert.ok(existsSync(join(dirname(index), `${spec}.ts`)), spec);
+      assert.ok(existsSync(join(dirname(index), spec)), spec);
     }
     assert.ok(existsSync(join(pkgDir, 'components/src/components/charts/echartsTheme.mjs')));
   });

@@ -29,7 +29,7 @@ check('входы', () => {
   assert.equal(pkg.exports['./styles.css'], './dist/styles.css');
   assert.equal(pkg.exports['./tokens.css'], './dist/tokens.css');
   assert.equal(pkg.exports['./stylelint-config'], './lint/config.js');
-  assert.equal(pkg.exports['./angular'], undefined, 'слой подключается алиасом tsconfig, спека §6.1');
+  assert.deepEqual(pkg.exports['./angular'], {types:'./dist/angular/core.d.mts',default:'./dist/angular/core.mjs'});
 });
 check('peer-зависимости необязательны', () => {
   for (const dep of Object.keys(pkg.peerDependencies ?? {})) {
