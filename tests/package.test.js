@@ -50,6 +50,7 @@ check('старого имени нет в коде и документах', ()
   const bad = [];
   const walk = (dir) => {
     for (const name of readdirSync(dir)) {
+      if (['node_modules', 'dist', '.angular'].includes(name)) continue;
       const path = join(dir, name);
       const rel = relative(root, path).replaceAll('\\', '/');
       if (skip.some((s) => rel === s || rel.startsWith(`${s}/`))) continue;

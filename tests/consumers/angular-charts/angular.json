@@ -1,0 +1,48 @@
+{
+    "version":  1,
+    "projects":  {
+                     "consumer":  {
+                                      "architect":  {
+                                                        "build":  {
+                                                                      "configurations":  {
+                                                                                             "production":  {
+                                                                                                                "extractLicenses":  false,
+                                                                                                                "optimization":  true,
+                                                                                                                "aot":  true,
+                                                                                                                "sourceMap":  false
+                                                                                                            }
+                                                                                         },
+                                                                      "options":  {
+                                                                                      "outputPath":  "dist",
+                                                                                      "browser":  "src/main.ts",
+                                                                                      "index":  "src/index.html",
+                                                                                      "tsConfig":  "tsconfig.json",
+                                                                                      "polyfills":  [
+                                                                                                        "zone.js"
+                                                                                                    ],
+                                                                                      "assets":  [
+                                                                                                     {
+                                                                                                         "input":  "src",
+                                                                                                         "glob":  "global.html",
+                                                                                                         "output":  "/"
+                                                                                                     },
+                                                                                                     {
+                                                                                                         "input":  "node_modules/@primasoftllc/design-system/components/src/components/charts",
+                                                                                                         "glob":  "echartsTheme.js",
+                                                                                                         "output":  "/bridge"
+                                                                                                     }
+                                                                                                 ],
+                                                                                      "styles":  [
+                                                                                                     "node_modules/@primasoftllc/design-system/dist/styles.css"
+                                                                                                 ],
+                                                                                      "outputHashing":  "none"
+                                                                                  },
+                                                                      "builder":  "@angular-devkit/build-angular:application"
+                                                                  }
+                                                    },
+                                      "projectType":  "application",
+                                      "root":  "",
+                                      "sourceRoot":  "src"
+                                  }
+                 }
+}

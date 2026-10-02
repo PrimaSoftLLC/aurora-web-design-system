@@ -27,12 +27,10 @@
 
 ```bash
 npm i -E @primasoftllc/design-system # точная версия, без ^: обновление — отдельный коммит
-npm i echarts                        # нужен Angular-слою (шаг 5), даже если графиков пока нет
 npm i -D stylelint postcss-scss      # линтер (шаг 7)
 ```
 
-`echarts` обязателен для Angular-слоя: его вход `index.ts` реэкспортирует обвязку графиков, а она берёт типы из
-`echarts`. Без пакета сборка падает на `Cannot find module 'echarts'`. Поддерживаются echarts 5–6.
+Базовый Angular-вход не требует ECharts. Устанавливайте `echarts` отдельно, если используете графики.
 
 ## 4. Стили: `angular.json`
 
@@ -48,35 +46,26 @@ npm i -D stylelint postcss-scss      # линтер (шаг 7)
 Шрифты (Inter Tight, JetBrains Mono) и иконки Material Symbols подключаются самим `styles.css` — в `assets`
 ничего добавлять не нужно, в Google Fonts интерфейс не ходит. Подробнее — ANGULAR.md §1.
 
-## 5. Angular-слой: `tsconfig.json`
+## 5. Angular-слой
 
-```json
-"compilerOptions": {
-  "paths": {
-    "@primasoftllc/design-system/angular": [
-      "./node_modules/@primasoftllc/design-system/components/src/templates/angular/index.ts"
-    ]
-  }
-}
-```
-
-`./` в начале обязателен: без `baseUrl` (так в проекте из `ng new`) путь без него даёт ошибку TS5090. Слой —
-исходники TypeScript, их компилирует ваше приложение. Импорты — только через этот алиас.
+Пакет содержит скомпилированный Angular-вход с типами. Для нового проекта алиас в `tsconfig.paths` не нужен.
+Импортируйте сервис, директиву и провайдер из `@primasoftllc/design-system/angular`.
 
 ## 6. Тема, оформление, плотность
 
 `app.config.ts`:
 
 ```ts
-import { provideAurora } from '@primasoftllc/design-system/angular';
+import {ApplicationConfig} from '@angular/core';
+import {provideAurora} from '@primasoftllc/design-system/angular';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideAurora({ theme: 'DEFAULT' })],   // тема тенанта; RED2 — другой тенант
+  providers: [...provideAurora({theme: 'DEFAULT'})],
 };
 ```
 
-`app.component.ts` — внедрите сервис в корневом компоненте. Он создаётся лениво: пока его никто не внедрил,
-атрибуты на `<body>` не появятся.
+Провайдер запускает сервис при bootstrap и выставляет атрибуты на `<body>`.
+Внедряйте сервис в компонент там, где нужны переключатели оформления или плотности:
 
 ```ts
 private readonly aurora = inject(AuroraThemeService);
@@ -104,7 +93,21 @@ toggleDark(): void {
 <div data-ds-appearance="dark">…</div>
 ```
 
-## 7. Линтер — в первый день
+## 7. Графики, если нужны
+
+```bash
+npm i echarts
+```
+
+```ts
+import {auroraChartChrome, auroraWatchScopes} from '@primasoftllc/design-system/angular/echarts';
+```
+
+Стройте опции от DOM-узла графика и перестраивайте их при смене скоупа.
+Пример и отписка — [ANGULAR.md](ANGULAR.md#echarts).
+Самостоятельный JS-вход `/echarts-theme` также сохранён.
+
+## 8. Линтер — в первый день
 
 `.stylelintrc.json`:
 
@@ -118,7 +121,7 @@ toggleDark(): void {
 `package.json`: `"lint:css": "stylelint \"src/**/*.{css,scss}\""`, запуск в CI рядом с тестами. Что он ловит и
 чего не видит — LINT.md.
 
-## 8. Как писать стили
+## 9. Как писать стили
 
 - Цвет — только `var(--ds-*)`. Размеры — только `px`, без `rem`.
 - Свой `:focus`, рамку текстового поля и `box-shadow` не рисовать: кольцо фокуса и рамка уже в системе.
@@ -129,7 +132,7 @@ toggleDark(): void {
 
 Пример — ANGULAR.md §3.
 
-## 9. Компоненты
+## 10. Компоненты
 
 Готовых Angular-компонентов в пакете нет: React-компоненты системы — эталон, в сборку не идут. Компонент пишется
 в приложении по спецификации из репозитория системы (в npm-пакет она не входит): папка `components/Ds<Имя>/` —
@@ -140,7 +143,7 @@ toggleDark(): void {
 Не хватило токена или компонента, спецификация не покрывает состояние — не изобретайте: `// TODO: DS-<n>` в коде
 и задача в репозитории системы. Подробнее — ADOPTION.md, «Когда токена или компонента не хватает».
 
-## 10. CI приложения
+## 11. CI приложения
 
 1. Владелец пакета: Package settings → Manage Actions access → добавить репозиторий приложения с ролью Read.
 2. Workflow приложения:
@@ -161,16 +164,31 @@ steps:
       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## 11. Приёмка экрана
+## 12. Приёмка экрана
 
 Каждый экран, диалог и карточка снимаются в четырёх рендерах: DEFAULT/light/cozy, DEFAULT/dark/compact,
 RED2/light/cozy, RED2/dark/compact. Плюс AXE без нарушений, видимый `:focus-visible` с клавиатуры, состояние
 загрузки у каждой кнопки, которая шлёт запрос (CONTRIBUTING.md, «Acceptance criteria»).
 
-## 12. Обновление системы
+## 13. Обновление системы
 
 `npm i -E @primasoftllc/design-system@X.Y.Z` отдельным коммитом. MAJOR — ломающие изменения: прочитайте раздел версии в
 CHANGELOG.md и MIGRATION.md, правки кода — в том же коммите (VERSIONING.md).
+
+## Переход со старого алиаса
+
+Существующий алиас `/angular` на `components/src/templates/angular/index.ts` сохранён.
+Старые адаптеры используют тот же сервис и InjectionToken, что и новые входы.
+Для Angular application-builder старый исходный `index.ts` должен быть включён в `tsconfig.files`:
+
+```json
+"files": ["node_modules/@primasoftllc/design-system/components/src/templates/angular/index.ts"]
+```
+
+Для перехода удалите только алиас `@primasoftllc/design-system/angular` из `paths`.
+Импорты сервиса и директивы оставьте; `auroraChartChrome` и `auroraWatchScopes` перенесите
+на `/angular/echarts`. Запись совместимого `index.ts` в `files` после перехода можно удалить.
+CSS-путь, имена токенов и SCSS-партиал сохраняются.
 
 ## Если что-то не так
 
@@ -178,8 +196,8 @@ CHANGELOG.md и MIGRATION.md, правки кода — в том же комм�
 |---|---|
 | `npm i` — 401/403 от `npm.pkg.github.com` | нет `NODE_AUTH_TOKEN`, токен fine-grained или без `read:packages`, нет доступа к репозиторию системы |
 | `npm i` — ERESOLVE по `echarts` или `stylelint` | мажор вне поддерживаемых: echarts 5–6, stylelint 16–17 |
-| `Cannot find module 'echarts'` при сборке | не установлен `echarts` — он нужен Angular-слою (шаг 3) |
-| TS5090 или «Could not resolve "@primasoftllc/design-system/angular"» | в `paths` нет `./` в начале пути |
+| `Cannot find module 'echarts'` при сборке | установите ECharts при использовании `/angular/echarts` |
+| Не найден `/angular` | проверьте установленную версию и оставшийся старый `paths` |
 | Интерфейс в Helvetica, иконки — текстом | `styles.css` пакета не первой строкой `styles` или подключён не `dist/styles.css` |
-| Тема не меняется, на `<body>` нет `data-ds-*` | `AuroraThemeService` никто не внедрил (шаг 6) |
+| Тема не меняется, на `<body>` нет `data-ds-*` | проверьте включение `...provideAurora(...)` в bootstrap-конфигурацию |
 | CI: 403 на `npm ci` | репозиторию приложения не выдан доступ в настройках пакета (шаг 10) |
