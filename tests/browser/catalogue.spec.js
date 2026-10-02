@@ -25,3 +25,18 @@ test('direct dev preview displays failed builds and reloads after recovery',asyn
   await expect(page.locator('#root')).toHaveText('recovered');await expect(page.locator('[role="alert"]')).toHaveCount(0);
  }finally{await test.step('leave preview',()=>page.goto('about:blank'));if(dev)await test.step('close dev server',()=>dev.close());rmSync(fixture,{recursive:true,force:true});}
 });
+test('API references use real declarations, defaults and token source',async({page})=>{
+ await buildCatalogue({root,outDir:`${root}/site`});const served=await serveRoot(`${root}/site`),errors=[];
+ page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.url());});
+ await page.route('**/*',r=>r.request().url().startsWith(served.url+'/')?r.continue():r.abort());
+ try{
+  for(const name of ['DsButton','DsCheckButton','DsChartLegend','DsChartTooltip','DsTabPanel']){
+   await page.goto(`${served.url}/api/components/${name}.html`);
+   await expect(page.getByRole('heading',{level:1}).first()).toHaveText(name);
+   await expect(page.getByRole('table',{name:'Props '+name})).toBeVisible();
+  }
+  await page.goto(served.url+'/api/components/DsCheckButton.html');await expect(page.getByText('components/DsCheck/DsCheck.d.ts',{exact:true})).toBeVisible();
+  await page.goto(served.url+'/api/components/DsButton.html');await expect(page.getByRole('row').filter({has:page.getByRole('rowheader',{name:'tone',exact:true})})).toContainText("'primary'");
+  await page.goto(served.url+'/api/tokens.html');await expect(page.locator('#ds-brand')).toBeVisible();expect(errors).toEqual([]);
+ }finally{served.server.closeAllConnections();await new Promise(r=>served.server.close(r));}
+});

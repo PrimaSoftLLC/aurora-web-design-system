@@ -19,6 +19,8 @@
  * the dialog body.
  */
 export interface DsDialogProps {
+  /** Accessible name when title is absent. */
+  'aria-label'?: string;
   open?: boolean;
   title?: React.ReactNode;
   /** One line under the title. Full sentences here take a terminal period. */

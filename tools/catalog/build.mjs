@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readCards } from './index.mjs';
@@ -6,10 +6,37 @@ import { renderPreview } from './preview.mjs';
 import { previewAssets, assetPath, copyAsset } from './assets.mjs';
 import { buildComponents } from '../build-components.mjs';
 import { writeTokenOutputs } from '../tokens/build.mjs';
+import {readTokenModel} from '../tokens/model.mjs';
+import {extractApi} from '../docs/api.mjs';
+import {renderMarkdown,renderProps,documentPage} from '../docs/markdown.mjs';
+import {renderTokenReference} from '../docs/tokens.mjs';
 export async function buildCatalogue({ root, outDir }) {
   if (resolve(root) === resolve(outDir)) throw new Error('Catalogue output must not replace source root');
   const cards = readCards(root);
   const css = writeTokenOutputs({ root });
+  const api=extractApi({root}),knownRoutes=new Map();
+  const guides=readdirSync(root).filter(name=>name.endsWith('.md'));
+  for(const guide of guides)knownRoutes.set(guide,`/docs/${guide.slice(0,-3)}.html`);
+  for(const card of cards){knownRoutes.set(card.previewPath,'/'+card.previewPath);if(card.readmePath)knownRoutes.set(card.readmePath,`/docs/cards/${card.id}.html`);}
+  const writePage=(path,html)=>{mkdirSync(dirname(join(outDir,path)),{recursive:true});writeFileSync(join(outDir,path),html);};
+  for(const guide of guides){const document=renderMarkdown({root,path:guide,knownRoutes});writePage(`docs/${guide.slice(0,-3)}.html`,documentPage({title:guide,html:document.html}));}
+  for(const doc of api){
+    const card=cards.find(card=>card.id===doc.name)??cards.find(card=>card.id===doc.declarationPath.split('/')[1]);
+    const readme=card?.readmePath;
+    const markdown=readme?renderMarkdown({root,path:readme,knownRoutes}):null;
+    writePage(`api/components/${doc.name}.html`,documentPage({title:doc.name,html:renderProps(doc)+(markdown?.html??''),back:card?`/index.html?card=${card.id}`:'/index.html'}));
+  }
+  const reference=renderTokenReference(readTokenModel(css.source));
+  writePage('api/tokens.html',documentPage({title:'CSS-токены',html:reference.html}));
+  for(const card of cards){
+    const contracts=api.filter(doc=>doc.name===card.id||doc.declarationPath.split('/')[1]===card.id);
+    card.apiPaths=contracts.map(doc=>({name:doc.name,path:`api/components/${doc.name}.html`}));
+    card.declarationPaths=[...new Set(contracts.map(doc=>doc.declarationPath))];
+    const document=card.readmePath?renderMarkdown({root,path:card.readmePath,knownRoutes}):null;
+    card.documentationPath=document?`docs/cards/${card.id}.html`:null;
+    card.searchText=[card.id,card.title,card.subtitle,document?.text??'',...contracts.flatMap(doc=>doc.props.map(prop=>prop.name))].join(' ');
+    if(document)writePage(card.documentationPath,documentPage({title:card.title,html:document.html,back:`/index.html?card=${card.id}`}));
+  }
   await buildComponents({ root, outDir });
   mkdirSync(join(outDir, 'dist'), { recursive: true });
   writeFileSync(join(outDir, 'dist/styles.css'), css.styles);

@@ -25,6 +25,9 @@ export interface DsTabItem {
   badge?: number | string;
 }
 export interface DsTabsProps {
+  /** Prefix shared with DsTabPanel for tab/panel IDs. */
+  idBase?: string;
+  'aria-label'?: string;
   items?: DsTabItem[];
   active?: string;
   onChange?: (id: string) => void;
@@ -37,3 +40,11 @@ export interface DsTabsProps {
   stack?: boolean;
 }
 export declare function DsTabs(props: DsTabsProps): JSX.Element;
+export interface DsTabPanelProps {
+  idBase: string;
+  id: string;
+  active: boolean;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+}
+export declare function DsTabPanel(props: DsTabPanelProps): JSX.Element;

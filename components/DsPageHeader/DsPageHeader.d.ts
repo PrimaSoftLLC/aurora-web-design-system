@@ -11,6 +11,7 @@
  */
 export interface DsBreadcrumb { label: React.ReactNode; onClick?: () => void }
 export interface DsPageHeaderProps {
+  children?: React.ReactNode;
   title?: React.ReactNode;
   /** 11px uppercase category above the title. */
   eyebrow?: React.ReactNode;

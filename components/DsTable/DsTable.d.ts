@@ -38,6 +38,8 @@ export interface DsTableColumn {
   render?: (row: any) => React.ReactNode;
 }
 export interface DsTableProps {
+  /** Composition slots, including footer. */
+  children?: React.ReactNode;
   columns?: DsTableColumn[];
   rows?: any[];
   /** Field to read each row's identity from. Default `id`. */

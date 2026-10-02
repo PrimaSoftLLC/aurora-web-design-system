@@ -13,6 +13,8 @@
  * `actions` and `badge` also accept children carrying `slot="actions"` / `slot="badge"`.
  */
 export interface DsListRowProps {
+  /** Slot children for actions and badge. */
+  children?: React.ReactNode;
   title?: React.ReactNode;
   /** Plate, IMEI, last-message time. Rendered in --ds-font-mono. */
   subtitle?: React.ReactNode;

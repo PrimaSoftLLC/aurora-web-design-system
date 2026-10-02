@@ -21,6 +21,7 @@
  * `slot="secondary"`, for composition from static markup.
  */
 export interface DsEmptyStateProps {
+  children?: React.ReactNode;
   /** Material Symbols Outlined name. Say what is missing (`route`, `assessment`, `cloud_off`, `error`). */
   icon?: string;
   title: React.ReactNode;

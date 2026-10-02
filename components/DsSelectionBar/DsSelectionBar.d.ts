@@ -14,6 +14,7 @@
  * `actions` also accepts a child carrying `slot="actions"`.
  */
 export interface DsSelectionBarProps {
+  children?: React.ReactNode;
   selected?: number;
   total?: number;
   /** Called with `true` to select everything, `false` to clear. */
