@@ -47,10 +47,13 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     pages.set(`/frames/${key}.html`, await renderPreview({ root, card, mode, scope }));
   }
   const served = await serveRoot(root, pages);
-  let context, page;
+  let context, page, frameBrowser;
   const freshPage=async()=>{
-   if(context)await context.close();
-   context=await browser.newContext();
+   if(frameBrowser)await frameBrowser.close();
+   // Font raster caches can survive context teardown in Chromium's shared process.
+   // Each compatibility image starts with the same fresh renderer/font state.
+   frameBrowser=await browser.browserType().launch();
+   context=await frameBrowser.newContext();
    await context.addInitScript(() => {
     const RealDate = Date;
     window.Date = class extends RealDate { constructor(...args) { super(...(args.length ? args : [1760000000000])); } static now() { return 1760000000000; } };
@@ -102,7 +105,7 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     if (compareDir) assert.deepEqual(computed, JSON.parse(readFileSync(join(compareDir, 'computed.json'), 'utf8')), 'Computed token baseline mismatch');
     console.log(`${mode}: ${cards.length} cards × 4 scopes and 8 computed sets, SHA256 ${createHash('sha256').update(json).digest('hex')}`);
   } finally {
-    if(context)await context.close();
+    if(frameBrowser)await frameBrowser.close();
     await new Promise(resolve => served.server.close(resolve));
   }
 }
