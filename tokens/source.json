@@ -944,16 +944,7 @@
     ],
     "families": {
       "ds-font-sans": "\"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-font-mono": "\"JetBrains Mono\",ui-monospace,SFMono-Regular,Menlo,monospace",
-      "ds-type-display": "600 30px/1.2 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-title": "600 20px/1.2 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-section": "600 16px/1.35 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-body": "400 14px/1.5 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-body-strong": "500 14px/1.5 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-ui": "500 13px/1.35 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-caption": "400 12px/1.35 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-eyebrow": "600 11px/1.35 \"Inter Tight\",\"Helvetica Neue\",Helvetica,system-ui,sans-serif",
-      "ds-type-mono": "400 13px/1.35 \"JetBrains Mono\",ui-monospace,SFMono-Regular,Menlo,monospace"
+      "ds-font-mono": "\"JetBrains Mono\",ui-monospace,SFMono-Regular,Menlo,monospace"
     },
     "groups": [
       {

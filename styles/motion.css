@@ -1,0 +1,11 @@
+@media (prefers-reduced-motion:reduce){:root{
+--ds-dur-instant:0ms; /* @kind other */
+--ds-dur-fast:0ms; /* @kind other */
+--ds-dur:0ms; /* @kind other */
+--ds-dur-slow:0ms; /* @kind other */
+--ds-transition-control:none; /* @kind other */
+}}
+
+@keyframes ds-spin{to{transform:rotate(360deg)}}
+
+@keyframes ds-pulse{0%,100%{opacity:1}50%{opacity:.45}}

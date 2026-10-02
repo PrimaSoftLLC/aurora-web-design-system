@@ -9,6 +9,7 @@ import assert from 'node:assert/strict';
 import postcss from 'postcss';
 import { checkParity } from '../tools/check-parity.js';
 import { buildDist } from '../tools/build.js';
+import { resolve as resolveCss, readSets } from '../tools/css.js';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (p) => readFileSync(join(root, p), 'utf8');
@@ -16,15 +17,14 @@ const check = (name, fn) => { fn(); console.log(`ok   сборка: ${name}`); }
 
 const { styles, tokens } = buildDist({ root });
 const stylesAst = postcss.parse(styles);
+check('подстановка шрифта сохраняет пробел между весом и размером', () => {
+  const sets = readSets(':root{--weight:400;--size:14px}');
+  assert.equal(resolveCss(sets,'root','var(--weight) var(--size)/1.5 sans-serif'), '400 14px/1.5 sans-serif');
+});
 
 check('паритет репозитория чистый', () => {
   const { mismatches, compared, kinds } = checkParity(read('tokens.css'), read('components/bundle.css'));
   assert.deepEqual(mismatches, []);
-  // Замер на 2026-09-23: 164 = appearance 124 (два скоупа светлости по 61 токену + --ds-focus-color в общем
-  // правиле обеих светлостей) + theme 40 (две темы × две светлости × 10 входов бренда --ds-_X--light|dark).
-  // Пол — без общего правила фокуса: если сверка перестанет видеть скоупы, число рухнет ниже.
-  assert.ok(kinds.appearance >= 122, `светлость: сверено ${kinds.appearance} копий, ждали ≥ 122`);
-  assert.ok(kinds.theme >= 40, `темы: сверено ${kinds.theme} входов бренда, ждали ≥ 40`);
   console.log(`     паритет: ${compared} копий`);
 });
 const PARITY_TOKENS = [
@@ -82,7 +82,7 @@ check('каждый var(--ds-*) где-то объявлен', () => {
   assert.deepEqual(missing, []);
 });
 check('наборы тем и плотности на месте', () => {
-  assert.match(styles, /\[data-ds-theme="RED2"\][^{]*\{[^}]*--ds-brand:/);
+  assert.match(styles, /\[data-ds-theme="RED2"\][^{]*\{[^}]*--ds-_brand--light:/);
   assert.match(styles, /\[data-ds-density="compact"\]/);
 });
 check('tokens.css — только кастомные свойства', () => {

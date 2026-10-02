@@ -12,7 +12,7 @@ export const SET_SELECTORS = {
   ':root': 'root',
 };
 
-export const normalize = (value) => value.replace(/\s+/g, ' ').replace(/\s*([,()])\s*/g, '$1').trim().toLowerCase();
+export const normalize = (value) => value.replace(/\s+/g, ' ').replace(/\s*,\s*/g, ',').replace(/\(\s*/g, '(').replace(/\s*\)/g, ')').trim().toLowerCase();
 
 /** @returns {Map<string, Map<string, string>>} */
 export function readSets(tokensCss) {

@@ -1,0 +1,53 @@
+import { test, expect } from '@playwright/test';
+import { prepareBaseline, serveRoot, SCOPES } from '../../tools/baseline/render.mjs';
+import { buildDist } from '../../tools/build.js';
+import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
+import { readTokenModel } from '../../tools/tokens/model.mjs';
+import { renderTokenCss } from '../../tools/tokens/css.mjs';
+const root = fileURLToPath(new URL('../../', import.meta.url));
+const clean = props => Object.fromEntries(Object.entries(props).filter(([n]) => !n.startsWith('--ds-_')).map(([n,v]) => [n, v.trim().toLowerCase().replace(/\s+/g,' ')]));
+test('tokens preserve frozen CSS values, eight scopes and nested cascade', async ({ page }) => {
+  const baseline = await prepareBaseline(root);
+  const current = buildDist({ root });
+  const fixture = readFileSync(`${baseline.root}/tests/fixtures/cascade.html`, 'utf8');
+  const served = await serveRoot(baseline.root, new Map());
+  const read = async css => {
+    await page.goto(`${served.url}/tests/fixtures/cascade.html`);
+    await page.waitForSelector('#out');
+    if (css) { await page.locator('link[rel="stylesheet"]').evaluateAll(nodes => nodes.forEach(n => n.remove())); await page.addStyleTag({ content: css }); }
+    return page.evaluate(() => Object.fromEntries([...document.querySelectorAll('[id^="c-"],[id^="n-"],[id^="bare-"]')].map(el => {
+      const s=getComputedStyle(el); return [el.id,Object.fromEntries([...s].filter(n=>n.startsWith('--')).map(n=>[n,s.getPropertyValue(n)]))];
+    })));
+  };
+  try {
+    const old=await read(); const fresh=await read(current.styles);
+    for(const id of Object.keys(old)) expect(clean(fresh[id]),id).toEqual(clean(old[id]));
+    for(const scope of SCOPES) {
+      await page.goto(`${served.url}/tests/fixtures/cascade.html`);
+      const get=() => page.evaluate(scope => {
+        const el=document.documentElement;for(const [k,v]of Object.entries(scope))el.setAttribute(`data-ds-${k}`,v);
+        const s=getComputedStyle(el);return Object.fromEntries([...s].filter(n=>n.startsWith('--')).map(n=>[n,s.getPropertyValue(n)]));
+      },scope);
+      const want=await get();await page.locator('link[rel="stylesheet"]').evaluateAll(nodes=>nodes.forEach(n=>n.remove()));await page.addStyleTag({content:current.styles});
+      expect(clean(await get()),JSON.stringify(scope)).toEqual(clean(want));
+    }
+  } finally {await new Promise(resolve=>served.server.close(resolve));}
+});
+test('deep independent scopes, local brand and typography aliases remain live', async ({ page }) => {
+  const { styles } = buildDist({root});
+  await page.setContent(`<style>${styles}</style><div data-ds-theme="RED2" data-ds-appearance="dark"><div data-ds-theme="DEFAULT"><div data-ds-appearance="light"><div data-ds-theme="RED2"><div id="deep" data-ds-appearance="dark" data-ds-density="compact"></div></div></div></div></div><div id="local" data-ds-theme="RED2" style="--ds-brand:#123456"></div>`);
+  const values = await page.evaluate(() => {
+    const get=(id,prop)=>getComputedStyle(document.getElementById(id)).getPropertyValue(prop).trim();
+    document.documentElement.style.setProperty('--ds-weight-regular','700');
+    return {brand:get('deep','--ds-brand'),height:get('deep','--ds-control-h'),focus:get('local','--ds-focus-color'),body:get('deep','--ds-type-body')};
+  });
+  expect(values.brand).toBe('#b9b6b7');expect(values.height).toBe('30px');expect(values.focus).toBe('#123456');expect(values.body).toMatch(/^700 /);
+});
+test('changing a brand changes frozen values and dependent focus', async ({page}) => {
+  const source=JSON.parse(readFileSync(`${root}/tokens/source.json`));
+  source.color.tokens.find(t=>t.name==='ds-brand').value['ds-appearance-light-ds-red2']='#ff00ff';
+  await page.setContent(`<style>${renderTokenCss(readTokenModel(source))}</style><div id="scope" data-ds-theme="RED2"></div>`);
+  const values=await page.locator('#scope').evaluate(el=>{const s=getComputedStyle(el);return [s.getPropertyValue('--ds-brand').trim(),s.getPropertyValue('--ds-focus-color').trim()];});
+  expect(values).toEqual(['#ff00ff','#ff00ff']);expect(values[0]).not.toBe('#555354');
+});

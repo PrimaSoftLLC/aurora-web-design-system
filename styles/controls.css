@@ -1,0 +1,15 @@
+:where(button,a[href],[role="button"],[role="menuitem"],[role="tab"],[role="checkbox"],[role="switch"],[role="option"],[tabindex]:not([tabindex="-1"])):focus-visible{outline:var(--ds-focus-width) solid var(--ds-focus-color);outline-offset:var(--ds-focus-offset)}
+
+:where(input[type="checkbox"],input[type="radio"]):focus-visible+span{outline:var(--ds-focus-width) solid var(--ds-focus-color);outline-offset:var(--ds-focus-offset)}
+
+[data-ds-field]{border:var(--ds-border-width) solid var(--ds-border-field);border-radius:var(--ds-radius-field)}
+
+[data-ds-field]:hover{border-color:var(--ds-border-field-hover)}
+
+[data-ds-field="error"]{border-color:var(--ds-danger-solid)}
+
+[data-ds-field="warning"]{border-color:var(--ds-warning-solid)}
+
+[data-ds-field]:focus-within{border-color:var(--ds-brand);box-shadow:var(--ds-focus-ring)}
+
+[data-ds-field="error"]:focus-within{border-color:var(--ds-danger-solid);box-shadow:var(--ds-focus-ring-danger)}
