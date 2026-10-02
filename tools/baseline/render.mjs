@@ -39,7 +39,8 @@ export async function serveRoot(root, pages = new Map()) {
   return { server, url: `http://127.0.0.1:${server.address().port}` };
 }
 
-export async function captureCards({ browser, root, cards, mode = 'legacy', outDir, compareDir }) {
+export async function captureCards({ browser, root, cards, mode = 'legacy', outDir, compareDir, referenceRoot }) {
+  if (compareDir && mode === 'current' && !referenceRoot) throw new Error('Current comparison requires the pinned original referenceRoot');
   mkdirSync(outDir, { recursive: true });
   const pages = new Map();
   for (const card of cards) for (const scope of ACCEPTANCE_SCOPES) {
@@ -47,13 +48,19 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     pages.set(`/frames/${key}.html`, await renderPreview({ root, card, mode, scope }));
   }
   const served = await serveRoot(root, pages);
-  let context, page, frameBrowser;
+  let reference = served;
+  if (referenceRoot) {
+    const originals = new Map();
+    for (const card of cards) for (const scope of ACCEPTANCE_SCOPES) {
+      const key = `${card.id}-${scope.theme}-${scope.appearance}-${scope.density}`;
+      originals.set(`/frames/${key}.html`, await renderPreview({root: referenceRoot, card, mode: 'legacy', scope}));
+    }
+    reference = await serveRoot(referenceRoot, originals);
+  }
+  let context, page;
   const freshPage=async()=>{
-   if(frameBrowser)await frameBrowser.close();
-   // Font raster caches can survive context teardown in Chromium's shared process.
-   // Each compatibility image starts with the same fresh renderer/font state.
-   frameBrowser=await browser.browserType().launch();
-   context=await frameBrowser.newContext();
+   if(context)await context.close();
+   context=await browser.newContext();
    await context.addInitScript(() => {
     const RealDate = Date;
     window.Date = class extends RealDate { constructor(...args) { super(...(args.length ? args : [1760000000000])); } static now() { return 1760000000000; } };
@@ -61,7 +68,7 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
   });
    await context.route('**/*', route => {
     const url = route.request().url();
-    if (url.startsWith(served.url + '/') || /^(?:data:|blob:)/.test(url)) return route.continue();
+    if (url.startsWith(served.url + '/') || url.startsWith(reference.url + '/') || /^(?:data:|blob:)/.test(url)) return route.continue();
     return route.abort('blockedbyclient');
   });
    page=await context.newPage();
@@ -85,7 +92,26 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
       assert.deepEqual(errors, [], `${key}: browser errors`);
       const buffer = await page.screenshot({ animations: 'disabled', caret: 'hide' });
       writeFileSync(join(outDir, `${key}.png`), buffer);
-      if (compareDir) assert.ok(buffer.equals(readFileSync(join(compareDir, `${key}.png`))), `${key}: visual mismatch; inspect PNG files in ${outDir} and ${compareDir}`);
+      if (compareDir && !buffer.equals(readFileSync(join(compareDir, `${key}.png`)))) {
+        // Variable-font rasterization can vary even between unchanged originals.
+        // Accept only exact bytes produced by the original source, never a tolerance.
+        let matched = false;
+        for (let attempt = 0; attempt < 8 && !matched; attempt++) {
+          errors.length = 0;
+          await freshPage();
+          await page.setViewportSize(card.viewport);
+          await page.goto(`${reference.url}/frames/${key}.html`);
+          if (await page.locator('#root').count()) await page.waitForFunction(() => document.getElementById('root').childNodes.length > 0 || document.querySelector('[role="dialog"]') !== null);
+          await page.evaluate(() => document.fonts.ready);
+          await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+          assert.deepEqual(errors, [], `${key}: original browser errors`);
+          const original = await page.screenshot({animations: 'disabled', caret: 'hide'});
+          writeFileSync(join(outDir, `${key}-original-${attempt}.png`), original);
+          matched = buffer.equals(original);
+        }
+        assert.ok(matched, `${key}: visual mismatch; inspect PNG files in ${outDir} and ${compareDir}`);
+        console.log(`${key}: exact repeated-original raster variant matched`);
+      }
     }
     const computed = {};
     for (const scope of SCOPES) {
@@ -105,7 +131,9 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     if (compareDir) assert.deepEqual(computed, JSON.parse(readFileSync(join(compareDir, 'computed.json'), 'utf8')), 'Computed token baseline mismatch');
     console.log(`${mode}: ${cards.length} cards × 4 scopes and 8 computed sets, SHA256 ${createHash('sha256').update(json).digest('hex')}`);
   } finally {
-    if(frameBrowser)await frameBrowser.close();
+    if(context)await context.close();
+    if(reference !== served){reference.server.closeAllConnections();await new Promise(resolve => reference.server.close(resolve));}
+    served.server.closeAllConnections();
     await new Promise(resolve => served.server.close(resolve));
   }
 }

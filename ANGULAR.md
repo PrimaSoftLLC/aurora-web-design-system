@@ -74,15 +74,27 @@ toggleDark(): void {
 базовый Angular-пакет независимым от него:
 
 ```ts
-import {auroraChartChrome, auroraWatchScopes} from '@primasoftllc/design-system/angular/echarts';
+import type {EChartsOption} from 'echarts/types/dist/echarts';
+import {auroraChartChrome} from '@primasoftllc/design-system/angular/echarts';
 
-const buildOption = () => ({
-  ...auroraChartChrome(host),
-  series,
-  xAxis: {type: 'time'},
-});
-chart.setOption(buildOption(), true);
-const stop = auroraWatchScopes(host, () => chart.setOption(buildOption(), true));
+export function chartOption(host: HTMLElement): EChartsOption {
+  const chrome = auroraChartChrome(host);
+  return {
+    ...chrome,
+    xAxis: {...chrome.xAxis, type: 'time'},
+    series: [{type: 'line', data: [[Date.now(), 42]]}],
+  };
+}
+```
+
+Используйте собственные данные серии. Сохраняйте вложенные опции `chrome.xAxis`
+и `chrome.yAxis`, когда добавляете тип оси, категории или пределы:
+
+```ts
+import {auroraWatchScopes} from '@primasoftllc/design-system/angular/echarts';
+
+chart.setOption(chartOption(host), true);
+const stop = auroraWatchScopes(host, () => chart.setOption(chartOption(host), true));
 // В ngOnDestroy: stop(); chart.dispose();
 ```
 

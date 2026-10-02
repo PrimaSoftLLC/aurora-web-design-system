@@ -7,6 +7,20 @@
 Токены редактируются в `tokens/source.json`, компоненты — в `components/src`,
 примеры — в `components/*/preview.html`. Правила: [AGENTS.md](AGENTS.md).
 
+Перед первым `verify` подготовьте браузер и npm cache тестовых приложений
+(этот шаг использует сеть; сама проверка устанавливает приложения офлайн):
+
+```bash
+mise exec -- npx playwright install chromium
+mise exec -- npm ci --prefix tests/consumers/angular-base
+mise exec -- npm ci --prefix tests/consumers/angular-charts
+mise exec -- npm ci --prefix tests/consumers/angular-legacy
+mise exec -- npm run verify
+```
+
+Для отдельной проверки Angular выполните `mise exec -- npm run build`, затем
+`mise exec -- npm run check:angular`: команда проверяет tarball уже собранного пакета.
+
 ## Установка
 
 Пошагово для нового проекта — [getting-started.md](getting-started.md). Коротко:
