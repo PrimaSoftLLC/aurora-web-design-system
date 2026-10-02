@@ -51,7 +51,7 @@ export async function buildCatalogue({ root, outDir }) {
   }
   for (const path of assets) if (path && !['dist/styles.css', 'components/bundle.js', 'components/lib/react.production.min.js', 'components/lib/react-dom.production.min.js'].includes(path.replaceAll('\\','/'))) copyAsset({ root, outDir, path });
   writeFileSync(join(outDir, 'cards.json'), JSON.stringify(cards, null, 2) + '\n');
-  for (const file of ['index.html', 'app.js', 'styles.css']) writeFileSync(join(outDir, file), readFileSync(new URL(`../../catalog/${file}`, import.meta.url)));
+  for (const file of ['index.html', 'app.js', 'styles.css','search.js','families.js','state.js']) writeFileSync(join(outDir, file), readFileSync(new URL(`../../catalog/${file}`, import.meta.url)));
   return cards;
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

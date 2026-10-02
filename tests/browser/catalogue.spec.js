@@ -40,3 +40,29 @@ test('API references use real declarations, defaults and token source',async({pa
   await page.goto(served.url+'/api/tokens.html');await expect(page.locator('#ds-brand')).toBeVisible();expect(errors).toEqual([]);
  }finally{served.server.closeAllConnections();await new Promise(r=>served.server.close(r));}
 });
+
+test('search, URL history and scope comparison preserve preview contracts',async({page})=>{
+ const cards=await buildCatalogue({root,outDir:`${root}/site`}),served=await serveRoot(`${root}/site`);
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ try{
+  await page.goto(served.url+'/index.html#DsButton');await expect(page.locator('#title')).toHaveText('DsButton');
+  await page.locator('#search').fill('CHECKBOX');await expect(page.locator('nav a[data-id="DsCheckButton"]')).toBeVisible();
+  await page.locator('#search').fill('loading');await expect(page.locator('nav a[data-id="DsButton"]')).toBeVisible();
+  await page.locator('#search').fill('not-a-card-12345');await expect(page.locator('#search-empty')).toBeVisible();
+  await page.locator('#search').fill('');await page.locator('#theme').selectOption('RED2');await page.locator('#appearance').selectOption('dark');await page.locator('#density').selectOption('compact');
+  await expect(page.frameLocator('#preview').locator('html')).toHaveAttribute('data-ds-theme','RED2');
+  await page.reload();await expect(page.locator('#density')).toHaveValue('compact');await expect(page.frameLocator('#preview').locator('html')).toHaveAttribute('data-ds-appearance','dark');
+  await page.locator('#compare').click();await expect(page.locator('#viewports iframe')).toHaveCount(4);
+  const expected=[['DEFAULT','light','cozy'],['DEFAULT','dark','compact'],['RED2','light','cozy'],['RED2','dark','compact']];
+  for(const[index,scope]of expected.entries()){
+   const frame=page.frameLocator('#preview-'+index);for(const[axis,value]of ['theme','appearance','density'].map((axis,i)=>[axis,scope[i]]))await expect(frame.locator('html')).toHaveAttribute('data-ds-'+axis,value);
+   const card=cards.find(c=>c.id==='DsButton');await expect(page.locator('#preview-'+index)).toHaveCSS('width',card.viewport.width+'px');
+  }
+  await page.reload();await expect(page.locator('#compare')).toHaveAttribute('aria-pressed','true');
+  await page.locator('#compare').click();await page.goBack();await expect(page.locator('#viewports iframe')).toHaveCount(4);
+  await page.goto(served.url+'/index.html?card=Monitoring&appearance=dark');await expect(page.frameLocator('#preview').locator('html')).toHaveAttribute('data-ds-appearance','dark');await expect(page.frameLocator('#preview').locator('#root [data-ds-appearance]').first()).toHaveAttribute('data-ds-appearance','light');
+  await page.locator('#search').focus();await page.keyboard.type('DsButton');await page.keyboard.press('Tab');await expect(page.locator('nav a').first()).toBeFocused();
+  await page.goto(served.url+'/index.html?card=%3Cscript%3E&theme=bad');await expect(page.locator('#card-error')).toBeVisible();await expect(page.locator('#missing-id')).toHaveText('<script>');await expect(page.locator('#viewports iframe')).toHaveCount(0);await expect(page.locator('#theme')).toHaveValue('DEFAULT');
+  await page.locator('#return-catalogue').click();await expect(page.locator('#card-error')).toBeHidden();expect(errors).toEqual([]);
+ }finally{served.server.closeAllConnections();await new Promise(r=>served.server.close(r));}
+});

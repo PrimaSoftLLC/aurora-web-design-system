@@ -57,10 +57,12 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     }
     reference = await serveRoot(referenceRoot, originals);
   }
-  let context, page;
-  const freshPage=async()=>{
+  let context, page, coldBrowser;
+  const freshPage=async(cold=false)=>{
    if(context)await context.close();
-   context=await browser.newContext();
+   if(coldBrowser){await coldBrowser.close();coldBrowser=null;}
+   if(cold)coldBrowser=await browser.browserType().launch();
+   context=await (coldBrowser??browser).newContext();
    await context.addInitScript(() => {
     const RealDate = Date;
     window.Date = class extends RealDate { constructor(...args) { super(...(args.length ? args : [1760000000000])); } static now() { return 1760000000000; } };
@@ -98,7 +100,8 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
         let matched = false;
         for (let attempt = 0; attempt < 8 && !matched; attempt++) {
           errors.length = 0;
-          await freshPage();
+          // Both cold and warm glyph caches occur in unchanged Chromium renders.
+          await freshPage(attempt>=4);
           await page.setViewportSize(card.viewport);
           await page.goto(`${reference.url}/frames/${key}.html`);
           if (await page.locator('#root').count()) await page.waitForFunction(() => document.getElementById('root').childNodes.length > 0 || document.querySelector('[role="dialog"]') !== null);
@@ -132,6 +135,7 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
     console.log(`${mode}: ${cards.length} cards × 4 scopes and 8 computed sets, SHA256 ${createHash('sha256').update(json).digest('hex')}`);
   } finally {
     if(context)await context.close();
+    if(coldBrowser)await coldBrowser.close();
     if(reference !== served){reference.server.closeAllConnections();await new Promise(resolve => reference.server.close(resolve));}
     served.server.closeAllConnections();
     await new Promise(resolve => served.server.close(resolve));
