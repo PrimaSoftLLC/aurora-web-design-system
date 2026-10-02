@@ -1,6 +1,6 @@
 {
-  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "$comment": "Archived precompiled-entrypoint experiment. Not used by the package build; use npm run build (tools/build-angular.mjs).",
   "dest": "../../dist/aurora-ds",
-  "assets": ["../../styles.css", "../../tokens", "../../assets", "./_aurora.scss"],
-  "lib": { "entryFile": "index.ts" }
+  "assets": ["./_aurora.scss"],
+  "lib": { "entryFile": "../../components/src/templates/angular/index.ts" }
 }

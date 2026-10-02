@@ -1,134 +1,105 @@
-# Подключение в Angular
+﻿# Подключение в Angular
 
-Система поставляется как **CSS-токены + спецификация**. React-файлы `components/*.jsx`
-в Angular-сборку не идут: это эталон внешнего вида, состояний и имён пропсов, по
-которому пишутся Angular-компоненты. В бандл попадает только `dist/styles.css`
-(и его источники — см. ниже); `tokens/` из пакета не поставляется.
+Пошаговое подключение пакета, CSS, провайдера и линтера — [getting-started.md](getting-started.md).
+Здесь описаны скоупы, интеграция с брендом приложения и графики.
+React-компоненты служат эталоном для реализации компонентов в Angular.
 
-Пошагово для нового проекта, от токена доступа до CI, — [getting-started.md](getting-started.md).
+## Три независимых скоупа
 
-## 1. Установка
-
-```bash
-npm i -E @primasoftllc/design-system # точная версия; доступ к пакету — PUBLISHING.md
-npm i echarts                        # нужен Angular-слою (§5)
-```
-
-`angular.json` → `projects.<app>.architect.build.options.styles`, первой строкой,
-до собственных стилей приложения:
-
-```json
-"styles": [
-  "node_modules/@primasoftllc/design-system/dist/styles.css",
-  "src/styles.scss"
-]
-```
-
-`dist/styles.css` собирается в репозитории системы из `tokens.css` (плюс
-`tokens/scoped.css`, `components/bundle.css`, `tokens/webfonts-selfhost.css`; копии токенов
-в `components/bundle.css` сверяются с `tokens.css` паритетом, `npm run check:parity`) и
-проверяется в браузере каскадным тестом — это единственная таблица стилей для приложений.
-`tokens.css` со страницы артефакта в приложение не подключается: он для превью.
-
-Иконочный шрифт Material Symbols подтягивается самим `styles.css` относительными
-путями — отдельная строка в `assets` не нужна.
-
-Подключение через git submodule не используется: сабмодуль отдаёт исходники,
-а не собранную и проверенную таблицу стилей, и версия в нём не фиксируется тегом.
-
-## 2. Три скоупа на `<body>`
+`provideAurora` из `@primasoftllc/design-system/angular` запускает сервис при bootstrap.
+Он ставит на `<body>` три атрибута:
 
 ```html
 <body data-ds-theme="DEFAULT" data-ds-appearance="light" data-ds-density="cozy">
 ```
 
-Атрибуты ставит `AuroraThemeService` из Angular-слоя (§5): `provideAurora({ theme })` в
-`app.config.ts` и внедрение сервиса в корневом компоненте — он создаётся лениво, и без внедрения атрибутов не
-будет. Тот же набор атрибутов статически в `index.html` убирает мигание до старта Angular. Это путь для нового
-проекта ([getting-started.md](getting-started.md), шаг 6).
+Тема (`DEFAULT` | `RED2`) приходит из конфигурации тенанта. Оформление
+(`light` | `dark`) и плотность (`cozy` | `compact`) сохраняются в `localStorage`.
+Корректные сохранённые значения имеют приоритет над конфигурацией; при недоступном
+storage применяются значения конфигурации. Тема в storage не записывается.
+Статические атрибуты в `index.html` задают оформление до bootstrap.
 
-Приложение без слоя (легаси с собственным конфигом бренда) может выставлять атрибуты само. Тема приходит из
-`FRONT_BRAND` в рантайме, как и сейчас; механизм `theme-*` класса ломать не нужно — атрибут ставится рядом:
+`FRONT_BRAND` и существующие классы `theme-*` можно сохранить: сервис меняет только
+`data-ds-*`. Передавайте бренд приложения в `provideAurora({theme})`; после загрузки
+конфигурации используйте `AuroraThemeService.setTheme(theme)`.
 
 ```ts
-// app.component.ts — только без Angular-слоя
-@Component({ selector: 'app-root', /* … */ })
-export class AppComponent implements OnInit {
-  private readonly doc = inject(DOCUMENT);
-  private readonly config = inject(ConfigService);
+import {inject} from '@angular/core';
+import {AuroraThemeService} from '@primasoftllc/design-system/angular';
 
-  ngOnInit(): void {
-    const body = this.doc.body;
-    body.dataset['dsTheme'] = this.config.brand ?? 'DEFAULT';   // FRONT_BRAND
-    body.dataset['dsAppearance'] = this.prefs.appearance;        // 'light' | 'dark'
-    body.dataset['dsDensity'] = this.prefs.density;              // 'cozy' | 'compact'
-  }
+private readonly aurora = inject(AuroraThemeService);
+toggleDark(): void {
+  this.aurora.setAppearance(this.aurora.appearance() === 'dark' ? 'light' : 'dark');
 }
 ```
 
-Атрибуты наследуются, поэтому любой подузел переопределяет их локально —
-compact-таблица внутри cozy-страницы это один атрибут на обёртке:
+В приложении с собственной реализацией скоупов эти же атрибуты можно выставлять вручную.
+Старый механизм `theme-*` остаётся рядом с ними.
+
+## Локальные скоупы
+
+Добавьте standalone-директиву `AuroraScopeDirective` в `imports` компонента:
 
 ```html
-<div data-ds-density="compact"><app-objects-table/></div>
+<section auroraScope density="compact">…</section>
+<div data-ds-appearance="light">…</div>
 ```
 
-## 3. Токены в компонентах
+Каждый атрибут переопределяет только свою ось. Компактная таблица наследует тему
+и оформление страницы; светлая панель внутри тёмной страницы сохраняет плотность.
+Не заданный input директивы удаляет локальный атрибут и возвращает наследование.
+
+## Стили компонентов
 
 ```scss
-// objects-table.component.scss
 .row {
   height: var(--ds-row-h);
   padding-inline: var(--ds-cell-pad-x);
   border-bottom: 1px solid var(--ds-divider);
   color: var(--ds-fg);
   font: var(--ds-type-body);
-
   &:hover { background: var(--ds-surface-hover); }
   &[aria-selected='true'] { background: var(--ds-surface-selected); }
 }
 ```
 
-Правила ревью те же, что и в системе: **цвет — только через токен, размеры — только
-в px** (порталы ставят `html { font-size: 10px }`, поэтому `rem` из старого кода
-умножается на 10 один раз и остаётся px). Фокус и рамка текстового поля уже живут в
-`tokens/focus.css` и `tokens/field.css` — свой `:focus` компонент не рисует.
+Цвета задаются токенами, размеры — в px. Фокус и рамки полей включены в
+`dist/styles.css`; собственное кольцо фокуса не требуется. Необязательный SCSS-партиал
+с миксинами сохранён: [templates/angular/README.md](templates/angular/README.md).
+Старые имена при миграции — [MIGRATION.md](MIGRATION.md).
 
-## 4. Старые имена
+## ECharts
 
-`MIGRATION.md` — таблица «Angular-класс / `--color-*` → имя в системе». Это
-документ для миграции, а не источник дизайна: v1-слой удалён.
-
-## 5. Слой angular/
-
-В репозитории есть готовая обвязка — `templates/angular/`: сервис трёх скоупов,
-директива `[auroraScope]`, типы, миксины SCSS и конфиг `ng-packagr`.
-Подробности и подключение — `templates/angular/README.md`, раздел «Подключение».
+Установите ECharts только для приложений с графиками. Отдельный вход сохраняет
+базовый Angular-пакет независимым от него:
 
 ```ts
-providers: [provideAurora({ theme: 'DEFAULT' })]   // тема из FRONT_BRAND
+import {auroraChartChrome, auroraWatchScopes} from '@primasoftllc/design-system/angular/echarts';
+
+const buildOption = () => ({
+  ...auroraChartChrome(host),
+  series,
+  xAxis: {type: 'time'},
+});
+chart.setOption(buildOption(), true);
+const stop = auroraWatchScopes(host, () => chart.setOption(buildOption(), true));
+// В ngOnDestroy: stop(); chart.dispose();
 ```
 
-## 6. ECharts
+Мост читает токены с реального DOM-узла. Наблюдение покрывает сам узел и цепочку
+предков до `<html>`, включая промежуточную панель с локальным скоупом.
+После изменения темы, оформления или плотности пересобирайте опции; при уничтожении
+компонента обязательно вызывайте функцию отписки. Статическая зарегистрированная
+JSON-тема не отслеживает смену атрибутов.
 
-`components/src/components/charts/echartsTheme.js` — скрипт с глобалом; ES-модульная обёртка над ним лежит рядом (`echartsTheme.mjs`) и именно на неё указывает экспорт пакета `./echarts-theme`:
+Самостоятельный JS-вход `/echarts-theme`, глобальный `dsEChartsTheme` и старые
+TypeScript-адаптеры сохранены. Механический переход со старого алиаса описан
+в [getting-started.md](getting-started.md#переход-со-старого-алиаса).
 
-```ts
-import { dsEChartsTheme } from '@primasoftllc/design-system/echarts-theme';
+## Проверка
 
-const option = { ...dsEChartsTheme(this.host.nativeElement), series, xAxis: { type: 'time' } };
-this.chart.setOption(option, true);
-```
-
-Он читает токены с DOM, поэтому после смены темы, светлости или плотности его
-нужно вызвать заново и сделать `setOption` — статическую JSON-тему регистрировать
-нельзя, она не следит за атрибутом. `auroraWatchScopes(el, cb)` из
-`templates/angular/aurora-echarts.ts` делает это за вас: он подписан на сам узел и
-на всю цепочку его предков (включая промежуточную панель с `[auroraScope]`, `<body>`
-и `<html>`), так что вложенное переопределение темы тоже перерисовывает график.
-
-## 7. Проверка
-
-Четыре рендера для каждого экрана, диалога и карточки: DEFAULT/light/cozy,
-DEFAULT/dark/compact, RED2/light/cozy, RED2/dark/compact. Плюс AXE, реальный
-`:focus-visible`, состояние загрузки на каждой кнопке, которая шлёт запрос.
+Для каждого экрана, диалога и карточки: DEFAULT/light/cozy, DEFAULT/dark/compact,
+RED2/light/cozy, RED2/dark/compact, AXE и видимый фокус с клавиатуры.
+Сборка библиотеки использует partial compilation; application linker работает
+при сборке приложения. Репозиторный `npm run verify` проверяет базовое приложение
+без ECharts, приложение с графиками и старый алиас из установленного tarball.

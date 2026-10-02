@@ -17,8 +17,8 @@
 //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
 ```
 `npm i -E @primasoftllc/design-system`, стили — первой строкой `styles` в `angular.json`:
-`node_modules/@primasoftllc/design-system/dist/styles.css`, Angular — алиас
-из `templates/angular/README.md`, линтер — `@primasoftllc/design-system/stylelint-config` (нужен `stylelint` в
+`node_modules/@primasoftllc/design-system/dist/styles.css`, Angular — скомпилированный вход
+`@primasoftllc/design-system/angular` и `...provideAurora(...)`, линтер — `@primasoftllc/design-system/stylelint-config` (нужен `stylelint` в
 зависимостях приложения — пакет несёт только конфиг). Доступ к пакету — PUBLISHING.md.
 
 ---
