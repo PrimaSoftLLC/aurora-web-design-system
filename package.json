@@ -48,7 +48,7 @@
     "check:parity": "node tools/check-parity.js",
     "check:pack": "node tools/check-pack.js",
     "prepack": "npm run build",
-    "verify": "npm test && npm run build && node tests/build.test.js && node tests/dist-cascade.test.js && npm run check:pack",
+    "verify": "node tools/verify.mjs",
     "pretest": "npm run build",
     "dev": "node tools/dev.mjs",
     "build:catalog": "node tools/catalog/build.mjs"

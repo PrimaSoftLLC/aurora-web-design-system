@@ -24,7 +24,10 @@ const check = async (name, fn) => { await fn(); console.log(`ok   пакет-п�
 
 const work = mkdtempSync(join(tmpdir(), 'ds-pack-'));
 try {
-  const tgz = JSON.parse(sh(['pack', '--json', '--ignore-scripts', '--pack-destination', work], root))[0].filename;
+  const packed = JSON.parse(sh(['pack', '--json', '--ignore-scripts', '--pack-destination', work], root))[0];
+  assert.equal(packed.files.some(f=>/^(?:site|catalog|tests|tools|\.tmp)\//.test(f.path)),false,'catalogue and build/test tooling must not ship');
+  for(const path of ['dist/styles.css','dist/tokens.css','tokens.json'])assert.ok(packed.files.some(f=>f.path===path),path);
+  const tgz = packed.filename;
   writeFileSync(join(work, 'package.json'), JSON.stringify({ name: 'consumer', private: true, type: 'module' }));
   sh(['install', '--offline', '--no-audit', '--no-fund', join(work, tgz)], work);
   const pkgDir = join(work, 'node_modules/@primasoftllc/design-system');

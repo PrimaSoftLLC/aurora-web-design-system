@@ -71,8 +71,8 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
       await page.evaluate(() => document.fonts.ready);
       assert.deepEqual(errors, [], `${key}: browser errors`);
       const buffer = await page.screenshot({ animations: 'disabled', caret: 'hide' });
-      if (compareDir) assert.deepEqual(buffer, readFileSync(join(compareDir, `${key}.png`)), `${key}: visual mismatch`);
       writeFileSync(join(outDir, `${key}.png`), buffer);
+      if (compareDir) assert.deepEqual(buffer, readFileSync(join(compareDir, `${key}.png`)), `${key}: visual mismatch`);
     }
     const computed = {};
     for (const scope of SCOPES) {

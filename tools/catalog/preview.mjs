@@ -16,9 +16,10 @@ export async function renderPreview({ root, card, mode = 'legacy', scope, standa
   const walk = node => {
     if (node.tagName === 'head') head = node;
     if (node.tagName === 'html') html = node;
+    if (node.tagName === 'base') node._remove = true;
     if (node.tagName === 'script') {
       const src = attr(node, 'src');
-      if (src && /(?:react(?:-dom)?\.production|bundle\.js|babel(?:\.min)?\.js)/.test(src)) { node._remove = true; return; }
+      if (src && /(?:react(?:-dom)?\.production|bundle\.js|babel(?:\.min)?\.js|(?:^|\/)(?:runtime|components)\.js(?:[?#]|$))/.test(src)) { node._remove = true; return; }
       const type = attr(node, 'type') ?? '';
       if (!['', 'text/javascript', 'application/javascript', 'text/babel', 'application/json'].includes(type)) throw new Error(`${card.previewPath}: unsupported script type ${type}`);
       if (type === 'text/babel') tasks.push(transform(node.childNodes.map(n => n.value ?? '').join(''), { loader: 'jsx', jsx: 'transform', sourcefile: card.previewPath }).then(result => {
@@ -26,7 +27,7 @@ export async function renderPreview({ root, card, mode = 'legacy', scope, standa
         node.childNodes = [{ nodeName: '#text', value: result.code, parentNode: node }];
       }));
     }
-    if (node.tagName === 'link' && attr(node, 'rel') === 'stylesheet' && /(?:tokens(?:\/scoped)?\.css|bundle\.css)/.test(attr(node, 'href') ?? '')) node._remove = true;
+    if (node.tagName === 'link' && attr(node, 'rel') === 'stylesheet' && /(?:tokens(?:\/scoped)?\.css|bundle\.css|dist\/styles\.css)/.test(attr(node, 'href') ?? '')) node._remove = true;
     for (const a of node.attrs ?? []) {
       if (!['src', 'href', 'poster'].includes(a.name) || /^(?:data:|blob:|#|mailto:)/.test(a.value)) continue;
       const url = new URL(a.value, `http://aurora.local/${card.previewPath}`);

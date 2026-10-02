@@ -1,4 +1,4 @@
-# CI дизайн-системы. Схема — стандарт релизов Aurora (~/.claude/CLAUDE.md), как у aur-billing и locator-front.
+# CI дизайн-системы. Правила разработки и релиза — AGENTS.md.
 #   PR в develop/master     -> npm run verify
 #   push в develop          -> npm run verify
 #   push в master (= релиз) -> guard «версия ещё не выпущена», verify, npm publish в GitHub Packages,
@@ -61,10 +61,20 @@ jobs:
 
       - run: npm ci
 
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+
       - name: Verify
-        env:
-          CHROME_BIN: /usr/bin/google-chrome
         run: npm run verify
+
+      - name: Upload migration diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: migration-diagnostics
+          path: |
+            .tmp/migration/
+            .tmp/browser-results/
 
       - name: Publish, tag and release (master only)
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
