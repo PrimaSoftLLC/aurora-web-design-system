@@ -1,0 +1,2525 @@
+{
+  "sha": "8bf5c4db823bd6351e29657b755fe6ed5c3c3682",
+  "files": [
+    {
+      "path": ".claude/hooks/guard-bash.sh",
+      "sha256": "9359cef4565ce6afe8fa624730f46b7756d71826115e9de265f37174ff05cdac"
+    },
+    {
+      "path": ".claude/settings.json",
+      "sha256": "01a03f6b25701183f539f4917da778ae35804b104a671668c2c903192518b38c"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "edc47d4d919d0005e4bbd727c3053a18edf597bcf39af1494e983e9338c11f43"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "16219e33f497c8e7982e5925dca0a24550a33fec88b3c137f258f707c28b31f9"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "c9f3a69c6862aac39782c23a50eafe2ade3e7d92e108e267453e5f904002c55e"
+    },
+    {
+      "path": "ADOPTION.md",
+      "sha256": "96954845ff0cc603cea51e239bd7f03dc6ead55a47de38250ee81c1f649e1b6e"
+    },
+    {
+      "path": "ANGULAR.md",
+      "sha256": "918d19073ed4e804bb38a36229ef18b0636f042402d34b8db55155c69f883ae1"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "56cfdfcc5988277b685b7d4e01f54fb6efe01eb42e03ca848da9df7272408e50"
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "c08d54258f1e05e0726dfea63b953a5d47ee78c149b17ee1ab1913a69cf6b213"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "7bc4b479f2b76637ba897d5df2d03ff72bc0c6c27063635c2498f95e1ae0f23f"
+    },
+    {
+      "path": "LINT.md",
+      "sha256": "44ff3a471fdf0189eb4cc8d29c6a652f77b84a258a9cc0e654df1674365692e7"
+    },
+    {
+      "path": "MIGRATION.md",
+      "sha256": "842daaa0f80fb759e38d9b76b8cee6f8cfbe0f6b786c87aacb80d0b13e78985e"
+    },
+    {
+      "path": "NAMING.md",
+      "sha256": "29ee2b1b23a960effec29f6b4926d3fa8bf2d8351ac905db893422679d870844"
+    },
+    {
+      "path": "PUBLISHING.md",
+      "sha256": "46eb7cfd4647fa030535be0dbbb522ae269819e9effc6064bbc0309be9be8a6f"
+    },
+    {
+      "path": "README.md",
+      "sha256": "960fde59af61354d33156879b856db4fe32930816e29339f541e91117fc6957d"
+    },
+    {
+      "path": "REVIEW.md",
+      "sha256": "4af234c6ff71c38fa427c884a6f0b84e5b9a1b0d0d478810711be84b2d70157e"
+    },
+    {
+      "path": "SYNC.md",
+      "sha256": "bccfee81ae066de6e40cbd3795a855a9893ee170c722917cf51b95ded7b2590c"
+    },
+    {
+      "path": "VERSIONING.md",
+      "sha256": "73ad8ca826753c297faaa61e5c31f38fceb9b0cd8b012a64edcc83183fef552b"
+    },
+    {
+      "path": "api/assets/flags.md",
+      "sha256": "fa60cfeedc8b22db14429af4afe8fe6d8ff4c25a494f77a9e380c351a20057fc"
+    },
+    {
+      "path": "api/assets/images.md",
+      "sha256": "701aa7cff9f2c4dbaa195ded6b8a4882fce3613d695ae6caa47e2f92ddb2fe39"
+    },
+    {
+      "path": "api/assets/logo.md",
+      "sha256": "f6711434144ddaa032893ef9663c76395fab4a13a45d1c909cfb9054ef61b25e"
+    },
+    {
+      "path": "api/components/Admin.md",
+      "sha256": "ff1ad104901814054affa4bda53c089e75ede462023c63c1930c868b85e99adb"
+    },
+    {
+      "path": "api/components/AppShell.md",
+      "sha256": "fbb1354631c13509e5399286fdc672c611125e359b24d89c49d0a364229e5646"
+    },
+    {
+      "path": "api/components/BrandLogoLockup.md",
+      "sha256": "6bfc059ae294deb9f015f404479857c0a02b34b2f59364fc77b8ded360e79f08"
+    },
+    {
+      "path": "api/components/BrandLogoMark.md",
+      "sha256": "7f6eda74a07cb4a6f42141738dfc1b54f1dbd580fb42df50cb89084b516139ec"
+    },
+    {
+      "path": "api/components/DsAppHeader.md",
+      "sha256": "2618a6ee01623bf4b2ddecc6b17d87bfe1ecb6c2a96f16539cc2e6f9994f68a5"
+    },
+    {
+      "path": "api/components/DsAppearance.md",
+      "sha256": "151bce47e60f17f9a7adf3c72910b6d2bf0ecbca39b9371496833297be95dbd7"
+    },
+    {
+      "path": "api/components/DsBadge.md",
+      "sha256": "97a390140a7b5cfeaff3d41d23defe87d0971d8efc4e0068b8cd1ff11a6a29b0"
+    },
+    {
+      "path": "api/components/DsBanner.md",
+      "sha256": "09600927eab9fa3e58f81644b672d5e72672c2b4efe20cf2891b314b39d62fc6"
+    },
+    {
+      "path": "api/components/DsBrandPick.md",
+      "sha256": "7b288c4ae1a2b2d5a57d0bd5e14e2d542f1f1e4b88cc237f9b05274247fac130"
+    },
+    {
+      "path": "api/components/DsBrandThemes.md",
+      "sha256": "6ed1935b1b64b28e1dfd172986825bb48d3ec8821a3e6c0966317298cdb88afe"
+    },
+    {
+      "path": "api/components/DsBreakpoints.md",
+      "sha256": "5e37b719422d06282c85e956a0f893cdc977c9ae4f7e9dda2a1a78457444172c"
+    },
+    {
+      "path": "api/components/DsBreakpointsDecisions.md",
+      "sha256": "3857a7ab463166d0378eae1b544e9e3e6fdeb6adfe576ecab18abe6ef37249f9"
+    },
+    {
+      "path": "api/components/DsBulkBar.md",
+      "sha256": "6898f6f77a41e24abff4ac46a736b688ba0279f71fa741b57f2ddc07c8a1625f"
+    },
+    {
+      "path": "api/components/DsButton.md",
+      "sha256": "979708d0a92cce58a2aa4908a33143ce6376d5d420a506bb01665f2d2c05286d"
+    },
+    {
+      "path": "api/components/DsChart.md",
+      "sha256": "11d2ee071b30f5d3fe365d3d788cfaa5852221f1df26de9505fdd71329fe3579"
+    },
+    {
+      "path": "api/components/DsChartLegend.md",
+      "sha256": "cf7f08d42238d9799b86f4a42961f87f1ffa25a1a16d613d7ba962b584264166"
+    },
+    {
+      "path": "api/components/DsChartTooltip.md",
+      "sha256": "ded41a7488acc43df9350ac463c4b1df97ef47db3f9551ea741b7ee16a694b23"
+    },
+    {
+      "path": "api/components/DsCharts.md",
+      "sha256": "0207fda56b3efedee913e40276798e449a89365a15d336a50b0dfdb90ed20211"
+    },
+    {
+      "path": "api/components/DsCheck.md",
+      "sha256": "e12b3ea8089e2bbedc964f1c6a4b32668675788edeec38361416bbddb7e4806a"
+    },
+    {
+      "path": "api/components/DsCheckButton.md",
+      "sha256": "19b5b961d75454aaef601a8bb0010d8d30d3fba58930b0b2e87d91874356f16a"
+    },
+    {
+      "path": "api/components/DsCheckbox.md",
+      "sha256": "b51abf4b140dfc25a0edad5c3988cc546519a691fc16061a404e3ea36edad4d9"
+    },
+    {
+      "path": "api/components/DsChip.md",
+      "sha256": "364f4ff209470185e2baedf6a179f3c5fe8f07dbc59aff4d4f8456348eefc14f"
+    },
+    {
+      "path": "api/components/DsDensity.md",
+      "sha256": "8d25ac61082f070f583b1cfb878e40c46da3559b2139d41e6d9beab335895f24"
+    },
+    {
+      "path": "api/components/DsDialog.md",
+      "sha256": "13449359b54179d16672b69ca2899cdb37659a9cf1139ced1228a401701d420a"
+    },
+    {
+      "path": "api/components/DsDuration.md",
+      "sha256": "aaea653d0dc53f8b228a4c04d3a18891d2c5935af88473ff061d977f84983b8f"
+    },
+    {
+      "path": "api/components/DsEmptyState.md",
+      "sha256": "8402eb54579feff8ca052de6a49892f57cc0172340a9f4f11e590f59b057282a"
+    },
+    {
+      "path": "api/components/DsFab.md",
+      "sha256": "f15d232fd05f4c2b5682fbfe61d888592376661e317da564dcb8e4e9c1d387d3"
+    },
+    {
+      "path": "api/components/DsField.md",
+      "sha256": "cbfa411f66606f6704d991e696f4c3ff95afd9d642e70f69bdc76afd562deb61"
+    },
+    {
+      "path": "api/components/DsFilterBar.md",
+      "sha256": "a52a2501bca5d8f7ca8f2869252983a3086d8643241b117ac364860e93221951"
+    },
+    {
+      "path": "api/components/DsFilterMenu.md",
+      "sha256": "2fb4cbc9d36344c57549dc812d252ac99bee1e8606a01f2e55e82dec6819f28c"
+    },
+    {
+      "path": "api/components/DsHeader.md",
+      "sha256": "b0c2282d059ad2beecacc97d63920db5ba12acbd4bbbdb0ce3789e9b814810b6"
+    },
+    {
+      "path": "api/components/DsHeaderChip.md",
+      "sha256": "1cc5f26b5509132966f8b43567453e4365aa1d012a9e225a5bc7f22c293eff3a"
+    },
+    {
+      "path": "api/components/DsHover.md",
+      "sha256": "c014cebaa8dc273fe5976836610639f484d89c2de5ead43816ae06c41a4be0d5"
+    },
+    {
+      "path": "api/components/DsIcon.md",
+      "sha256": "76c7d04c8ab670ad8ba9e4060c858db15b43de98034ffff70a6ad9a9bab25db6"
+    },
+    {
+      "path": "api/components/DsIconButton.md",
+      "sha256": "be5015a6399aa33c26b2605309beef1d88df21a62c51196ec029b077b174c6cd"
+    },
+    {
+      "path": "api/components/DsListRow.md",
+      "sha256": "362a46e30ed58b19443f9a61d53c8f504018cb1031868e3f229eb3403d912219"
+    },
+    {
+      "path": "api/components/DsMenu.md",
+      "sha256": "10e82e13eadb091868c6bf064549eafff541368580173c64a50ada2076d86540"
+    },
+    {
+      "path": "api/components/DsNeutrals.md",
+      "sha256": "3a6651c6d54b59be56e6ef4ee88ee8bca9a491c39a4987533e3668e499377517"
+    },
+    {
+      "path": "api/components/DsObjectRow.md",
+      "sha256": "04e481ddf12330a565361afeb968f9c288b1fb03534d7ea5b8dd8e0e15d0f971"
+    },
+    {
+      "path": "api/components/DsPageHeader.md",
+      "sha256": "a21398e0578503ff93ee8ccf1bd575df69897fc0c8f58ac0ede768154a09ea34"
+    },
+    {
+      "path": "api/components/DsPageLayout.md",
+      "sha256": "26632887414c09bfe1141f700ba8ba5010acf7fa79d9640baa5ed4c58f661d79"
+    },
+    {
+      "path": "api/components/DsPagination.md",
+      "sha256": "7f9086b10929fcabdc5a0caf44501841d4b0668a947a5c8329f7a356f4dc0f6c"
+    },
+    {
+      "path": "api/components/DsPanel.md",
+      "sha256": "ec02d8bb61a832664ef40712a1be967d2fd850ff0256ef03472c55bdfa14283e"
+    },
+    {
+      "path": "api/components/DsScoreBar.md",
+      "sha256": "77ec6e25cc0f0c88244f4a07f832f3431d375fad70b3393f2aaf8b85f83a720f"
+    },
+    {
+      "path": "api/components/DsSelectBox.md",
+      "sha256": "94f67ba7927105e315005e6b9a0ac0e1c8959f932fe6f27f39d0225aa57198b4"
+    },
+    {
+      "path": "api/components/DsSelectionBar.md",
+      "sha256": "0da242784a990e1d0ad13cc0a4a12f30f582c427a03f0d81eaf70001cc37a428"
+    },
+    {
+      "path": "api/components/DsShape.md",
+      "sha256": "7da488db4d3b25197b720d61473144d072b80c29bf975213d283632a7610dc79"
+    },
+    {
+      "path": "api/components/DsSkeleton.md",
+      "sha256": "c47ae36fadced78010c8059a050771f7983205506238023f3447bd049a4ab6c4"
+    },
+    {
+      "path": "api/components/DsSorting.md",
+      "sha256": "e395680bd1f5792a1032675807fe8fc190a178a239f331f09b1b9291632422b2"
+    },
+    {
+      "path": "api/components/DsSortingMenu.md",
+      "sha256": "d801e17053e8a8a25f88a7f425d285ab91d3403688160792ddf83e072cb4a2ce"
+    },
+    {
+      "path": "api/components/DsSparkline.md",
+      "sha256": "2fb668c69b749c4f973c486097197f836bf800c481aaa696f6902ad87086d3ae"
+    },
+    {
+      "path": "api/components/DsSpinner.md",
+      "sha256": "4b6bcd31ee4ff0808b98fd423b8bacc8c4ccd8c3193e4df59ae5011194ed016f"
+    },
+    {
+      "path": "api/components/DsStateIcon.md",
+      "sha256": "83902c8f1249bd29810161b2628505b90245e6dced75aaf3ec803c8f26eb3e13"
+    },
+    {
+      "path": "api/components/DsStatus.md",
+      "sha256": "e746c517e415c7d6b32e1917849a7b0e147a4c792fb032092460c789e737495f"
+    },
+    {
+      "path": "api/components/DsStepper.md",
+      "sha256": "5e5a367aa5b6dce7616f0b80fcb69a99f2582b5b361b8c5c3adf0de490a2d956"
+    },
+    {
+      "path": "api/components/DsSwitch.md",
+      "sha256": "a5ccddd19ebdd899a4e6b83e895f5da204b7891dff1c12955916a0416fd22ff3"
+    },
+    {
+      "path": "api/components/DsTable.md",
+      "sha256": "cdabe226e76a84d8866e8616a4d3973c5723ab7f49d15990ea5198519327073e"
+    },
+    {
+      "path": "api/components/DsTabs.md",
+      "sha256": "abf206f1a34a5bb513ebdfae91bcdfa39917de7a8d6e7d57e823d2fbe868da72"
+    },
+    {
+      "path": "api/components/DsToast.md",
+      "sha256": "afdec148318724ce51b3541527531d55a84fb4aa632debdaa5ec46b89b3c98fa"
+    },
+    {
+      "path": "api/components/DsToastStack.md",
+      "sha256": "d9437abe977925300c875f6e0955c681e9422914c0f0a5250802b93b54fbb084"
+    },
+    {
+      "path": "api/components/DsTreeRow.md",
+      "sha256": "4dc641be6740f7e818679ec549fb5d679c815d3585026e8848754d00f3fd8cca"
+    },
+    {
+      "path": "api/components/DsType.md",
+      "sha256": "115c61146f6491ec3f932982f9adfb3b0fcec5ef010f6502acb1884a6bbe113f"
+    },
+    {
+      "path": "api/components/DsUserMenu.md",
+      "sha256": "f98674cd030ff9cdff0474e7b9485ca095255281379910bfcff47e7f855c97f0"
+    },
+    {
+      "path": "api/components/IconsArrows.md",
+      "sha256": "e493c36bf0aae1437227bdc237d161c65653c1b1bae1a880008d62c0e0a92319"
+    },
+    {
+      "path": "api/components/IconsMapAssets.md",
+      "sha256": "8b560d70565f507f813ad54f6f4aad8729bd16d30994c815f05c9291dc7f559d"
+    },
+    {
+      "path": "api/components/MapTrack.md",
+      "sha256": "2e5b462413ba05065162d8d1a4f4b8eb82e0b93ff167b8ab880483644152f509"
+    },
+    {
+      "path": "api/components/Monitoring.md",
+      "sha256": "b80886092c4f23a4f493eec75d289b338dd8a1a87e1f39452645a4705cc887b4"
+    },
+    {
+      "path": "api/tokens.md",
+      "sha256": "4dec1c8eba24443f435d91250d8c95f3467580d5da36a7db2b7eb590da91d441"
+    },
+    {
+      "path": "assets/fonts/README.md",
+      "sha256": "12b82b3cd8a70800e2cc06ea0bc2a9c0ed2379a6b0ad7c7eedf8c8d2c91720a9"
+    },
+    {
+      "path": "assets/fonts/SOURCES.md",
+      "sha256": "4c28631215796ba50bbeb30d9a6d9b804a396ae3bc08159b576156fb9ba162f3"
+    },
+    {
+      "path": "assets/fonts/inter-tight/InterTight-Bold.woff2",
+      "sha256": "7b8db4468f58759c97c0e186bb42c2ad0dd676941b4f6ec241ad2fa803dd9470"
+    },
+    {
+      "path": "assets/fonts/inter-tight/InterTight-Medium.woff2",
+      "sha256": "9928478879fa9ec8bd9df476a83fd3ee8d99d1a334207b940af36f180b0f6b29"
+    },
+    {
+      "path": "assets/fonts/inter-tight/InterTight-Regular.woff2",
+      "sha256": "14e08d210d32021b4477b5585584fd4973954fc76db3b6a609daedb9b5de2a79"
+    },
+    {
+      "path": "assets/fonts/inter-tight/InterTight-SemiBold.woff2",
+      "sha256": "c69ca92907e95b943d1c5c7236eb509e8e7d8b53ca3cec640edbb4487dd0512b"
+    },
+    {
+      "path": "assets/fonts/inter-tight/OFL.txt",
+      "sha256": "50240ab035cf1b6b3307940235481d515c4b6de3ab1fa843dbe59e7892cb9d58"
+    },
+    {
+      "path": "assets/fonts/jetbrains-mono/JetBrainsMono-Medium.woff2",
+      "sha256": "9a0b7e3067e26f643c4279669fac437c8ad72daf5d2fd83d9ba09e249de36745"
+    },
+    {
+      "path": "assets/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2",
+      "sha256": "7eb17cf00b2186e88a6b15070566c2a8595416fb340cb20511c92a402610e25f"
+    },
+    {
+      "path": "assets/fonts/jetbrains-mono/OFL.txt",
+      "sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d"
+    },
+    {
+      "path": "assets/notes/MIGRATION-REPORT.md",
+      "sha256": "ca135561ec0d05846e1f602f164941477029648076ebbaca6ab856a44eb63e83"
+    },
+    {
+      "path": "assets/notes/README.legacy.md",
+      "sha256": "e5a84dc97e4ca8274c241e8224335aef7073784a79ce17ff3a336688d0082c5b"
+    },
+    {
+      "path": "assets/notes/SKILL.from-standalone.md",
+      "sha256": "a9ceb3722e0185ba41f194c878f26beeb1cd0d392d09ed264f4c5362be1306e7"
+    },
+    {
+      "path": "components/Admin/README.md",
+      "sha256": "12871555d64de2db8f9a52800bf6c9ca4ef6b6185caae45d31d34b53c20ac9df"
+    },
+    {
+      "path": "components/Admin/preview.html",
+      "sha256": "73491ddfd7aae14b4d0c40894c3ff846ba4294b43db938ddaf32e59ee5fc2455"
+    },
+    {
+      "path": "components/AppShell/README.md",
+      "sha256": "3e6d4ad73555c40f4f61f854137431c714594c7321344d03a16c8f8aa7409fa7"
+    },
+    {
+      "path": "components/AppShell/preview.html",
+      "sha256": "c8d00702671a9cb4cc71ce48fbb69887f3262a48cdadc402864d28ad234b0bfa"
+    },
+    {
+      "path": "components/BrandLogoLockup/README.md",
+      "sha256": "93e020d1d92d8e75e9844f716416dee61bced38f69af09e1d03aea5ba5ebfd91"
+    },
+    {
+      "path": "components/BrandLogoLockup/preview.html",
+      "sha256": "1e49fa8182830c8dfac252c3e652ef49fe978467177379c25ae365647030a9f2"
+    },
+    {
+      "path": "components/BrandLogoMark/README.md",
+      "sha256": "3dd94eadf6448a76ed5d1f003563503907e070ef0762521c9be77ce87660d834"
+    },
+    {
+      "path": "components/BrandLogoMark/preview.html",
+      "sha256": "97e69a962f51863be3fc7ad6475875a1a158bb857f08b904805011ce4b86fd8d"
+    },
+    {
+      "path": "components/Cover/preview.html",
+      "sha256": "16bfe9e7c85450e021b1aea1a600547c112f4066514539805ef6b9f250eb0472"
+    },
+    {
+      "path": "components/DsAppHeader/DsAppHeader.d.ts",
+      "sha256": "34097b7c8e396223368d79bfab9273d9016b74bbd8147acbe0471e493b4ee656"
+    },
+    {
+      "path": "components/DsAppHeader/README.md",
+      "sha256": "51c34e83e5d26ab5e8f8de9feff8ad72c24cdfd5e145340b0e603c120e0bfd97"
+    },
+    {
+      "path": "components/DsAppHeader/preview.html",
+      "sha256": "34c817f00cece0300e234c2758256f0235f11c6aea09085211b036bd23002dae"
+    },
+    {
+      "path": "components/DsAppearance/README.md",
+      "sha256": "1f1c067ed203c2c68f1f8ef503ee8abf68987c70c4d2fff0cc85cccba1545ba4"
+    },
+    {
+      "path": "components/DsAppearance/preview.html",
+      "sha256": "058985a1a1e837758544b1b7c996356c982b5befada08e061c21d3aa0d68ca07"
+    },
+    {
+      "path": "components/DsBadge/DsBadge.d.ts",
+      "sha256": "4366826cddc46a3d1981a1c02404dba4ca5d64ba019af56470531a3d3aa3cea2"
+    },
+    {
+      "path": "components/DsBadge/README.md",
+      "sha256": "96adc7fd18e5d49b0b91d1cc7334a6e1b982916be7bce2ce83ec2a642516b792"
+    },
+    {
+      "path": "components/DsBadge/preview.html",
+      "sha256": "dc2dbcd8eb0c05f63385cc87cd3bbb91661532ba6671daf1e839a0f52dfbab03"
+    },
+    {
+      "path": "components/DsBanner/DsBanner.d.ts",
+      "sha256": "4ed5522d2d09521851813264db9d8ab7e0079e8df1d1c4f5ac224941344bf3b6"
+    },
+    {
+      "path": "components/DsBanner/README.md",
+      "sha256": "cd24837c0a1da34a879902eb31cc657d2447d81b9be3580069ff46167c39444b"
+    },
+    {
+      "path": "components/DsBanner/preview.html",
+      "sha256": "b6b337f82ad77eae2fc66b1913ea86471915f07d46b6be6282a45ff2f89f8c79"
+    },
+    {
+      "path": "components/DsBrandPick/README.md",
+      "sha256": "cb8afb42f807c1a2961c88374a0979bbcafa08509d6393df05cfc67c214d9c46"
+    },
+    {
+      "path": "components/DsBrandPick/preview.html",
+      "sha256": "792be25afceb55c37e2ce80cc0eb61a819b24fe74d71726f818f5c4137c994e4"
+    },
+    {
+      "path": "components/DsBrandThemes/README.md",
+      "sha256": "57e52bf5ab4d3c06acf74118ac022c5ca6655d7aa16fd0e4b5b293b94b7c97ed"
+    },
+    {
+      "path": "components/DsBrandThemes/preview.html",
+      "sha256": "504de8da529819ebb5b418e5ce3ba0f4cc1b56e35f666b1054e198ea824838ed"
+    },
+    {
+      "path": "components/DsBreakpoints/README.md",
+      "sha256": "b2a11aa055a2e44c32fc696fdd6345d5be542d8813151d3e221ce4344b167623"
+    },
+    {
+      "path": "components/DsBreakpoints/preview.html",
+      "sha256": "d659981bb16c94f370a45e1e8d751dd5dc8afcfce2b7d496fa4fb76936dffcb0"
+    },
+    {
+      "path": "components/DsBreakpointsDecisions/README.md",
+      "sha256": "b8aa9469c3c5b00a6eb9db8ab10a1eb8a4919a708d2255c7a4edfaac621a445e"
+    },
+    {
+      "path": "components/DsBreakpointsDecisions/preview.html",
+      "sha256": "f0c5f15ba29b4d8c10f2ef86a91392db127b3005f1e5b39c5f0a2ea7c0281454"
+    },
+    {
+      "path": "components/DsBulkBar/DsBulkBar.d.ts",
+      "sha256": "c7aa9888ac4122bae1b3be5b905e4434fbba5bdf389dc76fd194bb050a162d85"
+    },
+    {
+      "path": "components/DsBulkBar/README.md",
+      "sha256": "23d9c3b81ef04c334eef6cd9f2f3a5cc0403abef0ffb8904feed8541ede8dac3"
+    },
+    {
+      "path": "components/DsBulkBar/preview.html",
+      "sha256": "4dc9bab7fcfa5bac441bbc772052b4d37d70854849b05860ed15d8def0174f18"
+    },
+    {
+      "path": "components/DsButton/DsButton.d.ts",
+      "sha256": "c2fc203062680e9fecd7032090d59ed7f1fcdb0c0cd55c990531e651891297f7"
+    },
+    {
+      "path": "components/DsButton/README.md",
+      "sha256": "af20115406280706ba343517fbfafaa4adc770714e1af53ab0de1b4785434f85"
+    },
+    {
+      "path": "components/DsButton/preview.html",
+      "sha256": "e1ca301f03294c9e85ed58cd1ee757b72c12da8d10494ebb336df7c2719ff488"
+    },
+    {
+      "path": "components/DsChart/DsChart.d.ts",
+      "sha256": "222f336af6ba84bae2606033a744be452803a218147be32b013099f60992fddd"
+    },
+    {
+      "path": "components/DsChart/README.md",
+      "sha256": "13744c1cd865bcdf4b7ed2ef1dd64518e546b4827db69beb79c299c0e30e223a"
+    },
+    {
+      "path": "components/DsChart/preview.html",
+      "sha256": "7833272b6159cfc317ba5979efb44d3ed9b0e5335155833ac54a4061a3ee3cc4"
+    },
+    {
+      "path": "components/DsChartLegend/README.md",
+      "sha256": "169ef79d45677cb6612724e8df4e30f7f8cabc95cbc30ac20cbf85207f47df67"
+    },
+    {
+      "path": "components/DsChartLegend/preview.html",
+      "sha256": "dff7207c5e75c5dc12ee56b4126e6600f8d348cbd3e786a7bcf464fb75241f05"
+    },
+    {
+      "path": "components/DsChartTooltip/README.md",
+      "sha256": "b9059e7127ec19a631ec8626f1d538d74ee02d2a8ab501030c39216f6621d073"
+    },
+    {
+      "path": "components/DsChartTooltip/preview.html",
+      "sha256": "276764c04b46b23f4727ece5a698e0de687bdab32e42d8c40c2ff7a399f54254"
+    },
+    {
+      "path": "components/DsCharts/README.md",
+      "sha256": "07c094eef3928e1906a7b2dc8bc337ee10dbcab4e654cdfef6586907facefcb3"
+    },
+    {
+      "path": "components/DsCharts/preview.html",
+      "sha256": "03fab6afaae9e56f97fb276d689f530b54cf9f11fee1b3fa8d3c1b1b1993dc06"
+    },
+    {
+      "path": "components/DsCheck/DsCheck.d.ts",
+      "sha256": "c94dd31bded7b68a11d6ad15e766c23b2cf7fd2558808b1def5f9e2481619b35"
+    },
+    {
+      "path": "components/DsCheck/README.md",
+      "sha256": "393ed5b3ddc70f574f58bca48b76e4f8f76c47cc47000420c1ea455c5e33af22"
+    },
+    {
+      "path": "components/DsCheck/preview.html",
+      "sha256": "de467d6f3c33e93ebc9ecd65566d6d84afc95bf6c70e0b562c921353086b01b4"
+    },
+    {
+      "path": "components/DsCheckButton/README.md",
+      "sha256": "a67cf1582dd72fae5f294517df6e88d94d9c65005875467764d9f96e22e42bfd"
+    },
+    {
+      "path": "components/DsCheckButton/preview.html",
+      "sha256": "a63e075e4fe4bca8bc00894f88cc6662cd93e83bf2985b2d315f1cb0de19fbd8"
+    },
+    {
+      "path": "components/DsCheckbox/DsCheckbox.d.ts",
+      "sha256": "e0577697aab223079cd9a633ec9fce1867b9c4b18fb3f630dcdea7e3c4e38097"
+    },
+    {
+      "path": "components/DsCheckbox/README.md",
+      "sha256": "64f252b2ec6642ac10e08ed4dc119fb0b3e503d3bc33c3ecbce1311a371d4be6"
+    },
+    {
+      "path": "components/DsCheckbox/preview.html",
+      "sha256": "d92b212136ea42381950999ed47a15a6f3a2dbd5126677ce4dc34327d16ddc55"
+    },
+    {
+      "path": "components/DsChip/DsChip.d.ts",
+      "sha256": "ff4a858360f610ed5d0f9798a15421ee287a04db777adb2b44ecf43975d97ef9"
+    },
+    {
+      "path": "components/DsChip/README.md",
+      "sha256": "16b30ec576c979c318c22b4942abff18bc087d7e1a060e821d6b13112488c21d"
+    },
+    {
+      "path": "components/DsChip/preview.html",
+      "sha256": "42e9104113772eaf9d8aa40a4b9888a4ae8e22009f8ea75c5581bda72fb9a744"
+    },
+    {
+      "path": "components/DsDensity/README.md",
+      "sha256": "e645d7e5e682f01ea24e39060291eaa42617738ed892d76249af1d2a99a5ee4c"
+    },
+    {
+      "path": "components/DsDensity/preview.html",
+      "sha256": "c53473d776317709857538ab10813517e19195837cf64fcdc3f33a30d7cbca6d"
+    },
+    {
+      "path": "components/DsDialog/DsDialog.d.ts",
+      "sha256": "41f0b150d563f8f97bd44611e77c75d66b1f50135b2f0638bcb2c77ee4773bca"
+    },
+    {
+      "path": "components/DsDialog/README.md",
+      "sha256": "5cbcbaa7d7ce357e9e4650d0374567a170c4401b7bc292fd7c335c527b15272c"
+    },
+    {
+      "path": "components/DsDialog/preview.html",
+      "sha256": "6f1814e39c090b699e4ff3b0d58a3e64839ea28d5a8302691b01378543f35aaf"
+    },
+    {
+      "path": "components/DsDuration/DsDuration.d.ts",
+      "sha256": "dd65982fb0bf33f72826e30d9fc6d7112a6252346c7eaa97fdf56e5f3ff2cdb7"
+    },
+    {
+      "path": "components/DsDuration/README.md",
+      "sha256": "3a7d9946626ab1a827fee57e4cf00c2e9cfbf5cdf030a0aab71b25db6b88cff1"
+    },
+    {
+      "path": "components/DsDuration/preview.html",
+      "sha256": "c40f6ebe15acc43620d4a1886bd366e9e0329b12ccfc8b74ddb6cb91b4702aff"
+    },
+    {
+      "path": "components/DsEmptyState/DsEmptyState.d.ts",
+      "sha256": "94c57618cfdb6de73e6ccbd9f38528bcecaa5e7e19c761723e153c19a081849f"
+    },
+    {
+      "path": "components/DsEmptyState/README.md",
+      "sha256": "a44ff1af86573551b7f24bdab4b52ef7775306622fc93b038d04dcc7edd43883"
+    },
+    {
+      "path": "components/DsEmptyState/preview.html",
+      "sha256": "4390426fd9eee2834f8479ed0cd2f570f08f33fb0c315541a6a92571fde708b6"
+    },
+    {
+      "path": "components/DsFab/DsFab.d.ts",
+      "sha256": "a9d9d8c8510838308f72dfe02ee08ae9611a5b607815d2e2178557450c2c0ed3"
+    },
+    {
+      "path": "components/DsFab/README.md",
+      "sha256": "94c0cd9b611296ef318aaf46ea4d1a12e391b40b3be07079a878a9dc65dc6821"
+    },
+    {
+      "path": "components/DsFab/preview.html",
+      "sha256": "e350585f2413ebe884bc3f291d96788bc0147acd38c1be350751de7d79434ff0"
+    },
+    {
+      "path": "components/DsField/DsField.d.ts",
+      "sha256": "89263b0cc7e95e0b99d20e6d1df4da2752a3f03677922b88cb5b3a134d1c2ce6"
+    },
+    {
+      "path": "components/DsField/README.md",
+      "sha256": "2d8faf3426b6a5f1984f4ea690c2c4cebea25b57282fc106c918a67a1e1b790d"
+    },
+    {
+      "path": "components/DsField/preview.html",
+      "sha256": "f52543173b53ab6c7c6e1856102349e88733064a202007c5c2d84ad457fb2cd2"
+    },
+    {
+      "path": "components/DsFilterBar/DsFilterBar.d.ts",
+      "sha256": "94b2e432923a7eb235e9a488a1ed6f7bda51a8d9f3bdfb1a1ae3d89c12bf263b"
+    },
+    {
+      "path": "components/DsFilterBar/README.md",
+      "sha256": "778f4ad57bfc23018f01ea7c02f731015cdc221f62b544669a64af925097566a"
+    },
+    {
+      "path": "components/DsFilterBar/preview.html",
+      "sha256": "1290c8d82fe0904c2a4d1347657f3874ae80a2368f56bd6fe9addb87297f51a1"
+    },
+    {
+      "path": "components/DsFilterMenu/DsFilterMenu.d.ts",
+      "sha256": "13a2d6d9d27b048b5e1b45ce432cb6f2b4d3041ee09d29c4272d576658a73226"
+    },
+    {
+      "path": "components/DsFilterMenu/README.md",
+      "sha256": "1a4ed68f369b6d3f56fb4eed68181d05fef2548cde177dc0df60c335cbe0b810"
+    },
+    {
+      "path": "components/DsFilterMenu/preview.html",
+      "sha256": "04e8d246ac86486ba84363c28ecad0a67ccce9d30a9f6cf4b0d90cabb363b02b"
+    },
+    {
+      "path": "components/DsHeader/README.md",
+      "sha256": "f6ba39f5f477d7b3a08c1d7912ad92f669e567f2655032ced2eb9c5c93cce2ba"
+    },
+    {
+      "path": "components/DsHeader/preview.html",
+      "sha256": "ff17e77b5bb719d5762d3f46313e26da0aaa3fe79b46cb118c7c5cbf9605889e"
+    },
+    {
+      "path": "components/DsHeaderChip/README.md",
+      "sha256": "3d093d3fd07adc835162256a2552de2b8a2481f099414cc2fc194ec4fae60de6"
+    },
+    {
+      "path": "components/DsHeaderChip/preview.html",
+      "sha256": "8d824b236d317cee55951ae9d04db1d19283bf1a808f1e168095a7fdfcd8ac36"
+    },
+    {
+      "path": "components/DsHover/README.md",
+      "sha256": "688b72fc99bc78b685d1cc0a981922541bba44eb1f0c07a9bb2d9102d46416f0"
+    },
+    {
+      "path": "components/DsHover/preview.html",
+      "sha256": "b5b06d4dd7b686a45c8e3bf51d5faeef800e0e24c976aca4521d41b175945846"
+    },
+    {
+      "path": "components/DsIcon/DsIcon.d.ts",
+      "sha256": "b57c9f83ac505dc04db12bc630c19c66481968a9486342b5df0d7f5d935ec13a"
+    },
+    {
+      "path": "components/DsIcon/README.md",
+      "sha256": "566a7909b2754f1330c0c229e93757514edb35217e352428d3717c74c6d9b636"
+    },
+    {
+      "path": "components/DsIcon/preview.html",
+      "sha256": "0643758f23eebae7e9366e8297700eaaf0a9ee14d275b3814df3f703f8fb4d27"
+    },
+    {
+      "path": "components/DsIconButton/DsIconButton.d.ts",
+      "sha256": "5092998c9eba2eaba58400dd37c3e1ce9b3901253157645b0ff748ff146b0c4a"
+    },
+    {
+      "path": "components/DsIconButton/README.md",
+      "sha256": "a0972fc579892044d5bda90045325a463d89ec664ba5cd591589e97844ca944f"
+    },
+    {
+      "path": "components/DsIconButton/preview.html",
+      "sha256": "19fda4e38a57b4669c63c82f326bba88f4b4b071642e2a223cfe3abc4cb6f2ee"
+    },
+    {
+      "path": "components/DsListRow/DsListRow.d.ts",
+      "sha256": "5f69ae20e6969e6c735cae97e0e5b5d938b8ac9f3a34f176682985f61fce98e2"
+    },
+    {
+      "path": "components/DsListRow/README.md",
+      "sha256": "350342f01dfa6880366870ad0a17981177bad61284022bf8a82e95001cdc4b07"
+    },
+    {
+      "path": "components/DsListRow/preview.html",
+      "sha256": "e445b8c11f8f1d0d225eaee1b658fcb4c39fb30a50761886f0f43b167e9926a0"
+    },
+    {
+      "path": "components/DsMenu/DsMenu.d.ts",
+      "sha256": "e56f0fa1aba805018baf94137e972fc2c53d3e24dedf48e422744255ce5f60e9"
+    },
+    {
+      "path": "components/DsMenu/README.md",
+      "sha256": "ca4c15229db5333fd196eb8942e2a120a2da408897cd0357f82a5d5c680ea31e"
+    },
+    {
+      "path": "components/DsMenu/preview.html",
+      "sha256": "0e095dd0a080802e1d8362672aa4df5db31e73d7e1d38f9d9f723449de5e448b"
+    },
+    {
+      "path": "components/DsNeutrals/README.md",
+      "sha256": "255a0d3bc80085c2d54aea97e7be2073e0d6a03d4f6d019116c70b337054fb98"
+    },
+    {
+      "path": "components/DsNeutrals/preview.html",
+      "sha256": "29f277512bad112e076f190c6a5999f61e76b7775b59f2c45be088baa73d1d2a"
+    },
+    {
+      "path": "components/DsObjectRow/DsObjectRow.d.ts",
+      "sha256": "d3d3a2c764fbfd0205d1380b2679da23159c96f4e5da7a73e74ff2ed79c3c4b6"
+    },
+    {
+      "path": "components/DsObjectRow/README.md",
+      "sha256": "ff011f17208663be7dd8a479e82e14ad00321930a6864f66329e6937c9f8d210"
+    },
+    {
+      "path": "components/DsObjectRow/preview.html",
+      "sha256": "4237b2aaee03780374acd27e87167a164be8510db3b81f6b961fb169e854bb7d"
+    },
+    {
+      "path": "components/DsPageHeader/DsPageHeader.d.ts",
+      "sha256": "cb63fbc83cc538ff933fd3d03ffdcfb3120568cfbb296dedd6dc2b6584475ebe"
+    },
+    {
+      "path": "components/DsPageHeader/README.md",
+      "sha256": "de41f59d94c06de404a112218c50ce17eb42b5013a55e3fad823cb30e8c4ff30"
+    },
+    {
+      "path": "components/DsPageHeader/preview.html",
+      "sha256": "f3088f4e9cebfd2cc1dff5c950c2a0d7bec3da7694929a20b658bca75383c7f4"
+    },
+    {
+      "path": "components/DsPageLayout/DsPageLayout.d.ts",
+      "sha256": "a13660a135fcaff64045298e8b3a7d59599ad6db53e5055961e32b9df58d8efe"
+    },
+    {
+      "path": "components/DsPageLayout/README.md",
+      "sha256": "fb234293fc5deb364dd1fe3cf3e6ad30e0815cd8e1e63c957fdb9dac59625f8a"
+    },
+    {
+      "path": "components/DsPageLayout/preview.html",
+      "sha256": "99618143a246c6ea059bab2401dd9ee7d567f727a4c9ff7cb276693651545dbb"
+    },
+    {
+      "path": "components/DsPagination/DsPagination.d.ts",
+      "sha256": "a34281496bd61e15ebe56cf25818ce85393d347281a8cd6c7ee3ae9eedde9085"
+    },
+    {
+      "path": "components/DsPagination/README.md",
+      "sha256": "1875320d6957a583d73cc599e9f62dcda22ef2f6b0c86d8aab76e6e4234798e4"
+    },
+    {
+      "path": "components/DsPagination/preview.html",
+      "sha256": "86fc43eaabc15e2a82301416f9b57074822b4ad4f40846824a3cfe67178ad0b7"
+    },
+    {
+      "path": "components/DsPanel/DsPanel.d.ts",
+      "sha256": "5a4f649084a425dce701f036998aaf4560ca765275514814666c68ae4c1cfce5"
+    },
+    {
+      "path": "components/DsPanel/README.md",
+      "sha256": "62d5303497005bd4a792bfd50443f4c357136efa752ea40e991ddce4625c8774"
+    },
+    {
+      "path": "components/DsPanel/preview.html",
+      "sha256": "9b35f26cf7bc7f1def38ab32a4e51195162fde37fe9fe5e1b93e5eb77cc1b167"
+    },
+    {
+      "path": "components/DsScoreBar/DsScoreBar.d.ts",
+      "sha256": "be9f7cacfc6f7e253f7406af06b4a76ef7f9ec751a1fd2c7dcdd14b9eacaafb4"
+    },
+    {
+      "path": "components/DsScoreBar/README.md",
+      "sha256": "a4f24796f291d143f37d1fb05894bd3b3b59d88b7cc2d587fecec04169e61e44"
+    },
+    {
+      "path": "components/DsScoreBar/preview.html",
+      "sha256": "c289624203cd083e9d3a1cbb1f69488d3a8aed9ca4120fa9f04e39d09034c4cd"
+    },
+    {
+      "path": "components/DsSelectBox/DsSelectBox.d.ts",
+      "sha256": "ede7f81ee2b9c37f97d9bc52caf1145c7124221ef816ae19cc6b2817ebf24863"
+    },
+    {
+      "path": "components/DsSelectBox/README.md",
+      "sha256": "76f10bcecd38c23efe7a9f10d39194c2c163741eb575ac48b3f31129bfdbb9fe"
+    },
+    {
+      "path": "components/DsSelectBox/preview.html",
+      "sha256": "8bcf593f696ce835eb90e454d7795bad21d7d177e6ae28d92798ae082d5d0029"
+    },
+    {
+      "path": "components/DsSelectionBar/DsSelectionBar.d.ts",
+      "sha256": "343e2febc260e4d0a5c43a605aac56cfd4c9d0082c2de10c1c295f02dc86addc"
+    },
+    {
+      "path": "components/DsSelectionBar/README.md",
+      "sha256": "2c25553b1c5046059ec6faa660da80dc9b7acf607615bf25ab94b2aa683f512c"
+    },
+    {
+      "path": "components/DsSelectionBar/preview.html",
+      "sha256": "aeeb298a99edeb4c97e2925829144d5e252783438ca58237f1f148c5a3ff9d01"
+    },
+    {
+      "path": "components/DsShape/README.md",
+      "sha256": "32493ff07d4863234df1fb72f1b09d49d123a3577f3d4e432ee71fb6aae0ef2f"
+    },
+    {
+      "path": "components/DsShape/preview.html",
+      "sha256": "62353d2a445a4a30dacf51c2b56a3f3a3c67424b6f6d2a891654074d92b66ba1"
+    },
+    {
+      "path": "components/DsSkeleton/README.md",
+      "sha256": "27cce2774329eec7e212b53882115e25e45680f24d408aaa52a6ed1771df1166"
+    },
+    {
+      "path": "components/DsSkeleton/preview.html",
+      "sha256": "07439e27914f3706291479ade48a8a43e02d470673cc41c817497c498a7957ae"
+    },
+    {
+      "path": "components/DsSorting/README.md",
+      "sha256": "748f9152279f7426073278ecd5a6827b3ba2101e57267ee14e30427cc0842cf9"
+    },
+    {
+      "path": "components/DsSorting/preview.html",
+      "sha256": "c4691d2f860217daf10259510be697bfbc9b497e02c84834aedfd32bccc05ad0"
+    },
+    {
+      "path": "components/DsSortingMenu/README.md",
+      "sha256": "588ea117bbd9bc132762daae87043a0c0a25b0bd60a2b7d17099d2fc133f08dd"
+    },
+    {
+      "path": "components/DsSortingMenu/preview.html",
+      "sha256": "d217f7d5e0bc03dad7f1da7628a20925433e7ee68b0f8bb33312428ddc9214b6"
+    },
+    {
+      "path": "components/DsSparkline/DsSparkline.d.ts",
+      "sha256": "a0511521c94aa8595890c6a4dfd0a5fa142717f030d54f7c003835695ee5179a"
+    },
+    {
+      "path": "components/DsSparkline/README.md",
+      "sha256": "3f267048c2153d55c72662dff95d2f900784564881c2f7f0db9d609f010a96c7"
+    },
+    {
+      "path": "components/DsSparkline/preview.html",
+      "sha256": "5674080ae91026f0408ed8e8ffa8f5184f11ce0345b0e59d251d391aa8644ee7"
+    },
+    {
+      "path": "components/DsSpinner/DsSpinner.d.ts",
+      "sha256": "e5f8031d72011d22547cb7ca3d7ad756b5b1e57d30584d6df644d7afa8fb2cd3"
+    },
+    {
+      "path": "components/DsSpinner/README.md",
+      "sha256": "b2f1e1c44fdf3577a4316ff117586da9df727fb0348ed71dbb0f15bdcfa408a5"
+    },
+    {
+      "path": "components/DsSpinner/preview.html",
+      "sha256": "a84bc654894fb4bc16a63299ab15e80bd7711909c9214e5fcfa0a08d4e347ffc"
+    },
+    {
+      "path": "components/DsStateIcon/DsStateIcon.d.ts",
+      "sha256": "b4fd359a45189dcad2ae25dc50343e598d8889c9c615e95a7adf5e28b2bb7ced"
+    },
+    {
+      "path": "components/DsStateIcon/README.md",
+      "sha256": "57bb295bb1e41b7d581a2f7004d1e8384d31e571c03e50ca0472653ce01506d9"
+    },
+    {
+      "path": "components/DsStateIcon/preview.html",
+      "sha256": "3d8feb0ea8a61e0688d92d5704d3b9c13bbd953da7ea6a1a01501785bcb13af7"
+    },
+    {
+      "path": "components/DsStatus/README.md",
+      "sha256": "540de68bd3bfa9faa110523ef84de3da2c3ae9f5dba8f0540dbacd6b64cdc639"
+    },
+    {
+      "path": "components/DsStatus/preview.html",
+      "sha256": "076ec5a240378e8cca7082835960dfec141bf916d661282647fe34f3615413c3"
+    },
+    {
+      "path": "components/DsStepper/DsStepper.d.ts",
+      "sha256": "487b7aa825cefeeadb934984a2fa046317cb45977e7a7532e8d308bc59e6da1e"
+    },
+    {
+      "path": "components/DsStepper/README.md",
+      "sha256": "127ed2e2d62c176a6a8178ae5cff51de05d4f32b64dff683859f4131891f1fda"
+    },
+    {
+      "path": "components/DsStepper/preview.html",
+      "sha256": "e6a97bbc8c38d3b4641ed29c8aefabb25f1066d9d89decc7962a97b7fad56be2"
+    },
+    {
+      "path": "components/DsSwitch/DsSwitch.d.ts",
+      "sha256": "a36667e18c20cfe6cde812efcd283c819d2bd3dbc7745ba5e144979bc7c006d9"
+    },
+    {
+      "path": "components/DsSwitch/README.md",
+      "sha256": "2059ec71450f8e7c1638d4e2256e7c1b46962fc4693098054cec684cd8a018bd"
+    },
+    {
+      "path": "components/DsSwitch/preview.html",
+      "sha256": "ff0e59993ec97ff79817840598a76bf71c86e88c9ca396b4185069029b94b9b7"
+    },
+    {
+      "path": "components/DsTable/DsTable.d.ts",
+      "sha256": "2601663c676948adaa9de370aceb3e84bfbd59e3876eaf94b7a25e07b732e84c"
+    },
+    {
+      "path": "components/DsTable/README.md",
+      "sha256": "f85fe73953c2bc2e9fd66e72b471b92f2d5f7ca9337b837015a824ac92247463"
+    },
+    {
+      "path": "components/DsTable/preview.html",
+      "sha256": "57e29a80ebc0ebb94652dbcbeb551ea31c257f0a71b40d33fcc84eb4e2b479df"
+    },
+    {
+      "path": "components/DsTabs/DsTabs.d.ts",
+      "sha256": "aca7cd0bcadccb6ac911d45b12236fae518f574a31fbb5296efa96d77de0fac5"
+    },
+    {
+      "path": "components/DsTabs/README.md",
+      "sha256": "7ca2814c2228a51322457fff7dbbccd1666fb394ec4241a84ce6d22c895342f7"
+    },
+    {
+      "path": "components/DsTabs/preview.html",
+      "sha256": "9fb15e38aebd660df1d3c4e6c2aa8c56e8c09fa6a9fe39e3d97ad6215d76f213"
+    },
+    {
+      "path": "components/DsToast/DsToast.d.ts",
+      "sha256": "c1d6e86b86190ae9fb9098086261327cc5777ae60073ade78311114ba2088e88"
+    },
+    {
+      "path": "components/DsToast/README.md",
+      "sha256": "ce556a2a4098d1a89a90367697fe799d248f3d760ef842620a5bc34b5acb6207"
+    },
+    {
+      "path": "components/DsToast/preview.html",
+      "sha256": "c4bf118671e3a8e66b0865c34a71c5a8dcfbbde3a0d192bb730050352900f69d"
+    },
+    {
+      "path": "components/DsToastStack/README.md",
+      "sha256": "48f460fd7b450e84b2ce0c4a2c63770ec4737642645279d19e4e37087ecd3170"
+    },
+    {
+      "path": "components/DsToastStack/preview.html",
+      "sha256": "e817ff13d0488df1d350ce54d29f35a1ffdf1ded514519c571435779ee0ad654"
+    },
+    {
+      "path": "components/DsTreeRow/DsTreeRow.d.ts",
+      "sha256": "69c67ba0cf97a40cfccac9ba4ce451712965b5493d9ce2d45326d3eb8fedf476"
+    },
+    {
+      "path": "components/DsTreeRow/README.md",
+      "sha256": "d890c7884ffe99920868a95616dae3c4c0c3019b751c53e79581e3797c8f28c4"
+    },
+    {
+      "path": "components/DsTreeRow/preview.html",
+      "sha256": "943966cf047cd3791bdef7ae2aa9d3001518c4f98dbaef99fa3a0314e21ee4ef"
+    },
+    {
+      "path": "components/DsType/README.md",
+      "sha256": "f3efcf39a857aeec1aa0b9b23f737066acddbc32cf794596b7fe9079a44de78f"
+    },
+    {
+      "path": "components/DsType/preview.html",
+      "sha256": "7105286b733ff0981f1e88dc6e03143faee18dea9ebd64d7d62f093b0c76fdd2"
+    },
+    {
+      "path": "components/DsUserMenu/README.md",
+      "sha256": "7f3e9802880998df6b719b754275e6021f7306af86508be3f1eee27ae8d297e0"
+    },
+    {
+      "path": "components/DsUserMenu/preview.html",
+      "sha256": "cdc44c52af6b7550b6506a3cfb4c4f2054b4db46770027beb856121498d6eeeb"
+    },
+    {
+      "path": "components/IconsArrows/README.md",
+      "sha256": "4c4b511ee1b1faab7af3adc53d88952accb36d1551a996f741f66e4d6564ab37"
+    },
+    {
+      "path": "components/IconsArrows/preview.html",
+      "sha256": "2d5f9fa517428e20278d7fdc805a598185d5e4630fd000c35f18d419b15a4496"
+    },
+    {
+      "path": "components/IconsMapAssets/README.md",
+      "sha256": "c78c79e34f4c6e94306a6909f5b9e76c187bf771b670c1e8aa991bbab57f631c"
+    },
+    {
+      "path": "components/IconsMapAssets/preview.html",
+      "sha256": "8ddd22a167cc9b7e2a8dc1b264e354ef2ddba5596957295107e81397e88b14b2"
+    },
+    {
+      "path": "components/MapTrack/README.md",
+      "sha256": "412adeafd7b76de98b8ed8e158e181a1e724ba3b81d4d801a869b08fcd118669"
+    },
+    {
+      "path": "components/MapTrack/preview.html",
+      "sha256": "6952e1dc30be57084354705b7b16130ff28b771186bafa91689b99e2cdfd306d"
+    },
+    {
+      "path": "components/Monitoring/README.md",
+      "sha256": "91fb7dbbd4b32c1a58ab10c53124cc0995c7f30d2864a218d4f35589d0da550b"
+    },
+    {
+      "path": "components/Monitoring/preview.html",
+      "sha256": "3b71cde302ecebcdb713c80aa4afe4d26d897003b1107c2ba6a5c601e6e9dc93"
+    },
+    {
+      "path": "components/assets/images/arrow-accent.svg",
+      "sha256": "27dccebfce35321bceb97024987f25009b923010cead61c569c0c4c04ce02157"
+    },
+    {
+      "path": "components/assets/images/arrow-blue.svg",
+      "sha256": "3bfa5d974b4547382fc4d11b204b03bd4f423f3a32e95ccad49c57f8448dcca4"
+    },
+    {
+      "path": "components/assets/images/finish-track-marker.svg",
+      "sha256": "54c98337f5ac4c27d9972c07da9750350c12a77f404422b20aac4c92c595a4e7"
+    },
+    {
+      "path": "components/assets/images/start-track-marker.svg",
+      "sha256": "70924a9a3a25db2dbb4e0964d645e339a059494d88f10947f67345265f647258"
+    },
+    {
+      "path": "components/assets/logo/AuroraWhite.png",
+      "sha256": "853c7848b9f43d59b77f58c600ca4f7aef42f5d6d77bec0780c5a24ef6137117"
+    },
+    {
+      "path": "components/bundle.css",
+      "sha256": "755539f4e5da29384c9a4d86f11b23e4048d641479ad0029febad97afd61e2e5"
+    },
+    {
+      "path": "components/bundle.js",
+      "sha256": "0b62fbd121b45a0fa3a3e40aac60570c963f1301861e2ba7952b297defe2dc25"
+    },
+    {
+      "path": "components/lib/react-dom.production.min.js",
+      "sha256": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
+    },
+    {
+      "path": "components/lib/react.production.min.js",
+      "sha256": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
+    },
+    {
+      "path": "components/src/components/buttons/DsButton.jsx",
+      "sha256": "f86b67f05f64bb95b4e11d54cd007ee4d9068add0ceed2c90a9149069b9dd90a"
+    },
+    {
+      "path": "components/src/components/buttons/DsFab.jsx",
+      "sha256": "926c82f722daa9964f28e1f208559ec7730388f099e7fb79832ebb9bdc98a819"
+    },
+    {
+      "path": "components/src/components/buttons/DsIconButton.jsx",
+      "sha256": "4e249093b20c4af9fd5c8008fe643d9298c280377a01da6f7c2f9103851603bb"
+    },
+    {
+      "path": "components/src/components/charts/DsChart.jsx",
+      "sha256": "be736eafb48b445af1277d50a2d5b4bfd5a2a393347d650fbce5a3975cb7b36c"
+    },
+    {
+      "path": "components/src/components/charts/DsScoreBar.jsx",
+      "sha256": "bc7e80284c8e855d843f7665e3e1fb27fefda0f6fec0b0e72881a84c29d9b87a"
+    },
+    {
+      "path": "components/src/components/charts/DsSparkline.jsx",
+      "sha256": "a14c6746b3efc2a29e2716f3ea4f9b61e3b055bc54093142e9555f9c27331fcd"
+    },
+    {
+      "path": "components/src/components/charts/echartsTheme.d.mts",
+      "sha256": "1b9bd34f10e50937b39c3fbdcc60dc56d8fec3976a1b37c44b1ffaa356f28dc6"
+    },
+    {
+      "path": "components/src/components/charts/echartsTheme.js",
+      "sha256": "f23ec53b018f3ab9cecdf19d20a80bfdd6fd0e264cc174299a52d4e15b426223"
+    },
+    {
+      "path": "components/src/components/charts/echartsTheme.mjs",
+      "sha256": "28c65453c39487737bc308758049db314740b987581af4bd5d0fe6f3fd969d35"
+    },
+    {
+      "path": "components/src/components/data/DsBadge.jsx",
+      "sha256": "294066923018dd1baa37bb08c11168445bab9733a77e81981f860cb2e1a9e6d9"
+    },
+    {
+      "path": "components/src/components/data/DsBulkBar.jsx",
+      "sha256": "199de9af9e51057dd55800136337e101b9ddd035f6285237369b25a6e03610fa"
+    },
+    {
+      "path": "components/src/components/data/DsChip.jsx",
+      "sha256": "024a3d4dc30b88fb79bd44b168c3bd77adea26a72f8671eb111b0767d4abda92"
+    },
+    {
+      "path": "components/src/components/data/DsFilterBar.jsx",
+      "sha256": "b80f4f098884e9bc727d46d6f9e78506ffd56f335745bc85ffb26b9bb179a200"
+    },
+    {
+      "path": "components/src/components/data/DsListRow.jsx",
+      "sha256": "23230403d3efee708d6fd12ad5e86d21b17af263bcdccf20ee386a3f35ae6fe3"
+    },
+    {
+      "path": "components/src/components/data/DsObjectRow.jsx",
+      "sha256": "9edcd99f8bdd20159236348b56ee9388a9f3692eb273fdd70fe0fec2da5267ea"
+    },
+    {
+      "path": "components/src/components/data/DsPagination.jsx",
+      "sha256": "a1c5255de4c2b94ec62e56117a4b371cfb5c54879cbdf70b42e19cdf18ddca24"
+    },
+    {
+      "path": "components/src/components/data/DsSelectionBar.jsx",
+      "sha256": "96ccc3579b332c444724ce459cbf2c30ec53ce6a7dcf6c9433d2a6d1bee28946"
+    },
+    {
+      "path": "components/src/components/data/DsStateIcon.jsx",
+      "sha256": "f9f56899f38e317ceba104a7fb3cfd546fcc3c1728bb052a87055b6098faf230"
+    },
+    {
+      "path": "components/src/components/data/DsTable.jsx",
+      "sha256": "4081e300e8bf24690efa79ea4192b14d1c0677248f2d6980d42cedb4873ed8c9"
+    },
+    {
+      "path": "components/src/components/data/DsTreeRow.jsx",
+      "sha256": "0c35b70329f61430de9beefc245725898aa2b2a7bb2e8d4bb370f530ae5fc57e"
+    },
+    {
+      "path": "components/src/components/feedback/DsBanner.jsx",
+      "sha256": "607bc8e92ced718abc1337033f9a12384e3880ab144bc81e3c2840bf2ae2bdd7"
+    },
+    {
+      "path": "components/src/components/feedback/DsEmptyState.jsx",
+      "sha256": "7b6e441d0477164e25b6f5f61fc1216b19967028bbfd06410dc43cfb7a5e7317"
+    },
+    {
+      "path": "components/src/components/feedback/DsSpinner.jsx",
+      "sha256": "af16115b86382313ea1fa42f1b70ef858cdb6d0f84de61bf4b1a19d643c1de9d"
+    },
+    {
+      "path": "components/src/components/feedback/DsToast.jsx",
+      "sha256": "c703a3b5036bda34101aa744380990f57ace41804a1cd6f4a8b74919adc5c22a"
+    },
+    {
+      "path": "components/src/components/forms/DsCheckbox.jsx",
+      "sha256": "137d84d9851444e7947758e8dd0298fd2dd4069294e2815eab77cf1888091d4e"
+    },
+    {
+      "path": "components/src/components/forms/DsDuration.jsx",
+      "sha256": "e96403cfe68683d784132ef828894c5c4ba39ef023160951f8cec4b3b1f3c84c"
+    },
+    {
+      "path": "components/src/components/forms/DsField.jsx",
+      "sha256": "3df440e1b622b26445f403f57cf80f7032d897f45887c1437cd2b662b0dbf6c6"
+    },
+    {
+      "path": "components/src/components/forms/DsFilterMenu.jsx",
+      "sha256": "216aa552c31cfb83ec2564cf050429014cd8dde15160402adf2348c7ee5d9100"
+    },
+    {
+      "path": "components/src/components/forms/DsSelectBox.jsx",
+      "sha256": "12804cf3980cac23d8557a2820b3ee0dfa3f8f16b372a143cfc949dea8d5a261"
+    },
+    {
+      "path": "components/src/components/forms/DsSwitch.jsx",
+      "sha256": "a6f355e45dbcc4d38f846e868b940de9b68216ad700969b453c7d4a52ae2035e"
+    },
+    {
+      "path": "components/src/components/layout/DsDialog.jsx",
+      "sha256": "86781c795e12eac58da6ab2eac0a4887f62afe8ef8759c27694be65052783770"
+    },
+    {
+      "path": "components/src/components/layout/DsPageLayout.jsx",
+      "sha256": "0a4b7a6d5d1357da19e953e57ab1c3f70a3de7dc82f4c29538702be03cebc60d"
+    },
+    {
+      "path": "components/src/components/layout/DsPanel.jsx",
+      "sha256": "0481bac7beb7496eacae0b595a2f1ec0734d6046acdbc5445c1ce44f2816ddde"
+    },
+    {
+      "path": "components/src/components/navigation/DsAppHeader.jsx",
+      "sha256": "f24561be3fa699837c9ac80cc00dd134657b7fabb4b465bbf3485fd74af03d8b"
+    },
+    {
+      "path": "components/src/components/navigation/DsMenu.jsx",
+      "sha256": "aba31aaa8f080b79a2e0ca7aede44cfd4fb2b610a75b3400a92de4b3051e7a9f"
+    },
+    {
+      "path": "components/src/components/navigation/DsPageHeader.jsx",
+      "sha256": "42e4ce9b630fc579cbe59943c4c4567565f8570ba694ba44c924d5112032615f"
+    },
+    {
+      "path": "components/src/components/navigation/DsStepper.jsx",
+      "sha256": "2db969fd5d1c3644faac99545b9ad6861775c134888cc58812ec44ab0ab62852"
+    },
+    {
+      "path": "components/src/components/navigation/DsTabs.jsx",
+      "sha256": "0421feb7a9d774a1edfe260a8892545a90fe25ebed980614670633242fbeb20b"
+    },
+    {
+      "path": "components/src/components/primitives/DsCheck.jsx",
+      "sha256": "d37914f830cd1d5621561daf29a381144fb751ea2e50e4a2701d64419ac26dda"
+    },
+    {
+      "path": "components/src/components/primitives/DsIcon.jsx",
+      "sha256": "d867e3b8f254f2e400ff0490d55de4b2accabb051f6fc5425f855635aa47c906"
+    },
+    {
+      "path": "components/src/components/primitives/DsStrings.jsx",
+      "sha256": "d9685cfde7dfd09f670e2590c45cc8786ea408e7903bb22dbdbcb7025e978a21"
+    },
+    {
+      "path": "components/src/index.js",
+      "sha256": "05d4fbba12cafd5572910c62638a6f5318182bc656c69cb28790797cd29c9206"
+    },
+    {
+      "path": "components/src/templates/angular/aurora-echarts.ts",
+      "sha256": "cbb1ab4209786a9bbd516ed3e0bc642369774cd9544b3fa9dcb24a8f42ed7290"
+    },
+    {
+      "path": "components/src/templates/angular/aurora-scope.directive.ts",
+      "sha256": "48270c5a47471e2bd30e5b66885511e6f645bd4f391c4d1b8d4ebc950b744d91"
+    },
+    {
+      "path": "components/src/templates/angular/aurora-theme.service.ts",
+      "sha256": "598ff4c19d405b71e6f4c40bcf4d0a6dcdcccc00fb7c6c0c637c26040a15def4"
+    },
+    {
+      "path": "components/src/templates/angular/aurora-tokens.ts",
+      "sha256": "b1e60f52e572da4894f112be26441aa1d846b38a59b5784d648abeba67a55389"
+    },
+    {
+      "path": "components/src/templates/angular/index.ts",
+      "sha256": "b40ecb47821813adc679a783900375070353eb6e4dcc437935c8995fc8d367e4"
+    },
+    {
+      "path": "docs/plans/2026-09-23-publish-2.0.0.md",
+      "sha256": "244c8ff24999c83ea046cf7a3c36cd7e1f883dfb7c8c54c67783be7caba3fe84"
+    },
+    {
+      "path": "fonts/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "fonts/MaterialSymbolsOutlined.woff2",
+      "sha256": "ec21c3dab68129db63b878969e1e9a6124834c97b30f1197d39624bf3b090777"
+    },
+    {
+      "path": "getting-started.md",
+      "sha256": "d6050d5fb257667575b0ad4a3af38fa15633c2a9039bc0e74f45e6715962f0fd"
+    },
+    {
+      "path": "lint/README.md",
+      "sha256": "2e56c94a582148ab270e9303be2fee4160cfdd2cfd082ba26fe17c2b98466d95"
+    },
+    {
+      "path": "lint/config.js",
+      "sha256": "3f78f04103e972d69c37bb1bd16ca685da8006d1e6bee77654101f94498c8fd6"
+    },
+    {
+      "path": "lint/index.js",
+      "sha256": "776b4dd2fccbaf46ccfaaf1ce144bd9fb088b471dbd3574bf6967880eca8fddc"
+    },
+    {
+      "path": "lint/lib/contrast.js",
+      "sha256": "a49ad1bd30b05bb8210bf611403f4fd72d1882d96ceaa88d95f1c6ea3be14e16"
+    },
+    {
+      "path": "lint/lib/tokens.js",
+      "sha256": "b8ad18e5e4ef19aae4c556b3607850b67f58d95be4fb9b1a4c4ce73b475fdd43"
+    },
+    {
+      "path": "lint/lib/value.js",
+      "sha256": "1675f0003e13d30e4077eab9ffaa19fda879cb32586c57274f9b0f565451ce4f"
+    },
+    {
+      "path": "lint/naming.config.json",
+      "sha256": "6e55e9f7c34f21f4df6b64bab8184f2aa881992857f90aefd2ff9c177c207cff"
+    },
+    {
+      "path": "lint/rules/focus-from-tokens.js",
+      "sha256": "91eb7aac0174c61710b15bae81810ae0a5860461657e54a5b976f3b380e87877"
+    },
+    {
+      "path": "lint/rules/known-token.js",
+      "sha256": "7f7c0988401ab085f5ff6ff02ba69f21c5a6e6e069652a4b1ebbd25487736f34"
+    },
+    {
+      "path": "lint/rules/no-deprecated-token.js",
+      "sha256": "bb961da17d0ba0ab21d8f83bcc2866ad9c81b942b406fbbe0c4b75cc1ec14774"
+    },
+    {
+      "path": "lint/rules/no-literal-color.js",
+      "sha256": "ba225bfc9571a944e6243fcbed6e647d4c1afd5cc5210378deec88f756d1800b"
+    },
+    {
+      "path": "lint/rules/no-rem.js",
+      "sha256": "efb2d55b0b35c66098e0d2a7f3757536ebc810e35e96d7405522d2a9dc362836"
+    },
+    {
+      "path": "lint/rules/shadow-token-only.js",
+      "sha256": "8f47981f6c0c0c30be98857e80462cac86729d0f88e52d89c7b60577fa34fbb0"
+    },
+    {
+      "path": "lint/scripts/build-allowlist.js",
+      "sha256": "b39ea5777c5a1a7b47c225138af7dd33837db8d04a133a5aa20635c2651cc06c"
+    },
+    {
+      "path": "lint/scripts/build-scoped-tokens.js",
+      "sha256": "99b15b7705f3eeeee258a23cf7dbccae0c45e31ab135531c60c0355095e8a74b"
+    },
+    {
+      "path": "lint/scripts/check-delivery.js",
+      "sha256": "24fb961170bcd35c248f7d8f0e8565430078139ce12df2457e47c96cd1e0e196"
+    },
+    {
+      "path": "lint/scripts/check-names.js",
+      "sha256": "da4925c6a92e78584022ee28d800bd4e5db1701bef627fe1eb1bdc16550ae7d8"
+    },
+    {
+      "path": "lint/test/run.js",
+      "sha256": "7ebc9ce0a47705cfb9c295de7173515bf78d54c9f375b666a88eb0d07b818b8d"
+    },
+    {
+      "path": "lint/tokens.allowed.json",
+      "sha256": "532ea29e825c7cf5349be9703ca2a8a75274885383b75b7755775d8a026e90a2"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "3cbf71a2b0b8c705217770fecff14d8ced75df0e5db947932aa28d7a778a7933"
+    },
+    {
+      "path": "mise.toml",
+      "sha256": "ce98956f06283b132562f74ba10fe88b2c9569b36439cbe7d3585c8a15a6d1fc"
+    },
+    {
+      "path": "overview.html",
+      "sha256": "f7df850e2ecabe27253c708fca6fa8a00f529668035b13cd708cfeb4cd44fb6d"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "6fd4ceafdacf84bd74b3fa62993606b80cd836ef628940a413b2c92b95f3d103"
+    },
+    {
+      "path": "package.json",
+      "sha256": "25822ca406e74af7c53924dfdfacce0a82210b4f12498ebd58d4775028bc3738"
+    },
+    {
+      "path": "templates/angular/README.md",
+      "sha256": "884260c38929b823a1b377157b878aa8cb87ae5a8f530bce956ae63508eb3f44"
+    },
+    {
+      "path": "templates/angular/_aurora.scss",
+      "sha256": "3f2bb99c2b44e8896487ad310eb68b4835eab1e8ce1a6837b3053bdb4040db77"
+    },
+    {
+      "path": "templates/angular/ng-package.json",
+      "sha256": "b5af295ec1bf58a2daa84bfd142c373bbefa2c8d702886865ec1ff2aaa5b65bd"
+    },
+    {
+      "path": "templates/leadership-deck/LeadershipDeck.dc.html",
+      "sha256": "e19f58354bc339720c3729e8d9c57e167302e5ad6c8b4ff6392bef00012e5ab2"
+    },
+    {
+      "path": "templates/leadership-deck/README.md",
+      "sha256": "c63cf7646128f8ec29cdc31f9c9043c14a971543836f9c9ba719855449d7bd3f"
+    },
+    {
+      "path": "templates/leadership-deck/deck-stage.js",
+      "sha256": "f3d3d0a662c08eefb5a8757a6da3139572485f4be32ac33785c5047061926a8a"
+    },
+    {
+      "path": "templates/leadership-deck/ds-base.js",
+      "sha256": "b50ebacfe21fb68a5b68142ff4e04f28b155029c2330e964504fe35dd2aa88be"
+    },
+    {
+      "path": "templates/leadership-deck/support.js",
+      "sha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe"
+    },
+    {
+      "path": "tests/DsFilterMenu.test.js",
+      "sha256": "41d88297c9174efb88d59cecb0991328ab88f7a7c33137875ecbd201aa642840"
+    },
+    {
+      "path": "tests/a11y-tokens.test.js",
+      "sha256": "67f75e2404d645d5e2de173901a6263d8d31a56e0659cebd494de34851f4fe27"
+    },
+    {
+      "path": "tests/build.test.js",
+      "sha256": "600542ae9e264e4b6728f6c60956214c83bc04b6cc7f5bdcea4b50bd0fe927b7"
+    },
+    {
+      "path": "tests/changelog-section.test.js",
+      "sha256": "c6dc532694ef0e3de83fab1116b05fe0850b66a729546283349bb919f0b2e5e0"
+    },
+    {
+      "path": "tests/dist-cascade.test.js",
+      "sha256": "eea3afcaa70bc560c589856309ead4ad9ef17b940471b26508ccbb4e454ac286"
+    },
+    {
+      "path": "tests/fixtures/cascade.html",
+      "sha256": "5ea916945da6c1c466f696877d836da099cddf35d4408d99237e52b4b74ec17f"
+    },
+    {
+      "path": "tests/fonts.test.js",
+      "sha256": "c52508a375fe80ad0cd5afb63f505fc92b7be02c4d09318a40e7ae0246932caf"
+    },
+    {
+      "path": "tests/guard-bash.test.js",
+      "sha256": "c22b087a1da0a2d04cff445c0be6f44a7651205c7e2d6d13656fe20f203d1571"
+    },
+    {
+      "path": "tests/nav-dialog-i18n.test.js",
+      "sha256": "bc237d8b165b68032ec092a86cb05a1be00c39c73ff7f7466be23aeae49ae7e9"
+    },
+    {
+      "path": "tests/package.test.js",
+      "sha256": "08a158ac5e8811f712e9b1d5747ea7e893d1045ca15035dc49a4cdc402e8ab13"
+    },
+    {
+      "path": "tests/rows-buttons.test.js",
+      "sha256": "d9798ebc78d5d3dd8ec448ee611b5182eb47ad39c144a20d0ede146565d2b9e0"
+    },
+    {
+      "path": "tokens.css",
+      "sha256": "97886f2c030810ad5aca56172f1c49ebc48e900f781df42346403485fb47edf5"
+    },
+    {
+      "path": "tokens.json",
+      "sha256": "da58ba5a1650d70d1b028727b07e49818eca43fbc3f59c92a31654f6168c6baf"
+    },
+    {
+      "path": "tokens/scoped.css",
+      "sha256": "20028a5de276b7c0d8240720c577eb39ce3ebc5f60e4d848bb25fe667b0a0e51"
+    },
+    {
+      "path": "tokens/webfonts-selfhost.css",
+      "sha256": "08a0008c243b69893ab75d2c6f2e8345bae7d4137f42fe5679fe87ef6a988a16"
+    },
+    {
+      "path": "tools/build.js",
+      "sha256": "9a2da425b79ccdafb007cef2eafb54a6168cd29b60fef0bad6b394b6be9a8937"
+    },
+    {
+      "path": "tools/changelog-section.js",
+      "sha256": "b8711fece00c47d43f1525fd735687d15e154ca5cddf5b1f109a1f02cdeeed19"
+    },
+    {
+      "path": "tools/check-pack.js",
+      "sha256": "a2acf32aefc5271dc8e3f9cfb850ab46fd8fd47e26d7dffbbb99b9d57fad1c88"
+    },
+    {
+      "path": "tools/check-parity.js",
+      "sha256": "f5e4ec4d7c353d5f7244f7bdc064ff983190c41e366ee775b3b2c38736681cb9"
+    },
+    {
+      "path": "tools/css.js",
+      "sha256": "557e9344d0e30cc319b1e128347aece95fdedb13d60a026ee07b4a5066fdcbb8"
+    },
+    {
+      "path": "tools/fonts/build_fonts.py",
+      "sha256": "d8f6abd6a41b08754a61d3c517cc978caa42ca555a2b54b057223efcd71468ee"
+    },
+    {
+      "path": "tools/fonts/requirements.txt",
+      "sha256": "3214b9e37d8bcb67c55ae02f4095d06981748a3eefa3c4c1dab0f1c8b4feb567"
+    }
+  ],
+  "cards": [
+    {
+      "id": "overview",
+      "title": "Прочитать первым",
+      "group": "1 · Начало",
+      "subtitle": "Карта системы: 38 карточек в пяти разделах, три скоупа и правила, из которых следует всё остальное.",
+      "previewPath": "overview.html",
+      "readmePath": null,
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 900
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "Admin",
+      "title": "Admin",
+      "group": "6 · Эталонные экраны",
+      "subtitle": "admin-portal: панель фильтров с видимыми применёнными фильтрами, таблица с границами, панель деталей",
+      "previewPath": "components/Admin/preview.html",
+      "readmePath": "components/Admin/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "AppShell",
+      "title": "AppShell",
+      "group": "6 · Эталонные экраны",
+      "subtitle": "Шапка, шапка страницы и три региона DsPageLayout уже связаны — каркас, с которого начинается экран",
+      "previewPath": "components/AppShell/preview.html",
+      "readmePath": "components/AppShell/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "BrandLogoLockup",
+      "title": "BrandLogoLockup",
+      "group": "4 · Бренд (общее)",
+      "subtitle": "Плашка бренда 34px · зазор 8px · заголовок интерфейсным начертанием — нейтральный хром, а не залитая полоса",
+      "previewPath": "components/BrandLogoLockup/preview.html",
+      "readmePath": "components/BrandLogoLockup/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 290
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "BrandLogoMark",
+      "title": "BrandLogoMark",
+      "group": "4 · Бренд (общее)",
+      "subtitle": "AuroraWhite.png — белая стрелка навигатора, кольцо, три жёлтые дуги. SVG не существует.",
+      "previewPath": "components/BrandLogoMark/preview.html",
+      "readmePath": "components/BrandLogoMark/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 170
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "Cover",
+      "title": "Cover",
+      "group": "1 · Начало",
+      "subtitle": "",
+      "previewPath": "components/Cover/preview.html",
+      "readmePath": null,
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 320
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsAppHeader",
+      "title": "DsAppHeader",
+      "group": "3 · Компоненты · навигация",
+      "subtitle": "Нейтральная шапка приложения: плашка знака, заголовок тенанта, табы, действия",
+      "previewPath": "components/DsAppHeader/preview.html",
+      "readmePath": "components/DsAppHeader/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 160
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsAppearance",
+      "title": "DsAppearance",
+      "group": "2 · Основы",
+      "subtitle": "Тёмный режим включается одним атрибутом; компоненты не проверяют режим — они просто читают токены",
+      "previewPath": "components/DsAppearance/preview.html",
+      "readmePath": "components/DsAppearance/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsBadge",
+      "title": "DsBadge",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Статус-бейдж: пять темонезависимых тонов, тинт или сплошной",
+      "previewPath": "components/DsBadge/preview.html",
+      "readmePath": "components/DsBadge/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 120
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsBanner",
+      "title": "DsBanner",
+      "group": "3 · Компоненты · обратная связь",
+      "subtitle": "Единственная постоянная поверхность сообщения; роль следует из тона",
+      "previewPath": "components/DsBanner/preview.html",
+      "readmePath": "components/DsBanner/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 280
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsBrandPick",
+      "title": "DsBrandPick",
+      "group": "2 · Основы",
+      "subtitle": "Два исходных цвета тенанта → девять значений light и шесть dark: как выведено каждое и что проверяется",
+      "previewPath": "components/DsBrandPick/preview.html",
+      "readmePath": "components/DsBrandPick/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 1720
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsBrandThemes",
+      "title": "DsBrandThemes",
+      "group": "2 · Основы",
+      "subtitle": "Переключатель темы и light/dark: что цвет сообщает, какой токен это делает и его значение в выбранном наборе",
+      "previewPath": "components/DsBrandThemes/preview.html",
+      "readmePath": "components/DsBrandThemes/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 1840
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsBreakpoints",
+      "title": "DsBreakpoints",
+      "group": "2 · Основы",
+      "subtitle": "Четыре фиксированных размера из ViewBreakpointService — каждый порог переключает ровно одну вещь",
+      "previewPath": "components/DsBreakpoints/preview.html",
+      "readmePath": "components/DsBreakpoints/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 720
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsBreakpointsDecisions",
+      "title": "DsBreakpointsDecisions",
+      "group": "5 · Миграция",
+      "subtitle": "Откуда взялись четыре порога, семь решений по ним и список долга в SCSS. Решения приняты, токены в layout.css.",
+      "previewPath": "components/DsBreakpointsDecisions/preview.html",
+      "readmePath": "components/DsBreakpointsDecisions/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 4000
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsBulkBar",
+      "title": "DsBulkBar",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Панель действий над N выбранными строками таблицы; в покое её нет",
+      "previewPath": "components/DsBulkBar/preview.html",
+      "readmePath": "components/DsBulkBar/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 120
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsButton",
+      "title": "DsButton",
+      "group": "3 · Компоненты · кнопки",
+      "subtitle": "Один компонент, шесть тонов, три размера из токенов плотности",
+      "previewPath": "components/DsButton/preview.html",
+      "readmePath": "components/DsButton/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 150
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsChart",
+      "title": "DsChart",
+      "group": "3 · Компоненты · графики",
+      "subtitle": "Декартов график по токенам: линия, область, столбцы; разрыв телеметрии остаётся разрывом",
+      "previewPath": "components/DsChart/preview.html",
+      "readmePath": "components/DsChart/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 360
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsChartLegend",
+      "title": "DsChartLegend",
+      "group": "3 · Компоненты · графики",
+      "subtitle": "Легенда отдельно от графика — в подвале панели или поверх карты",
+      "previewPath": "components/DsChartLegend/preview.html",
+      "readmePath": "components/DsChartLegend/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 100
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsChartTooltip",
+      "title": "DsChartTooltip",
+      "group": "3 · Компоненты · графики",
+      "subtitle": "Считывание по оси: инверсный грунт, моно-значения; переиспользуется на карте",
+      "previewPath": "components/DsChartTooltip/preview.html",
+      "readmePath": "components/DsChartTooltip/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 130
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsCharts",
+      "title": "DsCharts",
+      "group": "2 · Основы",
+      "subtitle": "Восемь независимых от темы цветов серий, семантические чернила осей и правило выбора типа графика",
+      "previewPath": "components/DsCharts/preview.html",
+      "readmePath": "components/DsCharts/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 560
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsCheck",
+      "title": "DsCheck",
+      "group": "3 · Компоненты · примитивы",
+      "subtitle": "Общий бокс выбора: off · on · some, квадрат и радио; рисует, но не объявляет",
+      "previewPath": "components/DsCheck/preview.html",
+      "readmePath": "components/DsCheck/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 100
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsCheckButton",
+      "title": "DsCheckButton",
+      "group": "3 · Компоненты · примитивы",
+      "subtitle": "Настоящая кнопка role=&quot;checkbox&quot; вокруг DsCheck — Enter, Space и фокус от платформы",
+      "previewPath": "components/DsCheckButton/preview.html",
+      "readmePath": "components/DsCheckButton/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 100
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsCheckbox",
+      "title": "DsCheckbox",
+      "group": "3 · Компоненты · формы",
+      "subtitle": "Чекбокс и радио одним компонентом; выбранное — бренд, не акцент",
+      "previewPath": "components/DsCheckbox/preview.html",
+      "readmePath": "components/DsCheckbox/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 150
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsChip",
+      "title": "DsChip",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Чип-фильтр с выбором и счётчиком или удаляемое значение",
+      "previewPath": "components/DsChip/preview.html",
+      "readmePath": "components/DsChip/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsDensity",
+      "title": "DsDensity",
+      "group": "2 · Основы",
+      "subtitle": "[data-ds-density] — это скоуп, а не глобальный тумблер: плотная таблица живёт и на cozy-странице",
+      "previewPath": "components/DsDensity/preview.html",
+      "readmePath": "components/DsDensity/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 570
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsDialog",
+      "title": "DsDialog",
+      "group": "3 · Компоненты · раскладка",
+      "subtitle": "Модальное окно: высота по содержимому, действия справа — отмена, затем подтверждение",
+      "previewPath": "components/DsDialog/preview.html",
+      "readmePath": "components/DsDialog/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 420
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsDuration",
+      "title": "DsDuration",
+      "group": "3 · Компоненты · формы",
+      "subtitle": "Длительность «дд · чч · мм» на общей оболочке поля; единицы переводимы",
+      "previewPath": "components/DsDuration/preview.html",
+      "readmePath": "components/DsDuration/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 150
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsEmptyState",
+      "title": "DsEmptyState",
+      "group": "3 · Компоненты · обратная связь",
+      "subtitle": "Пустая область: чего нет, почему, и действие, которое это исправит",
+      "previewPath": "components/DsEmptyState/preview.html",
+      "readmePath": "components/DsEmptyState/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 280
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsFab",
+      "title": "DsFab",
+      "group": "3 · Компоненты · кнопки",
+      "subtitle": "Парит над картой или длинной таблицей — единственная кнопка с настоящей тенью",
+      "previewPath": "components/DsFab/preview.html",
+      "readmePath": "components/DsFab/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 140
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsField",
+      "title": "DsField",
+      "group": "3 · Компоненты · формы",
+      "subtitle": "Статичная подпись над полем 40px; единицы — suffix, не часть подписи",
+      "previewPath": "components/DsField/preview.html",
+      "readmePath": "components/DsField/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 260
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsFilterBar",
+      "title": "DsFilterBar",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Поиск, применённые фильтры чипами, переключатель плотности, счётчик результата",
+      "previewPath": "components/DsFilterBar/preview.html",
+      "readmePath": "components/DsFilterBar/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 150
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsFilterMenu",
+      "title": "DsFilterMenu",
+      "group": "3 · Компоненты · формы",
+      "subtitle": "Редактор фильтра в поповере: все восемь типов; значение — черновик до «Применить»",
+      "previewPath": "components/DsFilterMenu/preview.html",
+      "readmePath": "components/DsFilterMenu/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsHeader",
+      "title": "DsHeader",
+      "group": "2 · Основы",
+      "subtitle": "По умолчанию нейтральный — бренд живёт в плашке логотипа и активной вкладке, а не в залитой полосе",
+      "previewPath": "components/DsHeader/preview.html",
+      "readmePath": "components/DsHeader/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 560
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsHeaderChip",
+      "title": "DsHeaderChip",
+      "group": "3 · Компоненты · навигация",
+      "subtitle": "Пилюля пользователя в шапке — то, что рисуют user в DsAppHeader и триггер DsUserMenu",
+      "previewPath": "components/DsHeaderChip/preview.html",
+      "readmePath": "components/DsHeaderChip/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsHover",
+      "title": "DsHover",
+      "group": "2 · Основы",
+      "subtitle": "Собственные чернила контрола поверх его же фона, 10% и 16% — ни одному тону не нужны токены hover",
+      "previewPath": "components/DsHover/preview.html",
+      "readmePath": "components/DsHover/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 1070
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsIcon",
+      "title": "DsIcon",
+      "group": "3 · Компоненты · примитивы",
+      "subtitle": "Material Symbols Outlined как шрифт; размер — токен --ds-icon-*, поворот несёт смысл",
+      "previewPath": "components/DsIcon/preview.html",
+      "readmePath": "components/DsIcon/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 120
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsIconButton",
+      "title": "DsIconButton",
+      "group": "3 · Компоненты · кнопки",
+      "subtitle": "Квадратная кнопка-иконка; label обязателен — он же aria-label и title",
+      "previewPath": "components/DsIconButton/preview.html",
+      "readmePath": "components/DsIconButton/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsListRow",
+      "title": "DsListRow",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Строка панели объектов: глиф состояния, две строки, значение справа",
+      "previewPath": "components/DsListRow/preview.html",
+      "readmePath": "components/DsListRow/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 220
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsMenu",
+      "title": "DsMenu",
+      "group": "3 · Компоненты · навигация",
+      "subtitle": "Якорный поповер с пунктами: меню строки, выпадающий фильтр, меню пользователя",
+      "previewPath": "components/DsMenu/preview.html",
+      "readmePath": "components/DsMenu/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 280
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsNeutrals",
+      "title": "DsNeutrals",
+      "group": "2 · Основы",
+      "subtitle": "Одна холодная рампа с ровным шагом — вместо шести несвязанных легаси-серых",
+      "previewPath": "components/DsNeutrals/preview.html",
+      "readmePath": "components/DsNeutrals/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 220
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsObjectRow",
+      "title": "DsObjectRow",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Строка объекта в дереве: аватар в кольце свежести, состояние, связь, непрочитанное",
+      "previewPath": "components/DsObjectRow/preview.html",
+      "readmePath": "components/DsObjectRow/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 230
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsPageHeader",
+      "title": "DsPageHeader",
+      "group": "3 · Компоненты · навигация",
+      "subtitle": "Шапка экрана: хлебные крошки, назад, заголовок, мета, действия, табы",
+      "previewPath": "components/DsPageHeader/preview.html",
+      "readmePath": "components/DsPageHeader/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 170
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsPageLayout",
+      "title": "DsPageLayout",
+      "group": "3 · Компоненты · раскладка",
+      "subtitle": "Каркас обоих порталов: шапка, шапка страницы, левый регион, главный, правый",
+      "previewPath": "components/DsPageLayout/preview.html",
+      "readmePath": "components/DsPageLayout/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 380
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsPagination",
+      "title": "DsPagination",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Пагинатор как подвал таблицы или панели; compact — для узкой панели",
+      "previewPath": "components/DsPagination/preview.html",
+      "readmePath": "components/DsPagination/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsPanel",
+      "title": "DsPanel",
+      "group": "3 · Компоненты · раскладка",
+      "subtitle": "Поверхность региона: eyebrow, заголовок, действия, тело, подвал",
+      "previewPath": "components/DsPanel/preview.html",
+      "readmePath": "components/DsPanel/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 250
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsScoreBar",
+      "title": "DsScoreBar",
+      "group": "3 · Компоненты · графики",
+      "subtitle": "Значение против именованных полос — рейтинг эко-вождения",
+      "previewPath": "components/DsScoreBar/preview.html",
+      "readmePath": "components/DsScoreBar/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 170
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsSelectBox",
+      "title": "DsSelectBox",
+      "group": "3 · Компоненты · формы",
+      "subtitle": "Трёхпозиционный выбор с собственной зоной нажатия — для дерева объектов",
+      "previewPath": "components/DsSelectBox/preview.html",
+      "readmePath": "components/DsSelectBox/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 100
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsSelectionBar",
+      "title": "DsSelectionBar",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Счётчик выбора и действия над ним в панели объектов",
+      "previewPath": "components/DsSelectionBar/preview.html",
+      "readmePath": "components/DsSelectionBar/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsShape",
+      "title": "DsShape",
+      "group": "2 · Основы",
+      "subtitle": "Настоящая шкала радиусов; иерархию держат границы, тень только поднимает",
+      "previewPath": "components/DsShape/preview.html",
+      "readmePath": "components/DsShape/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 280
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsSkeleton",
+      "title": "DsSkeleton",
+      "group": "3 · Компоненты · обратная связь",
+      "subtitle": "Скелетон вместо спиннера в таблице и графике — показывает форму данных",
+      "previewPath": "components/DsSkeleton/preview.html",
+      "readmePath": "components/DsSkeleton/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 150
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsSorting",
+      "title": "DsSorting",
+      "group": "2 · Основы",
+      "subtitle": "Порядок задаёт заголовок столбца: три состояния, цикл из двух, серверный ключ — и какие столбцы сортируемы",
+      "previewPath": "components/DsSorting/preview.html",
+      "readmePath": "components/DsSorting/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 1960
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsSortingMenu",
+      "title": "DsSortingMenu",
+      "group": "2 · Основы",
+      "subtitle": "Меню сортировки для поверхностей без заголовков: поле и направление раздельно, дефолт есть всегда",
+      "previewPath": "components/DsSortingMenu/preview.html",
+      "readmePath": "components/DsSortingMenu/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 1960
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsSparkline",
+      "title": "DsSparkline",
+      "group": "3 · Компоненты · графики",
+      "subtitle": "Микротренд в ячейке или строке: только форма, без осей и подписей",
+      "previewPath": "components/DsSparkline/preview.html",
+      "readmePath": "components/DsSparkline/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsSpinner",
+      "title": "DsSpinner",
+      "group": "3 · Компоненты · обратная связь",
+      "subtitle": "Индикатор загрузки: 16 в строке, 20 по умолчанию, 32 в панели, 48 на странице",
+      "previewPath": "components/DsSpinner/preview.html",
+      "readmePath": "components/DsSpinner/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsStateIcon",
+      "title": "DsStateIcon",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Состояние объекта глифом в диске; движение показывает курс",
+      "previewPath": "components/DsStateIcon/preview.html",
+      "readmePath": "components/DsStateIcon/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsStatus",
+      "title": "DsStatus",
+      "group": "2 · Основы",
+      "subtitle": "Не зависит от темы — одинакова в DEFAULT, в RED2 и в dark — заливка, чернила, линия и solid",
+      "previewPath": "components/DsStatus/preview.html",
+      "readmePath": "components/DsStatus/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 230
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsStepper",
+      "title": "DsStepper",
+      "group": "3 · Компоненты · навигация",
+      "subtitle": "Шаги короткой задачи: пройденные кликабельны, будущие — нет",
+      "previewPath": "components/DsStepper/preview.html",
+      "readmePath": "components/DsStepper/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 110
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsSwitch",
+      "title": "DsSwitch",
+      "group": "3 · Компоненты · формы",
+      "subtitle": "Переключатель с подписью и пояснением; замена SlideToggle",
+      "previewPath": "components/DsSwitch/preview.html",
+      "readmePath": "components/DsSwitch/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 130
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsTable",
+      "title": "DsTable",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Таблица с границами: сортировка в заголовке, выбор, моно-столбцы, строки из плотности",
+      "previewPath": "components/DsTable/preview.html",
+      "readmePath": "components/DsTable/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 300
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsTabs",
+      "title": "DsTabs",
+      "group": "3 · Компоненты · навигация",
+      "subtitle": "Табы в трёх тонах: в шапке, подчёркнутые в контенте, сегменты для 2–3 вариантов",
+      "previewPath": "components/DsTabs/preview.html",
+      "readmePath": "components/DsTabs/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 170
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsToast",
+      "title": "DsToast",
+      "group": "3 · Компоненты · обратная связь",
+      "subtitle": "Результат действия на инверсном грунте; одно действие — обычно «Отменить»",
+      "previewPath": "components/DsToast/preview.html",
+      "readmePath": "components/DsToast/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 150
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsToastStack",
+      "title": "DsToastStack",
+      "group": "3 · Компоненты · обратная связь",
+      "subtitle": "Позиционирует тосты на уровне страницы — внизу по центру или справа",
+      "previewPath": "components/DsToastStack/preview.html",
+      "readmePath": "components/DsToastStack/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 200
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsTreeRow",
+      "title": "DsTreeRow",
+      "group": "3 · Компоненты · данные",
+      "subtitle": "Строка дерева пользователь → группа: раскрытие, агрегированный выбор, счётчик",
+      "previewPath": "components/DsTreeRow/preview.html",
+      "readmePath": "components/DsTreeRow/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 190
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "DsType",
+      "title": "DsType",
+      "group": "2 · Основы",
+      "subtitle": "Один кегль на задачу; трекинг и моно заданы токеном, плотность на кегль не влияет",
+      "previewPath": "components/DsType/preview.html",
+      "readmePath": "components/DsType/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 2080
+      },
+      "scopeMode": "local"
+    },
+    {
+      "id": "DsUserMenu",
+      "title": "DsUserMenu",
+      "group": "3 · Компоненты · навигация",
+      "subtitle": "Меню пользователя в шапке — тот же DsMenu, что и меню строки",
+      "previewPath": "components/DsUserMenu/preview.html",
+      "readmePath": "components/DsUserMenu/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 300
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "IconsArrows",
+      "title": "IconsArrows",
+      "group": "4 · Бренд (общее)",
+      "subtitle": "Стрелки направления так, как их рисует трек — треугольник в цвете трека с белой кромкой 1 px. Десять цветовых вариантов.",
+      "previewPath": "components/IconsArrows/preview.html",
+      "readmePath": "components/IconsArrows/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 300
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "IconsMapAssets",
+      "title": "IconsMapAssets",
+      "group": "4 · Бренд (общее)",
+      "subtitle": "Настоящие SVG-файлы — единственная нешрифтовая иконография. Два вида: глифы, тонируемые внутри белого диска, и готовые п",
+      "previewPath": "components/IconsMapAssets/preview.html",
+      "readmePath": "components/IconsMapAssets/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 330
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "MapTrack",
+      "title": "MapTrack",
+      "group": "4 · Бренд (общее)",
+      "subtitle": "Линия + треугольники направления + пины начала/финиша. Число стрелок следует масштабу карты — потяните зум.",
+      "previewPath": "components/MapTrack/preview.html",
+      "readmePath": "components/MapTrack/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 560
+      },
+      "scopeMode": "inherit"
+    },
+    {
+      "id": "Monitoring",
+      "title": "Monitoring",
+      "group": "6 · Эталонные экраны",
+      "subtitle": "user-portal: панель объектов, рейка карты, карточка объекта. Тема / dark / плотность — в полосе сверху",
+      "previewPath": "components/Monitoring/preview.html",
+      "readmePath": "components/Monitoring/README.md",
+      "declarationPaths": [],
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "scopeMode": "local"
+    }
+  ]
+}
