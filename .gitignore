@@ -9,3 +9,6 @@ site/
 /tokens/scoped.css
 /components/bundle.css
 /lint/tokens.allowed.json
+/components/bundle.js
+/runtime.js
+/components.js

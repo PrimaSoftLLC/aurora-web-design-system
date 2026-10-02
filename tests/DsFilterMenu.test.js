@@ -1,3 +1,4 @@
+import {loadRuntime} from './helpers/runtime.js';
 // Поведенческий тест №10: 0, отрицательные и диапазон от нуля — реальные значения.
 /* Запуск: node tests/DsFilterMenu.test.js [путь к bundle.js]
    Нужен jsdom (npm i -D jsdom). Проверяет собранный бандл, а не исходник:
@@ -9,11 +10,8 @@ import { fileURLToPath } from 'node:url';
 const require=createRequire(import.meta.url);
 const {JSDOM}=require('jsdom');
 const ROOT=path.join(path.dirname(fileURLToPath(import.meta.url)),'..');
-const dom=new JSDOM('<!doctype html><div id=r></div>',{runScripts:'outside-only'});
-const w=dom.window;
-w.eval(fs.readFileSync(path.join(ROOT,'components/lib/react.production.min.js'),'utf8'));
-w.eval(fs.readFileSync(path.join(ROOT,'components/lib/react-dom.production.min.js'),'utf8'));
-w.eval(fs.readFileSync(process.argv[2]||path.join(ROOT,'components/bundle.js'),'utf8'));
+const {dom,window:w}=loadRuntime({html:'<!doctype html><body><div id=r></div></body>',pretendToBeVisual:true});
+const d=w.document;
 const NS=Object.keys(w).find(k=>k.startsWith('AuroraWebDesignSystem_'));const {DsFilterMenu}=w[NS];
 const {React,ReactDOM}=w; w.IS_REACT_ACT_ENVIRONMENT=true;
 let fails=0;const ok=(c,m)=>{console.log((c?'ok   ':'FAIL ')+m);if(!c)fails++};

@@ -1,3 +1,4 @@
+import {loadRuntime} from './helpers/runtime.js';
 /* Запуск: node tests/a11y-tokens.test.js [путь к bundle.js]
    Нужен jsdom (npm i -D jsdom). №1, №2, №5 на собранном бандле:
    какими токенами рисуются контролы и тост и что строка объекта отдаёт скринридеру. */
@@ -9,11 +10,8 @@ const require = createRequire(import.meta.url);
 const { JSDOM } = require('jsdom');
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-const dom = new JSDOM('<!doctype html><body></body>', { runScripts: 'outside-only' });
-const w = dom.window;
-for (const f of ['components/lib/react.production.min.js', 'components/lib/react-dom.production.min.js'])
-  w.eval(fs.readFileSync(path.join(ROOT, f), 'utf8'));
-w.eval(fs.readFileSync(process.argv[2] || path.join(ROOT, 'components/bundle.js'), 'utf8'));
+const {dom,window:w}=loadRuntime({html:'<!doctype html><body><div id=r></div></body>',pretendToBeVisual:true});
+const d=w.document;
 const NS = w[Object.keys(w).find((k) => k.startsWith('AuroraWebDesignSystem_'))];
 const { React, ReactDOM } = w;
 let fails = 0;

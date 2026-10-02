@@ -1,3 +1,4 @@
+import {loadRuntime} from './helpers/runtime.js';
 /* Запуск: node tests/nav-dialog-i18n.test.js [путь к bundle.js]
    Нужен jsdom (npm i -D jsdom). №7 — вкладки и меню, Escape по слоям, №9 — имя
    диалога, строки интерфейса (DsStringsProvider). Проверяется собранный бандл. */
@@ -8,11 +9,8 @@ import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
 const { JSDOM } = require('jsdom');
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const dom = new JSDOM('<!doctype html><body></body>', { runScripts: 'outside-only', pretendToBeVisual: true });
-const w = dom.window, d = w.document;
-for (const f of ['components/lib/react.production.min.js', 'components/lib/react-dom.production.min.js'])
-  w.eval(fs.readFileSync(path.join(ROOT, f), 'utf8'));
-w.eval(fs.readFileSync(process.argv[2] || path.join(ROOT, 'components/bundle.js'), 'utf8'));
+const {dom,window:w}=loadRuntime({html:'<!doctype html><body><div id=r></div></body>',pretendToBeVisual:true});
+const d=w.document;
 const NS = w[Object.keys(w).find((k) => k.startsWith('AuroraWebDesignSystem_'))];
 const { React, ReactDOM } = w; const h = React.createElement;
 let fails = 0;

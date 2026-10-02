@@ -1,6 +1,9 @@
 /** Собирает пакет из канонических исходников, сохраняя прежний buildDist API. */
 import { fileURLToPath } from 'node:url';
 import { buildTokens, writeTokenOutputs } from './tokens/build.mjs';
+import { buildComponents } from './build-components.mjs';
+import { join } from 'node:path';
+import { readFileSync, writeFileSync } from 'node:fs';
 export function buildDist({root = fileURLToPath(new URL('..', import.meta.url))} = {}) {
   const {styles, tokens} = buildTokens({root});
   return {styles, tokens};
@@ -8,5 +11,7 @@ export function buildDist({root = fileURLToPath(new URL('..', import.meta.url))}
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const root = fileURLToPath(new URL('..', import.meta.url));
   const {styles,tokens} = writeTokenOutputs({root});
+  const components = await buildComponents({root,outDir:join(root,'.tmp/runtime')});
+  writeFileSync(join(root,'components/bundle.js'),readFileSync(components.components));
   console.log(`dist/styles.css ${styles.length} bytes; dist/tokens.css ${tokens.length} bytes`);
 }

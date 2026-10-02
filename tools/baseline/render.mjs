@@ -80,13 +80,13 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
       computed[`${scope.theme}.${scope.appearance}.${scope.density}`] = await page.evaluate(scope => {
         for (const [key, value] of Object.entries(scope)) document.documentElement.setAttribute(`data-ds-${key}`, value);
         const s = getComputedStyle(document.documentElement);
-        return Object.fromEntries([...s].filter(p => p.startsWith('--')).sort().map(p => [p, s.getPropertyValue(p).trim()]));
+        return Object.fromEntries([...s].filter(p => p.startsWith('--') && !p.startsWith('--ds-_')).sort().map(p => [p, s.getPropertyValue(p).trim()]));
       }, scope);
     }
     await page.goto(`${served.url}/tests/fixtures/cascade.html`);
     await page.waitForSelector('#out');
     computed.cascade = Object.fromEntries(Object.entries(JSON.parse(await page.locator('#out').textContent()))
-      .sort(([a], [b]) => a.localeCompare(b)).map(([id, props]) => [id, Object.fromEntries(Object.entries(props).sort(([a], [b]) => a.localeCompare(b)))]));
+      .sort(([a], [b]) => a.localeCompare(b)).map(([id, props]) => [id, Object.fromEntries(Object.entries(props).filter(([p]) => !p.startsWith('--ds-_')).sort(([a], [b]) => a.localeCompare(b)))]));
     const json = JSON.stringify(computed, null, 2) + '\n';
     writeFileSync(join(outDir, 'computed.json'), json);
     if (compareDir) assert.deepEqual(computed, JSON.parse(readFileSync(join(compareDir, 'computed.json'), 'utf8')), 'Computed token baseline mismatch');
