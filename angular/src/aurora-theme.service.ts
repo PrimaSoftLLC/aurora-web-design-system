@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, InjectionToken, signal, effect, type Provider } from '@angular/core';
+import { inject, Injectable, InjectionToken, signal, effect, APP_INITIALIZER, type Provider } from '@angular/core';
 import {
   AURORA_ATTR, AURORA_DEFAULTS, AURORA_STORAGE,
   type AuroraScopes, type DsAppearance, type DsDensity, type DsTheme,
@@ -9,7 +9,11 @@ export const AURORA_CONFIG = new InjectionToken<Partial<AuroraScopes>>('AURORA_C
 
 /** Регистрирует стартовые значения скоупов. Тему сюда передаёт FRONT_BRAND. */
 export function provideAurora(config: Partial<AuroraScopes> = {}): Provider[] {
-  return [{ provide: AURORA_CONFIG, useValue: config }];
+  return [
+    { provide: AURORA_CONFIG, useValue: config },
+    { provide: APP_INITIALIZER, multi: true, deps: [AuroraThemeService],
+      useFactory: (_service: AuroraThemeService) => () => undefined },
+  ];
 }
 
 /**
@@ -30,14 +34,19 @@ export class AuroraThemeService {
   );
 
   constructor() {
-    effect(() => {
-      const body = this.doc.body;
-      body.setAttribute(AURORA_ATTR.theme, this.theme());
-      body.setAttribute(AURORA_ATTR.appearance, this.appearance());
-      body.setAttribute(AURORA_ATTR.density, this.density());
-      this.write(AURORA_STORAGE.appearance, this.appearance());
-      this.write(AURORA_STORAGE.density, this.density());
-    });
+    this.applyScopes();
+    effect(() => this.applyScopes());
+  }
+
+  private applyScopes(): void {
+    // Читаем сигналы до появления body, чтобы effect продолжал следить за ними.
+    const theme = this.theme(), appearance = this.appearance(), density = this.density();
+    const body = this.doc.body;
+    body?.setAttribute(AURORA_ATTR.theme, theme);
+    body?.setAttribute(AURORA_ATTR.appearance, appearance);
+    body?.setAttribute(AURORA_ATTR.density, density);
+    this.write(AURORA_STORAGE.appearance, appearance);
+    this.write(AURORA_STORAGE.density, density);
   }
 
   setTheme(value: DsTheme): void { this.theme.set(value); }
