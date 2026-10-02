@@ -40,7 +40,7 @@ function render(){
   viewports.replaceChildren();frames=[];viewports.className=state.compare?'preview-matrix':'single-preview';
   for(const[index,fixed]of (state.compare?comparisonScopes:[state.scope]).entries()){
    const panel=document.createElement('figure'),caption=document.createElement('figcaption'),scroll=document.createElement('div'),frame=document.createElement('iframe');
-   panel.className='preview-panel';scroll.className='preview-scroll';frame.id=state.compare?'preview-'+index:'preview';frame.style.width=card.viewport.width+'px';frame.style.height=card.viewport.height+'px';
+   panel.className='preview-panel';scroll.className='preview-scroll';scroll.tabIndex=0;scroll.setAttribute('role','region');caption.id='preview-caption-'+index;scroll.setAttribute('aria-labelledby',caption.id);frame.id=state.compare?'preview-'+index:'preview';frame.style.width=card.viewport.width+'px';frame.style.height=card.viewport.height+'px';
    const record={element:frame,caption,fixed,card};frames.push(record);frame.addEventListener('load',()=>scopeFrame(record));
    const url=new URL(card.previewPath,location.href);for(const[name,value]of Object.entries(fixed))url.searchParams.set(name,value);frame.src=url;
    panel.append(caption,scroll);scroll.append(frame);viewports.append(panel);
