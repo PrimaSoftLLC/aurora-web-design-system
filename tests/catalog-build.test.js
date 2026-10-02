@@ -3,6 +3,12 @@ import{buildCatalogue}from'../tools/catalog/build.mjs';import{readCards}from'../
 const root=fileURLToPath(new URL('../',import.meta.url));assert.equal(readCards(root).length,69);
 const fixture=fixtureRoot();try{
  const cards=await buildCatalogue({root:fixture,outDir:join(fixture,'site')});assert.equal(cards.length,2);
+ assert.match(readFileSync(join(fixture,'site/overview.html'),'utf8'),/window\.__DS_CARD_COUNT__=2/);
+ writeFileSync(join(fixture,'guide name.md'),'# Linked guide');writeFileSync(join(fixture,'components/Example/doc-icon.svg'),'<svg xmlns="http://www.w3.org/2000/svg"></svg>');
+ writeFileSync(join(fixture,'components/Example/README.md'),'[Guide](../../guide%20name.md#linked-guide)\n![Icon](doc-icon.svg)');
+ await buildCatalogue({root:fixture,outDir:join(fixture,'site')});
+ assert.match(readFileSync(join(fixture,'site/docs/cards/Example.html'),'utf8'),/\/docs\/guide name.html#linked-guide/);
+ assert.ok(readFileSync(join(fixture,'site/source/components/Example/doc-icon.svg')).length);
  const path=join(fixture,'components/Example/preview.html');const original=readFileSync(path,'utf8');
  writeFileSync(path,original.replace('</body>','<script>const label="filename.svg";</script></body>'));
  await buildCatalogue({root:fixture,outDir:join(fixture,'site')});

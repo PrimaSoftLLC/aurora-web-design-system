@@ -77,7 +77,7 @@ font:  var(--font-ds-type-body);   /* Токена --font-ds-type-body нет в
 
 ### focus-from-tokens
 
-Кольцо фокуса приходит из `tokens/focus.css`. Правило ловит `outline`,
+Кольцо фокуса приходит из `dist/styles.css`. Правило ловит `outline`,
 `box-shadow` и `border-color` внутри `:focus` / `:focus-visible`, если значение
 не ссылается на токен, а также `outline: none` где угодно.
 

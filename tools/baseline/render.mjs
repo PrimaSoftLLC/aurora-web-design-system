@@ -39,7 +39,8 @@ export async function serveRoot(root, pages = new Map()) {
   return { server, url: `http://127.0.0.1:${server.address().port}` };
 }
 
-export async function captureCards({ browser, root, cards, mode = 'legacy', outDir, compareDir, referenceRoot }) {
+export async function captureCards({ browser, root, cards, mode = 'legacy', outDir, compareDir, referenceRoot,documentationChanges=[] }) {
+  assert.ok(documentationChanges.every(change=>change==='overview-count'),'Only the approved overview count update may differ from original pixels');
   if (compareDir && mode === 'current' && !referenceRoot) throw new Error('Current comparison requires the pinned original referenceRoot');
   mkdirSync(outDir, { recursive: true });
   const pages = new Map();
@@ -94,7 +95,9 @@ export async function captureCards({ browser, root, cards, mode = 'legacy', outD
       assert.deepEqual(errors, [], `${key}: browser errors`);
       const buffer = await page.screenshot({ animations: 'disabled', caret: 'hide' });
       writeFileSync(join(outDir, `${key}.png`), buffer);
-      if (compareDir && !buffer.equals(readFileSync(join(compareDir, `${key}.png`)))) {
+      const countUpdated=mode==='current'&&card.id==='overview'&&documentationChanges.includes('overview-count');
+      if(compareDir&&countUpdated)console.log(`${key}: approved discovery count update; screenshot recorded, content verified by catalogue tests`);
+      if (compareDir && !countUpdated && !buffer.equals(readFileSync(join(compareDir, `${key}.png`)))) {
         // Variable-font rasterization can vary even between unchanged originals.
         // Accept only exact bytes produced by the original source, never a tolerance.
         let matched = false;

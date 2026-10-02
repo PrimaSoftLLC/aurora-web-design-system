@@ -138,7 +138,7 @@ Aurora — платформа GPS-мониторинга коммерческо�
 
 Плотность на кегль не влияет. Копируя `rem` из исходников Angular, умножайте на 10 один раз — порталы ставят `html { font-size: 10px }` — и оставляйте px. Карточка `DsType`.
 
-**Доставка шрифтов — вопрос поставки, а не дизайна.** По умолчанию оба семейства грузятся с Google Fonts — это правильно для макетов и неправильно для продукта: Aurora ставится контейнером в инфраструктуру заказчика, где часто нет выхода в интернет, и CDN-шрифт там тихо падает в Helvetica, а вся px-шкала посчитана по метрикам Inter Tight. **Для любого реального развёртывания подключайте `tokens/webfonts-selfhost.css`** и кладите шесть `.woff2` — точные имена, требование кириллицы и лицензия описаны в `assets/fonts/README.md`. Material Symbols уже самохостится.
+**Шрифты поставляются вместе с пакетом.** `dist/styles.css` уже подключает Inter Tight, JetBrains Mono и Material Symbols из локальных файлов. Дополнительные CSS-импорты и ручное копирование шрифтов не нужны; каталог также работает без CDN. Лицензии и пересборка — [assets/fonts/README.md](assets/fonts/README.md).
 
 ### Шапка
 
@@ -302,7 +302,7 @@ SVG-логотипа, локапа только из словесного зна
 ## Чего здесь нет
 
 - **Мобильного приложения.** Android-приложение существует, но его исходников не было, поэтому нет ни мобильного UI-кита, ни мобильных паттернов. Поведение ниже брейкпоинта `l` описано, но не воссоздано.
-- **Маркетингового сайта и сайта документации.** У продукта нет ни того, ни другого.
+- **Маркетингового сайта продукта.** В этом репозитории есть локальный каталог и справочник дизайн-системы.
 - **Шаблона слайдов.**
 - **Копируемых шаблонов экранов.** Источник раскладки — эталонные экраны `Monitoring`, `Admin`, `AppShell`.
 - **Стилей картографической библиотеки.** Цвета треков, заливки геозон, кластеризация и легенда погоды живут в `aur-openlayers` — отдельном репозитории, которого здесь нет.
@@ -310,17 +310,8 @@ SVG-логотипа, локапа только из словесного зна
 - **Легаси-шрифтов.** Базовый шрифт Material Icons и шрифты словесного знака (Nasalization, MTSText) лежат в репозитории Angular, не здесь.
 
 
-## Starters
+## Архив
 
-In the standalone version, this design system came with 1 starter template(s). Each is a small project of its own, not a part of the design system the page shows; its files are kept in this artifact as they were, under its folder, for a later migration of its own.
-
-- **Презентация для руководства** — Дека о дизайн-системе Aurora простым языком: было / стало, любой клиент, эффект, статус, решения (4 files, entry `templates/leadership-deck/LeadershipDeck.dc.html`)
-
-## Migrated from a legacy design system
-
-This system was carried over from the standalone version on 2026-09-18. The part of this README the author wrote predates the move, so any file names in it are the old ones. Where things are now:
-
-- `styles.css`, `tokens/webfonts-cdn.css`, `tokens/type.css`, `tokens/neutrals.css`, `tokens/brand.css`, `tokens/semantic.css`, … and 8 more (the global stylesheets) → `project/components/bundle.css`, with the token declarations moved to `project/tokens.json` (`project/tokens.css` is generated from them)
-- `_ds_bundle.js` → `project/components/bundle.js`
-- showcase pages, each kept whole as one component’s preview (a page of examples, not an export of the bundle): `guidelines/v2-appearance.html` → `project/components/DsAppearance/preview.html`; `guidelines/v2-brand-pick.html` → `project/components/DsBrandPick/preview.html`; `guidelines/v2-brand-themes.html` → `project/components/DsBrandThemes/preview.html`; `guidelines/v2-breakpoints.html` → `project/components/DsBreakpoints/preview.html`; `guidelines/v2-charts.html` → `project/components/DsCharts/preview.html`; `guidelines/v2-density.html` → `project/components/DsDensity/preview.html`; `guidelines/v2-header.html` → `project/components/DsHeader/preview.html`; `guidelines/v2-hover.html` → `project/components/DsHover/preview.html`; … and 30 more
-- the migration report, which lists what did not come across: `project/assets/notes/MIGRATION-REPORT.md`
+Историческая презентация для руководства хранится в `templates/leadership-deck/`.
+Она сохранена для истории; её запуск не входит в проверку каталога.
+История переноса исходников — `assets/notes/MIGRATION-REPORT.md` и Git.

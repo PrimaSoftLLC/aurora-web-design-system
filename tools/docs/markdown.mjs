@@ -17,7 +17,7 @@ export function renderMarkdown({root,path,knownRoutes=new Map()}){
   if(/^(?:[a-z]+:|\/\/|#)/i.test(url))return url;
   const parsed=new URL(url,'http://aurora.local/'+path),target=decodeURIComponent(parsed.pathname).slice(1);
   const known=knownRoutes instanceof Map?knownRoutes.get(target):knownRoutes[target];
-  return (known??posix.relative(posix.dirname(path),target))+parsed.search+parsed.hash;
+  return (known??'/source/'+target)+parsed.search+parsed.hash;
  };
  const link=md.renderer.rules.link_open??((tokens,idx,options,env,self)=>self.renderToken(tokens,idx,options));
  md.renderer.rules.link_open=(tokens,idx,options,env,self)=>{const token=tokens[idx],href=token.attrGet('href');token.attrSet('href',route(href));return link(tokens,idx,options,env,self);};

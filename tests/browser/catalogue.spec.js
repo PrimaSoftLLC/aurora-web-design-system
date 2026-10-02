@@ -7,6 +7,7 @@ test('all catalogue pages render from local files without runtime errors',async(
  await page.route('**/*',r=>r.request().url().startsWith(served.url+'/')?r.continue():r.abort('blockedbyclient'));
  try{
   await page.goto(served.url+'/index.html');await expect(page.locator('nav a')).toHaveCount(69);
+  await expect(page.locator('#subtitle')).toContainText('69 карточек');await expect(page.frameLocator('#preview').locator('body')).toContainText('69 карточек');
   await page.locator('nav a[data-id="DsButton"]').click();await expect(page.locator('h1')).toHaveText('DsButton');
   await page.locator('#theme').selectOption('RED2');await expect(page.locator('html')).toHaveAttribute('data-ds-theme','RED2');
   for(const card of cards){await page.setViewportSize(card.viewport);await page.goto(served.url+'/'+card.previewPath);await page.evaluate(()=>document.fonts.ready);

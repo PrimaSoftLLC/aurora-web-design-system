@@ -5,7 +5,7 @@ const ruleName = 'aurora/focus-from-tokens';
 
 const messages = utils.ruleMessages(ruleName, {
   own: (prop) =>
-    `Свой ${prop} в состоянии фокуса. Кольцо фокуса приходит из tokens/focus.css — компонент его не рисует`,
+    `Свой ${prop} в состоянии фокуса. Кольцо фокуса приходит из dist/styles.css — компонент его не рисует`,
   removed: () =>
     'outline снят. Если нужно убрать кольцо браузера, используйте токены фокуса, а не outline: none',
 });

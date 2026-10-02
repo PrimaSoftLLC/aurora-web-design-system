@@ -11,5 +11,5 @@ test('fresh components match baseline on button, menu, table and object row',asy
  await captureCards({browser,...baseline,cards,outDir:`${root}/.tmp/migration/components-old`});
  await buildComponents({root,outDir:root});
  const css=buildDist({root});mkdirSync(`${root}/dist`,{recursive:true});writeFileSync(`${root}/dist/styles.css`,css.styles);
- await captureCards({browser,root,cards,mode:'current',outDir:`${root}/.tmp/migration/components-new`,compareDir:`${root}/.tmp/migration/components-old`,referenceRoot:baseline.root});
+ await captureCards({browser,root,cards,mode:'current',outDir:`${root}/.tmp/migration/components-new`,compareDir:`${root}/.tmp/migration/components-old`,referenceRoot:baseline.root,documentationChanges:['overview-count']});
 });

@@ -1,4 +1,4 @@
-<!-- @dsCard group="1 · Начало" viewport="1180x900" name="Прочитать первым" subtitle="Карта системы: 38 карточек в пяти разделах, три скоупа и правила, из которых следует всё остальное." -->
+<!-- @dsCard group="1 · Начало" viewport="1180x900" name="Прочитать первым" subtitle="Карта системы: {{cardCount}} карточек, три скоупа и правила, из которых следует всё остальное." -->
 <!DOCTYPE html>
 <html lang="ru"><head><meta charset="utf-8"><title>Aurora — дизайн-система</title><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="tokens/scoped.css"><link rel="stylesheet" href="components/bundle.css">
 <style>html,body{margin:0}*{box-sizing:border-box}
@@ -225,7 +225,7 @@ function App(){
     </header>
     <section style={{display:'flex',flexDirection:'column',gap:10}}>
       <h2>Разделы системы</h2>
-      <p>Эта страница — только вход. Ниже — полный состав: {DOCS.reduce((n,d)=>n+d[3].length,0)} карточек в пяти разделах, плюс <span className="mono">README.md</span> (система целиком словами), <span className="mono">ANGULAR.md</span> (подключение в воркспейсе) и <span className="mono">MIGRATION.md</span>.</p>
+      <p>Эта страница — только вход. Ниже — полный состав: {window.__DS_CARD_COUNT__} карточек, плюс <span className="mono">README.md</span> (система целиком словами), <span className="mono">ANGULAR.md</span> (подключение в воркспейсе) и <span className="mono">MIGRATION.md</span>.</p>
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gap:'var(--ds-gap-md)',alignItems:'start'}}>
         {DOCS.map(([g,path,note,items])=><div key={g} style={{border:'1px solid var(--ds-border)',borderRadius:'var(--ds-radius-lg)',background:'var(--ds-surface)',padding:16,display:'flex',flexDirection:'column',gap:10,minWidth:0}}>
           <div style={{display:'flex',alignItems:'baseline',gap:8,flexWrap:'wrap'}}>

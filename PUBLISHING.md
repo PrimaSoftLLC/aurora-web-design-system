@@ -1,11 +1,11 @@
 # Репозиторий и публикация
 
 Репозиторий — `github.com/PrimaSoftLLC/aurora-web-design-system` (приватный), пакет — `@primasoftllc/design-system` в
-GitHub Packages. Как артефакт и репозиторий обмениваются правками — SYNC.md.
+GitHub Packages. Исходники и правки живут в репозитории; правила разработки — [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Выпуск версии
 
-`/aurora-release` в develop (CLAUDE.md, раздел «Релиз»). Push в master запускает `.github/workflows/ci.yml`:
+`/aurora-release` в develop ([AGENTS.md](AGENTS.md), раздел «Релиз»). Push в master запускает `.github/workflows/ci.yml`:
 проверки, `npm publish`, тег `v<version>`, GitHub Release из раздела CHANGELOG. Секреты не нужны — `GITHUB_TOKEN`.
 Руками теги не ставятся и `npm publish` не запускается.
 

@@ -3,6 +3,7 @@ import { join, resolve, relative, posix } from 'node:path';
 import { parse, parseFragment, serialize } from 'parse5';
 import { transform } from 'esbuild';
 import {scopeOptions,applyQueryScope} from '../../catalog/state.js';
+import {readCards} from './index.mjs';
 
 const attr = (node, name) => node.attrs?.find(a => a.name === name)?.value;
 function setAttr(node, name, value) {
@@ -54,7 +55,8 @@ export async function renderPreview({ root, card, mode = 'legacy', scope, standa
   const base = posix.dirname(card.previewPath);
   const local = file => posix.relative(base, file.replace(/^\//, ''));
   const baseHref = standalone ? './' : '/' + (base === '.' ? '' : base + '/');
-  const injected = parseFragment(`<base href="${baseHref}"><script>(${applyQueryScope.toString()})(${JSON.stringify(scopeOptions)})</script><link rel="stylesheet" href="${local('dist/styles.css')}">${scripts.map(src => `<script src="${local(src)}"></script>`).join('')}`).childNodes;
+  const count=mode==='current'&&card.id==='overview'?`<script>window.__DS_CARD_COUNT__=${readCards(root).length};</script>`:'';
+  const injected = parseFragment(`<base href="${baseHref}">${count}<script>(${applyQueryScope.toString()})(${JSON.stringify(scopeOptions)})</script><link rel="stylesheet" href="${local('dist/styles.css')}">${scripts.map(src => `<script src="${local(src)}"></script>`).join('')}`).childNodes;
   for (const n of injected) n.parentNode = head;
   head.childNodes.unshift(...injected);
   return serialize(doc);

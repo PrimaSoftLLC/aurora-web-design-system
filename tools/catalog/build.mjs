@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync,existsSync } from 'node:fs';
 import { join, dirname, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readCards } from './index.mjs';
@@ -18,8 +18,18 @@ export async function buildCatalogue({ root, outDir }) {
   const guides=readdirSync(root).filter(name=>name.endsWith('.md'));
   for(const guide of guides)knownRoutes.set(guide,`/docs/${guide.slice(0,-3)}.html`);
   for(const card of cards){knownRoutes.set(card.previewPath,'/'+card.previewPath);if(card.readmePath)knownRoutes.set(card.readmePath,`/docs/cards/${card.id}.html`);}
+  const documents=[...guides,...cards.map(card=>card.readmePath).filter(Boolean)],documentAssets=new Set();
+  for(let index=0;index<documents.length;index++)for(const link of renderMarkdown({root,path:documents[index]}).links){
+    if(/^(?:[a-z]+:|\/\/|#)/i.test(link))continue;
+    const url=new URL(link,'http://aurora.local/'+documents[index]),target=decodeURIComponent(url.pathname).slice(1);
+    if(target.endsWith('.md')&&existsSync(join(root,target))&&!knownRoutes.has(target)){
+      knownRoutes.set(target,'/docs/source/'+target.slice(0,-3)+'.html');documents.push(target);
+    }else if(!knownRoutes.has(target))documentAssets.add(assetPath(root,documents[index],link));
+  }
   const writePage=(path,html)=>{mkdirSync(dirname(join(outDir,path)),{recursive:true});writeFileSync(join(outDir,path),html);};
   for(const guide of guides){const document=renderMarkdown({root,path:guide,knownRoutes});writePage(`docs/${guide.slice(0,-3)}.html`,documentPage({title:guide,html:document.html}));}
+  for(const path of documents.filter(path=>!guides.includes(path)&&knownRoutes.get(path)?.startsWith('/docs/source/'))){const document=renderMarkdown({root,path,knownRoutes});writePage(knownRoutes.get(path).slice(1),documentPage({title:path,html:document.html}));}
+  for(const path of documentAssets)if(path){const target=join(outDir,'source',path);mkdirSync(dirname(target),{recursive:true});writeFileSync(target,readFileSync(join(root,path)));}
   for(const doc of api){
     const card=cards.find(card=>card.id===doc.name)??cards.find(card=>card.id===doc.declarationPath.split('/')[1]);
     const readme=card?.readmePath;
