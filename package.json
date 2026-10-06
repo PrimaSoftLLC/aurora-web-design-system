@@ -22,10 +22,13 @@
     "templates/angular/",
     "tokens.json",
     "CHANGELOG.md",
-    "MIGRATION.md",
-    "ANGULAR.md",
-    "LINT.md",
-    "getting-started.md"
+    "docs/usage.md",
+    "docs/design.md",
+    "docs/tokens.md",
+    "docs/migration.md",
+    "docs/release.md",
+    "CONTRIBUTING.md",
+    "AGENTS.md"
   ],
   "exports": {
     "./angular": {

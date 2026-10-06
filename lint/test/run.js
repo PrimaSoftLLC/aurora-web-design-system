@@ -132,7 +132,7 @@ if (JSON.stringify(fresh) !== JSON.stringify(baked.names)) {
   console.log(`ok   tokens.allowed.json (${fresh.length} имён)`);
 }
 
-// --- регламент имён (NAMING.md) -------------------------------------------
+// --- регламент имён (docs/tokens.md) -------------------------------------------
 const config = loadConfig();
 const spacing = (names) => ({ spacing: { tokens: names.map((name) => ({ name, value: '0' })) } });
 

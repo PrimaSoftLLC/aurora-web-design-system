@@ -100,7 +100,7 @@ reduction on the v1 side comes from v1 encoding variants as separate components.
 | `$border-radius: 2px` | `--ds-radius-control / -container` | 8px controls, 12px containers. |
 | `$border-basic: 2px solid primary` | `--ds-border` | The 2px primary rule is deleted outright — it was the main dating device. |
 | `--elevation-1 / -3 / -8` | `--ds-shadow-sm / -md / -lg` | Material z-levels dropped; shadow is only for floating surfaces. |
-| `--font-base (Helvetica)` | `--ds-font-sans (Inter Tight)` | Not committed: delivery is one switchable `@import` in `styles.css` — CDN at design time, **self-hosted in production** (`assets/fonts/README.md`). `--ds-font-mono` is new. |
+| `--font-base (Helvetica)` | `--ds-font-sans (Inter Tight)` | Fonts ship locally with the package and are loaded by `dist/styles.css`; see [font delivery](../assets/fonts/README.md). `--ds-font-mono` is new. |
 | `1rem = 10px` | `px only` | No rem anywhere in v2. If you copy a rem value out of the Angular source, multiply by 10 once and keep px. |
 | `spacing utility classes` | `--ds-gap* / --ds-pad*` | Density-scoped, so one page can hold two densities. |
 | `fixed heights (60 / 55 / 56 / 35px)` | `--ds-header-h / -toolbar-h / -row-h / -control-h` | All density-driven. |
@@ -166,7 +166,8 @@ layer is the name map above.
 
 ## Deprecated token aliases (2.0 → 3.0)
 
-Old names keep working as `var(--new)` until 3.0.0; `aurora/no-deprecated-token` warns on them.
+These aliases were scheduled for removal in 3.0.0, but their entries remain in `lint/naming.config.json`.
+`aurora/no-deprecated-token` warns on them. Replace them when upgrading; check the installed token inventory and CHANGELOG for actual removal.
 
 | deprecated | use instead |
 |---|---|

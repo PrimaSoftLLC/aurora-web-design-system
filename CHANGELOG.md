@@ -1,7 +1,7 @@
 # Changelog
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-Policy: [VERSIONING.md](VERSIONING.md).
+Policy: [Versions and publishing](docs/release.md#versioning).
 
 ## [Unreleased]
 
@@ -11,6 +11,11 @@ Policy: [VERSIONING.md](VERSIONING.md).
   как проверка dev-сервера, чтобы медленный CI не выдавал ложный сбой через 5 секунд.
 
 ### Changed
+
+- Документация объединена по задачам: краткий README ведёт к подключению,
+  дизайн-правилам и разработке. Руководства находятся в `docs/`; в корне осталось
+  пять MD-файлов. В npm-пакете инструкции подключения, Angular, линтера и миграции
+  теперь доступны как `docs/usage.md` и `docs/migration.md`.
 
 - Каталог группирует семейства, ищет по именам, aliases, описаниям и props;
   сохраняет выбранные скоупы в URL и сравнивает четыре режима без изменения
@@ -27,7 +32,7 @@ Policy: [VERSIONING.md](VERSIONING.md).
   Базовое подключение обходится без ECharts и алиаса TypeScript; провайдер выставляет
   скоупы при bootstrap. Старые пути адаптеров, сервис, InjectionToken и SCSS сохранены.
   Три независимых приложения проверяют production AOT и поведение установленного tarball.
-  Инструкция подключения сведена в getting-started.md.
+  Инструкция подключения сведена в [docs/usage.md](docs/usage.md).
 
 - Токены и стили генерируются из одной модели в репозитории, React-превью и UI-тесты
   собираются из актуальных исходников. `npm run dev` запускает локальный каталог

@@ -49,7 +49,7 @@ jobs:
         # Гейт смотрит только на тег: он единственный признак завершённого релиза. Пакет в GitHub
         # Packages без тега не гейтится — это отставание в один шаг после частичного релиза (npm
         # publish прошёл, git tag/push или gh release упали); publish-шаг ниже сам пропускает
-        # `npm publish`, если версия там уже есть, и идёт дальше ставить тег и релиз (PUBLISHING.md).
+        # `npm publish`, если версия там уже есть, и идёт дальше ставить тег и релиз (docs/release.md).
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

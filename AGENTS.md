@@ -31,7 +31,7 @@
 - Push в master публикует пакет, ставит тег `v<version>` и GitHub Release через
   `.github/workflows/ci.yml`. Агент не выполняет `npm publish`, релизный `git push`,
   `git tag v*` или `npm version` с созданием тега.
-- Номер — по `VERSIONING.md`: ломающее изменение → MAJOR. См. `PUBLISHING.md`.
+- Версии и порядок выпуска — [docs/release.md](docs/release.md); ломающее изменение → MAJOR.
 - `tools/guard-command.mjs` проверяет команды без выполнения payload. Codex подключает
   его через `.codex/hooks.json`; пользователь подтверждает доверие через `/hooks`.
   Проверка CLI не доказывает активацию в хосте. До подтверждения старый Claude-хук сохраняется.

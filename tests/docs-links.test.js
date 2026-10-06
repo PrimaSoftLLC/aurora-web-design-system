@@ -15,5 +15,5 @@ try{
 }finally{rmSync(fixture,{recursive:true,force:true});}
 const root=fileURLToPath(new URL('../',import.meta.url));
 assert.deepEqual(validateLinks({root,siteRoot:join(root,'site')}),[]);
-for(const name of ['ADOPTION.md','CONTRIBUTING.md','PUBLISHING.md','README.md'])assert.doesNotMatch(readFileSync(join(root,name),'utf8'),/SYNC\.md|tokens\/focus\.css|tokens\/field\.css|manifest\.json/);
+for(const name of ['docs/usage.md','CONTRIBUTING.md','docs/release.md','README.md'])assert.doesNotMatch(readFileSync(join(root,name),'utf8'),/SYNC\.md|tokens\/focus\.css|tokens\/field\.css|manifest\.json/);
 console.log('docs-links: source/site targets, encoded names, case and anchors passed');

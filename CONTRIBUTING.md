@@ -1,53 +1,79 @@
 # Contributing
 
-## Before you change anything
+Start with the relevant [design rules](docs/design.md) and component card.
+Consumer setup belongs in [the usage guide](docs/usage.md); this file describes
+changes to the design system itself.
 
-1. Read the relevant section of `README.md` and the guideline card for the area.
-   Most questions were already settled and written down; a card titled in Russian
-   exists to stop the argument being re-opened.
-2. **Colour only through tokens. Sizes only in px.** A hard-coded hex or a `rem`
-   in a component is a review failure.
-3. **Reusable components never set their own external margins** — the parent owns
-   spacing.
+## Development
 
-## Acceptance criteria
+Use Node 22 through mise. Run commands from the repository root:
 
-**Four renders**, for every screen, dialog and card touched:
-DEFAULT/light/cozy, DEFAULT/dark/compact, RED2/light/cozy, RED2/dark/compact.
-Plus: AXE clean, a real `:focus-visible` outline, a loading state on every button
-that fires a request, and the copy rules in `README.md` §3.
+```bash
+mise exec -- npm ci
+mise exec -- npm run dev
+```
 
-## Where changes are made
+The catalogue runs at http://127.0.0.1:5173 and rebuilds when sources change.
 
-The repository is the source of the design system. Edit tokens, components,
-previews and documentation here. Agent rules and the release process are in
-[AGENTS.md](AGENTS.md). The repository-first plan records the generator migration.
+| Source | Purpose |
+|---|---|
+| `tokens/source.json` | Token values, roles and scopes; follow the [naming rules](docs/tokens.md) |
+| `styles/` | Shared styles |
+| `components/src/` | Component implementations |
+| `components/<Name>/` | Declarations, README and preview with `@dsCard` metadata |
+| `docs/` | Usage, design, token naming, migration and release guides |
+
+The catalogue discovers previews automatically and derives API props from public
+sources and declarations. A prop change updates the implementation, `.d.ts` and
+`@dsCard` together. Preserve public names, paths, CSS variables and behaviour.
+
+## Checks
+
+`npm test` builds the project and runs lint, UI, package and release-guard checks.
+`npm run verify` also checks the catalogue, documentation links, browser CSS cascade
+and installed tarball consumers. Before the first full run, prepare Chromium and
+consumer caches (this preparation uses the network):
+
+```bash
+mise exec -- npx playwright install chromium
+mise exec -- npm ci --prefix tests/consumers/angular-base
+mise exec -- npm ci --prefix tests/consumers/angular-charts
+mise exec -- npm ci --prefix tests/consumers/angular-legacy
+mise exec -- npm run verify
+```
+
+For Angular alone: `mise exec -- npm run build`, then
+`mise exec -- npm run check:angular` to check the built tarball.
+`npm run check:names` checks token names, ladders, status slots and uniqueness.
+
+For every affected example, apply the [screen acceptance criteria](docs/usage.md#приёмка-экрана):
+four theme/appearance/density combinations, AXE, keyboard focus and loading states.
+Use the [copy rules](docs/design.md#язык-и-тексты) as well.
 
 ## Pull requests
 
-- One concern per PR. Commit subjects in English, imperative.
-- A prop change updates the component's `.d.ts` **and** the `@dsCard` in its folder
-  in the same PR — those two are the contract.
-- Add a line to `CHANGELOG.md` under `## [Unreleased]`, written for the consumer.
-- Label the PR `major` / `minor` / `patch` per [VERSIONING.md](VERSIONING.md).
-
-## Releasing
-
-Release — AGENTS.md, section "Релиз", and PUBLISHING.md.
+- Branch from `develop`; keep one concern per PR. Commit messages are in English.
+- Add a consumer-facing line under `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md).
+- Label the PR `major` / `minor` / `patch` using the [version policy](docs/release.md#versioning).
+- Colour only through tokens, dimensions in px, external spacing owned by the parent.
 
 ## Generated files
 
-Edit `tokens/source.json`, `styles/`, `components/src/`, component `.d.ts` and
-`preview.html`/`README.md`. `npm run build` generates `dist/`, `site/`, compatible
-`tokens.json`/`tokens.css` and scoped CSS. Do not edit generated copies.
-The catalogue discovers previews automatically and derives API props from the
-public sources and declarations; no separate registry is maintained.
+`npm run build` creates `dist/`, `site/`, compatible token CSS/JSON, scoped CSS
+and component bundles. Edit their source files, never generated copies.
 
-## Documentation owners
+## Releasing
 
-- README: purpose, design rules and development commands.
-- getting-started: the single step-by-step consumer setup.
-- ANGULAR: scopes, signals, charts and transition details.
-- CONTRIBUTING / AGENTS: development and agent rules.
-- PUBLISHING: access and release.
-- Component README: usage and design decisions; generated API: checked props.
+Follow [versions and publishing](docs/release.md). Agent restrictions are in
+[AGENTS.md](AGENTS.md).
+
+## Documentation
+
+README is the entry point; each guide owns one subject. Link to an existing rule
+instead of repeating it. Component READMEs hold usage and design decisions;
+generated API pages show checked props. Keep guide links and package documentation
+in sync when moving files.
+
+Completed plans live in `docs/plans/` and `docs/superpowers/`; migration notes are
+in `assets/notes/`. The historical presentation is in `templates/leadership-deck/`.
+These record past decisions; current instructions are the guides linked above.

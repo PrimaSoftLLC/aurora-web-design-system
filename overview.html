@@ -203,7 +203,7 @@ const DOCS=[
   ['Стрелки трека','components/IconsArrows/preview.html'],
   ['Ассеты карты','components/IconsMapAssets/preview.html'],
   ['Трек на карте','components/MapTrack/preview.html']]],
- ['5 · Миграция','MIGRATION.md','Старое имя Angular → имя в системе. Для передачи в инженерию, не для проектирования.',[
+ ['5 · Миграция','docs/migration.md','Старое имя Angular → имя в системе. Для передачи в инженерию, не для проектирования.',[
   ['Брейкпоинты — разбор кода и решения','components/DsBreakpointsDecisions/preview.html']]],
  ['6 · Эталонные экраны','components/Monitoring · Admin · AppShell/','Собранные экраны целиком — источник раскладки; копируемых шаблонов нет.',[
   ['Экран мониторинга','components/Monitoring/preview.html'],
@@ -221,11 +221,11 @@ function App(){
       <span className="eb">Aurora · дизайн-система</span>
       <h1>Один слой, одна таблица стилей</h1>
       <p>Всё здесь — система 2026 года. Легаси-слой, воспроизводивший выпущенный Angular-продукт, удалён: остался ровно один набор токенов, один набор компонентов и один способ собрать экран. Подключите <span className="mono">tokens.css</span>, <span className="mono">tokens/scoped.css</span> и <span className="mono">components/bundle.css</span> и берите компоненты из <span className="mono">components/bundle.js</span>.</p>
-      <p>Старые имена Angular-компонентов и токенов всё ещё живут в исходниках продукта. Они сопоставлены один в один в <span className="mono">MIGRATION.md</span> и в карточке <b style={{color:'var(--ds-fg)'}}>Миграция</b> — она нужна при передаче макета в инженерию, а не при проектировании.</p>
+      <p>Старые имена Angular-компонентов и токенов всё ещё живут в исходниках продукта. Они сопоставлены один в один в <span className="mono">docs/migration.md</span> и в карточке <b style={{color:'var(--ds-fg)'}}>Миграция</b> — она нужна при передаче макета в инженерию, а не при проектировании.</p>
     </header>
     <section style={{display:'flex',flexDirection:'column',gap:10}}>
       <h2>Разделы системы</h2>
-      <p>Эта страница — только вход. Ниже — полный состав: {window.__DS_CARD_COUNT__} карточек, плюс <span className="mono">README.md</span> (система целиком словами), <span className="mono">ANGULAR.md</span> (подключение в воркспейсе) и <span className="mono">MIGRATION.md</span>.</p>
+      <p>Эта страница — только вход. Ниже — полный состав: {window.__DS_CARD_COUNT__} карточек. <span className="mono">README.md</span> поможет выбрать руководство по использованию, дизайн-правилам или разработке.</p>
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gap:'var(--ds-gap-md)',alignItems:'start'}}>
         {DOCS.map(([g,path,note,items])=><div key={g} style={{border:'1px solid var(--ds-border)',borderRadius:'var(--ds-radius-lg)',background:'var(--ds-surface)',padding:16,display:'flex',flexDirection:'column',gap:10,minWidth:0}}>
           <div style={{display:'flex',alignItems:'baseline',gap:8,flexWrap:'wrap'}}>
@@ -238,7 +238,7 @@ function App(){
               <span style={{minWidth:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{n}</span></a>)}</div>
         </div>)}
       </div>
-      <p>Компоненты и токены системы носят префикс <span className="mono">Ds</span> / <span className="mono">--ds-</span>. Прежние имена с префиксом V2 и старые имена Angular сопоставлены в <span className="mono">MIGRATION.md</span>.</p>
+      <p>Компоненты и токены системы носят префикс <span className="mono">Ds</span> / <span className="mono">--ds-</span>. Прежние имена с префиксом V2 и старые имена Angular сопоставлены в <span className="mono">docs/migration.md</span>.</p>
     </section>
     <section style={{display:'flex',flexDirection:'column',gap:10}}>
       <div style={{display:'flex',alignItems:'center',gap:10,flexWrap:'wrap'}}>

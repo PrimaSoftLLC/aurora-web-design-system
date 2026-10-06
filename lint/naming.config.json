@@ -1,5 +1,5 @@
 {
-  "$comment": "Параметры регламента имён (NAMING.md). Проверяет lint/scripts/check-names.js.",
+  "$comment": "Параметры регламента имён (docs/tokens.md). Проверяет lint/scripts/check-names.js.",
   "prefixes": [
     "v2",
     "ds"

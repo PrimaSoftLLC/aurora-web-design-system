@@ -1,6 +1,6 @@
 ﻿# Совместимые Angular-адаптеры
 
-Основное подключение — [getting-started.md](../../getting-started.md).
+Основное подключение — [руководство по использованию](../../docs/usage.md).
 Пакет предоставляет скомпилированные входы `/angular` и `/angular/echarts`.
 Исходники библиотеки находятся в `angular/src/`; файлы
 `components/src/templates/angular/*.ts` сохранены как адаптеры прежних путей.
@@ -23,4 +23,4 @@
 `mise exec -- npm run build`; Angular компилируется через `tools/build-angular.mjs`.
 
 Стили подключаются из `dist/styles.css`, а правила скоупов, `FRONT_BRAND`,
-`theme-*` и отписка графиков описаны в [ANGULAR.md](../../ANGULAR.md).
+`theme-*` и отписка графиков описаны в [руководстве по использованию](../../docs/usage.md).

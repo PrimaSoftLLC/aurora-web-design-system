@@ -15,7 +15,7 @@ const meta = { url: 'https://github.com/ORG/aurora-design-system/blob/main/lint/
 /**
  * Устаревшие имена — список `aliases` в `lint/naming.config.json`. Пока алиас жив,
  * старое имя работает, поэтому в готовом конфиге правило — предупреждение, а не
- * ошибка: миграция идёт по срезам (ADOPTION.md), а не одним коммитом.
+ * ошибка: миграция идёт по срезам (docs/usage.md), а не одним коммитом.
  */
 function loadAliases(path) {
   const file = path ?? fileURLToPath(new URL('../naming.config.json', import.meta.url));
