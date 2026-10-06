@@ -1,6 +1,6 @@
 import assert from'node:assert/strict';import{readFileSync,writeFileSync,rmSync,mkdirSync}from'node:fs';import{join}from'node:path';import{fileURLToPath}from'node:url';
 import{buildCatalogue}from'../tools/catalog/build.mjs';import{readCards}from'../tools/catalog/index.mjs';import{renderPreview}from'../tools/catalog/preview.mjs';import{fixtureRoot}from'./helpers/build-root.js';
-const root=fileURLToPath(new URL('../',import.meta.url));assert.equal(readCards(root).length,68);
+const root=fileURLToPath(new URL('../',import.meta.url));assert.equal(readCards(root).length,67);
 const fixture=fixtureRoot();try{
  const cards=await buildCatalogue({root:fixture,outDir:join(fixture,'site')});assert.equal(cards.length,2);
  assert.match(readFileSync(join(fixture,'site/overview.html'),'utf8'),/window\.__DS_CARD_COUNT__=2/);

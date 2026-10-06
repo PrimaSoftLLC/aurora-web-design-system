@@ -31,10 +31,8 @@ export interface DsAppHeaderProps {
   env?: string;
   /** Tab rail, normally a DsTabs with tone="onHeader". */
   children?: React.ReactNode;
-  /** Icon buttons, normally DsIconButton tone="onHeader". */
+  /** Header actions: DsIconButton tone="onHeader" and DsUserMenu. */
   actions?: React.ReactNode;
-  /** User name — rendered as a pill with a chevron. */
-  user?: React.ReactNode;
   /**
    * Raise a shadow because content has scrolled under the header. Neutral chrome
    * separates from a light page on a 1px border at rest; once the page scrolls the

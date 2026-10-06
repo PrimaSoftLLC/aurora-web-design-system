@@ -2,10 +2,9 @@ import React from 'react';
 import { DsInHeader } from './DsTabs.jsx';
 import { dsSlots } from '../layout/DsPageLayout.jsx';
 import { DsIcon as Icon } from '../primitives/DsIcon.jsx';
-import { DsHeaderChip } from './DsMenu.jsx';
 import { useDsStrings } from '../primitives/DsStrings.jsx';
 /** Fixed product header. Neutral chrome; every colour comes from --ds-header-*. */
-export function DsAppHeader({product='Aurora',section,logoSrc,env,children,actions,user,scrolled=false}){
+export function DsAppHeader({product='Aurora',section,logoSrc,env,children,actions,scrolled=false}){
   const S=useDsStrings();
   const [s,nav]=dsSlots(children,['actions'],{actions});
   return <header style={{display:'flex',alignItems:'center',gap:'var(--ds-gap-md)',flex:'none',
@@ -28,7 +27,6 @@ export function DsAppHeader({product='Aurora',section,logoSrc,env,children,actio
       WebkitMaskImage:'linear-gradient(to right,#000 0,#000 calc(100% - 24px),transparent 100%)'}}><DsInHeader.Provider value={true}>{nav}</DsInHeader.Provider></nav>:null}
     <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:'var(--ds-gap-sm)',flex:'none'}}>
       {s.actions}
-      {user?<DsHeaderChip>{user}</DsHeaderChip>:null}
     </div>
   </header>;
 }

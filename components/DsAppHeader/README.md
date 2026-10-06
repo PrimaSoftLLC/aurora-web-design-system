@@ -6,7 +6,7 @@
 Шапка нейтральная: бренд выделяет плашку логотипа и активный раздел.
 Цветная заливка всей полосы не используется по умолчанию.
 
-**Потребитель задаёт** при необходимости `product`, `section`, `logoSrc`, `env`, табы в `children` (обычно `DsTabs tone="onHeader"`), `actions` (обычно `DsIconButton tone="onHeader"`), `user`, `scrolled`.
+**Потребитель задаёт** при необходимости `product`, `section`, `logoSrc`, `env`, табы в `children` (обычно `DsTabs tone="onHeader"`), `actions` (`DsIconButton tone="onHeader"` и `DsUserMenu`), `scrolled`.
 
 - Высота из плотности: 56px cozy, 48px compact. Заголовок продукта — интерфейсным начертанием.
 - Все цвета — `--ds-header-*`; тенант с цветной полосой переопределяет эти алиасы в своём блоке темы.
@@ -44,8 +44,6 @@
 Действия справа передаются в `actions` или одноимённый слот.
 Для иконок используйте `DsIconButton tone="onHeader"` с понятной подписью.
 Для меню пользователя передавайте `DsUserMenu` в `actions`.
-Проп `user` остаётся доступным для статичной плашки имени.
 
 Связанные компоненты: [вкладки](../DsTabs/README.md),
-[плашка пользователя](../DsHeaderChip/README.md),
 [меню пользователя](../DsUserMenu/README.md).

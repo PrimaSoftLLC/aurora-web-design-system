@@ -47,6 +47,3 @@ export interface DsUserMenuProps {
   onSelect?: (item: DsMenuItem) => void;
 }
 export declare function DsUserMenu(props: DsUserMenuProps): JSX.Element;
-/** The header user pill on its own — what DsAppHeader's `user` and DsUserMenu's trigger both render. Height is `--ds-control-h-sm`. */
-export interface DsHeaderChipProps { children?: React.ReactNode; avatarSrc?: string; interactive?: boolean; }
-export declare function DsHeaderChip(props: DsHeaderChipProps): JSX.Element;

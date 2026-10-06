@@ -30,6 +30,8 @@ for(const [transform,expected] of [
  try{copy(fixture,root);const path=join(root,'components/Contracts/Contracts.d.ts');writeFileSync(path,transform(readFileSync(path,'utf8')));assert.throws(()=>extractApi({root}),expected);}finally{rmSync(root,{recursive:true,force:true});}
 }
 const actualRoot=fileURLToPath(new URL('../',import.meta.url)),actual=extractApi({root:actualRoot});
+assert.ok(!actual.some(c=>c.name==='DsHeaderChip'));
+assert.ok(!actual.find(c=>c.name==='DsAppHeader').props.some(p=>p.name==='user'));
 assert.equal(actual.find(c=>c.name==='DsCheckButton').declarationPath,'components/DsCheck/DsCheck.d.ts');
 assert.ok(actual.find(c=>c.name==='DsTabPanel').props.some(p=>p.name==='idBase'));
 assert.equal(actual.find(c=>c.name==='DsField').forwardsNativeAttributes,true);

@@ -5,6 +5,12 @@ Policy: [Versions and publishing](docs/release.md#versioning).
 
 ## [Unreleased]
 
+### Removed
+
+- **Breaking:** удалены `DsHeaderChip`, `DsHeaderChipProps`, отдельная карточка
+  и проп `DsAppHeader.user`. Используйте `DsUserMenu` в `actions` шапки.
+  Алиасов и перенаправлений для `DsHeaderChip` нет; изменение требует MAJOR-релиза.
+
 ### Fixed
 
 - Иконки статусов `DsToast` используют новые токены `ds-*-fg-on-inverse`,

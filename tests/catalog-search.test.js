@@ -32,6 +32,9 @@ for(const suffix of ['?card=DsHeader&theme=RED2&appearance=dark&density=compact&
 }
 assert.ok(!cards.some(card=>card.id==='DsHeader'));
 assert.equal(searchCards(cards,'DsHeader')[0]?.id,'DsAppHeader');
+assert.ok(!cards.some(card=>card.id==='DsHeaderChip'));
+assert.equal(parseState(new URL('http://local/index.html?card=DsHeaderChip'),cards).unknown,true);
+assert.equal(familyFor('DsHeaderChip'),null);
 assert.equal(parseState(new URL('http://local/index.html?card=../../secrets'),cards).unknown,true);
 for(const theme of ['DEFAULT','RED2'])for(const appearance of ['light','dark'])for(const density of ['cozy','compact']){
  const scope={theme,appearance,density},url=stateUrl(new URL('http://local/index.html'),{...state,scope,query:'выбор',compare:true});

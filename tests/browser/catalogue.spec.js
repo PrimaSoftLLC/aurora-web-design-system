@@ -38,11 +38,15 @@ test('merged header keeps legacy links and both navigation examples in four scop
    for(const[key,value]of Object.entries({theme:'RED2',appearance:'dark',density:'compact'}))expect(url.searchParams.get(key)).toBe(value);
   }
   await page.goto(served.url+'/index.html?card=DsAppHeader&compare=1');
+  await expect(page.locator('nav a[data-id="DsHeaderChip"]')).toHaveCount(0);
+  for(const path of ['components/DsHeaderChip/preview.html','docs/cards/DsHeaderChip.html','api/components/DsHeaderChip.html'])
+   expect((await page.request.get(served.url+'/'+path)).status()).toBe(404);
   const scopes=[['DEFAULT','light','cozy'],['DEFAULT','dark','compact'],['RED2','light','cozy'],['RED2','dark','compact']];
   for(const[index,scope]of scopes.entries()){
    const frame=page.frameLocator('#preview-'+index);
    for(const[axis,value]of ['theme','appearance','density'].map((axis,i)=>[axis,scope[i]]))await expect(frame.locator('html')).toHaveAttribute('data-ds-'+axis,value);
    await expect(frame.locator('header')).toHaveCount(2);
+   expect(await frame.locator('html').evaluate(()=>Object.hasOwn(window.AuroraWebDesignSystem_96e210,'DsHeaderChip'))).toBe(false);
    expect(await frame.locator('header img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0))).toBe(true);
    await frame.getByRole('button',{name:'Отчёты',exact:true}).first().focus();await page.keyboard.press('Enter');
    await expect(frame.getByRole('button',{name:'Отчёты',exact:true}).first()).toHaveAttribute('aria-current','page');

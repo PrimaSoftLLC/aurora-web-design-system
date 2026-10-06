@@ -14,6 +14,22 @@ Angular app.
 
 ## 1. Scope the switch
 
+### Upcoming breaking change: user menu
+
+`DsHeaderChip`, `DsHeaderChipProps` and `DsAppHeader.user` have been removed.
+Render `DsUserMenu` in the header's `actions` prop or slot instead:
+
+```jsx
+<DsAppHeader actions={
+  <DsUserMenu name="a.ivanov" items={userItems} onSelect={handleUserAction} />
+} />
+```
+
+The menu owns its trigger, including the optional `avatarSrc`. There is no
+standalone chip, compatibility export or redirect for the removed card.
+
+### Theme scope
+
 v2 is scoped by three independent, inheritable attributes:
 
 ```html

@@ -258,7 +258,7 @@ SVG-логотипа, локапа только из словесного зна
 | обратная связь | `DsBanner` · `DsToast` · `DsToastStack` · `DsEmptyState` · `DsSpinner` · `DsSkeleton` |
 | графики | `DsChart` · `DsChartLegend` · `DsChartTooltip` · `DsSparkline` · `DsScoreBar` |
 | раскладка | `DsPanel` · `DsDialog` · `DsPageLayout` |
-| навигация | `DsAppHeader` · `DsTabs` · `DsPageHeader` · `DsStepper` · `DsMenu` · `DsUserMenu` · `DsHeaderChip` |
+| навигация | `DsAppHeader` · `DsTabs` · `DsPageHeader` · `DsStepper` · `DsMenu` · `DsUserMenu` |
 
 **`DsBadge` реализован в React-эталоне системы.** Наличие соответствующего Angular-компонента проверяйте в приложении; описание поведения — в карточке `DsBadge`.
 

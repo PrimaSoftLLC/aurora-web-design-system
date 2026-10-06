@@ -75,6 +75,22 @@ const items = [{ id: 'a', label: 'Профиль' }, { id: 'b', label: 'Наст
   click(mi()[1]); ok(picked[0] === 'b' && !box.querySelector('[role="menu"]') && d.activeElement === trig, 'меню: выбор пункта закрывает и возвращает фокус');
   key(trig, 'ArrowDown'); key(mi()[0], 'Tab'); ok(!box.querySelector('[role="menu"]'), 'меню: Tab закрывает меню');
 }
+// ---------------- Меню пользователя — единственный публичный контрол профиля
+{
+  ok(!('DsHeaderChip' in NS), 'DsHeaderChip удалён из публичного API без алиаса');
+  const picked=[];
+  const {box,unmount}=mount(h(NS.DsAppHeader,{actions:h(NS.DsUserMenu,{
+    name:'Анна Иванова',email:'anna@example.com',avatarSrc:'avatar.png',items,onSelect:item=>picked.push(item.id)
+  })}));
+  const trigger=box.querySelector('button[aria-haspopup="menu"]');
+  ok(trigger&&trigger.textContent.includes('Анна Иванова')&&trigger.querySelector('img[alt=""]'), 'DsUserMenu: имя и декоративный аватар в кнопке шапки');
+  trigger.focus();key(trigger,'ArrowDown');
+  const entries=box.querySelectorAll('[role="menuitem"]');
+  ok(d.activeElement===entries[0]&&box.textContent.includes('anna@example.com'), 'DsUserMenu: клавиатура открывает меню и переводит фокус');
+  click(entries[1]);
+  ok(picked[0]==='b'&&!box.querySelector('[role="menu"]')&&d.activeElement===trigger, 'DsUserMenu: выбор вызывает onSelect и возвращает фокус');
+  unmount();
+}
 // ---------------- Escape по слоям + №9
 {
   let closed = 0;

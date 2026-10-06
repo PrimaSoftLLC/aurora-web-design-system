@@ -26,7 +26,7 @@ export function DsMenu({trigger,items=[],onSelect,align='start',width=240,header
     document.addEventListener('mousedown',away);
     return()=>document.removeEventListener('mousedown',away);},[open]);
   /* The trigger owns the ARIA state, not the wrapper: the wrapper is a layout span and
-     cannot take focus. Interactive triggers (DsButton, DsHeaderChip interactive) render
+     cannot take focus. Interactive triggers (DsButton or a native button) render
      a real <button>, so Tab, Enter and Space work natively and the click bubbles here. */
   const onTriggerKey=e=>{
     if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();focusAt.current=e.key==='ArrowUp'?'last':'first';setOpen(true)}
@@ -76,22 +76,6 @@ function MenuItem({it,onSelect}){
     {it.checked?<Icon name="check" size="var(--ds-icon-sm)" style={{color:'var(--ds-brand)'}}/>:null}</button>;
 }
 
-/** The header user pill — one implementation for DsAppHeader's static `user` and DsUserMenu's trigger.
-    Height is the small control token, so it follows density like every other chip.
-    `interactive` renders a real <button>: as a span it could not be reached with Tab and
-    Enter / Space never opened the menu it triggers. */
-export function DsHeaderChip({children,avatarSrc,interactive=false,...rest}){
-  const Tag=interactive?'button':'span';
-  return <Tag {...(interactive?{type:'button'}:null)} {...rest}
-    style={{display:'inline-flex',alignItems:'center',gap:'var(--ds-gap-sm)',height:'var(--ds-control-h-sm)',
-    padding:avatarSrc?'0 6px 0 2px':'0 4px 0 10px',background:'var(--ds-header-chip-bg)',
-    border:'1px solid var(--ds-header-chip-border)',borderRadius:'var(--ds-radius-pill)',
-    font:'var(--ds-type-ui)',color:'var(--ds-header-fg)',cursor:interactive?'pointer':undefined,whiteSpace:'nowrap',
-    margin:0,appearance:'none',textAlign:'left'}}>
-    {avatarSrc?<img src={avatarSrc} alt="" style={{width:'var(--ds-icon-lg)',height:'var(--ds-icon-lg)',borderRadius:'var(--ds-radius-circle)',objectFit:'cover'}}/>:null}
-    {children}<Icon name="expand_more" size="var(--ds-icon-sm)"/></Tag>;
-}
-
 /** The header user pill plus its menu. */
 export function DsUserMenu({name,email,avatarSrc,items=[],onSelect}){
   return <DsMenu align="end" width={260} onSelect={onSelect}
@@ -99,5 +83,13 @@ export function DsUserMenu({name,email,avatarSrc,items=[],onSelect}){
       <span style={{font:'var(--ds-type-body-strong)',color:'var(--ds-fg)'}}>{name}</span>
       {email?<span style={{font:'var(--ds-type-caption)',color:'var(--ds-fg-subtle)'}}>{email}</span>:null}</div>}
     items={items}
-    trigger={<DsHeaderChip avatarSrc={avatarSrc} interactive>{name}</DsHeaderChip>}/>;
+    trigger={<button type="button"
+      style={{display:'inline-flex',alignItems:'center',gap:'var(--ds-gap-sm)',height:'var(--ds-control-h-sm)',
+        padding:avatarSrc?'0 6px 0 2px':'0 4px 0 10px',background:'var(--ds-header-chip-bg)',
+        border:'1px solid var(--ds-header-chip-border)',borderRadius:'var(--ds-radius-pill)',
+        font:'var(--ds-type-ui)',color:'var(--ds-header-fg)',cursor:'pointer',whiteSpace:'nowrap',
+        margin:0,appearance:'none',textAlign:'left'}}>
+      {avatarSrc?<img src={avatarSrc} alt="" style={{width:'var(--ds-icon-lg)',height:'var(--ds-icon-lg)',borderRadius:'var(--ds-radius-circle)',objectFit:'cover'}}/>:null}
+      {name}<Icon name="expand_more" size="var(--ds-icon-sm)"/>
+    </button>}/>;
 }
