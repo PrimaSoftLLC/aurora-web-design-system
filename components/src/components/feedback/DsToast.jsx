@@ -6,7 +6,7 @@ const DsTOAST_ICON={neutral:'info',info:'info',success:'check_circle',warning:'w
 /** Transient message. Inverse ground so it never competes with a DsBanner. */
 export function DsToast({tone='neutral',children,action,actionLabel,onClose,icon}){
   const S=useDsStrings();
-  const accent=tone==='neutral'?null:'var(--ds-'+tone+'-solid)';
+  const accent=tone==='neutral'?'var(--ds-fg-on-inverse)':'var(--ds-'+tone+'-fg-on-inverse)';
   return <div role={tone==='danger'?'alert':'status'} style={{display:'flex',alignItems:'center',gap:'var(--ds-gap-sm-plus)',
     minHeight:'var(--ds-control-h-lg)',maxWidth:520,padding:'var(--ds-pad-tight) var(--ds-pad-sm) var(--ds-pad-tight) var(--ds-pad-md)',
     background:'var(--ds-surface-inverse)',color:'var(--ds-fg-on-inverse)',

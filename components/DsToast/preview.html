@@ -1,4 +1,4 @@
-<!-- @dsCard group="3 · Компоненты · обратная связь" height=150 subtitle="Результат действия на инверсном грунте; одно действие — обычно «Отменить»" -->
+<!-- @dsCard group="3 · Компоненты · обратная связь" height=310 subtitle="Результат действия на инверсном грунте; одно действие — обычно «Отменить»" -->
 <!DOCTYPE html>
 <html lang="ru"><head><meta charset="utf-8"><style>
 html,body{margin:0}*{box-sizing:border-box}
@@ -12,7 +12,10 @@ body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding
 </style></head><body><div id="root"></div><script>
 (function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
 function App(){return h('div',{className:'col',style:{alignItems:'flex-start'}},
+  h(S.DsToast,{tone:'neutral',icon:'info',onClose:function(){}},'Настройки сохранены.'),
+  h(S.DsToast,{tone:'info',onClose:function(){}},'Отчёт формируется. Это может занять несколько минут.'),
   h(S.DsToast,{tone:'success',action:function(){},actionLabel:'Отменить',onClose:function(){}},'Объект «Volvo FH16» перемещён в архив.'),
+  h(S.DsToast,{tone:'warning',onClose:function(){}},'Данные объекта не обновлялись более 10 минут.'),
   h(S.DsToast,{tone:'danger',onClose:function(){}},'Команда не доставлена: устройство не на связи.'));}
 ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
 </script></body></html>

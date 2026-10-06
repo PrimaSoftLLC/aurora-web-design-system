@@ -357,6 +357,42 @@
         "usage": "Текст на `ds-surface-inverse`. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-surface-inverse` ≥ 13,97:1."
       },
       {
+        "name": "ds-info-fg-on-inverse",
+        "value": {
+          "light": "#5b92d4",
+          "ds-appearance-dark-ds-default": "#16458f",
+          "ds-appearance-dark-ds-red2": "#16458f"
+        },
+        "usage": "Иконка информационного статуса на ds-surface-inverse. Цвет одинаков для DEFAULT и RED2; контраст не ниже 4,94:1. Для иконок, не для заливки."
+      },
+      {
+        "name": "ds-success-fg-on-inverse",
+        "value": {
+          "light": "#38b076",
+          "ds-appearance-dark-ds-default": "#157a45",
+          "ds-appearance-dark-ds-red2": "#157a45"
+        },
+        "usage": "Иконка успешного действия на ds-surface-inverse. Цвет одинаков для DEFAULT и RED2; контраст не ниже 4,72:1. Для иконок, не для заливки."
+      },
+      {
+        "name": "ds-warning-fg-on-inverse",
+        "value": {
+          "light": "#d69e2e",
+          "ds-appearance-dark-ds-default": "#9a6400",
+          "ds-appearance-dark-ds-red2": "#9a6400"
+        },
+        "usage": "Иконка предупреждения на ds-surface-inverse. Цвет одинаков для DEFAULT и RED2; контраст не ниже 4,39:1. Только для иконок: не применять к мелкому тексту или заливке."
+      },
+      {
+        "name": "ds-danger-fg-on-inverse",
+        "value": {
+          "light": "#e76256",
+          "ds-appearance-dark-ds-default": "#c1291f",
+          "ds-appearance-dark-ds-red2": "#c1291f"
+        },
+        "usage": "Иконка ошибки на ds-surface-inverse. Цвет одинаков для DEFAULT и RED2; контраст не ниже 4,77:1. Для иконок, не для заливки."
+      },
+      {
         "name": "ds-fg-action-on-inverse",
         "value": {
           "light": "#9dc0ea",
