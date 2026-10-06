@@ -1,9 +1,20 @@
-import assert from'node:assert/strict';import{readFileSync,writeFileSync,rmSync}from'node:fs';import{join}from'node:path';import{fileURLToPath}from'node:url';
+import assert from'node:assert/strict';import{readFileSync,writeFileSync,rmSync,mkdirSync}from'node:fs';import{join}from'node:path';import{fileURLToPath}from'node:url';
 import{buildCatalogue}from'../tools/catalog/build.mjs';import{readCards}from'../tools/catalog/index.mjs';import{renderPreview}from'../tools/catalog/preview.mjs';import{fixtureRoot}from'./helpers/build-root.js';
-const root=fileURLToPath(new URL('../',import.meta.url));assert.equal(readCards(root).length,69);
+const root=fileURLToPath(new URL('../',import.meta.url));assert.equal(readCards(root).length,68);
 const fixture=fixtureRoot();try{
  const cards=await buildCatalogue({root:fixture,outDir:join(fixture,'site')});assert.equal(cards.length,2);
  assert.match(readFileSync(join(fixture,'site/overview.html'),'utf8'),/window\.__DS_CARD_COUNT__=2/);
+ mkdirSync(join(fixture,'components/DsAppHeader'),{recursive:true});
+ writeFileSync(join(fixture,'components/DsAppHeader/preview.html'),'<!-- @dsCard group="Navigation" --><html><head></head><body>header</body></html>');
+ writeFileSync(join(fixture,'components/DsAppHeader/README.md'),'# Header');
+ await buildCatalogue({root:fixture,outDir:join(fixture,'site')});
+ for(const path of ['components/DsHeader/preview.html','docs/cards/DsHeader.html','api/components/DsHeader.html']){
+  const html=readFileSync(join(fixture,'site',path),'utf8');
+  assert.match(html,/location\.replace\(target.href\)/);assert.match(html,/target.search=location.search/);assert.match(html,/DsAppHeader/);
+ }
+ rmSync(join(fixture,'components/DsAppHeader/preview.html'));rmSync(join(fixture,'components/DsAppHeader/README.md'));
+ // Убираем созданные страницы редиректов перед последующими сборками без целевой карточки.
+ for(const path of ['components/DsHeader/preview.html','docs/cards/DsHeader.html','api/components/DsHeader.html'])rmSync(join(fixture,'site',path));
  writeFileSync(join(fixture,'guide name.md'),'# Linked guide');writeFileSync(join(fixture,'components/Example/doc-icon.svg'),'<svg xmlns="http://www.w3.org/2000/svg"></svg>');
  writeFileSync(join(fixture,'components/Example/README.md'),'[Guide](../../guide%20name.md#linked-guide)\n![Icon](doc-icon.svg)');
  await buildCatalogue({root:fixture,outDir:join(fixture,'site')});

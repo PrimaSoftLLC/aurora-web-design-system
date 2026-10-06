@@ -718,7 +718,7 @@
       {
         "name": "ds-header-badge-fg",
         "value": "{ds-accent-on}",
-        "usage": "Цифра счётчика уведомлений и его 1px обводка, дающая плашке 3:1 на светлом хроме. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-badge-bg` ≥ 5,63:1."
+        "usage": "Цифра счётчика уведомлений на акцентной заливке, без обводки. Контраст во всех наборах DEFAULT/RED2 × light/dark: `ds-header-badge-bg` ≥ 5,63:1."
       },
       {
         "name": "ds-state-moving",

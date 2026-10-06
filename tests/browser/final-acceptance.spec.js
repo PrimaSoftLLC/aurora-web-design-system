@@ -11,7 +11,7 @@ test('complete generated site and four-way comparison work without external requ
   await page.goto(served.url+'/index.html?card=DsButton&compare=1');await expect(page.locator('#viewports iframe')).toHaveCount(4);
   for(let i=0;i<4;i++)await expect(page.frameLocator('#preview-'+i).getByRole('button').first()).toBeVisible();
   expect(await page.evaluate(async()=>{const checks=[['Inter Tight',400],['Inter Tight',500],['Inter Tight',600],['Inter Tight',700],['JetBrains Mono',400],['JetBrains Mono',500],['Material Symbols Outlined',400]];return Promise.all(checks.map(async([family,weight])=>{const faces=await document.fonts.load(`${weight} 14px "${family}"`,'Объект123');return faces.length>0&&faces.every(f=>f.status==='loaded');}));})).toEqual(Array(7).fill(true));
-  expect(cards).toHaveLength(69);expect(external).toEqual([]);expect(errors).toEqual([]);console.log(`offline: ${paths.length} HTML pages, 69 previews, comparison and seven fonts passed`);
+  expect(cards).toHaveLength(68);expect(external).toEqual([]);expect(errors).toEqual([]);console.log(`offline: ${paths.length} HTML pages, ${cards.length} previews, comparison and seven fonts passed`);
  }finally{served.server.closeAllConnections();await new Promise(r=>served.server.close(r));}
 });
 test('fixture token, card and broken contract edits rebuild and recover in dev',async({page})=>{

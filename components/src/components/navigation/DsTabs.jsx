@@ -67,10 +67,8 @@ export function DsTabs({items=[],active,onChange,tone='underline',stack=true,idB
 function Tab({it,on,onHeader,stacked,onChange,a11y}){
   const [h,setH]=React.useState(false);
   const fg=onHeader?(on?'var(--ds-header-tab-fg-active)':'var(--ds-header-fg-muted)'):(on?'var(--ds-brand-text)':'var(--ds-fg-muted)');
-  /* a tab count is a "something new" mark, not a status: the tenant accent, the same
-     value on every band (--ds-header-badge-*). A 1px outline in the badge's own ink
-     gives the pill its 3:1 on light chrome (DEFAULT's yellow cannot hold it alone);
-     on the icon variant the chrome-coloured halo sits outside that outline. */
+  /* A tab count uses the tenant accent on every band (--ds-header-badge-*).
+     Keep both placements borderless: the count is read from contrasting ink. */
   const badgeBg='var(--ds-header-badge-bg)';
   const badgeFg='var(--ds-header-badge-fg)';
   /* icon-only ink rule from the header band: a glyph carries no text mass, so an
@@ -88,11 +86,10 @@ function Tab({it,on,onHeader,stacked,onChange,a11y}){
     {stacked&&icon?<span style={{position:'relative',display:'inline-flex',flex:'none'}}>{icon}
       {it.badge!=null?<span style={{position:'absolute',top:-5,left:'58%',height:14,minWidth:14,padding:'0 3px',
         display:'grid',placeItems:'center',borderRadius:'var(--ds-radius-pill)',font:'var(--ds-type-eyebrow)',lineHeight:1,
-        background:badgeBg,color:badgeFg,boxSizing:'content-box',
-        boxShadow:'0 0 0 var(--ds-border-width) '+badgeFg+',0 0 0 calc(var(--ds-border-width) + 2px) var(--ds-header-bg)'}}>{it.badge}</span>:null}</span>:icon}
+        background:badgeBg,color:badgeFg,boxSizing:'content-box'}}>{it.badge}</span>:null}</span>:icon}
     {it.label}
     {it.badge!=null&&!(stacked&&icon)?<span style={{font:'var(--ds-type-eyebrow)',minWidth:16,padding:'1px 5px',textAlign:'center',
-      borderRadius:'var(--ds-radius-pill)',background:badgeBg,color:badgeFg,boxShadow:'0 0 0 var(--ds-border-width) '+badgeFg}}>{it.badge}</span>:null}
+      borderRadius:'var(--ds-radius-pill)',background:badgeBg,color:badgeFg}}>{it.badge}</span>:null}
     <span aria-hidden="true" style={{position:'absolute',left:onHeader?10:0,right:onHeader?10:0,bottom:0,height:onHeader?3:2,
       borderRadius:onHeader?'var(--ds-radius-pill) var(--ds-radius-pill) 0 0':'var(--ds-radius-pill)',
       background:on?(onHeader?'var(--ds-header-indicator)':'var(--ds-brand)'):'transparent'}}/>

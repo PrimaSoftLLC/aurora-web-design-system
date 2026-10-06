@@ -1,4 +1,4 @@
-<!-- @dsCard aliases="шапка приложения|app header" group="3 · Компоненты · навигация" height=160 subtitle="Нейтральная шапка приложения: плашка знака, заголовок тенанта, табы, действия" -->
+<!-- @dsCard name="DsAppHeader · Шапка приложения" aliases="DsHeader|шапка|header|шапка приложения|app header" group="3 · Компоненты · навигация" height=320 subtitle="Нейтральная шапка: логотип, навигация, действия и меню пользователя" -->
 <!DOCTYPE html>
 <html lang="ru"><head><meta charset="utf-8"><style>
 html,body{margin:0}*{box-sizing:border-box}
@@ -11,9 +11,16 @@ body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding
 .dark{display:inline-flex;padding:8px;border-radius:var(--ds-radius-md);background:var(--ds-brand);color:var(--ds-on-brand)}
 </style></head><body><div id="root"></div><script>
 (function(){var h=React.createElement,S=window.AuroraWebDesignSystem_96e210;
-function App(){var t=React.useState('m');
-  return h(S.DsAppHeader,{product:'Aurora',section:'Мониторинг',env:'DEV',user:'a.ivanov',
-    actions:[h(S.DsIconButton,{key:'n',icon:'notifications',label:'Оповещения',tone:'onHeader',dot:true}),h(S.DsIconButton,{key:'h',icon:'help',label:'Справка',tone:'onHeader'})]},
-    h(S.DsTabs,{tone:'onHeader',active:t[0],onChange:t[1],items:[{id:'m',label:'Мониторинг',icon:'travel_explore'},{id:'r',label:'Отчёты',icon:'assessment'},{id:'n',label:'Оповещения',icon:'notifications',badge:3}]}));}
+function HeaderExample(props){var t=React.useState('m');
+  return h('section',{className:'col'},h('div',{className:'cap'},props.label),
+    h(S.DsAppHeader,{product:'Aurora',logoSrc:'../assets/logo/AuroraWhite.png',env:'DEV',
+      actions:[h(S.DsIconButton,{key:'h',icon:'help',label:'Справка',tone:'onHeader'}),
+        h(S.DsUserMenu,{key:'u',name:'a.ivanov',items:[{id:'profile',label:'Профиль',icon:'person'},{id:'settings',label:'Настройки',icon:'settings'}]})]},
+      h(S.DsTabs,{tone:'onHeader',stack:props.stack,active:t[0],onChange:t[1],items:[
+        {id:'m',label:'Мониторинг',icon:'map'},{id:'r',label:'Отчёты',icon:'assessment'},
+        {id:'n',label:'Оповещения',icon:'notifications',badge:3}]})));}
+function App(){return h('div',{className:'col'},
+  h(HeaderExample,{stack:true,label:'Иконки над подписями — компактная навигация'}),
+  h(HeaderExample,{stack:false,label:'Иконки рядом с подписями — короткая навигация'}));}
 ReactDOM.createRoot(document.getElementById('root')).render(h(App));})();
 </script></body></html>

@@ -25,6 +25,13 @@ try{
 const state=parseState(new URL('http://local/index.html?card=DsButton&theme=bad&appearance=bad&density=bad&compare=evil'),cards);
 assert.deepEqual(state.scope,{theme:'DEFAULT',appearance:'light',density:'cozy'});assert.equal(state.compare,false);
 assert.equal(parseState(new URL('http://local/index.html#DsCheckButton'),cards).cardId,'DsCheckButton');
+for(const suffix of ['?card=DsHeader&theme=RED2&appearance=dark&density=compact&compare=1','#DsHeader']){
+ const redirected=parseState(new URL('http://local/index.html'+suffix),cards);
+ assert.equal(redirected.cardId,'DsAppHeader');assert.equal(redirected.unknown,false);
+ if(suffix.startsWith('?')){assert.deepEqual(redirected.scope,{theme:'RED2',appearance:'dark',density:'compact'});assert.equal(redirected.compare,true);}
+}
+assert.ok(!cards.some(card=>card.id==='DsHeader'));
+assert.equal(searchCards(cards,'DsHeader')[0]?.id,'DsAppHeader');
 assert.equal(parseState(new URL('http://local/index.html?card=../../secrets'),cards).unknown,true);
 for(const theme of ['DEFAULT','RED2'])for(const appearance of ['light','dark'])for(const density of ['cozy','compact']){
  const scope={theme,appearance,density},url=stateUrl(new URL('http://local/index.html'),{...state,scope,query:'выбор',compare:true});

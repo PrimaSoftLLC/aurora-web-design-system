@@ -6,8 +6,8 @@ test('all catalogue pages render from local files without runtime errors',async(
  const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`);});
  await page.route('**/*',r=>r.request().url().startsWith(served.url+'/')?r.continue():r.abort('blockedbyclient'));
  try{
-  await page.goto(served.url+'/index.html');await expect(page.locator('nav a')).toHaveCount(69);
-  await expect(page.locator('#subtitle')).toContainText('69 карточек');await expect(page.frameLocator('#preview').locator('body')).toContainText('69 карточек');
+  await page.goto(served.url+'/index.html');await expect(page.locator('nav a')).toHaveCount(cards.length);
+  await expect(page.locator('#subtitle')).toContainText(`${cards.length} карточек`);await expect(page.frameLocator('#preview').locator('body')).toContainText(`${cards.length} карточек`);
   await page.locator('nav a[data-id="DsButton"]').click();await expect(page.locator('h1')).toHaveText('DsButton');
   await page.locator('#theme').selectOption('RED2');await expect(page.locator('html')).toHaveAttribute('data-ds-theme','RED2');
   for(const card of cards){await page.setViewportSize(card.viewport);await page.goto(served.url+'/'+card.previewPath);await page.evaluate(()=>document.fonts.ready);
@@ -16,6 +16,44 @@ test('all catalogue pages render from local files without runtime errors',async(
   }
  }finally{served.server.closeAllConnections();await new Promise(r=>served.server.close(r));}
 });
+test('merged header keeps legacy links and both navigation examples in four scopes',async({page})=>{
+ await buildCatalogue({root,outDir:`${root}/site`});const served=await serveRoot(`${root}/site`),errors=[];
+ page.on('pageerror',error=>errors.push(error.message));
+ page.on('response',response=>{if(response.status()>=400)errors.push(response.url());});
+ try{
+  for(const suffix of ['?card=DsHeader&theme=RED2&appearance=dark&density=compact&compare=1','#DsHeader']){
+   await page.goto(served.url+'/index.html'+suffix);
+   await expect(page.locator('#title')).toHaveText('DsAppHeader · Шапка приложения');
+   await expect(page.locator('nav a[data-id="DsHeader"]')).toHaveCount(0);
+   if(suffix.startsWith('?')){await expect(page.locator('#theme')).toHaveValue('RED2');await expect(page.locator('#viewports iframe')).toHaveCount(4);}
+  }
+  for(const[path,destination]of [
+   ['components/DsHeader/preview.html','/index.html'],
+   ['docs/cards/DsHeader.html','/docs/cards/DsAppHeader.html'],
+   ['api/components/DsHeader.html','/api/components/DsAppHeader.html'],
+  ]){
+   await page.goto(served.url+'/'+path+'?theme=RED2&appearance=dark&density=compact');
+   await page.waitForURL(url=>url.pathname===destination);
+   const url=new URL(page.url());expect(url.searchParams.get('card')).toBe('DsAppHeader');
+   for(const[key,value]of Object.entries({theme:'RED2',appearance:'dark',density:'compact'}))expect(url.searchParams.get(key)).toBe(value);
+  }
+  await page.goto(served.url+'/index.html?card=DsAppHeader&compare=1');
+  const scopes=[['DEFAULT','light','cozy'],['DEFAULT','dark','compact'],['RED2','light','cozy'],['RED2','dark','compact']];
+  for(const[index,scope]of scopes.entries()){
+   const frame=page.frameLocator('#preview-'+index);
+   for(const[axis,value]of ['theme','appearance','density'].map((axis,i)=>[axis,scope[i]]))await expect(frame.locator('html')).toHaveAttribute('data-ds-'+axis,value);
+   await expect(frame.locator('header')).toHaveCount(2);
+   expect(await frame.locator('header img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0))).toBe(true);
+   await frame.getByRole('button',{name:'Отчёты',exact:true}).first().focus();await page.keyboard.press('Enter');
+   await expect(frame.getByRole('button',{name:'Отчёты',exact:true}).first()).toHaveAttribute('aria-current','page');
+   await frame.getByRole('button',{name:/a\.ivanov/}).first().focus();await page.keyboard.press('Enter');
+   await expect(frame.getByRole('menu')).toBeVisible();await page.keyboard.press('Escape');
+   await expect(frame.getByRole('menu')).toHaveCount(0);
+  }
+  expect(errors).toEqual([]);
+ }finally{served.server.closeAllConnections();await new Promise(resolve=>served.server.close(resolve));}
+});
+
 test('direct dev preview displays failed builds and reloads after recovery',async({page})=>{
  const fixture=fixtureRoot();let dev;
  try{

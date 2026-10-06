@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync,existsSync } from 'node:fs';
-import { join, dirname, resolve, relative } from 'node:path';
+import { join, dirname, resolve, relative, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readCards } from './index.mjs';
 import { renderPreview } from './preview.mjs';
@@ -11,6 +11,7 @@ import {extractApi} from '../docs/api.mjs';
 import {renderMarkdown,renderProps,documentPage} from '../docs/markdown.mjs';
 import {renderTokenReference} from '../docs/tokens.mjs';
 import {validateLinks} from '../docs/links.mjs';
+import {cardRedirects} from '../../catalog/state.js';
 export async function buildCatalogue({ root, outDir }) {
   if (resolve(root) === resolve(outDir)) throw new Error('Catalogue output must not replace source root');
   const cards = readCards(root);
@@ -19,6 +20,11 @@ export async function buildCatalogue({ root, outDir }) {
   const guides=readdirSync(root).filter(name=>name.endsWith('.md'));
   for(const guide of guides)knownRoutes.set(guide,`/docs/${guide.slice(0,-3)}.html`);
   for(const card of cards){knownRoutes.set(card.previewPath,'/'+card.previewPath);if(card.readmePath)knownRoutes.set(card.readmePath,`/docs/cards/${card.id}.html`);}
+  const redirects=Object.entries(cardRedirects).filter(([,target])=>cards.some(card=>card.id===target));
+  for(const[old,target]of redirects){
+    knownRoutes.set(`components/${old}/README.md`,`/docs/cards/${target}.html`);
+    knownRoutes.set(`components/${old}/preview.html`,`/index.html?card=${target}`);
+  }
   const documents=[...guides,...cards.map(card=>card.readmePath).filter(Boolean)],documentAssets=new Set();
   for(let index=0;index<documents.length;index++)for(const link of renderMarkdown({root,path:documents[index]}).links){
     if(/^(?:[a-z]+:|\/\/|#)/i.test(link))continue;
@@ -59,6 +65,14 @@ export async function buildCatalogue({ root, outDir }) {
     for (const path of previewAssets(root, card.previewPath, html, ['dist/styles.css','runtime.js','components.js'])) assets.add(path);
     mkdirSync(dirname(join(outDir, card.previewPath)), { recursive: true });
     writeFileSync(join(outDir, card.previewPath), html);
+  }
+  for(const[old,target]of redirects)for(const[path,destination]of [
+    [`components/${old}/preview.html`,'index.html'],
+    [`docs/cards/${old}.html`,`docs/cards/${target}.html`],
+    [`api/components/${old}.html`,`api/components/${target}.html`],
+  ]){
+    const href=posix.relative(posix.dirname(path),destination);
+    writePage(path,`<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Шапка приложения · ${target}</title></head><body><a href="${href}?card=${target}">Открыть ${target}</a><script>const target=new URL(${JSON.stringify(href)},location.href);target.search=location.search;target.searchParams.set('card',${JSON.stringify(target)});location.replace(target.href);</script></body></html>`);
   }
   for (const path of assets) if (path && !['dist/styles.css', 'components/bundle.js', 'components/lib/react.production.min.js', 'components/lib/react-dom.production.min.js'].includes(path.replaceAll('\\','/'))) copyAsset({ root, outDir, path });
   writeFileSync(join(outDir, 'cards.json'), JSON.stringify(cards, null, 2) + '\n');

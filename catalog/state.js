@@ -1,4 +1,5 @@
 export const scopeOptions={theme:['DEFAULT','RED2'],appearance:['light','dark'],density:['cozy','compact']};
+export const cardRedirects={DsHeader:'DsAppHeader'};
 export const comparisonScopes=[
  {theme:'DEFAULT',appearance:'light',density:'cozy'},
  {theme:'DEFAULT',appearance:'dark',density:'compact'},
@@ -7,7 +8,8 @@ export const comparisonScopes=[
 ];
 export function parseState(url,cards){
  let hash='';try{hash=decodeURIComponent(url.hash.slice(1));}catch{}
- const cardId=url.searchParams.get('card')||hash||cards[0]?.id;
+ const requested=url.searchParams.get('card')||hash||cards[0]?.id;
+ const cardId=Object.hasOwn(cardRedirects,requested)?cardRedirects[requested]:requested;
  const scope=Object.fromEntries(Object.entries(scopeOptions).map(([name,options])=>[name,options.includes(url.searchParams.get(name))?url.searchParams.get(name):options[0]]));
  return{cardId,scope,compare:url.searchParams.get('compare')==='1',query:url.searchParams.get('q')??'',unknown:!cards.some(card=>card.id===cardId)};
 }
