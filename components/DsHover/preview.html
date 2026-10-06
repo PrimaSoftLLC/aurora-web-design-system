@@ -1,6 +1,6 @@
-<!-- @dsCard group="2 · Основы" height=1070 subtitle="Собственные чернила контрола поверх его же фона, 10% и 16% — ни одному тону не нужны токены hover" page -->
+<!-- @dsCard name="Наведение и нажатие" group="2 · Основы" height=670 subtitle="Состояния контролов с заливкой и без неё в светлом и тёмном режиме" page -->
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Aurora — доктрина hover</title><style>html,body{margin:0}*{box-sizing:border-box}
+<html><head><meta charset="utf-8"><title>Наведение и нажатие</title><style>html,body{margin:0}*{box-sizing:border-box}
 body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);-webkit-font-smoothing:antialiased}
 #page{max-width:1120px;margin:0 auto;padding:22px 24px 26px;display:flex;flex-direction:column;gap:20px}
 a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
@@ -28,22 +28,8 @@ p{margin:0;max-width:96ch;text-wrap:pretty}
 .evcell{display:flex;flex-direction:column;gap:6px;padding:14px;background:var(--ds-bg);border:1px solid var(--ds-border);border-radius:var(--ds-radius-md)}
 .val{font:var(--ds-type-mono);font-size:13px;color:var(--ds-fg-muted)}
 .verdict{font:var(--ds-type-body-strong)}</style></head>
-<body data-ds-theme="DEFAULT" data-ds-appearance="light" data-ds-density="cozy">
+<body>
 <div id="page">
-<div class="top">
-<div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:0">
-<span class="eb">Доктрина · принято 15.09.2026</span>
-<h1>Hover и press: оверлей собственными чернилами</h1>
-<p class="muted"><strong>Собственные чернила контрола поверх его же фона</strong>: <code>--ds-overlay-hover</code> 10%, <code>--ds-overlay-press</code> 16% — залитым тонам токены hover/active не нужны. Незалитые <code>secondary</code> и <code>ghost</code> живут на <code>--ds-surface-hover / -active</code>: оверлей поверх прозрачного не виден.</p>
-</div>
-
-<div class="strip">
-<span class="eb">проверить в</span>
-<select id="th"><option>DEFAULT</option><option selected>RED2</option></select>
-<select id="ap"><option value="light">light</option><option value="dark" selected>dark</option></select>
-</div>
-</div>
-
 <div class="row2">
 <div class="card">
 <h2>A · Оверлей собственными чернилами — действующая доктрина</h2>
@@ -96,9 +82,5 @@ p{margin:0;max-width:96ch;text-wrap:pretty}
 
 <div class="note"><strong>Инвариант:</strong> оверлей собственными чернилами — единственный вариант, который в light и в dark меняет заливку в одну и ту же сторону и не упирается в предел шкалы, на какой бы светлоте ни оказался бренд. Принят вариант <strong>A</strong> и распространён на всю залитую хрому: <code>DsButton</code>, <code>DsIconButton</code>, <code>DsFab</code>, <code>DsChip</code>, коробка <code>DsCheckbox</code>, трек <code>DsSwitch</code>. <code>DsTabs</code> с <code>tone="onBrand"</code> не менялся: он берёт <code>--ds-header-hover</code>, а тот на brand-бэндах сам собран из <code>--ds-overlay-hover</code> — та же доктрина в скоупе шапки.</div>
 </div>
-<script>
-const b=document.body,th=document.getElementById('th'),ap=document.getElementById('ap');
-const sync=()=>{b.setAttribute('data-ds-theme',th.value);b.setAttribute('data-ds-appearance',ap.value)};
-th.onchange=ap.onchange=sync;sync();
-</script>
+
 </body></html>

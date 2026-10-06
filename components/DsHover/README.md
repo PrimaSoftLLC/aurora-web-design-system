@@ -1,5 +1,23 @@
-# Hover и press — оверлей чернилами
+# Наведение и нажатие
 
-Собственные чернила контрола поверх его же фона, 10% и 16% — ни одному тону не нужны токены hover
+## Использование в компонентах
 
-The Hover и press — оверлей чернилами showcase page from the standalone version (`guidelines/v2-hover.html`): plain HTML with the system’s classes — copy the markup.
+У готовых кнопок состояния уже реализованы. Выберите подходящий тон
+`DsButton`, а не добавляйте поверх него собственный эффект наведения.
+
+```jsx
+<DsButton tone="primary">Сохранить</DsButton>
+<DsButton tone="secondary">Отмена</DsButton>
+```
+
+Для новых контролов с заливкой используйте `--ds-overlay-hover` и
+`--ds-overlay-press`. Для `secondary`, `ghost` и строк используются
+`--ds-surface-hover` и `--ds-surface-active`.
+
+## Клавиатура и отключённое состояние
+
+Наведение не заменяет видимый фокус. Проверьте Tab, активацию с клавиатуры
+и `disabled`: недоступный контрол не должен реагировать как активный.
+Состояния должны различаться в обоих цветовых режимах.
+
+См. [API и примеры кнопок](../DsButton/README.md).

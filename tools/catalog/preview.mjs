@@ -38,6 +38,13 @@ export async function renderPreview({ root, card, mode = 'legacy', scope, standa
         continue;
       }
       const path = decodeURIComponent(url.pathname).slice(1);
+      const linkedCard = /^components\/([\w-]+)\/preview\.html$/.exec(path);
+      if (node.tagName === 'a' && card.group === '2 · Основы' && linkedCard) {
+        if (!existsSync(join(root,path))) throw new Error(`${card.previewPath}: missing linked card ${path}`);
+        a.value = posix.relative(posix.dirname(card.previewPath), 'index.html') + '?card=' + linkedCard[1];
+        setAttr(node, 'target', '_top');
+        continue;
+      }
       if (['script', 'img', 'link'].includes(node.tagName) && !node._remove) {
         if (relative(root, resolve(root, path)).startsWith('..') || !existsSync(join(root, path))) throw new Error(`${card.previewPath}: missing asset ${path}`);
       }

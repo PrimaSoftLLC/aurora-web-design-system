@@ -1,5 +1,22 @@
 # Форма и глубина
 
-Настоящая шкала радиусов; иерархию держат границы, тень только поднимает
+## Роли скруглений
 
-The Форма и глубина showcase page from the standalone version (`guidelines/v2-shape.html`): plain HTML with the system’s classes — copy the markup.
+Образцы показывают шкалу и уровни глубины. В компонентах выбирайте
+ролевые токены: `--ds-radius-control`, `--ds-radius-field`,
+`--ds-radius-container`, `--ds-radius-panel`.
+
+```css
+.region {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-panel);
+}
+```
+
+## Проверка вложенности
+
+Проверяйте углы вложенных поверхностей, обрезку содержимого и фокусную рамку.
+Тень не должна исчезать из-за `overflow: hidden` у родителя или скрывать
+важную границу в тёмном режиме. Для обычной панели достаточно поверхности
+и границы; уровень тени выбирайте по роли всплывающего элемента.

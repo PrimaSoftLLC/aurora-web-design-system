@@ -1,6 +1,6 @@
-<!-- @dsCard group="2 · Основы" height=1960 subtitle="Порядок задаёт заголовок столбца: три состояния, цикл из двух, серверный ключ — и какие столбцы сортируемы" page -->
+<!-- @dsCard name="Сортировка в таблице" group="2 · Основы" height=1800 subtitle="Заголовки столбцов, направление сортировки и работа с данными" page -->
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Aurora — сортировка</title><style>html,body{margin:0}*{box-sizing:border-box}
+<html><head><meta charset="utf-8"><title>Сортировка в таблице</title><style>html,body{margin:0}*{box-sizing:border-box}
 body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);-webkit-font-smoothing:antialiased}
 #page{max-width:1120px;margin:0 auto;padding:22px 24px 26px;display:flex;flex-direction:column;gap:20px}
 .two-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
@@ -33,14 +33,8 @@ table.spec td.k{font:var(--ds-type-mono);font-size:13px;color:var(--ds-fg);white
 .no{color:var(--ds-danger-fg);font:var(--ds-type-body-strong)}</style>
 <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 </head>
-<body data-ds-theme="DEFAULT" data-ds-appearance="light" data-ds-density="cozy">
+<body>
 <div id="page">
-<div style="display:flex;flex-direction:column;gap:8px">
-<span class="eb">Доктрина · 15.09.2026</span>
-<h1>Сортировка в таблице: порядок задаёт заголовок</h1>
-<p class="muted">У любой поверхности со списком <strong>всегда есть порядок</strong>, и он всегда один: один столбец, одно направление. Есть заголовки столбцов — порядком управляет заголовок (<code>DsTable</code>). Заголовков нет — <a href="../DsSortingMenu/preview.html">порядком управляет меню сортировки</a>. Третьего способа нет: ни выпадающего списка «Сортировать по» над таблицей, ни кликабельных заголовков в панели без таблицы.</p>
-</div>
-
 <div class="card">
 <h2>A · В таблице: порядок задаёт заголовок</h2>
 <p class="muted">Заголовок столбца делает одно дело — сортирует. Фильтрация ушла в <code>DsFilterBar</code> и <code>DsFilterMenu</code> (в v1 фильтр сидел внутри ячейки заголовка и делал шапку двухэтажной). Кликните по заголовкам: под таблицей видно, что именно уходит на сервер.</p>

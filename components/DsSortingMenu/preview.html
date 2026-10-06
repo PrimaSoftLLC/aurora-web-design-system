@@ -1,6 +1,6 @@
-<!-- @dsCard group="2 · Основы" height=1960 subtitle="Меню сортировки для поверхностей без заголовков: поле и направление раздельно, дефолт есть всегда" page -->
+<!-- @dsCard name="Сортировка вне таблицы" group="2 · Основы" height=1850 subtitle="Выбор поля и направления для списков и панелей без заголовков столбцов" page -->
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Aurora — сортировка</title><style>html,body{margin:0}*{box-sizing:border-box}
+<html><head><meta charset="utf-8"><title>Сортировка вне таблицы</title><style>html,body{margin:0}*{box-sizing:border-box}
 body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);-webkit-font-smoothing:antialiased}
 #page{max-width:1120px;margin:0 auto;padding:22px 24px 26px;display:flex;flex-direction:column;gap:20px}
 .two-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
@@ -33,14 +33,8 @@ table.spec td.k{font:var(--ds-type-mono);font-size:13px;color:var(--ds-fg);white
 .no{color:var(--ds-danger-fg);font:var(--ds-type-body-strong)}</style>
 <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 </head>
-<body data-ds-theme="DEFAULT" data-ds-appearance="light" data-ds-density="cozy">
+<body>
 <div id="page">
-<div style="display:flex;flex-direction:column;gap:8px">
-<span class="eb">Доктрина · 15.09.2026</span>
-<h1>Сортировка вне таблицы: меню сортировки</h1>
-<p class="muted">Заголовков столбцов нет — панель объектов, дерево, список карточек — значит порядком управляет <strong>меню сортировки</strong> (<code>DsFilterMenu type="sort-by"</code>) с иконкой <code>sort</code> в actions панели. Там, где заголовки есть, <a href="../DsSorting/preview.html">порядок задаёт заголовок</a>.</p>
-</div>
-
 <div class="card">
 <h2>D · Вне таблицы: меню сортировки</h2>
 <p class="muted">В панели объектов заголовков столбцов нет — строка это <code>DsObjectRow</code>, а не набор ячеек. Порядком управляет меню, которое открывается иконкой <code>sort</code> в actions панели, рядом с фильтром и поиском. Список загружен целиком, поэтому здесь сортировка честно клиентская — ровно та причина, по которой в таблице она запрещена.</p>

@@ -1,29 +1,56 @@
-<!-- @dsCard group="2 · Основы" height=570 subtitle="[data-ds-density] — это скоуп, а не глобальный тумблер: плотная таблица живёт и на cozy-странице" page -->
+<!-- @dsCard name="Плотность интерфейса" group="2 · Основы" height=540 aliases="плотность|density|cozy|compact" subtitle="Одинаковые компоненты в cozy и compact; поиск и сортировка синхронизированы" page -->
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"><title>v2 · плотность</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased}
-.eb{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle)}
-.mono{font:var(--ds-type-mono);color:var(--ds-fg-muted)}
-a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
-body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26px}
-</style></head><body>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div data-ds-density="cozy" style="border:1px solid var(--ds-border);border-radius:var(--ds-radius-container);overflow:hidden;background:var(--ds-surface)">
-<div style="height:var(--ds-toolbar-h);display:flex;align-items:center;gap:var(--ds-gap-sm);padding:0 var(--ds-pad-md);border-bottom:1px solid var(--ds-border);background:var(--ds-bg)">
-<span class="eb">cozy</span>
-<button style="margin-left:auto;font:var(--ds-type-ui);height:var(--ds-control-h);padding:0 var(--ds-control-pad-x);border:none;border-radius:var(--ds-radius-control);background:var(--ds-brand);color:var(--ds-on-brand)">Построить</button>
-<button style="font:var(--ds-type-ui);height:var(--ds-control-h);padding:0 var(--ds-control-pad-x);border:1px solid var(--ds-border-field);border-radius:var(--ds-radius-control);background:var(--ds-surface);color:var(--ds-fg)">Фильтр</button></div>
-<div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">MAZ 5440</span><span style="font:var(--ds-type-mono)">62 км/ч</span></div><div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">Volvo FH16</span><span style="font:var(--ds-type-mono)">0 км/ч</span></div><div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">GAZ Next</span><span style="font:var(--ds-type-mono)">41 км/ч</span></div><div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">Renault T</span><span style="font:var(--ds-type-mono)">0 км/ч</span></div>
-<div style="padding:var(--ds-pad-sm) var(--ds-cell-pad-x);font:var(--ds-type-caption);color:var(--ds-fg-muted)">строка 44px · контрол 36px</div></div><div data-ds-density="compact" style="border:1px solid var(--ds-border);border-radius:var(--ds-radius-container);overflow:hidden;background:var(--ds-surface)">
-<div style="height:var(--ds-toolbar-h);display:flex;align-items:center;gap:var(--ds-gap-sm);padding:0 var(--ds-pad-md);border-bottom:1px solid var(--ds-border);background:var(--ds-bg)">
-<span class="eb">compact</span>
-<button style="margin-left:auto;font:var(--ds-type-ui);height:var(--ds-control-h);padding:0 var(--ds-control-pad-x);border:none;border-radius:var(--ds-radius-control);background:var(--ds-brand);color:var(--ds-on-brand)">Построить</button>
-<button style="font:var(--ds-type-ui);height:var(--ds-control-h);padding:0 var(--ds-control-pad-x);border:1px solid var(--ds-border-field);border-radius:var(--ds-radius-control);background:var(--ds-surface);color:var(--ds-fg)">Фильтр</button></div>
-<div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">MAZ 5440</span><span style="font:var(--ds-type-mono)">62 км/ч</span></div><div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">Volvo FH16</span><span style="font:var(--ds-type-mono)">0 км/ч</span></div><div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">GAZ Next</span><span style="font:var(--ds-type-mono)">41 км/ч</span></div><div style="height:var(--ds-row-h);display:flex;align-items:center;padding:0 var(--ds-cell-pad-x);border-bottom:1px solid var(--ds-divider);font:var(--ds-type-body)"><span style="flex:1">Renault T</span><span style="font:var(--ds-type-mono)">0 км/ч</span></div>
-<div style="padding:var(--ds-pad-sm) var(--ds-cell-pad-x);font:var(--ds-type-caption);color:var(--ds-fg-muted)">строка 34px · контрол 30px</div></div></div>
-<p style="font:var(--ds-type-caption);color:var(--ds-fg-muted);margin:14px 0 0;max-width:74ch">Компоненты никогда не прописывают высоту жёстко. Всё читает <span class="mono">--ds-control-h</span>, <span class="mono">--ds-row-h</span>, <span class="mono">--ds-gap*</span> и <span class="mono">--ds-pad*</span> — в этом весь механизм.</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--ds-border)">
-<div><div class="eb" style="margin-bottom:6px">Как переключить</div>
-<div class="mono" style="font:var(--ds-type-mono);color:var(--ds-fg);background:var(--ds-bg);border:1px solid var(--ds-border);border-radius:var(--ds-radius-control);padding:var(--ds-pad-tight) var(--ds-pad-sm);line-height:1.6">document.documentElement<br>&nbsp;&nbsp;.dataset.dsDensity = 'compact'</div>
-<p style="font:var(--ds-type-caption);color:var(--ds-fg-muted);margin:8px 0 0">Глобально — атрибут на <span class="mono">&lt;html&gt;</span>. Локально — <span class="mono">data-ds-density</span> на любом контейнере: переменные наследуются, ближайший предок выигрывает, скоупы можно вкладывать друг в друга.</p></div>
-<div><div class="eb" style="margin-bottom:6px">Зачем это нужно</div>
-<p style="font:var(--ds-type-caption);color:var(--ds-fg-muted);margin:0">Главная польза — не тумблер, а единая точка правки: высота строки задана один раз, а не в 80 компонентах. Сам компонент о плотности не знает — ни пропа <span class="mono">size</span>, ни ветвлений, ни второй вёрстки.</p>
-<p style="font:var(--ds-type-caption);color:var(--ds-fg-muted);margin:8px 0 0">Режим <span class="mono">compact</span> оправдан там, где данных много: список машин, журнал событий. Выносить его в пользовательские настройки не обязательно — тогда и следить за ним не нужно.</p></div></div></body></html>
+<html lang="ru"><head><meta charset="utf-8"><title>Плотность интерфейса</title><style>
+html,body{margin:0}*{box-sizing:border-box}
+body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-bg);padding:24px;max-width:1180px;margin:0 auto;-webkit-font-smoothing:antialiased}
+.comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.sample{min-width:0}
+.sample-heading{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sample-heading h2{font:var(--ds-type-section);color:var(--ds-fg-strong);margin:0}
+.sample p{margin:0 0 16px;color:var(--ds-fg-muted);font:var(--ds-type-caption)}
+code{font:var(--ds-type-mono)}
+.sample-heading code{color:var(--ds-fg-subtle)}
+.metrics{display:flex;flex-wrap:wrap;gap:4px 16px;color:var(--ds-fg-muted);font:var(--ds-type-caption)}
+@media(max-width:720px){body{padding:16px}.comparison{grid-template-columns:minmax(0,1fr)}}
+</style></head><body><div id="root"></div><script type="text/babel">
+const { DsPanel, DsField, DsButton, DsTable } = window.AuroraWebDesignSystem_96e210;
+const rows = [
+  { id: 1, name: 'MAZ 5440', speed: 62 },
+  { id: 2, name: 'Volvo FH16', speed: 0 },
+  { id: 3, name: 'GAZ Next', speed: 41 },
+  { id: 4, name: 'Renault T', speed: 0 },
+];
+const columns = [
+  { key: 'name', label: 'Объект', strong: true, sortable: true },
+  { key: 'speed', label: 'Скорость, км/ч', mono: true, align: 'right', sortable: true },
+];
+function App() {
+  const [query, setQuery] = React.useState('');
+  const [sort, setSort] = React.useState({ key: 'name', dir: 'asc' });
+  const visible = rows.filter(row => row.name.toLowerCase().includes(query.trim().toLowerCase()))
+    .sort((a, b) => (sort.key === 'name' ? a.name.localeCompare(b.name) : a.speed - b.speed) * (sort.dir === 'asc' ? 1 : -1));
+  return <main>
+    <div className="comparison">
+      {['cozy', 'compact'].map(density => <section key={density} className="sample" data-ds-density={density} aria-labelledby={'heading-' + density}>
+        <div className="sample-heading">
+          <h2 id={'heading-' + density}>{density === 'cozy' ? 'Обычная' : 'Компактная'}</h2><code>{density}</code>
+        </div>
+        <p>{density === 'cozy' ? 'Для повседневной работы и форм.' : 'Для насыщенных данными рабочих экранов.'}</p>
+        <DsPanel title="Объекты" bodyStyle={{ gap: 'var(--ds-gap-md)' }}
+          actions={<DsButton tone="secondary" onClick={() => setQuery('')}>Сбросить</DsButton>}
+          footer={<div className="metrics">
+            <span>Строка <code>{density === 'cozy' ? '44' : '34'}px</code></span>
+            <span>Кнопка <code>{density === 'cozy' ? '36' : '30'}px</code></span>
+            <span>Поле <code>{density === 'cozy' ? '40' : '32'}px</code></span>
+          </div>}>
+          <DsField id={'search-' + density} label="Поиск объекта" icon="search" placeholder="Название объекта"
+            value={query} onChange={event => setQuery(event.target.value)} />
+          <DsTable columns={columns} rows={visible} sortKey={sort.key} sortDir={sort.dir}
+            onSort={(key, dir) => setSort({ key, dir })} empty="Объекты не найдены" />
+        </DsPanel>
+      </section>)}
+    </div>
+  </main>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script></body></html>

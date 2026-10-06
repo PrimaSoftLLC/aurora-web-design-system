@@ -1,6 +1,6 @@
-<!-- @dsCard aliases="графики|charts" group="2 · Основы" height=560 subtitle="Восемь независимых от темы цветов серий, семантические чернила осей и правило выбора типа графика" page -->
+<!-- @dsCard name="Цвета и оформление графиков" aliases="графики|charts" group="2 · Основы" height=740 subtitle="Палитра серий, оформление осей и выбор графика для данных" page -->
 <!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"><title>v2 · графики</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;gap:16px}
+<html lang="ru"><head><meta charset="utf-8"><title>Цвета и оформление графиков</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;gap:16px}
 .eb{font:var(--ds-type-eyebrow);letter-spacing:var(--ds-tracking-eyebrow);text-transform:uppercase;color:var(--ds-fg-subtle)}
 .mono{font:var(--ds-type-mono);font-size:11px;color:var(--ds-fg-muted)}
 .row{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
@@ -57,5 +57,5 @@ body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26
 </div>
 </div>
 </div>
-<p class="note" style="margin:0">Три правила, которые дефолты ECharts нарушают. <strong style="color:var(--ds-fg)">Цвет серии — это величина, цвет статуса — это состояние</strong>: красную линию и красный чип «нет связи» нельзя путать, поэтому рампа серий не является рампой статусов. <strong style="color:var(--ds-fg)">Разрыв в телеметрии остаётся разрывом</strong>: <span class="mono">connectNulls</span> по умолчанию выключен, потому что прямая через молчащий трекер — это показание, которого никто не присылал. <strong style="color:var(--ds-fg)">Анимация выключена</strong>: экран оператора перерисовывается на каждое входящее сообщение. В продакшене графики берут эти значения из <span class="mono">components/charts/echartsTheme.js</span>, который читает токены из DOM, поэтому смена темы или оформления — это один повторный <span class="mono">setOption</span>, а не вторая палитра.</p>
+<p class="note" style="margin:0">Три правила, которые дефолты ECharts нарушают. <strong style="color:var(--ds-fg)">Цвет серии — это величина, цвет статуса — это состояние</strong>: красную линию и красный чип «нет связи» нельзя путать, поэтому рампа серий не является рампой статусов. <strong style="color:var(--ds-fg)">Разрыв в телеметрии остаётся разрывом</strong>: <span class="mono">connectNulls</span> по умолчанию выключен, потому что прямая через молчащий трекер — это показание, которого никто не присылал. <strong style="color:var(--ds-fg)">Анимация выключена</strong>: экран оператора перерисовывается на каждое входящее сообщение. В продакшене графики берут эти значения из <span class="mono">@primasoftllc/design-system/echarts-theme</span>, который читает токены из DOM, поэтому смена темы или оформления — это один повторный <span class="mono">setOption</span>, а не вторая палитра.</p>
 </body></html>

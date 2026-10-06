@@ -1,5 +1,25 @@
-# Брейкпоинты
+# Адаптивность и брейкпоинты
 
-Четыре фиксированных размера из ViewBreakpointService — каждый порог переключает ровно одну вещь
+## Как применять
 
-The Брейкпоинты showcase page from the standalone version (`guidelines/v2-breakpoints.html`): plain HTML with the system’s classes — copy the markup.
+Шкала описывает переходы компоновки: S — до 720px, M — от 720px,
+L — от 960px, XL — от 1140px. Само подключение дизайн-системы не
+перестраивает страницу: нужные правила задаёт приложение.
+
+```css
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+@media (min-width: 960px) {
+  .workspace { grid-template-columns: 280px minmax(0, 1fr); }
+}
+```
+
+## Границы ответственности
+
+`ViewBreakpointService` в примере относится к приложению и не экспортируется
+React-пакетом. Для локальной адаптации блока используйте container queries.
+Проверьте границы 719/720, 959/960 и 1139/1140px, длинные подписи и доступность
+действий, которые меняют расположение.
+
+Плотность не переключается автоматически вслед за шириной окна.
+Её настройка описана в разделе [«Плотность интерфейса»](../DsDensity/README.md).

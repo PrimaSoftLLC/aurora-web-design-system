@@ -167,20 +167,20 @@ const RULES=[
 
 const DOCS=[
  ['2 · Основы','tokens.css · components/Ds*/','Токены и доктрины: на что ссылаться в макете и в SCSS.',[
-  ['Типографика — девять ролей','components/DsType/preview.html'],
-  ['Рампа нейтралей','components/DsNeutrals/preview.html'],
-  ['Палитры бренда — DEFAULT и RED2','components/DsBrandThemes/preview.html'],
-  ['Как выбрать цвета темы','components/DsBrandPick/preview.html'],
-  ['Палитра статусов','components/DsStatus/preview.html'],
-  ['Light / dark оформление','components/DsAppearance/preview.html'],
-  ['Две плотности','components/DsDensity/preview.html'],
-  ['Форма и глубина','components/DsShape/preview.html'],
+  ['Типографика','index.html?card=DsType'],
+  ['Нейтральные цвета','index.html?card=DsNeutrals'],
+  ['Цветовые темы','index.html?card=DsBrandThemes'],
+  ['Подбор цветов темы','index.html?card=DsBrandPick'],
+  ['Цвета статусов','index.html?card=DsStatus'],
+  ['Светлый и тёмный режим','index.html?card=DsAppearance'],
+  ['Плотность интерфейса','index.html?card=DsDensity'],
+  ['Форма и глубина','index.html?card=DsShape'],
   ['Хром шапки','components/DsHeader/preview.html'],
-  ['Hover и press','components/DsHover/preview.html'],
-  ['Брейкпоинты','components/DsBreakpoints/preview.html'],
-  ['Палитра графиков','components/DsCharts/preview.html'],
-  ['Сортировка в таблице','components/DsSorting/preview.html'],
-  ['Сортировка вне таблицы','components/DsSortingMenu/preview.html']]],
+  ['Наведение и нажатие','index.html?card=DsHover'],
+  ['Адаптивность и брейкпоинты','index.html?card=DsBreakpoints'],
+  ['Цвета и оформление графиков','index.html?card=DsCharts'],
+  ['Сортировка в таблице','index.html?card=DsSorting'],
+  ['Сортировка вне таблицы','index.html?card=DsSortingMenu']]],
  ['3 · Компоненты','components/*/','Внешний вид и пропсы. Контракт — .d.ts рядом с компонентом.',[
   ['Иконка','components/DsIcon/preview.html'],
   ['Кнопки','components/DsButton/preview.html'],
@@ -233,7 +233,7 @@ function App(){
             <span className="mono" style={{fontSize:10,color:'var(--ds-fg-subtle)',marginLeft:'auto'}}>{path}</span></div>
           <Cap>{note}</Cap>
           <div style={{display:'flex',flexDirection:'column',gap:5,borderTop:'1px solid var(--ds-divider)',paddingTop:10}}>
-            {items.map(([n,href])=><a key={href} href={href} style={{display:'flex',alignItems:'center',gap:8,font:'var(--ds-type-body)',textDecoration:'none',minWidth:0}}>
+            {items.map(([n,href])=><a key={href} href={href} target={href.startsWith('index.html?card=')?'_top':undefined} style={{display:'flex',alignItems:'center',gap:8,font:'var(--ds-type-body)',textDecoration:'none',minWidth:0}}>
               <span className="material-symbols-outlined" style={{fontSize:'var(--ds-icon-xs)',color:'var(--ds-fg-subtle)',flex:'none'}}>chevron_right</span>
               <span style={{minWidth:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{n}</span></a>)}</div>
         </div>)}

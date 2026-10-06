@@ -1,6 +1,6 @@
-<!-- @dsCard group="2 · Основы" height=1840 subtitle="Переключатель темы и light/dark: что цвет сообщает, какой токен это делает и его значение в выбранном наборе" page -->
+<!-- @dsCard name="Цветовые темы" group="2 · Основы" scopeMode="inherit" height=2170 subtitle="Роли цветов DEFAULT и RED2 и значения токенов в выбранном режиме" page -->
 <!DOCTYPE html>
-<html lang="ru" data-ds-theme="DEFAULT" data-ds-appearance="light"><head><meta charset="utf-8"><title>v2 · палитры бренда</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+<html lang="ru" data-ds-theme="DEFAULT" data-ds-appearance="light"><head><meta charset="utf-8"><title>Цветовые темы</title><style>html,body{margin:0}body{font:var(--ds-type-body);color:var(--ds-fg);background:var(--ds-surface);padding:20px;box-sizing:border-box;-webkit-font-smoothing:antialiased}
 .mono{font:var(--ds-type-mono)}
 .cap{font:var(--ds-type-caption);color:var(--ds-fg-muted);text-wrap:pretty}
 .q{font:var(--ds-type-body-strong);color:var(--ds-fg-strong)}
@@ -49,18 +49,14 @@ body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26
 <p class="cap" style="margin:0 0 12px;max-width:96ch">Не «какой оттенок красивее», а какой факт несёт элемент. Ответ даёт группу, роль внутри группы — то, лежит ли на цвете текст. Значения ниже — живые: они читаются из токенов выбранного набора.</p>
 <div class="manual">
 <h3>Что тенант задаёт руками</h3>
-<p>Новая тема — это девять значений в <span class="mono">tokens/brand.css</span> для светлого набора и шесть для тёмного — в таблице ниже они помечены как <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">тенант</b> в колонке «кто задаёт». Всё остальное — нейтрали, границы, статусы, ховеры, хедер — выводится из семантического слоя и меняется само. В системе живут две палитры — <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">DEFAULT</b> и <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">RED2</b>, ровно те, что в продакшене; спекулятивные наборы удалены, потому что никто их не рендерил и контраст в них никто не проверял. Новый тенант получает свой блок от своих настоящих цветов, а не выбирает из готовых. Как подбирать сами значения — <a href="../DsBrandPick/preview.html">«Как выбрать цвета темы»</a>.</p>
+<p>Новая тема — это девять значений в <span class="mono">tokens/source.json</span> для светлого набора и шесть для тёмного — в таблице ниже они помечены как <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">тенант</b> в колонке «кто задаёт». Всё остальное — нейтрали, границы, статусы, ховеры, хедер — выводится из семантического слоя и меняется само. В системе живут две палитры — <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">DEFAULT</b> и <b style="color:var(--ds-fg-strong);font-weight:var(--ds-weight-medium)">RED2</b>, ровно те, что в продакшене; спекулятивные наборы удалены, потому что никто их не рендерил и контраст в них никто не проверял. Новый тенант получает свой блок от своих настоящих цветов, а не выбирает из готовых. Как подбирать сами значения — <a href="../DsBrandPick/preview.html">«Как выбрать цвета темы»</a>.</p>
 <p class="both">Каждый набор задаётся дважды — один раз в <code>[data-ds-theme="NAME"]</code> и один раз в <code>[data-ds-appearance="dark"][data-ds-theme="NAME"]</code> (плюс дубль как потомок, потому что тему можно переопределить в поддереве отдельно от режима). Тёмный набор не выводится из светлого арифметически: заливка перезажигается вверх по светлоте — средний бренд становится светлым, из-за чего <span class="mono">--ds-on-brand</span> переворачивается с белого на тёмный; <span class="mono">-subtle</span> и <span class="mono">-border</span> перестают быть красками и становятся альфа-вошами того же hue (14% и 34%), чтобы тонировка совпадала с любым уровнем грунта.</p>
 <p>В тёмном наборе шесть значений вместо девяти: <span class="mono">--ds-accent-mark</span> и <span class="mono">-mark-on</span> там равны акценту и его подписи — на тёмном грунте акцент уже держит 3:1 сам.</p>
-</div>
-<div class="bar">
-<label><span class="lab">тема</span><select id="th"><option>DEFAULT</option><option>RED2</option></select></label>
-<label><span class="lab">режим</span><select id="ap"><option value="light">light</option><option value="dark">dark</option></select></label>
 </div>
 <table><colgroup><col class="tokc"><col><col class="setc"><col class="valc"></colgroup>
 <tr><th>Токен</th><th>Когда брать</th><th>Кто задаёт</th><th>Значение в выбранном наборе</th></tr>
 <tr class="grp"><td colspan="4"><span class="gn">BRAND</span><span class="gd">действие и выбор — «это можно нажать» или «это выбрано». Меняется от тенанта: четыре значения здесь плюс пять в ACCENT — и ещё шесть для dark</span></td></tr>
-<tr><td><span class="tok">--ds-brand</span></td><td class="role">Заливка главного действия, активного таба, выбранного чекбокса. Гарантированно несёт белую подпись <span class="mono">--ds-on-brand</span></td><td><span class="set man">тенант</span><span class="setq">в dark поднимается по светлоте</span></td><td><span class="sw" style="background:var(--ds-brand)"></span><span class="hex" data-token="--ds-brand"></span></td></tr>
+<tr><td><span class="tok">--ds-brand</span></td><td class="role">Заливка главного действия, активного таба, выбранного чекбокса. Несёт контрастную подпись <span class="mono">--ds-on-brand</span></td><td><span class="set man">тенант</span><span class="setq">в dark поднимается по светлоте</span></td><td><span class="sw" style="background:var(--ds-brand)"></span><span class="hex" data-token="--ds-brand"></span></td></tr>
 <tr><td><span class="tok">--ds-brand-subtle</span></td><td class="role">Фон выбранной строки и мягкая брендовая плашка. В dark это не бледный тон, а низкоальфовый смыв того же оттенка</td><td><span class="set man">тенант</span><span class="setq">в dark — альфа-вош 14%</span></td><td><span class="sw" style="background:var(--ds-brand-subtle)"></span><span class="hex" data-token="--ds-brand-subtle"></span></td></tr>
 <tr><td><span class="tok">--ds-brand-border</span></td><td class="role">Граница вокруг subtle-плашки и брендового блока</td><td><span class="set man">тенант</span><span class="setq">в dark — альфа-вош 34%</span></td><td><span class="sw" style="background:var(--ds-brand-border)"></span><span class="hex" data-token="--ds-brand-border"></span></td></tr>
 <tr><td><span class="tok">--ds-brand-text</span></td><td class="role">Брендовые чернила и ссылки на поверхности. Никогда не заливка</td><td><span class="set man">тенант</span><span class="setq">светлее заливки в dark</span></td><td><span class="sw" style="background:var(--ds-brand-text)"></span><span class="hex" data-token="--ds-brand-text"></span></td></tr>
@@ -100,12 +96,12 @@ body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26
 </div>
 <div class="note">
 <h3>Скоуп и состояния</h3>
-<p>Набор задаётся через <span class="mono">[data-ds-theme]</span> и <span class="mono">[data-ds-appearance]</span> на любом предке — переключатель выше просто ставит их на корень страницы.</p>
+<p>Набор задаётся через <span class="mono">[data-ds-theme]</span> и <span class="mono">[data-ds-appearance]</span> на любом предке — переключатели каталога ставят их на корень примера.</p>
 <p>Отдельных <span class="mono">-hover</span> / <span class="mono">-active</span> у бренда нет: наведение и нажатие — универсальный оверлей собственными чернилами контрола (<span class="mono">--ds-overlay-hover</span> 10%, <span class="mono">--ds-overlay-press</span> 16%).</p>
 </div>
 <div class="note">
 <h3>Что проверять</h3>
-<p>Между брендами меняются только девять значений — группы BRAND и ACCENT. Поэтому экран достаточно проверить в <b style="color:var(--ds-fg)">DEFAULT</b> и <b style="color:var(--ds-fg)">RED2</b> плюс один раз в dark.</p>
+<p>Между брендами меняются только девять значений — группы BRAND и ACCENT. Поэтому экран достаточно проверить в <b style="color:var(--ds-fg)">DEFAULT</b> и <b style="color:var(--ds-fg)">RED2</b> в светлом и тёмном режимах.</p>
 </div>
 <div class="note">
 <h3>Три «не»</h3>
@@ -118,8 +114,6 @@ body{background:var(--ds-bg);max-width:1120px;margin:0 auto;padding:22px 24px 26
 </div>
 <script>const root=document.documentElement;
 function sync(){const cs=getComputedStyle(root);for(const el of document.querySelectorAll('.hex[data-token]')){const v=cs.getPropertyValue(el.dataset.token).trim();el.textContent=v.startsWith('rgba')?v.replace(/\s+/g,''):v}}
-const th=document.getElementById('th'),ap=document.getElementById('ap');
-th.addEventListener('change',()=>{root.setAttribute('data-ds-theme',th.value);sync()});
-ap.addEventListener('change',()=>{root.setAttribute('data-ds-appearance',ap.value);sync()});
+new MutationObserver(sync).observe(root,{attributes:true,attributeFilter:['data-ds-theme','data-ds-appearance']});
 sync();</script>
 </body></html>

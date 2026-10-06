@@ -19,7 +19,7 @@ export async function buildCatalogue({ root, outDir }) {
   const api=extractApi({root}),knownRoutes=new Map();
   const guides=readdirSync(root).filter(name=>name.endsWith('.md'));
   for(const guide of guides)knownRoutes.set(guide,`/docs/${guide.slice(0,-3)}.html`);
-  for(const card of cards){knownRoutes.set(card.previewPath,'/'+card.previewPath);if(card.readmePath)knownRoutes.set(card.readmePath,`/docs/cards/${card.id}.html`);}
+  for(const card of cards){knownRoutes.set(card.previewPath,'/'+card.previewPath);if(card.readmePath)knownRoutes.set(card.readmePath,card.group==='2 · Основы'?`/index.html?card=${card.id}`:`/docs/cards/${card.id}.html`);}
   const redirects=Object.entries(cardRedirects).filter(([,target])=>cards.some(card=>card.id===target));
   for(const[old,target]of redirects){
     knownRoutes.set(`components/${old}/README.md`,`/docs/cards/${target}.html`);
@@ -51,6 +51,8 @@ export async function buildCatalogue({ root, outDir }) {
     card.declarationPaths=[...new Set(contracts.map(doc=>doc.declarationPath))];
     const document=card.readmePath?renderMarkdown({root,path:card.readmePath,knownRoutes}):null;
     card.documentationPath=document?`docs/cards/${card.id}.html`:null;
+    // Render from the same Markdown source as the standalone documentation.
+    if(document&&card.group==='2 · Основы')card.documentationHtml=document.html.replace(/^<h1\b[^>]*>[\s\S]*?<\/h1>\s*/,'');
     card.searchText=[card.id,card.title,card.subtitle,document?.text??'',...contracts.flatMap(doc=>doc.props.map(prop=>prop.name))].join(' ');
     if(document)writePage(card.documentationPath,documentPage({title:card.title,html:document.html,back:`/index.html?card=${card.id}`}));
   }

@@ -1,5 +1,23 @@
-# Палитра статусов
+# Цвета статусов
 
-Не зависит от темы — одинакова в DEFAULT, в RED2 и в dark — заливка, чернила, линия и solid
+## Роли внутри статуса
 
-The Палитра статусов showcase page from the standalone version (`guidelines/v2-status.html`): plain HTML with the system’s classes — copy the markup.
+`neutral`, `info`, `success`, `warning` и `danger` сохраняют смысл при
+смене бренда. Их значения адаптируются к светлому и тёмному режимам.
+
+| Роль | Назначение |
+| --- | --- |
+| `--ds-*-bg` | Мягкая статусная подложка |
+| `--ds-*-fg` | Текст и иконка на обычной поверхности |
+| `--ds-*-line` | Статусная граница |
+| `--ds-*-solid` | Насыщенная заливка |
+
+## Инверсная поверхность
+
+На инверсном фоне тоста используйте `--ds-info-fg-on-inverse`,
+`--ds-success-fg-on-inverse`, `--ds-warning-fg-on-inverse` или
+`--ds-danger-fg-on-inverse`. Для нейтрального содержимого — `--ds-fg-on-inverse`.
+Обычные статусные цвета не рассчитаны на такую поверхность.
+
+Передавайте смысл подписью или иконкой вместе с цветом.
+Примеры применения: [DsBadge](../DsBadge/README.md) и [DsToast](../DsToast/README.md).
