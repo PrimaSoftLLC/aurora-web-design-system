@@ -9,8 +9,13 @@ function drawNavigation(){
  const found=searchCards(cards,state.query),groups=new Map();nav.replaceChildren();
  document.getElementById('count').textContent=`${found.length} из ${cards.length} карточек`;
  document.getElementById('search-empty').hidden=found.length>0;
- for(const card of found){const name=card.group==='2 · Основы'?card.group:familyFor(card.id)?.title??card.group;if(!groups.has(name))groups.set(name,[]);groups.get(name).push(card);}
- for(const[name,items]of groups){const h=document.createElement('h2');h.textContent=name;nav.append(h);
+ for(const card of found){
+  const family=card.group==='2 · Основы'?null:familyFor(card.id);
+  const name=family?card.group.split(' · ').slice(0,2).join(' · ')+' · '+family.title.toLocaleLowerCase('ru'):card.group;
+  if(!groups.has(name))groups.set(name,[]);groups.get(name).push(card);
+ }
+ const orderedGroups=[...groups].sort(([nameA],[nameB])=>nameA.localeCompare(nameB,'ru',{numeric:true}));
+ for(const[name,items]of orderedGroups){const h=document.createElement('h2');h.textContent=name;nav.append(h);
   for(const card of items){const link=document.createElement('a');link.href=stateUrl(location.href,{...state,cardId:card.id});link.dataset.id=card.id;link.textContent=card.title;
    if(card.id===state.cardId)link.setAttribute('aria-current','page');
    link.addEventListener('click',event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||event.button!==0)return;event.preventDefault();state={...state,cardId:card.id,unknown:false};save(true);render();});nav.append(link);}
@@ -54,16 +59,26 @@ function render(){
  search.value=state.query;compare.setAttribute('aria-pressed',String(state.compare));compare.disabled=state.unknown;drawNavigation();
  const card=cards.find(card=>card.id===state.cardId),error=document.getElementById('card-error');error.hidden=!!card;
  describeCard(card);
- if(!card){document.getElementById('title').textContent='Карточка не найдена';document.getElementById('subtitle').textContent='Выберите карточку в навигации или вернитесь к началу.';document.getElementById('missing-id').textContent=state.cardId;viewports.replaceChildren();document.getElementById('reference-links').replaceChildren();frames=[];renderedKey=null;document.getElementById('local-note').hidden=true;return;}
+ if(!card){document.getElementById('title').textContent='Карточка не найдена';document.getElementById('subtitle').textContent='Выберите карточку в навигации или вернитесь к началу.';document.getElementById('missing-id').textContent=state.cardId;for(const record of frames)record.resizeObserver?.disconnect();viewports.replaceChildren();document.getElementById('reference-links').replaceChildren();frames=[];renderedKey=null;document.getElementById('local-note').hidden=true;return;}
  document.getElementById('title').textContent=card.title;document.getElementById('subtitle').textContent=card.subtitle;document.getElementById('local-note').hidden=card.scopeMode!=='local';referenceLinks(card);
  const key=card.id+'|'+state.compare;
  if(key!==renderedKey){
+  for(const record of frames)record.resizeObserver?.disconnect();
   viewports.replaceChildren();frames=[];viewports.className=state.compare?'preview-matrix':'single-preview';
   for(const[index,fixed]of (state.compare?comparisonScopes:[state.scope]).entries()){
    const panel=document.createElement('figure'),caption=document.createElement('figcaption'),scroll=document.createElement('div'),frame=document.createElement('iframe');
    panel.className='preview-panel';scroll.className='preview-scroll';scroll.tabIndex=0;scroll.setAttribute('role','region');caption.id='preview-caption-'+index;scroll.setAttribute('aria-labelledby',caption.id);frame.id=state.compare?'preview-'+index:'preview';frame.style.width=card.viewport.width+'px';frame.style.height=card.viewport.height+'px';
+   if(card.id==='overview'){
+    panel.classList.add('overview-preview');frame.style.width='100%';
+    scroll.removeAttribute('tabindex');scroll.removeAttribute('role');scroll.removeAttribute('aria-labelledby');
+   }
    const record={element:frame,caption,fixed,card};frames.push(record);frame.addEventListener('load',()=>{
     scopeFrame(record);
+    if(card.id==='overview'){
+     record.resizeObserver?.disconnect();
+     const fit=()=>{frame.style.height=Math.ceil(frame.contentDocument.body.getBoundingClientRect().height)+'px';};
+     record.resizeObserver=new ResizeObserver(fit);record.resizeObserver.observe(frame.contentDocument.body);fit();
+    }
     for(const event of ['click','auxclick','contextmenu'])frame.contentDocument.addEventListener(event,e=>scopePreviewLink(e,record));
    });
    const url=new URL(card.previewPath,location.href);for(const[name,value]of Object.entries(fixed))url.searchParams.set(name,value);frame.src=url;

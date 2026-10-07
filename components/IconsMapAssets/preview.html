@@ -1,4 +1,4 @@
-<!-- @dsCard group="4 · Бренд (общее)" height=330 subtitle="Настоящие SVG-файлы — единственная нешрифтовая иконография. Два вида: глифы, тонируемые внутри белого диска, и готовые п" page -->
+<!-- @dsCard name="Маркеры и значки карты" group="5 · Карта" height=330 subtitle="SVG-глифы на белой подложке и готовые полноцветные пины" page -->
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><style>html,body{margin:0}*{box-sizing:border-box}
 body{font-family:var(--ds-font-sans);font:var(--ds-type-body);background:var(--ds-surface);color:var(--ds-fg);padding:16px}
@@ -24,7 +24,6 @@ a{color:var(--ds-brand-text)}a:hover{color:var(--ds-brand)}
 <div class="hd"><span class="eb">готовые пины</span><span class="mono" style="text-align:left">полноцветные файлы, рисуются как есть, якорь [0.5, 23 px]</span></div>
 <div class="ground" id="b"></div>
 </div>
-<p>У файлов глифов нет собственного цвета — OpenLayers умножает их на цвет стиля, поэтому один и тот же файл выглядит синим <code class="mono">ds-map-point</code> (#2b8cf7, одинаковый во всех темах и режимах) для обычной точки, зелёным <code class="mono">#008000</code> для начала смены и красным <code class="mono">#ff0000</code> для конца смены, а необязательная текстовая подпись — тем же цветом. Белый диск под ними (<code class="mono">ds-map-ground</code>) — стиль окружности, а не часть ассета: никогда не запекайте фон в файл глифа. Пины во втором ряду уже содержат свой цвет и ставятся без диска; собственные конечные точки трека живут в <a href="../MapTrack/preview.html">Трек на карте</a>.</p>
 </div>
 <script>
 /* SVG из хранилища ассетов встроены в карточку: превью не резолвит относительные пути к загрузкам. Белый в глифах заменён на currentColor — так карточка повторяет то, что делает OpenLayers, умножая глиф на цвет стиля. */

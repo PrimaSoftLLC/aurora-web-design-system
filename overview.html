@@ -18,6 +18,11 @@ table.diff td.k{font:var(--ds-type-body-strong);white-space:nowrap}
 .rule{display:grid;grid-template-columns:250px minmax(0,1fr);gap:24px;padding:16px;border-bottom:1px solid var(--ds-divider);align-items:center}
 .rule:last-child{border-bottom:none}
 .rule-d{display:flex;flex-wrap:wrap;gap:12px;align-items:center;min-width:0}
+.cover{overflow:hidden;padding-bottom:16px}
+.cover svg{display:block;width:100%;height:112px;margin-bottom:28px}
+.cover h1{font-family:var(--ds-font-sans);font-weight:var(--ds-weight-semibold);font-size:64px;line-height:1;letter-spacing:var(--ds-tracking-tight);color:var(--ds-fg-strong);margin-bottom:12px}
+.cover p{font:var(--ds-type-body);color:var(--ds-fg-muted)}
+@media(max-width:640px){.cover h1{font-size:40px}}
 </style>
 <script src="components/lib/react.production.min.js"></script>
 <script src="components/lib/react-dom.production.min.js"></script>
@@ -197,15 +202,16 @@ const DOCS=[
   ['Диалоги','components/DsDialog/preview.html'],
   ['Шапка приложения и вкладки','components/DsAppHeader/preview.html'],
   ['Шапка страницы, степпер, меню','components/DsPageHeader/preview.html']]],
- ['4 · Бренд (общее)','components/assets/','Вне версий темы: знак, локап, ассеты карты.',[
+ ['4 · Бренд (общее)','components/assets/','Знак и его композиция с названием.',[
   ['Знак','components/BrandLogoMark/preview.html'],
-  ['Локап в шапке','components/BrandLogoLockup/preview.html'],
-  ['Стрелки трека','components/IconsArrows/preview.html'],
-  ['Ассеты карты','components/IconsMapAssets/preview.html'],
-  ['Трек на карте','components/MapTrack/preview.html']]],
- ['5 · Миграция','docs/migration.md','Старое имя Angular → имя в системе. Для передачи в инженерию, не для проектирования.',[
+  ['Локап в шапке','components/BrandLogoLockup/preview.html']]],
+ ['5 · Карта','components/MapTrack/','Направление движения, маркеры и треки.',[
+  ['Стрелки направления','index.html?card=IconsArrows'],
+  ['Маркеры и значки карты','index.html?card=IconsMapAssets'],
+  ['Трек на карте','index.html?card=MapTrack']]],
+ ['6 · Миграция','docs/migration.md','Старое имя Angular → имя в системе. Для передачи в инженерию, не для проектирования.',[
   ['Брейкпоинты — разбор кода и решения','components/DsBreakpointsDecisions/preview.html']]],
- ['6 · Эталонные экраны','components/Monitoring · Admin · AppShell/','Собранные экраны целиком — источник раскладки; копируемых шаблонов нет.',[
+ ['7 · Эталонные экраны','components/Monitoring · Admin · AppShell/','Собранные экраны целиком — источник раскладки; копируемых шаблонов нет.',[
   ['Экран мониторинга','components/Monitoring/preview.html'],
   ['Экран администрирования','components/Admin/preview.html'],
   ['Каркас приложения (пустой)','components/AppShell/preview.html']]]
@@ -217,9 +223,23 @@ function App(){
   const [density,setDensity]=React.useState('cozy');
   const selCss={height:26,border:'1px solid var(--ds-border-field)',borderRadius:'var(--ds-radius-xs)',background:'var(--ds-surface)',color:'var(--ds-fg)',font:'var(--ds-type-caption)'};
   return <>
+    <header className="cover">
+      <svg viewBox="0 0 960 112" preserveAspectRatio="xMinYMin slice" aria-hidden="true">
+        <defs><clipPath id="cover-slab"><rect x="0" y="-12" width="432" height="124" rx="12"/></clipPath></defs>
+        {[['--ds-brand',0,432],['--ds-surface-inverse',440,192],['--ds-accent',640,120],['--ds-brand-border',768,120],['--ds-state-moving',896,76]].map(([token,x,width])=><rect key={token} x={x} y="-12" width={width} height="124" rx="12" fill={'var('+token+')'}/>)}
+        <g clipPath="url(#cover-slab)" fill="none" stroke="var(--ds-accent)" strokeWidth="8" strokeLinecap="round">
+          <path d="M 336 112 A 24 24 0 0 1 384 112"/>
+          <path d="M 312 112 A 48 48 0 0 1 408 112"/>
+          <path d="M 288 112 A 72 72 0 0 1 432 112"/>
+        </g>
+        <circle cx="360" cy="112" r="8" fill="var(--ds-accent)"/>
+      </svg>
+      <h1>Aurora Web<br/>Design System</h1>
+      <p>Плотный интерфейс GPS-мониторинга автопарка.</p>
+    </header>
     <header style={{display:'flex',flexDirection:'column',gap:10}}>
       <span className="eb">Aurora · дизайн-система</span>
-      <h1>Один слой, одна таблица стилей</h1>
+      <h2>Один слой, одна таблица стилей</h2>
       <p>Всё здесь — система 2026 года. Легаси-слой, воспроизводивший выпущенный Angular-продукт, удалён: остался ровно один набор токенов, один набор компонентов и один способ собрать экран. Подключите <span className="mono">tokens.css</span>, <span className="mono">tokens/scoped.css</span> и <span className="mono">components/bundle.css</span> и берите компоненты из <span className="mono">components/bundle.js</span>.</p>
       <p>Старые имена Angular-компонентов и токенов всё ещё живут в исходниках продукта. Они сопоставлены один в один в <span className="mono">docs/migration.md</span> и в карточке <b style={{color:'var(--ds-fg)'}}>Миграция</b> — она нужна при передаче макета в инженерию, а не при проектировании.</p>
     </header>

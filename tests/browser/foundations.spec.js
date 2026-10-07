@@ -6,9 +6,9 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 test.use({ actionTimeout: 10000 });
 
-test('foundation descriptions stay with examples through navigation, comparison and scoped links', async ({ page }, testInfo) => {
+test('foundation and map descriptions stay with examples through navigation, comparison and scoped links', async ({ page }, testInfo) => {
   const cards = await buildCatalogue({ root, outDir: `${root}/site` });
-  const foundations = cards.filter(card => card.group === '2 · Основы');
+  const foundations = cards.filter(card => card.group === '2 · Основы' || ['IconsArrows', 'IconsMapAssets', 'MapTrack'].includes(card.id));
   const served = await serveRoot(`${root}/site`);
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -25,7 +25,7 @@ test('foundation descriptions stay with examples through navigation, comparison 
       await expect(page.locator('#reference-links').getByRole('link', { name: 'Описание', exact: true })).toHaveCount(0);
       await expect(page.locator('#preview')).toHaveAttribute('src', new RegExp(card.id));
       await expect(page.locator('#title')).not.toHaveText(/^Ds/);
-      await expect(page.locator(`nav a[data-id="${card.id}"]`).locator('xpath=preceding-sibling::h2[1]')).toHaveText('2 · Основы');
+      await expect(page.locator(`nav a[data-id="${card.id}"]`).locator('xpath=preceding-sibling::h2[1]')).toHaveText(['IconsArrows', 'IconsMapAssets', 'MapTrack'].includes(card.id) ? '5 · Карта' : '2 · Основы');
     }
     await page.locator('nav a[data-id="DsBreakpoints"]').click();
     await page.locator('#theme').selectOption('RED2');
@@ -45,6 +45,18 @@ test('foundation descriptions stay with examples through navigation, comparison 
     await expect(page.locator('#theme')).toHaveValue('RED2');
     await expect(page.locator('#appearance')).toHaveValue('dark');
     await expect(page.locator('#density')).toHaveValue('compact');
+    await page.locator('nav a[data-id="IconsArrows"]').click();
+    await description.getByRole('link', { name: 'Трек на карте' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#title')).toHaveText('Трек на карте');
+    await expect(page.locator('#theme')).toHaveValue('RED2');
+    await expect(page.locator('#appearance')).toHaveValue('dark');
+    await expect(page.locator('#density')).toHaveValue('compact');
+    const zoom = page.frameLocator('#preview').getByRole('slider', { name: 'масштаб карты' });
+    await zoom.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(zoom).toHaveValue('12.25');
+    await expect(page.frameLocator('#preview').locator('#zl')).toHaveText('z 12.25');
     await page.locator('nav a[data-id="overview"]').click();
     await page.frameLocator('#preview').getByRole('link', { name: /Типографика/ }).click();
     await expect(page.locator('#title')).toHaveText('Типографика');
@@ -60,7 +72,7 @@ test('foundation descriptions stay with examples through navigation, comparison 
       for (const [axis, value] of ['theme', 'appearance', 'density'].map((axis, i) => [axis, scope[i]]))
         await expect(frame.locator('html')).toHaveAttribute('data-ds-' + axis, value);
     }
-    for (const id of ['DsType', 'DsHover', 'DsSorting', 'DsSortingMenu', 'DsBrandThemes']) {
+    for (const id of ['DsType', 'DsHover', 'DsSorting', 'DsSortingMenu', 'DsBrandThemes', 'IconsArrows', 'IconsMapAssets', 'MapTrack']) {
       await page.locator(`nav a[data-id="${id}"]`).click();
       for (let index = 0; index < 4; index++) {
         const frame = page.frameLocator('#preview-' + index);
