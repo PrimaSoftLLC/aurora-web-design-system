@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../.tmp/karma/site",
+    "types": ["jasmine"],
+    "paths": {
+      "@primasoftllc/design-system/angular": ["../ng-ui-kit/src/core.ts"]
+    }
+  },
+  "files": [],
+  "include": ["src/**/*.spec.ts"]
+}

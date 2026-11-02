@@ -6,6 +6,7 @@ export const verificationSteps=[
  ['build-package',['tools/build.js']],
  ['lint',['design-system/lint/test/run.js']],
  ['angular-package',['ng-ui-kit/tests/angular-package.test.js']],
+ ['angular-unit',['ng-ui-kit/tools/test-unit.mjs','library']],
  ['angular-theme',['ng-ui-kit/tests/angular-theme.test.js']],
  ['angular-consumer-inputs',['ng-ui-kit/tests/angular-consumer-inputs.test.js']],
  ['angular-doc-examples',['ng-ui-kit/tests/angular-doc-examples.test.js']],
@@ -29,6 +30,7 @@ export const verificationSteps=[
  ['browser-compat',['node_modules/@playwright/test/cli.js','test','--config=playwright.compat.config.mjs']],
  ['documentation-site-format',['documentation-site/tools/format.mjs','--check']],
  ['documentation-site-build',['documentation-site/tools/run.mjs','build','--base-href','/site-check/','--output-path','../.tmp/documentation-site-check']],
+ ['documentation-site-unit',['ng-ui-kit/tools/test-unit.mjs','site']],
  ['documentation-site-browser',['documentation-site/tests/smoke.mjs']],
 ];
 export const verificationGroups=['build','components','catalogue','raster','angular'];

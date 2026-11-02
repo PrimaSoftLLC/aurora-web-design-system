@@ -363,8 +363,9 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
         await expect(loadingDemo.getByRole('status')).toHaveText('Объекты загружены.');
         await expect(loadingDemo.locator('ds-spinner')).toHaveCount(0);
         await expect(startLoading).toBeEnabled();
-        await expect(page.locator('section[aria-labelledby="дальше"] a[href*="/components/spinner"]'))
-          .toHaveText('Spinner');
+        await expect(
+          page.locator('section[aria-labelledby="дальше"] a[href*="/components/spinner"]'),
+        ).toHaveText('Spinner');
         await page.locator('section[aria-labelledby="для-разработчика"] summary').focus();
         await page.keyboard.press('Enter');
         await expect(page.locator('.reference-table tbody tr')).toHaveCount(4);
