@@ -10,8 +10,7 @@ Angular 19.2.25 и 20.3.34.
 | --- | --- |
 | `src/` | Компоненты, сервис темы, директива скоупа и интеграция ECharts |
 | `src/core.ts`, `src/echarts.ts` | Публичные экспорты |
-| `src/components/button/` | Кнопка и документация её API |
-| `src/components/icon/` | Иконка и документация её API |
+| `src/components/` | Button, Icon, FAB, Checkbox, Spinner, Form field/dsInput и документация их API |
 | `docs/development.md` | Правила разработки Angular-компонентов |
 | `tools/` | Сборка библиотеки и проверки установленного пакета |
 | `tests/` | Проверки API, темы, документации и браузерного поведения |

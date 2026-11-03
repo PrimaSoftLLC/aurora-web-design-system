@@ -181,10 +181,8 @@
               <td>
                 <code>provideAurora</code>,
                 <code>AuroraThemeService</code>,
-                <code>AuroraScopeDirective</code>,
-                <code>DsButtonComponent</code>,
-                <code>DsIconComponent</code>
-                и их типы
+                <code>AuroraScopeDirective</code>, Button, Icon, FAB, Checkbox, Spinner, Form field/dsInput, директивы областей и их
+                типы
               </td>
             </tr>
             <tr>
@@ -386,15 +384,18 @@
       <p>
         Angular UI-компоненты импортируются из
         <code>&#64;primasoftllc/design-system/angular</code>. В текущей реализации доступны
-        <a routerLink="/components/icon" [queryParams]="settings.queryParams()">DsIconComponent</a>
+        <a routerLink="/components/button" [queryParams]="settings.queryParams()">Button</a>,
+        <a routerLink="/components/icon" [queryParams]="settings.queryParams()">Icon</a>,
+        <a routerLink="/components/fab" [queryParams]="settings.queryParams()">FAB</a>,
+        <a routerLink="/components/checkbox" [queryParams]="settings.queryParams()">Checkbox</a>,
+        <a routerLink="/components/spinner" [queryParams]="settings.queryParams()">Spinner</a>
         и
-        <a routerLink="/components/button" [queryParams]="settings.queryParams()">
-          DsButtonComponent
-        </a>. Добавьте нужный компонент в
+        <a routerLink="/components/form-field" [queryParams]="settings.queryParams()">
+          Form field с dsInput
+        </a>. Добавьте нужные компоненты и директивы в
         <code>imports</code>
-        компонента приложения, чей шаблон его использует. Страницы и API иконки и кнопки ещё
-        дорабатываются; наличие другого примера в дизайн-системе не означает наличия готового
-        Angular-компонента.
+        компонента приложения, чей шаблон их использует. Наличие другого примера в дизайн-системе не
+        означает наличия готового Angular-компонента; проверяйте текущий состав каталога.
       </p>
       <p>
         Standalone-компоненты UI kit добавляются в

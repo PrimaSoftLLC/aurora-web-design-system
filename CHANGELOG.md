@@ -5,6 +5,9 @@ Policy: [Versions and publishing](docs/release.md#versioning).
 
 ## [Unreleased]
 
+- Angular: в пакет включена документация FAB, Checkbox, Spinner и Form field;
+  актуализированы список компонентов и инструкция запуска нового сайта.
+
 - Angular-сайт: собранные CSS и шрифты готовятся в `.tmp`, без корневых копий
   ресурсов; сохранены опубликованные относительные пути к шрифтам.
 

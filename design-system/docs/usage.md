@@ -82,7 +82,7 @@ CSS пакета должен идти перед стилями приложе�
 
 | Импорт от `@primasoftllc/design-system` | Что подключает |
 |---|---|
-| `/angular` | `provideAurora`, `AuroraThemeService`, `AuroraScopeDirective`, `DsButtonComponent`, `DsIconComponent` и их типы |
+| `/angular` | `provideAurora`, `AuroraThemeService`, `AuroraScopeDirective`, Button, Icon, FAB, Checkbox, Spinner, Form field/dsInput, директивы областей и их типы |
 | `/angular/echarts` | Angular-интеграция графиков; требует отдельной установки ECharts |
 | `/styles.css` | Общие стили, токены, шрифты и иконки; физический путь для `angular.json` показан выше |
 | `/tokens.css`, `/tokens.json` | Отдельные CSS-токены и JSON-справочник; для обычного UI kit достаточно `styles.css` |
@@ -192,8 +192,12 @@ import {auroraChartChrome, auroraWatchScopes} from '@primasoftllc/design-system/
 
 Angular UI-компоненты разрабатываются централизованно в этом репозитории
 и импортируются из `/angular` по [правилам UI kit](../../ng-ui-kit/docs/development.md).
-Доступны [иконка DsIconComponent](../../ng-ui-kit/src/components/icon/README.md)
-и [кнопка DsButtonComponent](../../ng-ui-kit/src/components/button/README.md).
+Доступны [Button](../../ng-ui-kit/src/components/button/README.md),
+[Icon](../../ng-ui-kit/src/components/icon/README.md),
+[FAB](../../ng-ui-kit/src/components/fab/README.md),
+[Checkbox](../../ng-ui-kit/src/components/checkbox/README.md),
+[Spinner](../../ng-ui-kit/src/components/spinner/README.md) и
+[Form field с dsInput](../../ng-ui-kit/src/components/form-field/README.md).
 Для примера кнопки добавьте её в `imports` standalone-компонента
 и используйте `<button dsButton>`.
 Корневой импорт пакета уже поставляет скомпилированные React-компоненты.
