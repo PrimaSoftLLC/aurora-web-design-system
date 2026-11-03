@@ -8,14 +8,26 @@
         название, перейдите Tab к кнопке и нажмите Enter. Результат появится под формой без переноса
         фокуса. Сохранение в примере локальное.
       </p>
-      <aurora-example-block class="scene migration-placeholder"
+      <aurora-example-block class="scene"
         id="demo"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()"
-        role="note"
-        data-migration-placeholder>
-        Пример формы с клавиатурным управлением появится при наполнении Angular-примеров.
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <form class="field-demo" novalidate (submit)="save($event)">
+          <ds-form-field label="Название объекта">
+            <input dsInput
+              required
+              [value]="name()"
+              (blur)="touched.set(true)"
+              (input)="name.set($any($event.target).value); message.set('')" />
+            @if (touched() && !name().trim()) {
+              <span dsError>Обязательное поле.</span>
+            }
+          </ds-form-field>
+          <div><button dsButton type="submit" [disabled]="!name().trim()">Сохранить</button></div>
+          <p role="status">{{ message() }}</p>
+        </form>
       </aurora-example-block>
     </section>
     <section aria-labelledby="responsibility">
@@ -113,11 +125,7 @@
           Пример локального сохранения: сообщение появляется после отправки формы. В продукте
           замените локальное действие запросом к серверу и обработайте ошибку.
         </p>
-        <aurora-example-block class="pending-code migration-placeholder"
-          role="note"
-          data-migration-placeholder>
-          Код формы будет добавлен вместе с Angular-демонстрацией при наполнении Angular-примеров.
-        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.form"></aurora-code-block>
       </details>
     </section>
     <section aria-labelledby="дальше">

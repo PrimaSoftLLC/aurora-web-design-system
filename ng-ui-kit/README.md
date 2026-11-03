@@ -25,7 +25,9 @@ Angular 19.2.25 и 20.3.34.
 запускает его на http://127.0.0.1:4200, `npm run build:site-angular` собирает отдельно.
 Команды подготавливают стили и Angular-библиотеку; dev-режим отслеживает их исходники.
 Сайт использует публичный вход `@primasoftllc/design-system/angular`.
-Страница `/components/icon` содержит примеры, правила применения, API и токены.
+Страницы компонентов содержат примеры, правила применения, API и токены.
+Оболочка ds-form-field и директива dsInput представлены вместе на `/components/form-field`;
+нативный ввод использует стандартные Angular Forms value accessors без отдельного CVA.
 Пример иконки включён в Angular 19 и 20 consumers; запуск проверок подтверждает
 его работу из tarball. Примеры сайта не входят в библиотеку и не заменяют эти проверки.
 
@@ -66,15 +68,20 @@ mise exec -- npm ci --prefix ng-ui-kit/tests/consumers/angular-legacy
 - [Иконка DsIconComponent](src/components/icon/README.md)
 - [FAB DsFabComponent](src/components/fab/README.md)
 - [Checkbox DsCheckboxComponent](src/components/checkbox/README.md)
+- [Form field и dsInput](src/components/form-field/README.md)
 - [Spinner DsSpinnerComponent](src/components/spinner/README.md)
 - [Подключение к приложению](../design-system/docs/usage.md)
 - [Разработка дизайн-системы](../CONTRIBUTING.md)
 
-На новом сайте доступны Icon, Button, FAB, Checkbox и Spinner по маршрутам
+На новом сайте доступны Icon, Button, FAB, Checkbox, Spinner и Form field:
 `/components/icon`, `/components/button`, `/components/fab`, `/components/checkbox`,
-`/components/spinner`. Точечные проверки Spinner, Button и FAB на сайте и
-в потребителях Angular 19/20 прошли; полный verify не запускался.
-Button и FAB используют DsIconComponent и DsSpinnerComponent внутри; Checkbox поддерживает CVA и отдельные
-checked/indeterminate. Angular-вход использует стандартный `@angular/forms`
-той же версии, что `@angular/core`. Точечные проверки компонентов и потребителей
-Angular 19/20 прошли; полный verify текущего этапа не запускался.
+`/components/spinner`, `/components/form-field`. Оболочка и dsInput описаны вместе.
+Button и FAB используют DsIconComponent и DsSpinnerComponent внутри; Checkbox
+поддерживает CVA и отдельные checked/indeterminate. DsInput сохраняет нативные
+value accessors Angular Forms; у оболочки Form field собственного CVA нет.
+Angular-вход использует стандартный `@angular/forms` той же версии, что `@angular/core`.
+
+Текущая готовность и точный объём выполненных проверок находятся в
+[статусе миграции](../docs/plans/angular-ui-kit-status.md). Связка Form field/dsInput
+прошла офлайн-установку tarball, production AOT и браузерные сценарии в Angular
+19.2.25 и 20.3.34. Полный набор verify запускался; результаты и ограничения повторных проверок описаны в статусе миграции.

@@ -53,14 +53,18 @@
         достаточный отступ, чтобы контуры не слипались.
       </p>
       <aurora-example-block id="component-shapes"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()">
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
         <div class="component-row">
           <ds-checkbox label="Показывать треки"
             [checked]="showTracks()"
             (checkedChange)="showTracks.set($event)"></ds-checkbox>
           <button dsButton tone="secondary">Кнопка · 8 px</button>
+          <ds-form-field label="Поле · 8 px" collapseEmptyMessages>
+            <input dsInput value="МАЗ 5440" />
+          </ds-form-field>
         </div>
       </aurora-example-block>
       <p style="margin-bottom: 24px">

@@ -22,7 +22,9 @@ Peer range — `^19.2.25 || >=20.3.34`: поддержка ветки 19.2 до�
 Версия 5.1.0 была собрана на Angular 20; описанный переход относится к Unreleased.
 
 В исходниках экспортируются `DsButtonComponent`, `DsIconComponent`, `DsFabComponent`,
-`DsCheckboxComponent`, `DsSpinnerComponent`, сервис темы,
+`DsCheckboxComponent`, `DsSpinnerComponent`, `DsFormFieldComponent`, `DsInputDirective`,
+директивы областей `DsPrefixDirective`, `DsSuffixDirective`, `DsHintDirective`,
+`DsErrorDirective`, сервис темы,
 директива скоупа и отдельная интеграция ECharts. Для иконки добавлены сценарии
 независимых потребителей Angular 19/20 и страница `/components/icon` с примерами,
 API и токенами. Результат этих сценариев подтверждается запуском проверок.
@@ -81,7 +83,10 @@ Inputs объявляются через стабильный Angular 19 `input(
 Для собственных событий — `output<T>()` с типизированным значением, без префикса `on`.
 
 Компоненты ввода значений поддерживают Angular Forms через ControlValueAccessor:
-значение, touched, disabled и reset проверяются в форме. Для кнопки CVA не нужен.
+значение, touched, disabled и reset проверяются в форме. Для директивы на нативном
+input/textarea, как dsInput, используются штатные value accessors Angular Forms;
+дублирующий CVA не добавляется. Form field отвечает за оболочку, а момент показа
+ошибки и содержимое dsError задаёт приложение. Для кнопки CVA не нужен.
 Тексты интерфейса передаёт приложение; внутренние служебные строки должны иметь
 типизированный способ переопределения до выпуска соответствующего компонента.
 React-провайдеры локализации не являются Angular API.

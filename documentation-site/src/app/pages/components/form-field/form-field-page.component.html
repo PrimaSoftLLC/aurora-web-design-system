@@ -1,0 +1,445 @@
+<aurora-article-layout title="Form field"
+  subtitle="Оболочка поля и директива нативного ввода: подпись, состояния и сообщения.">
+  <div class="guide-content">
+    <section aria-labelledby="examples">
+      <h2 id="examples" tabindex="-1">Живые примеры</h2>
+      <section class="example" aria-labelledby="basic">
+        <h3 id="basic" tabindex="-1">Обычный ввод без формы</h3>
+        <p>
+          Значение и нативное событие input принадлежат приложению. Подпись связана с контролом
+          автоматически.
+        </p>
+        <aurora-example-block class="demo"
+          id="field-basic-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <ds-form-field label="Название объекта">
+            <input dsInput
+              [value]="plainName()"
+              (input)="onPlainInput($event)"
+              autocomplete="off" />
+            <span dsHint>Название в списке объектов</span>
+          </ds-form-field>
+          <p class="demo-status" role="status">Текущее значение: {{ plainName() }}</p>
+        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.basic" collapsible></aurora-code-block>
+      </section>
+      <section class="example" aria-labelledby="adornments">
+        <h3 id="adornments" tabindex="-1">Префикс, постфикс и нативные типы</h3>
+        <p>
+          Содержимое областей задаёт приложение. Число остаётся number/null в FormControl; дату
+          обрабатывает браузер.
+        </p>
+        <aurora-example-block class="demo"
+          id="field-adornments-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <div class="field-grid">
+            <ds-form-field label="Максимальная скорость">
+              <span dsPrefix>до</span>
+              <input dsInput
+                mono
+                type="number"
+                min="0"
+                [formControl]="speed"
+                aria-describedby="field-speed-unit" />
+              <span dsSuffix id="field-speed-unit">км/ч</span>
+              <span dsHint>Значение: {{ speed.value ?? 'не задано' }}</span>
+            </ds-form-field>
+            <ds-form-field label="Дата проверки">
+              <input dsInput type="date" value="2026-11-02" />
+            </ds-form-field>
+            <ds-form-field label="Пароль">
+              <ds-icon dsPrefix name="lock"></ds-icon>
+              <input dsInput
+                [type]="passwordVisible() ? 'text' : 'password'"
+                value="example-password"
+                autocomplete="off" />
+              <button dsSuffix
+                dsButton
+                tone="ghost"
+                size="sm"
+                type="button"
+                [icon]="passwordVisible() ? 'visibility_off' : 'visibility'"
+                [attr.aria-label]="passwordVisible() ? 'Скрыть пароль' : 'Показать пароль'"
+                [attr.aria-pressed]="passwordVisible()"
+                (click)="passwordVisible.set(!passwordVisible())"></button>
+            </ds-form-field>
+          </div>
+        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.adornments" collapsible></aurora-code-block>
+      </section>
+      <section class="example" aria-labelledby="validation">
+        <h3 id="validation" tabindex="-1">Reactive Forms и ошибка</h3>
+        <p>
+          Форма определяет момент показа ошибки. Переданный dsError заменяет всю область dsHint и
+          включает ошибочное оформление.
+        </p>
+        <aurora-example-block class="demo"
+          id="field-validation-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <form class="field-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+            <ds-form-field label="Название объекта">
+              <input #validatedInput dsInput formControlName="name" autocomplete="off" />
+              <span dsHint>Не менее трёх символов; обязательность задана Validators.required.</span>
+              @if (showNameError()) {
+                <span dsError>
+                  {{
+                    name.hasError('required')
+                      ? 'Обязательное поле.'
+                      : 'Введите не менее трёх символов.'
+                  }}
+                </span>
+              }
+            </ds-form-field>
+            <div class="row">
+              <button dsButton type="submit">Сохранить</button>
+              <button dsButton tone="secondary" type="button" (click)="reset()">Сбросить</button>
+              <button dsButton
+                tone="secondary"
+                type="button"
+                (click)="name.disabled ? name.enable() : name.disable()">
+                {{ name.disabled ? 'Включить поле' : 'Отключить поле' }}
+              </button>
+            </div>
+            <p class="demo-status" role="status">{{ result() }}</p>
+          </form>
+        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.validation" collapsible></aurora-code-block>
+      </section>
+      <section class="example" aria-labelledby="states">
+        <h3 id="states" tabindex="-1">Редактирование, readonly и disabled</h3>
+        <p>
+          Состояние задаётся на нативном контроле. Readonly сохраняет фокус и копирование; disabled
+          исключает поле из Tab.
+        </p>
+        <aurora-example-block class="demo"
+          id="field-states-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <div class="row" role="group" aria-label="Режим доступа">
+            <button dsButton
+              tone="secondary"
+              type="button"
+              [attr.aria-pressed]="access() === 'edit'"
+              (click)="access.set('edit')">
+              Редактирование
+            </button>
+            <button dsButton
+              tone="secondary"
+              type="button"
+              [attr.aria-pressed]="access() === 'readonly'"
+              (click)="access.set('readonly')">
+              Только чтение
+            </button>
+            <button dsButton
+              tone="secondary"
+              type="button"
+              [attr.aria-pressed]="access() === 'disabled'"
+              (click)="access.set('disabled')">
+              Недоступно
+            </button>
+          </div>
+          <ds-form-field label="Владелец">
+            <input dsInput
+              value="TransBel"
+              [readOnly]="access() === 'readonly'"
+              [disabled]="access() === 'disabled'" />
+            <span dsHint>
+              {{
+                access() === 'disabled'
+                  ? 'Нужны права администратора.'
+                  : 'В readonly значение можно выделить и скопировать.'
+              }}
+            </span>
+          </ds-form-field>
+        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.states" collapsible></aurora-code-block>
+      </section>
+      <section class="example" aria-labelledby="textarea">
+        <h3 id="textarea" tabindex="-1">Textarea и собственная нижняя строка</h3>
+        <p>
+          Приложение размещает пояснение слева, счётчик справа. При ошибке вся эта строка заменяется
+          сообщением. Ручное растягивание ограничено восемью строками через maxRows; более длинный
+          текст прокручивается внутри поля.
+        </p>
+        <aurora-example-block class="demo"
+          id="field-textarea-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <ds-form-field label="Примечание">
+            <textarea dsInput
+              maxRows="8"
+              rows="3"
+              maxlength="300"
+              required
+              [value]="notes()"
+              (input)="onNotesInput($event)"></textarea>
+            <div dsHint class="note-footer">
+              <span>Комментарий для диспетчера</span>
+              <span>{{ notes().length }} / 300</span>
+            </div>
+            @if (showNotesError()) {
+              <span dsError>Пример ошибки: счётчик и подсказка сейчас скрыты.</span>
+            }
+          </ds-form-field>
+          <button dsButton
+            tone="secondary"
+            type="button"
+            (click)="showNotesError.set(!showNotesError())">
+            {{ showNotesError() ? 'Убрать ошибку' : 'Показать ошибку' }}
+          </button>
+        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.textarea" collapsible></aurora-code-block>
+      </section>
+      <section class="example" aria-labelledby="spacing">
+        <h3 id="spacing" tabindex="-1">Резервирование областей</h3>
+        <p>
+          По умолчанию одна строка резервируется над рамкой и под ней. Параметры collapseEmpty…
+          схлопывают только пустые области.
+        </p>
+        <aurora-example-block class="demo"
+          id="field-spacing-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <div class="row">
+            <button dsButton
+              tone="secondary"
+              type="button"
+              [attr.aria-pressed]="collapseLabel()"
+              (click)="collapseLabel.set(!collapseLabel())">
+              Схлопывать пустой label
+            </button>
+            <button dsButton
+              tone="secondary"
+              type="button"
+              [attr.aria-pressed]="collapseMessages()"
+              (click)="collapseMessages.set(!collapseMessages())">
+              Схлопывать пустые сообщения
+            </button>
+          </div>
+          <div class="field-grid">
+            <ds-form-field label="С подписью">
+              <input dsInput value="Подпись и подсказка" />
+              <span dsHint>Нижняя строка</span>
+            </ds-form-field>
+            <ds-form-field [collapseEmptyLabel]="collapseLabel()"
+              [collapseEmptyMessages]="collapseMessages()">
+              <input dsInput aria-label="Поле без видимой подписи" placeholder="Пустые области" />
+            </ds-form-field>
+          </div>
+        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.spacing" collapsible></aurora-code-block>
+      </section>
+      <section class="example" aria-labelledby="ng-model">
+        <h3 id="ng-model" tabindex="-1">NgModel и явный required</h3>
+        <p>
+          Reactive Forms не обязательны. Required включает звёздочку и валидацию ngModel. Родитель
+          показывает ошибку через dsError после потери фокуса: очистите поле и нажмите Tab.
+        </p>
+        <aurora-example-block class="demo"
+          id="field-ng-model-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <ds-form-field label="Компания">
+            <input dsInput
+              #company="ngModel"
+              required
+              [(ngModel)]="modelName"
+              [ngModelOptions]="{ standalone: true }" />
+            <span dsHint>Двусторонняя привязка через FormsModule</span>
+            @if (company.touched && company.hasError('required')) {
+              <span dsError>Обязательное поле.</span>
+            }
+          </ds-form-field>
+          <p class="demo-status">Текущее значение: {{ modelName }}</p>
+        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.ngmodel" collapsible></aurora-code-block>
+      </section>
+    </section>
+    <section aria-labelledby="usage">
+      <h2 id="usage" tabindex="-1">Правила применения</h2>
+      <ul>
+        <li>
+          Одна оболочка содержит один input или textarea с dsInput. Для checkbox и select эта
+          директива не предназначена.
+        </li>
+        <li>
+          Значение, disabled, readonly, required и нативные параметры задавайте на контроле, не на
+          оболочке.
+        </li>
+        <li>
+          Form field не выполняет валидацию и не выбирает момент ошибки: вставляйте dsError по
+          правилу приложения.
+        </li>
+        <li>
+          Нижняя область связана с контролом через aria-describedby. Собственные ID сохраняются;
+          единицы в suffix можно связать дополнительным ID, как в примере скорости.
+        </li>
+        <li>
+          Интерактивный prefix/suffix принадлежит приложению: его disabled задаётся отдельно. Не
+          скрывайте фокусируемую кнопку через aria-hidden.
+        </li>
+        <li>
+          Без видимого label задайте aria-label или aria-labelledby. Пустые строки резервируются, но
+          не создают доступного имени.
+        </li>
+        <li>
+          Многострочные подписи и сообщения увеличивают высоту. Textarea допускает нативное
+          изменение высоты; автоматический resize и плавающий label сюда не добавлены.
+        </li>
+      </ul>
+    </section>
+    <section aria-labelledby="code">
+      <h2 id="code" tabindex="-1">Пример кода</h2>
+      <p>
+        Минимальная композиция без Angular Forms; импортируйте используемые маркеры вместе с
+        оболочкой и директивой.
+      </p>
+      <aurora-code-block [snippet]="snippets.basic"></aurora-code-block>
+    </section>
+    <section aria-labelledby="parameters">
+      <h2 id="parameters" tabindex="-1">Параметры и области</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Параметры Form field">
+        <table class="parameters-table">
+          <colgroup>
+            <col class="parameter-column" />
+            <col class="type-column" />
+            <col class="default-column" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Параметр</th>
+              <th scope="col">Тип</th>
+              <th scope="col">По умолчанию</th>
+              <th scope="col">Назначение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">label</th>
+              <td>string</td>
+              <td>Нет</td>
+              <td>Видимая подпись оболочки; обязательность читается с контрола.</td>
+            </tr>
+            <tr>
+              <th scope="row">collapseEmptyLabel</th>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Убирает только пустую верхнюю область.</td>
+            </tr>
+            <tr>
+              <th scope="row">collapseEmptyMessages</th>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Убирает нижнюю область, только когда нет hint и error.</td>
+            </tr>
+            <tr>
+              <th scope="row">dsInput: mono</th>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Моноширинное оформление значения.</td>
+            </tr>
+            <tr>
+              <th scope="row">dsInput: maxRows</th>
+              <td>number</td>
+              <td>0 (без ограничения)</td>
+              <td>
+                Максимальная высота textarea в строках при ручном растягивании; далее — прокрутка.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">dsInput: id</th>
+              <td>string</td>
+              <td>Генерируется</td>
+              <td>Нативный ID, связанный с подписью.</td>
+            </tr>
+            <tr>
+              <th scope="row">dsPrefix / dsSuffix</th>
+              <td>Проекция</td>
+              <td>Нет</td>
+              <td>Содержимое до/после контрола в одной строке.</td>
+            </tr>
+            <tr>
+              <th scope="row">dsHint / dsError</th>
+              <td>Проекция</td>
+              <td>Нет</td>
+              <td>Нижняя область; переданная ошибка заменяет весь hint.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Оболочка и dsInput не добавляют CVA или valueChange: работают нативные события и стандартные
+        value accessors Angular Forms.
+      </p>
+    </section>
+    <section aria-labelledby="tokens">
+      <h2 id="tokens" tabindex="-1">Токены</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Токены Form field">
+        <table class="tokens-table">
+          <colgroup>
+            <col class="token-column" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Токены</th>
+              <th scope="col">Назначение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>--ds-field-h</code></th>
+              <td>Высота input с учётом плотности.</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <code>--ds-border-field, --ds-border-field-hover, --ds-radius-md</code>
+              </th>
+              <td>Рамка и её состояния.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>--ds-surface, --ds-bg, --ds-surface-disabled</code></th>
+              <td>Редактирование, readonly и disabled.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>--ds-fg, --ds-fg-subtle, --ds-fg-disabled</code></th>
+              <td>Значение, пояснения и недоступное содержимое.</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <code>--ds-brand, --ds-focus-color, --ds-focus-width, --ds-focus-offset</code>
+              </th>
+              <td>Фокус общей оболочки.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>--ds-danger-solid, --ds-danger-fg</code></th>
+              <td>Рамка ошибки, обязательность и текст ошибки.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>--ds-type-body, --ds-type-caption, --ds-type-mono</code></th>
+              <td>Типографика контрола, подписи и сообщений.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</aurora-article-layout>

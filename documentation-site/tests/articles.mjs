@@ -65,6 +65,7 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
         url + `foundations/${slug}?theme=${theme}&appearance=${appearance}&density=${density}`,
       );
       await expect(page.locator('h1')).toHaveText(title);
+      await expect(page.locator('aurora-article-layout')).not.toHaveAttribute('title');
       const related = page.locator('section[aria-labelledby="дальше"] > ul');
       if (await related.count()) {
         assert.equal(await related.evaluate((el) => getComputedStyle(el).paddingLeft), '40px');
@@ -92,6 +93,22 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
       assert.equal(await codeSection.evaluate((el) => getComputedStyle(el).marginTop), '40px');
       assert.equal(await codeSection.evaluate((el) => getComputedStyle(el).paddingTop), '32px');
       if (slug === 'colors') {
+        const selection = page.locator('#interaction-demo');
+        const select = selection.getByRole('button', { name: 'МАЗ 5440', exact: true });
+        await expect(select).toHaveAttribute('aria-pressed', 'false');
+        await select.hover();
+        await expect(selection.getByRole('status')).toContainText('Наведение');
+        await page.mouse.down();
+        await expect(selection.getByRole('status')).toContainText('Нажатие');
+        await page.mouse.up();
+        await expect(select).toHaveAttribute('aria-pressed', 'true');
+        await select.focus();
+        await page.keyboard.press('Space');
+        await expect(select).toHaveAttribute('aria-pressed', 'false');
+        await expect(selection.getByRole('status')).toContainText(
+          'Фокус с клавиатуры или указателя',
+        );
+        await expect(selection.getByRole('button', { name: 'Недоступный объект' })).toBeDisabled();
         const checkbox = page
           .locator('#checkbox-demo')
           .getByRole('checkbox', { name: 'Показывать треки', exact: true });
@@ -120,7 +137,7 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
         /React|DsAppHeader|DsUserMenu|DsPageLayout|DsFilterMenu|DsIconButton|onApply|onClear/,
         `${slug}: do not expose legacy API or promise unapproved components`,
       );
-      if (slug === 'hover' || slug === 'theme-colors') {
+      if (['hover', 'theme-colors', 'accessibility', 'spacing'].includes(slug)) {
         await expect(page.locator('[data-migration-placeholder]')).toHaveCount(0);
       } else {
         await expect(page.locator('[data-migration-placeholder]').first()).toBeVisible();
@@ -175,6 +192,19 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
       }
       if (slug === 'spacing' || slug === 'breakpoints') {
         if (slug === 'breakpoints') {
+          const example = page.locator('#layout-example');
+          await example.getByRole('button', { name: 'Две колонки', exact: true }).click();
+          await expect(example.locator('.workspace')).toHaveAttribute('data-layout', 'wide');
+          await expect(example.locator('.workspace')).toHaveCSS(
+            'grid-template-columns',
+            /\d+(?:\.\d+)?px \d+(?:\.\d+)?px/,
+          );
+          await example.getByRole('button', { name: 'Volvo FH16', exact: true }).click();
+          await expect(example.locator('.object-details h3')).toHaveText('Volvo FH16');
+          await example.getByRole('button', { name: 'Обновить', exact: true }).click();
+          await expect(example.getByRole('status')).toHaveText('Данные Volvo FH16 обновлены.');
+          await example.getByRole('button', { name: 'Одна колонка', exact: true }).click();
+          await expect(example.locator('.workspace')).toHaveAttribute('data-layout', 'narrow');
           assert.equal(
             await page
               .locator('h2[id="пример-кода"]')
@@ -183,7 +213,9 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
           );
         }
         const reference = page.locator(
-          slug === 'spacing' ? 'article details' : '#breakpoints-reference',
+          slug === 'spacing'
+            ? 'section[aria-labelledby="для-разработчика"] > details'
+            : '#breakpoints-reference',
         );
         await expect(reference).not.toHaveAttribute('open');
         await reference.locator('summary').focus();
@@ -191,6 +223,12 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
         await expect(reference).toHaveAttribute('open');
         await expect(reference.locator('tbody tr')).toHaveCount(slug === 'spacing' ? 4 : 6);
         if (slug === 'spacing') {
+          const form = page.locator('[data-spacing-form]');
+          const groupedGap = await form.evaluate((el) => getComputedStyle(el).rowGap);
+          await page
+            .getByRole('button', { name: 'Всё на одинаковом расстоянии', exact: true })
+            .click();
+          assert.notEqual(await form.evaluate((el) => getComputedStyle(el).rowGap), groupedGap);
           await expect(reference.locator('aurora-code-block code')).toContainText(
             'gap: var(--ds-gap-xl)',
           );
@@ -292,6 +330,16 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
         }
       }
       if (slug === 'shape') {
+        const centres = await page.locator('#component-shapes .component-row').evaluate((el) =>
+          ['ds-checkbox', 'button', '.ds-field-shell'].map((selector) => {
+            const rect = el.querySelector(selector).getBoundingClientRect();
+            return rect.y + rect.height / 2;
+          }),
+        );
+        assert.ok(
+          centres.every((value) => Math.abs(value - centres[0]) < 1),
+          'Control centres must align',
+        );
         const focusButton = page.locator('#focus-demo button[dsButton]');
         await focusButton.focus();
         await expect(focusButton).toBeFocused();
@@ -304,13 +352,30 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
           await example.getByRole('button', { name: 'Удалить объект', exact: true }).click();
           await expect(example.locator('[role="status"]')).toHaveCount(0);
         }
+        const action = page.getByRole('button', {
+          name: 'Показать пояснение настроек',
+          exact: true,
+        });
+        const explanation = page.locator('#icon-settings-explanation');
+        await expect(explanation).toBeHidden();
+        await action.focus();
+        await page.keyboard.press('Enter');
+        await expect(action).toHaveAttribute('aria-expanded', 'true');
+        await expect(explanation).toBeVisible();
+        await page.keyboard.press('Space');
+        await expect(action).toHaveAttribute('aria-expanded', 'false');
+        await expect(explanation).toBeHidden();
         const dictionary = page.locator('#icon-dictionary');
         const groupSource = original.match(/const groups=(\[[\s\S]*?\]);/)[1];
         const names = [...groupSource.matchAll(/'([a-z_ ]+)'/g)].flatMap((match) =>
           match[1].split(' '),
         );
         await expect(dictionary.locator('.glyph code')).toHaveText(names);
-        await expect(dictionary.locator('ds-icon')).toHaveCount(names.length);
+        await expect(dictionary.locator('.glyph ds-icon')).toHaveCount(names.length);
+        const search = dictionary.getByRole('searchbox');
+        await search.fill('delete');
+        await expect(dictionary.locator('.glyph code')).toHaveText(['delete']);
+        await search.fill('');
         await expect(page.locator('#size-example ds-icon')).toHaveCount(4);
         const sizes = await page
           .locator('#size-example ds-icon')
@@ -323,9 +388,11 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
           'aria-hidden',
           'true',
         );
-        await page.locator('article details summary').focus();
+        await page.locator('section[aria-labelledby="sizes"] > details > summary').focus();
         await page.keyboard.press('Enter');
-        await expect(page.locator('article details')).toHaveAttribute('open');
+        await expect(page.locator('section[aria-labelledby="sizes"] > details')).toHaveAttribute(
+          'open',
+        );
         await page.evaluate(() => document.fonts.ready);
         assert.ok(
           await page.evaluate(() => document.fonts.check('20px "Material Symbols Outlined"')),
@@ -392,11 +459,19 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
         if (slug === 'accessibility') {
           await expect(page.locator('article a[href^="https://www.w3.org/"]')).toHaveCount(3);
           await expect(
-            page.locator(
-              'section[aria-labelledby="для-разработчика"] [data-migration-placeholder]',
-            ),
-          ).toBeVisible();
-          await expect(page.locator('#demo form')).toHaveCount(0);
+            page.locator('section[aria-labelledby="для-разработчика"] aurora-code-block'),
+          ).toHaveCount(1);
+          const form = page.locator('#demo form');
+          await expect(form).toHaveCount(1);
+          const input = form.getByRole('textbox', { name: 'Название объекта' });
+          await input.fill('');
+          await input.press('Tab');
+          await expect(form.locator('[dsError]')).toHaveText('Обязательное поле.');
+          await expect(input).toHaveAttribute('aria-invalid', 'true');
+          await input.fill('Тестовый объект');
+          await expect(form.locator('[dsError]')).toHaveCount(0);
+          await form.getByRole('button', { name: 'Сохранить', exact: true }).click();
+          await expect(form.getByRole('status')).toContainText('Тестовый объект');
         } else {
           await expect(page.locator('#demo h3')).toHaveText([
             'Слишком общее',
@@ -407,6 +482,12 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
             'Объекты не найдены',
             'Измените запрос или сбросьте фильтры.',
           ]);
+          const demo = page.locator('#demo');
+          await demo.getByRole('button', { name: 'Ошибка', exact: true }).click();
+          await expect(demo.getByRole('status')).toContainText('Не удалось загрузить объекты');
+          await demo.getByRole('button', { name: 'Нет объектов', exact: true }).click();
+          await expect(demo.getByRole('status')).toContainText('Добавьте первый объект');
+          await demo.getByRole('button', { name: 'Ничего не найдено', exact: true }).click();
           await expect(page.locator('section[aria-labelledby="data"] li')).toHaveCount(4);
         }
       }
@@ -469,8 +550,13 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
           );
         } else {
           await expect(page.locator('#sorting-reference')).toHaveAttribute('open');
-          await expect(page.locator('#sorting-reference code').first()).toHaveText(
-            'value={ {key, dir} }',
+          await expect(page.locator('#sorting-reference h3')).toHaveText([
+            'Поле и направление',
+            'Порядок всего набора',
+            'Клавиатура и собственная кнопка',
+          ]);
+          await expect(page.locator('#sorting-reference')).toContainText(
+            'При постраничной загрузке передавайте выбор серверу',
           );
           await expect(
             page.locator('section[aria-labelledby="пример-кода"] [data-migration-placeholder]'),
@@ -521,6 +607,11 @@ export async function checkArticles({ root, page, url, modes }, selectedPages) {
           await expect(page.locator('#pd')).toHaveAttribute('data-ds-appearance', 'dark');
           await expect(page.locator('#pl')).toHaveAttribute('data-ds-density', density);
           await expect(page.locator('#r-brand .hex')).toHaveText('#2b5f9e');
+          await page.locator('#bt').focus();
+          await expect(page.locator('#bt')).toHaveCSS('outline-style', 'none');
+          await expect(page.locator('#bt')).toHaveCSS('border-top-width', '0px');
+          await expect(page.locator('#bs')).toHaveCSS('border-top-width', '0px');
+          await expect(page.locator('.bar').first()).toHaveCSS('border-top-width', '0px');
           await page.locator('#bt').fill('#ffffff');
           await expect(page.locator('#r-brand .hex')).not.toHaveText('#ffffff');
           await expect(page.locator('#bs')).toHaveValue('#ffffff');

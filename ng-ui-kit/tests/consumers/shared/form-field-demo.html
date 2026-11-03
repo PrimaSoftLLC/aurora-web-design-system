@@ -1,0 +1,50 @@
+<section id="form-field-consumer">
+  <h2>Form field из установленного пакета</h2>
+  <ds-form-field id="field-plain" label="Название объекта" collapseEmptyMessages>
+    <input dsInput
+      id="field-plain-input"
+      [value]="plain()"
+      (input)="plain.set($any($event.target).value)" />
+  </ds-form-field>
+  <output id="field-plain-value">{{ plain() }}</output>
+
+  <span id="field-external-help">Внешнее пояснение</span>
+  <ds-form-field id="field-reactive" label="Максимальная скорость">
+    <span dsPrefix>до</span>
+    <input dsInput
+      id="field-number-input"
+      type="number"
+      [formControl]="speed"
+      [readOnly]="readOnly()"
+      aria-describedby="field-external-help field-unit"
+      (input)="inputEvents.set(inputEvents() + 1)" />
+    <span dsSuffix id="field-unit">км/ч</span>
+    <span dsHint>Подсказка скорости</span>
+    @if (speed.touched && speed.hasError('required')) {
+    <span dsError>Обязательное поле.</span>
+    }
+  </ds-form-field>
+  <output id="field-number-value">{{ speed.value ?? 'null' }} / {{ speed.touched }}</output>
+  <output id="field-input-events">{{ inputEvents() }}</output>
+  <div class="actions">
+    <button id="field-set" (click)="speed.setValue(90)">Задать значение</button>
+    <button id="field-disable" (click)="speed.disable()">Отключить поле</button>
+    <button id="field-readonly" (click)="readOnly.set(!readOnly())">Только чтение</button>
+    <button id="field-reset" (click)="reset()">Сбросить поле</button>
+  </div>
+
+  <ds-form-field id="field-model" label="Примечание">
+    <textarea dsInput
+      #notesControl="ngModel"
+      rows="2"
+      maxRows="4"
+      required
+      [(ngModel)]="notes"
+      [ngModelOptions]="{ standalone: true }"></textarea>
+    <span dsHint>Подсказка примечания</span>
+    @if (notesControl.touched && notesControl.hasError('required')) {
+    <span dsError>Обязательное поле.</span>
+    }
+  </ds-form-field>
+  <output id="field-notes-value">{{ notes }}</output>
+</section>

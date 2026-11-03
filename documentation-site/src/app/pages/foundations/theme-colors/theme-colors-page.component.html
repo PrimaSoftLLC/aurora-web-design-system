@@ -7,42 +7,44 @@
         Выберите бренд и акцент. Ниже — результат для светлого и тёмного оформления.
       </p>
       <div class="bar">
-        <div class="field">
-          <label for="bt">Цвет бренда</label>
-          <div class="inputs">
-            <input type="color"
-              id="bs"
-              aria-label="Выбрать цвет бренда"
-              [value]="pickerColors().brand"
-              (input)="updateColor('brand', $any($event.target).value)" />
-            <input type="text"
-              id="bt"
-              spellcheck="false"
-              aria-describedby="brand-hint input-error"
-              [value]="brand()"
-              (input)="updateColor('brand', $any($event.target).value)"
-              [attr.aria-invalid]="!validColor(brand())" />
-          </div>
-          <p class="cap" id="brand-hint">Основные действия и выбор.</p>
-        </div>
-        <div class="field">
-          <label for="at">Цвет акцента</label>
-          <div class="inputs">
-            <input type="color"
-              id="as"
-              aria-label="Выбрать цвет акцента"
-              [value]="pickerColors().accent"
-              (input)="updateColor('accent', $any($event.target).value)" />
-            <input type="text"
-              id="at"
-              spellcheck="false"
-              aria-describedby="accent-hint input-error"
-              [value]="accent()"
-              (input)="updateColor('accent', $any($event.target).value)"
-              [attr.aria-invalid]="!validColor(accent())" />
-          </div>
-          <p class="cap" id="accent-hint">Дополнительное выделение.</p>
-        </div>
+        <ds-form-field class="palette-field" label="Цвет бренда">
+          <input dsPrefix
+            type="color"
+            id="bs"
+            aria-label="Выбрать цвет бренда"
+            [value]="pickerColors().brand"
+            (input)="updateColor('brand', $any($event.target).value)" />
+          <input dsInput
+            mono
+            type="text"
+            id="bt"
+            spellcheck="false"
+            aria-describedby="input-error"
+            [value]="brand()"
+            (input)="updateColor('brand', $any($event.target).value)"
+            [attr.aria-invalid]="!validColor(brand())" />
+
+          <p dsHint class="cap" id="brand-hint">Основные действия и выбор.</p>
+        </ds-form-field>
+        <ds-form-field class="palette-field" label="Цвет акцента">
+          <input dsPrefix
+            type="color"
+            id="as"
+            aria-label="Выбрать цвет акцента"
+            [value]="pickerColors().accent"
+            (input)="updateColor('accent', $any($event.target).value)" />
+          <input dsInput
+            mono
+            type="text"
+            id="at"
+            spellcheck="false"
+            aria-describedby="input-error"
+            [value]="accent()"
+            (input)="updateColor('accent', $any($event.target).value)"
+            [attr.aria-invalid]="!validColor(accent())" />
+
+          <p dsHint class="cap" id="accent-hint">Дополнительное выделение.</p>
+        </ds-form-field>
       </div>
       <p id="input-error" class="error" role="status">{{ error() }}</p>
       <div class="proof" aria-label="Предварительный просмотр палитры">
@@ -583,16 +585,16 @@
       <details id="export-css">
         <summary>Показать CSS палитры</summary>
         <div class="bar">
-          <div class="field">
-            <label for="nm">Имя темы в CSS</label>
-            <input type="text"
+          <ds-form-field class="palette-field" label="Имя темы в CSS">
+            <input dsInput
+              mono
+              type="text"
               id="nm"
               [value]="themeName()"
               (input)="updateName($any($event.target).value)"
-              spellcheck="false"
-              aria-describedby="name-hint" />
-          </div>
-          <p id="name-hint" class="cap">Латинские буквы, цифры, дефис и подчёркивание.</p>
+              spellcheck="false" />
+            <p dsHint id="name-hint" class="cap">Латинские буквы, цифры, дефис и подчёркивание.</p>
+          </ds-form-field>
         </div>
         <aurora-code-block id="out" [snippet]="paletteSnippet()"></aurora-code-block>
       </details>

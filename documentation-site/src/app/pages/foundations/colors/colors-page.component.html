@@ -297,13 +297,14 @@
       </div>
       <div class="role-row">
         <aurora-example-block id="field-demo"
-          class="boundary-demo migration-placeholder"
-          role="note"
-          data-migration-placeholder=""
-          [attr.data-ds-theme]="settings.theme()"
-          [attr.data-ds-appearance]="settings.appearance()"
-          [attr.data-ds-density]="settings.density()">
-          Демонстрация границы поля ожидает подготовки Angular-примера.
+          class="boundary-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <ds-form-field label="Название объекта" collapseEmptyMessages>
+            <input dsInput value="МАЗ 5440" />
+          </ds-form-field>
         </aurora-example-block>
         <div>
           <code class="role-token">--ds-border-field</code>
@@ -368,15 +369,37 @@
           Наведите курсор, удерживайте кнопку мыши или пробел. Нажмите, чтобы выбрать объект;
           нажмите ещё раз, чтобы снять выбор. Tab показывает фокус отдельно от выбора.
         </p>
-        <aurora-example-block class="migration-placeholder"
-          id="interaction-demo"
-          role="note"
-          data-migration-placeholder=""
-          [attr.data-ds-theme]="settings.theme()"
-          [attr.data-ds-appearance]="settings.appearance()"
-          [attr.data-ds-density]="settings.density()">
-          Интерактивная демонстрация выбора и фокуса ожидает подготовки Angular-примера.
+        <aurora-example-block id="interaction-demo"
+          auroraScope
+          [theme]="settings.theme()"
+          [appearance]="settings.appearance()"
+          [density]="settings.density()">
+          <div class="interaction-buttons">
+            <button dsButton
+              [tone]="selected() ? 'subtle' : 'secondary'"
+              [attr.aria-pressed]="selected()"
+              [icon]="selected() ? 'check' : undefined"
+              [style.background-color]="selected() ? 'var(--ds-surface-selected)' : null"
+              (click)="selected.set(!selected())"
+              (focus)="focused.set(true)"
+              (blur)="blur()"
+              (pointerenter)="enter($event)"
+              (pointerleave)="leave()"
+              (pointerdown)="phase.set('Нажатие')"
+              (pointerup)="release($event)"
+              (pointercancel)="leave()"
+              (keydown)="keyDown($event)"
+              (keyup)="keyUp($event)">
+              МАЗ 5440
+            </button>
+            <button dsButton disabled>Недоступный объект</button>
+          </div>
+          <p class="interaction-status" id="interaction-status" role="status">
+            {{ selected() ? 'Выбран' : 'Не выбран' }} · {{ phase()
+            }}{{ focused() ? ' · Фокус с клавиатуры или указателя' : '' }}
+          </p>
         </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.interaction" collapsible></aurora-code-block>
         <p>
           Обычная поверхность, hover и нажатие используют
           <code>--ds-surface</code>,

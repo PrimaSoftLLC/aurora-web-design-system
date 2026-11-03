@@ -46,14 +46,15 @@
 <div class="layout" [class.document-layout]="isDocument()">
   @if (!isDocument()) {
     <aside id="catalog-navigation" class="catalog-navigation" [class.is-open]="menuOpen()">
-      <label for="catalog-search">
-        {{ isComponents() ? 'Найти компонент' : 'Найти правило или тему' }}
-      </label>
-      <input id="catalog-search"
-        type="search"
-        placeholder="Поиск"
-        [value]="query()"
-        (input)="query.set($any($event.target).value)" />
+      <ds-form-field [label]="isComponents() ? 'Найти компонент' : 'Найти правило или тему'"
+        collapseEmptyMessages>
+        <input dsInput
+          id="catalog-search"
+          type="search"
+          placeholder="Поиск"
+          [value]="query()"
+          (input)="query.set($any($event.target).value)" />
+      </ds-form-field>
       <nav aria-label="Разделы документации">
         @for (group of groups(); track group.id) {
           @if ($first || groups()[$index - 1].section !== group.section) {

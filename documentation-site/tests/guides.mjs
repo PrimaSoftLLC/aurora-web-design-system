@@ -31,6 +31,21 @@ const plain = (node) =>
   node.nodeName === '#text' ? node.value : (node.childNodes ?? []).map(plain).join('');
 const compact = (text) => text.replace(/\s/g, '');
 
+async function expectHeadings(locator, headings) {
+  // Generated anchor controls are not part of the document's heading text.
+  await expect
+    .poll(() =>
+      locator.evaluateAll((elements) =>
+        elements.map((heading) => {
+          const copy = heading.cloneNode(true);
+          copy.querySelectorAll('aurora-heading-anchor').forEach((anchor) => anchor.remove());
+          return copy.textContent.trim().replace(/\s+/g, ' ');
+        }),
+      ),
+    )
+    .toEqual(headings);
+}
+
 export async function checkGuides({ root, page, url, modes }) {
   const markdown = new MarkdownIt();
   for (const guide of pages) {
@@ -69,7 +84,7 @@ export async function checkGuides({ root, page, url, modes }) {
         url + guide.path + `?theme=${theme}&appearance=${appearance}&density=${density}`,
       );
       await expect(page.locator('h1')).toHaveText(guide.title);
-      await expect(page.locator('article h2, article h3')).toHaveText(headings);
+      await expectHeadings(page.locator('article h2, article h3'), headings);
       await expect(page.locator('.page-contents a')).toHaveText(headings);
       await expect(page.locator('body')).toHaveAttribute('data-ds-appearance', 'light');
       await expect(page.locator('aurora-code-block')).toHaveCount(guide.codes);
@@ -318,7 +333,7 @@ async function checkReferenceDocuments({ root, page, url }) {
             ? [tokens[index + 1].children.map((child) => child.content).join('')]
             : [],
         );
-        await expect(page.locator('article h2')).toHaveText(headings);
+        await expectHeadings(page.locator('article h2'), headings);
         assert.doesNotMatch(text, /React-компоненты|DsAppHeader|DsUserMenu|DsStringsProvider/);
       }
       for (const paragraph of expected)

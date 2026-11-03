@@ -1,6 +1,82 @@
 import type { CodeSnippet } from '../../../shared/code-block/code-snippet';
 
 export const breakpointsSnippets = {
+  interactive: {
+    language: 'typescript',
+    code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { DsButtonComponent } from '@primasoftllc/design-system/angular';
+
+@Component({
+  selector: 'app-breakpoints-example',
+  imports: [DsButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`
+    <div class="layout-options" role="group" aria-label="Компоновка примера">
+      <button
+        dsButton
+        [tone]="layout() === 'narrow' ? 'subtle' : 'secondary'"
+        [attr.aria-pressed]="layout() === 'narrow'"
+        (click)="layout.set('narrow')">
+        Одна колонка
+      </button>
+      <button
+        dsButton
+        [tone]="layout() === 'wide' ? 'subtle' : 'secondary'"
+        [attr.aria-pressed]="layout() === 'wide'"
+        (click)="layout.set('wide')">
+        Две колонки
+      </button>
+    </div>
+    <div class="scene" id="responsive-example" [attr.data-layout]="layout()">
+      <div class="workspace" [attr.data-layout]="layout()">
+        <div class="object-list">
+          <h3>Объекты</h3>
+          <div role="group" aria-label="Выбор объекта">
+            @for (name of objects; track name) {
+              <button
+                dsButton
+                fullWidth
+                [tone]="selected() === name ? 'subtle' : 'secondary'"
+                [attr.aria-pressed]="selected() === name"
+                (click)="selectObject(name)">
+                {{ name }}
+              </button>
+            }
+          </div>
+        </div>
+        <div class="object-details">
+          <h3>{{ selected() }}</h3>
+          <p>
+            {{ selected() === 'МАЗ 5440' ? 'Маршрут Минск — Брест.' : 'Маршрут Минск — Гродно.' }}
+          </p>
+          <div>
+            <button
+              dsButton
+              tone="secondary"
+              (click)="message.set('Данные ' + selected() + ' обновлены.')">
+              Обновить
+            </button>
+          </div>
+          <p role="status" class="caption">{{ message() || 'Последнее сообщение — 14:32' }}</p>
+        </div>
+      </div>
+    </div>
+  \`,
+  styleUrl: './layout-example.css',
+})
+export class ResponsiveLayoutComponent {
+  protected readonly layout = signal<'narrow' | 'wide'>('narrow');
+  protected readonly selected = signal('МАЗ 5440');
+  protected readonly message = signal('');
+  protected readonly objects = ['МАЗ 5440', 'Volvo FH16'];
+  protected selectObject(name: string): void {
+    this.selected.set(name);
+    this.message.set('');
+  }
+}
+`,
+  },
+
   workspace: {
     language: 'css',
     fileName: 'workspace.css',

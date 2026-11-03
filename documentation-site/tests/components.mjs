@@ -88,6 +88,7 @@ export async function checkComponents({ page, url, modes }) {
   await checkFabPage({ page, url, modes });
   await checkCheckboxPage({ page, url, modes });
   await checkSpinnerPage({ page, url, modes });
+  await checkFormFieldPage({ page, url, modes });
 }
 
 async function checkButtonPage({ page, url, modes }) {
@@ -185,7 +186,7 @@ async function checkButtonPage({ page, url, modes }) {
       );
       await expect(save).not.toHaveAttribute('aria-busy', 'true');
 
-      const field = page.getByLabel('Название объекта', { exact: true });
+      const field = page.getByRole('textbox', { name: 'Название объекта', exact: true });
       await field.fill('Проверка');
       await page.getByRole('button', { name: 'Обычное действие', exact: true }).click();
       await expect(page.locator('#button-form-demo [role="status"]')).toContainText(
@@ -196,10 +197,17 @@ async function checkButtonPage({ page, url, modes }) {
         'Отправлено: Проверка',
       );
       await field.fill('');
+      await field.press('Tab');
+      await expect(page.locator('#button-form-demo [dsError]')).toHaveText('Обязательное поле.');
+      await expect(field).toHaveAttribute('aria-invalid', 'true');
+      await expect(page.locator('#button-form-demo form')).toHaveJSProperty('noValidate', true);
+      await expect(page.locator('aurora-article-layout')).not.toHaveAttribute('title');
       await page.getByRole('button', { name: 'Отправить', exact: true }).click();
       await expect(field).toBeFocused();
       await page.getByRole('button', { name: 'Сбросить', exact: true }).click();
       await expect(field).toHaveValue('Новый объект');
+      await expect(page.locator('#button-form-demo [dsError]')).toHaveCount(0);
+      await expect(field).not.toHaveAttribute('aria-invalid', 'true');
       await expect(page.locator('#button-form-demo [role="status"]')).toHaveText('Форма сброшена.');
       for (const button of await page.locator('#button-layout-demo button').all()) {
         assert.equal(await button.evaluate((el) => el.scrollWidth <= el.clientWidth), true);
@@ -432,6 +440,100 @@ export async function checkSpinnerPage({ page, url, modes }) {
         false,
       );
       assert.deepEqual(await pageViolations(page), [], 'Spinner page accessibility');
+    }
+  }
+  await page.setViewportSize({ width: 1472, height: 1000 });
+}
+
+// Page composition and real-browser behaviour complement the colocated TestBed specs.
+export async function checkFormFieldPage({ page, url, modes }) {
+  for (const width of [1472, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    for (const [theme, appearance, density] of modes) {
+      await page.goto(
+        url +
+          'components/form-field?theme=' +
+          theme +
+          '&appearance=' +
+          appearance +
+          '&density=' +
+          density,
+      );
+      await expect(page.locator('h1')).toHaveText('Form field');
+      await expect(page.locator('.example')).toHaveCount(7);
+      const plain = page.locator('#field-basic-demo input');
+      await expect(plain).toHaveAccessibleName('Название объекта');
+      await plain.fill('Тест');
+      await expect(page.locator('#field-basic-demo [role="status"]')).toContainText('Тест');
+      const owner = page.locator('#field-states-demo input');
+      await page
+        .locator('#field-states-demo')
+        .getByRole('button', { name: 'Только чтение', exact: true })
+        .click();
+      await expect(owner).toHaveJSProperty('readOnly', true);
+      await expect(owner).toBeEnabled();
+      await page
+        .locator('#field-states-demo')
+        .getByRole('button', { name: 'Недоступно', exact: true })
+        .click();
+      await expect(owner).toBeDisabled();
+      await expect(page.locator('#field-states-demo .ds-field-shell')).toHaveAttribute(
+        'data-ds-field-disabled',
+        '',
+      );
+      await page
+        .locator('#field-validation-demo')
+        .getByRole('button', { name: 'Сохранить', exact: true })
+        .click();
+      const validated = page.locator('#field-validation-demo input');
+      await expect(validated).toHaveAttribute('aria-invalid', 'true');
+      await expect(validated).toBeFocused();
+      await expect(page.locator('#field-validation-demo [dsError]')).toHaveText(
+        'Обязательное поле.',
+      );
+      await validated.fill('Новый объект');
+      await expect(validated).not.toHaveAttribute('aria-invalid', 'true');
+      const textarea = page.locator('#field-textarea-demo textarea');
+      await textarea.evaluate((el) => {
+        el.style.height = '2000px';
+      });
+      const size = await textarea.evaluate((el) => ({
+        height: el.getBoundingClientRect().height,
+        line: parseFloat(getComputedStyle(el).lineHeight),
+      }));
+      assert.ok(Math.abs(size.height - size.line * 8) < 1, 'Textarea must stop at eight lines');
+      await page.locator('#field-textarea-demo button').click();
+      await expect(page.locator('#field-textarea-demo [dsHint]')).toHaveCount(0);
+      await expect(page.locator('#field-textarea-demo textarea')).toHaveAttribute(
+        'aria-invalid',
+        'true',
+      );
+      const reserved = page.locator('#field-spacing-demo .field-grid ds-form-field').nth(1);
+      const before = await reserved.boundingBox();
+      await page
+        .locator('#field-spacing-demo')
+        .getByRole('button', { name: 'Схлопывать пустой label', exact: true })
+        .click();
+      await expect(reserved.locator('.ds-field-label-row')).toHaveCount(0);
+      assert.ok((await reserved.boundingBox()).height < before.height);
+      const model = page.locator('#field-ng-model-demo input');
+      const modelDemo = page.locator('#field-ng-model-demo');
+      await model.fill('');
+      await expect(modelDemo.locator('[dsError]')).toHaveCount(0);
+      await model.press('Tab');
+      await expect(modelDemo.locator('[dsError]')).toHaveText('Обязательное поле.');
+      await expect(model).toHaveAttribute('aria-invalid', 'true');
+      await expect(modelDemo.locator('[dsHint]')).toHaveCount(0);
+      await model.fill('Компания');
+      await expect(modelDemo.locator('[dsError]')).toHaveCount(0);
+      await expect(model).not.toHaveAttribute('aria-invalid', 'true');
+      await expect(modelDemo.locator('[dsHint]')).toBeVisible();
+      await expect(page.locator('#field-ng-model-demo p')).toContainText('Компания');
+      assert.equal(
+        await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
+        false,
+      );
+      assert.deepEqual(await pageViolations(page), [], 'Form field page accessibility');
     }
   }
   await page.setViewportSize({ width: 1472, height: 1000 });

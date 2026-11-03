@@ -1,0 +1,39 @@
+@if (hasLabel() || !collapseEmptyLabel()) {
+  <div class="ds-field-label-row">
+    @if (hasLabel()) {
+      <label [attr.for]="control()?.controlId()">
+        {{ label() }}
+        @if (control()?.required()) {
+          <span class="ds-field-required" aria-hidden="true">*</span>
+        }
+      </label>
+    }
+  </div>
+}
+<div class="ds-field-shell"
+  [attr.data-ds-field]="hasError() ? 'error' : 'default'"
+  [attr.data-ds-field-disabled]="control()?.disabled() ? '' : null"
+  [attr.data-ds-field-readonly]="control()?.readOnly() ? '' : null"
+  [class.ds-field-multiline]="control()?.multiline"
+  (click)="focusControl($event)">
+  @if (prefix()) {
+    <div class="ds-field-adornment"><ng-content select="[dsPrefix]"></ng-content></div>
+  }
+  <ng-content select="[dsInput]"></ng-content>
+  @if (suffix()) {
+    <div class="ds-field-adornment"><ng-content select="[dsSuffix]"></ng-content></div>
+  }
+</div>
+@if (hasMessages() || !collapseEmptyMessages()) {
+  <div class="ds-field-messages" [class.ds-field-error]="hasError()">
+    @if (hasMessages()) {
+      <div [id]="messageId">
+        @if (hasError()) {
+          <ng-content select="[dsError]"></ng-content>
+        } @else {
+          <ng-content select="[dsHint]"></ng-content>
+        }
+      </div>
+    }
+  </div>
+}

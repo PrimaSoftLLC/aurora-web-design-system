@@ -6,3 +6,6 @@ export * from './components/icon/icon.component';
 export * from './components/fab/fab.component';
 export * from './components/checkbox/checkbox.component';
 export * from './components/spinner/spinner.component';
+export * from './components/form-field/form-field.component';
+export * from './components/form-field/input.directive';
+export * from './components/form-field/field-slots.directive';

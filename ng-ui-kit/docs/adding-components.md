@@ -73,8 +73,10 @@ export class DsExampleComponent {}
   Тема, оформление и плотность наследуются через переменные и `auroraScope`.
 - Реализуйте применимые состояния: hover, pressed, focus, disabled, loading,
   ошибки и длинный текст. Доступное имя остаётся на интерактивном элементе.
-- Для полей значений добавьте ControlValueAccessor и проверьте value, touched,
-  disabled и reset в Angular Forms. Кнопке CVA не нужен.
+- Для полей значений обеспечьте интеграцию с Angular Forms и проверьте value, touched,
+  disabled и reset. Собственный виджет реализует ControlValueAccessor; директива
+  на нативном input/textarea использует штатный value accessor, как dsInput.
+  Оболочка Form field и кнопка собственного CVA не требуют.
 - Освобождайте обработчики и наблюдатели при уничтожении компонента.
 
 Базовый вход не должен импортировать React, ECharts или код приложения.

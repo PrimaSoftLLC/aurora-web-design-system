@@ -26,7 +26,7 @@ export async function checkAngular({root=toolRoot,tarball,workRoot,consumerNames
   for(const name of consumerNames){
    const consumer=join(work,name);copy(join(root,'ng-ui-kit/tests/consumers/angular-'+name),consumer);
    if(name==='19'||name==='base'){
-    for(const file of ['button-demo.ts','button-example.ts','icon-demo.ts','icon-demo.html','fab-demo.ts','checkbox-demo.ts','spinner-demo.ts','spinner-demo.html']){
+    for(const file of ['button-demo.ts','button-example.ts','icon-demo.ts','icon-demo.html','fab-demo.ts','checkbox-demo.ts','spinner-demo.ts','spinner-demo.html','form-field-demo.ts','form-field-demo.html','form-field-demo.css']){
      copyFileSync(join(root,'ng-ui-kit/tests/consumers/shared',file),join(consumer,'src',file));
     }
    }
@@ -54,6 +54,7 @@ export async function assertConsumers(page,consumers){
  await assertAngularFab(page,url);
  await assertAngularCheckbox(page,url);
  await assertAngularSpinner(page,url);
+ await assertAngularFormField(page,url);
  }
  await page.goto(consumers.legacyUrl+'/index.html');await page.waitForFunction(()=>window.legacyCheck);assert.deepEqual(await page.evaluate(()=>[window.legacyCheck.sameService,window.legacyCheck.sameConfig,window.legacyCheck.sameInstance,window.legacyCheck.chart,window.legacyCheck.watch]),[true,true,true,true,true]);
  await page.goto(consumers.chartsUrl+'/index.html');await page.waitForFunction(()=>window.auroraCheck);assert.equal(await page.evaluate(()=>window.auroraCheck.sameTheme),true);const before=await page.evaluate(()=>window.auroraCheck.read.fg);
@@ -351,4 +352,144 @@ export async function assertAngularSpinner(page, url) {
   await page.locator('#spinner-delay-restart').click();
   await page.locator('#spinner-show').click();
   await expect(delayed).toHaveCount(0);
+}
+
+// Native Forms accessors and projected slots must survive packaging and both Angular linkers.
+export async function assertAngularFormField(page, url) {
+  await page.goto(url + '/index.html');
+  const scope = page.locator('#form-field-consumer');
+  await expect(scope).toBeVisible();
+  await scope.evaluate((el) => {
+    el.setAttribute('data-ds-theme', 'DEFAULT');
+    el.setAttribute('data-ds-appearance', 'light');
+    el.setAttribute('data-ds-density', 'cozy');
+  });
+  const plain = scope.locator('#field-plain-input');
+  await expect(plain).toHaveAccessibleName('Название объекта');
+  await scope.locator('#field-plain label').click();
+  await expect(plain).toBeFocused();
+  await plain.fill('Новый объект');
+  await expect(scope.locator('#field-plain-value')).toHaveText('Новый объект');
+
+  const field = scope.locator('#field-reactive');
+  const input = field.locator('input');
+  const value = scope.locator('#field-number-value');
+  const events = scope.locator('#field-input-events');
+  await expect(input).toHaveValue('42');
+  await expect(input).toHaveAttribute('aria-required', 'true');
+  await expect(field.locator('.ds-field-required')).toHaveCount(1);
+  await expect(field.locator('[dsPrefix]')).toHaveText('до');
+  await expect(field.locator('[dsSuffix]')).toHaveText('км/ч');
+  const messageId = await field.locator('.ds-field-messages > div').getAttribute('id');
+  assert.ok(messageId);
+  const descriptionIds = () => input.getAttribute('aria-describedby');
+  assert.deepEqual(
+    (await descriptionIds()).split(/\s+/).sort(),
+    ['field-external-help', 'field-unit', messageId].sort(),
+  );
+
+  await scope.locator('#field-set').click();
+  await expect(input).toHaveValue('90');
+  await expect(events).toHaveText('0');
+  await input.fill('73.5');
+  await expect(value).toHaveText('73.5 / false');
+  await expect(events).toHaveText('1');
+  await input.press('Tab');
+  await expect(value).toHaveText('73.5 / true');
+  await input.fill('');
+  await expect(value).toHaveText('null / true');
+  await expect(events).toHaveText('2');
+  await expect(field.locator('[dsError]')).toHaveText('Обязательное поле.');
+  await expect(field.locator('[dsHint]')).toHaveCount(0);
+  await expect(field.locator('.ds-field-shell')).toHaveAttribute('data-ds-field', 'error');
+  await expect(input).toHaveAttribute('aria-invalid', 'true');
+  assert.deepEqual(
+    (await descriptionIds()).split(/\s+/).sort(),
+    ['field-external-help', 'field-unit', messageId].sort(),
+  );
+  await input.fill('55');
+  await expect(value).toHaveText('55 / true');
+  await expect(field.locator('[dsError]')).toHaveCount(0);
+  await expect(field.locator('[dsHint]')).toBeVisible();
+  await expect(input).not.toHaveAttribute('aria-invalid', 'true');
+
+  await scope.locator('#field-disable').click();
+  await expect(input).toBeDisabled();
+  await expect(field.locator('.ds-field-shell')).toHaveAttribute('data-ds-field-disabled', '');
+  await scope.locator('#field-reset').click();
+  await expect(input).toBeEnabled();
+  await expect(value).toHaveText('42 / false');
+  await expect(field.locator('.ds-field-shell')).not.toHaveAttribute('data-ds-field-disabled');
+  await scope.locator('#field-readonly').click();
+  await expect(input).toHaveJSProperty('readOnly', true);
+  await expect(input).toBeEnabled();
+  await field.locator('label').click();
+  await expect(input).toBeFocused();
+  await expect(field.locator('.ds-field-shell')).toHaveAttribute('data-ds-field-readonly', '');
+  await scope.locator('#field-reset').click();
+  await expect(input).toHaveJSProperty('readOnly', false);
+  await expect(value).toHaveText('42 / false');
+
+  const model = scope.locator('#field-model');
+  const textarea = model.locator('textarea');
+  await expect(textarea).toHaveAccessibleName('Примечание');
+  const generatedId = await textarea.getAttribute('id');
+  assert.ok(generatedId);
+  await expect(model.locator('label')).toHaveAttribute('for', generatedId);
+  await expect(textarea).toHaveAttribute('aria-required', 'true');
+  await textarea.fill('');
+  await expect(model.locator('[dsError]')).toHaveCount(0);
+  await textarea.press('Tab');
+  await expect(model.locator('[dsError]')).toHaveText('Обязательное поле.');
+  await expect(textarea).toHaveAttribute('aria-invalid', 'true');
+  await textarea.fill('Новая заметка');
+  await expect(scope.locator('#field-notes-value')).toHaveText('Новая заметка');
+  await expect(model.locator('[dsError]')).toHaveCount(0);
+  await expect(model.locator('[dsHint]')).toBeVisible();
+  await expect(textarea).not.toHaveAttribute('aria-invalid', 'true');
+  await expect(textarea).toHaveCSS('resize', 'vertical');
+  await textarea.evaluate((el) => {
+    el.style.height = '1000px';
+  });
+  const dimensions = await textarea.evaluate((el) => ({
+    height: el.getBoundingClientRect().height,
+    lineHeight: parseFloat(getComputedStyle(el).lineHeight),
+  }));
+  assert.ok(Math.abs(dimensions.height - dimensions.lineHeight * 4) < 1);
+
+  const modes = [
+    ['DEFAULT', 'light', 'cozy'],
+    ['DEFAULT', 'dark', 'compact'],
+    ['RED2', 'light', 'cozy'],
+    ['RED2', 'dark', 'compact'],
+  ];
+  const heights = new Map();
+  for (const [theme, appearance, density] of modes) {
+    await scope.evaluate(
+      (el, [theme, appearance, density]) => {
+        el.setAttribute('data-ds-theme', theme);
+        el.setAttribute('data-ds-appearance', appearance);
+        el.setAttribute('data-ds-density', density);
+      },
+      [theme, appearance, density],
+    );
+    const shell = field.locator('.ds-field-shell');
+    const expectedHeight = await shell.evaluate((el) =>
+      getComputedStyle(el).getPropertyValue('--ds-field-h').trim(),
+    );
+    assert.ok(expectedHeight, 'The installed styles must provide the field-height token');
+    await expect(shell).toHaveCSS('min-height', expectedHeight);
+    heights.set(density, parseFloat(expectedHeight));
+    const expectedColor = await scope.evaluate((el) => {
+      const probe = document.createElement('span');
+      probe.style.backgroundColor = 'var(--ds-surface)';
+      el.append(probe);
+      const color = getComputedStyle(probe).backgroundColor;
+      probe.remove();
+      return color;
+    });
+    // Background changes use the DS transition; compare the settled colour, not an intermediate frame.
+    await expect(shell).toHaveCSS('background-color', expectedColor);
+  }
+  assert.ok(heights.get('cozy') > heights.get('compact'), 'Compact fields must be shorter');
 }

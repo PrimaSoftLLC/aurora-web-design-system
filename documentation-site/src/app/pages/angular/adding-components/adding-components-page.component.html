@@ -88,8 +88,10 @@
           длинный текст. Доступное имя остаётся на интерактивном элементе.
         </li>
         <li>
-          Для полей значений добавьте ControlValueAccessor и проверьте value, touched, disabled и
-          reset в Angular Forms. Кнопке CVA не нужен.
+          Для полей значений проверьте value, touched, disabled и reset в Angular Forms. Собственный
+          виджет реализует ControlValueAccessor; директива на нативном input/textarea использует
+          штатный value accessor, как dsInput. Оболочка Form field и кнопка собственного CVA не
+          требуют.
         </li>
         <li>Освобождайте обработчики и наблюдатели при уничтожении компонента.</li>
       </ul>

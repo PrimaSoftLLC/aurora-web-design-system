@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { DsButtonComponent, DsCheckboxComponent } from '@primasoftllc/design-system/angular';
+import {
+  DsButtonComponent,
+  DsCheckboxComponent,
+  AuroraScopeDirective,
+  DsFormFieldComponent,
+  DsInputDirective,
+} from '@primasoftllc/design-system/angular';
 import { RouterLink } from '@angular/router';
 import { radiusSamples, shadowSamples } from '../../../data/reference-samples';
 import { ArticleLayoutComponent } from '../../../shared/article-layout/article-layout.component';
@@ -11,6 +17,9 @@ import { shapeSnippets } from './shape-page.snippets';
 @Component({
   selector: 'aurora-shape-page',
   imports: [
+    AuroraScopeDirective,
+    DsFormFieldComponent,
+    DsInputDirective,
     DsButtonComponent,
     DsCheckboxComponent,
     RouterLink,

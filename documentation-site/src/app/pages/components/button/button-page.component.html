@@ -181,7 +181,8 @@
         <h3 id="form" tabindex="-1">Кнопка в форме</h3>
         <p>
           Submit отправляет форму, reset возвращает исходное значение, обычная кнопка форму не
-          отправляет. Поле здесь нативное — только для демонстрации поведения формы.
+          отправляет. Ввод оформлен через Form field. Приложение показывает ошибку после потери
+          фокуса или отправки; браузерное всплывающее сообщение заменено ошибкой под полем.
         </p>
         <aurora-example-block class="demo"
           id="button-form-demo"
@@ -189,11 +190,19 @@
           [theme]="settings.theme()"
           [appearance]="settings.appearance()"
           [density]="settings.density()">
-          <form (submit)="submit($event)" (reset)="reset()">
-            <label class="form-field" for="button-object-name">
-              Название объекта
-              <input id="button-object-name" name="objectName" value="Новый объект" required />
-            </label>
+          <form novalidate (submit)="submit($event)" (reset)="reset()">
+            <ds-form-field class="form-field" label="Название объекта">
+              <input dsInput
+                id="button-object-name"
+                name="objectName"
+                value="Новый объект"
+                (input)="formName.set($any($event.target).value)"
+                (blur)="formTouched.set(true)"
+                required />
+              @if (formTouched() && !formName().trim()) {
+                <span dsError>Обязательное поле.</span>
+              }
+            </ds-form-field>
             <div class="row">
               <button dsButton type="submit" name="action" value="save">Отправить</button>
               <button dsButton type="reset" tone="secondary">Сбросить</button>

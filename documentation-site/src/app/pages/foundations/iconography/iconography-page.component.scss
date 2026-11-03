@@ -127,3 +127,9 @@ aurora-code-block {
   margin-top: var(--ds-gap-md);
   margin-bottom: 0;
 }
+
+@include article.field-demo;
+
+#icon-dictionary > ds-form-field {
+  max-width: 480px;
+}

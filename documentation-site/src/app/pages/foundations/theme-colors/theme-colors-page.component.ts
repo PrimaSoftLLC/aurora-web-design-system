@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal, computed } from '@angular/core';
-import { DsButtonComponent } from '@primasoftllc/design-system/angular';
+import {
+  DsButtonComponent,
+  DsFormFieldComponent,
+  DsInputDirective,
+  DsHintDirective,
+  DsPrefixDirective,
+} from '@primasoftllc/design-system/angular';
 import { RouterLink } from '@angular/router';
 import { ArticleLayoutComponent } from '../../../shared/article-layout/article-layout.component';
 import { CodeBlockComponent } from '../../../shared/code-block/code-block.component';
@@ -9,7 +15,16 @@ import { calculatePalette } from './palette-calculator';
 
 @Component({
   selector: 'aurora-theme-colors-page',
-  imports: [DsButtonComponent, RouterLink, ArticleLayoutComponent, CodeBlockComponent],
+  imports: [
+    DsFormFieldComponent,
+    DsInputDirective,
+    DsHintDirective,
+    DsPrefixDirective,
+    DsButtonComponent,
+    RouterLink,
+    ArticleLayoutComponent,
+    CodeBlockComponent,
+  ],
   templateUrl: './theme-colors-page.component.html',
   styleUrl: './theme-colors-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

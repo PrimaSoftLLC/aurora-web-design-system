@@ -86,22 +86,6 @@ button {
   border-right: 1px solid var(--ds-border);
 }
 
-.catalog-navigation > label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--ds-fg-muted);
-}
-
-input {
-  width: 100%;
-  font: inherit;
-  color: inherit;
-  background: var(--ds-surface);
-  border: 1px solid var(--ds-border-field);
-  border-radius: var(--ds-radius-md);
-  padding: 10px 12px;
-}
-
 nav {
   padding: 12px 0;
 }

@@ -6,14 +6,29 @@
         Используйте знакомый символ рядом с названием действия. В панели ниже лупа помогает найти
         объект, а плюс — добавить его. Подписи сохраняют смысл без знания символов.
       </p>
-      <aurora-example-block class="scene migration-placeholder"
+      <aurora-example-block class="scene"
         id="ready-example"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()"
-        role="note"
-        data-migration-placeholder>
-        Пример поиска и добавления объекта появится при наполнении Angular-примеров.
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <div class="field-demo">
+          <ds-form-field label="Поиск объекта">
+            <ds-icon dsPrefix name="search"></ds-icon>
+            <input dsInput
+              type="search"
+              [value]="objectQuery()"
+              (input)="objectQuery.set($any($event.target).value)" />
+          </ds-form-field>
+          <div class="field-actions">
+            <button dsButton icon="add" (click)="objectCount.set(objectCount() + 1)">
+              Добавить объект
+            </button>
+            <span role="status">
+              Объектов: {{ objectCount() }}{{ objectQuery() ? ' · Поиск: ' + objectQuery() : '' }}
+            </span>
+          </div>
+        </div>
       </aurora-example-block>
       <p>
         Готовые компоненты сами задают размер, цвет и положение иконки. Вам нужно выбрать её смысл и
@@ -49,14 +64,21 @@
       </p>
       <aurora-example-block class="scene"
         id="icon-dictionary"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()">
-        <p class="caption migration-placeholder" role="note" data-migration-placeholder>
-          Поиск по словарю появится при наполнении Angular-примеров. Пока показан полный словарь.
-        </p>
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <ds-form-field label="Найти иконку">
+          <ds-icon dsPrefix name="search"></ds-icon>
+          <input dsInput
+            type="search"
+            placeholder="Например, удалить или delete"
+            [value]="dictionaryQuery()"
+            (input)="dictionaryQuery.set($any($event.target).value)" />
+        </ds-form-field>
+        <p class="caption" role="status">Найдено: {{ icons().length }}</p>
         <div class="dictionary">
-          @for (icon of icons; track icon.name) {
+          @for (icon of icons(); track icon.name) {
             <div class="glyph">
               <ds-icon [name]="icon.name"></ds-icon>
               <div>
@@ -66,6 +88,9 @@
             </div>
           }
         </div>
+        @if (!icons().length) {
+          <p>Совпадений нет. Попробуйте другое имя или назначение.</p>
+        }
       </aurora-example-block>
     </section>
     <section aria-labelledby="sizes">
@@ -150,18 +175,27 @@
       </p>
       <aurora-example-block class="scene"
         id="accessible-example"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()">
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
         <div class="row">
           <ds-icon name="warning"></ds-icon>
           <span>Нет связи с объектом</span>
           <ds-icon name="lock" label="Доступ ограничен"></ds-icon>
+          <button dsButton
+            [tone]="settingsOpen() ? 'subtle' : 'ghost'"
+            icon="settings"
+            aria-label="Показать пояснение настроек"
+            [attr.aria-expanded]="settingsOpen()"
+            aria-controls="icon-settings-explanation"
+            (click)="settingsOpen.set(!settingsOpen())"></button>
         </div>
-        <p class="caption migration-placeholder" role="note" data-migration-placeholder>
-          Пример кнопки настроек появится при наполнении примеров действий с иконкой.
+        <p id="icon-settings-explanation" class="caption" role="status" [hidden]="!settingsOpen()">
+          Кнопка настроек имеет собственное доступное имя; глиф внутри неё декоративный.
         </p>
       </aurora-example-block>
+      <aurora-code-block [snippet]="snippets.accessible" collapsible></aurora-code-block>
       <ul>
         <li>
           Рядом с поясняющим текстом иконка декоративная: DsIcon по умолчанию скрывает её от
@@ -280,17 +314,10 @@
       <h2 id="пример-кода" tabindex="-1">Пример кода</h2>
       <p>
         Иконка рядом с поясняющим текстом декоративная. Если она находится внутри кнопки, действие и
-        доступное имя принадлежат кнопке. Angular-пример будет добавлен после доработки иконки и
-        кнопки.
+        доступное имя принадлежат кнопке. В примере лупа дополняет поле поиска, а плюс — кнопку
+        добавления.
       </p>
-      <aurora-example-block class="pending-code migration-placeholder"
-        role="note"
-        data-migration-placeholder>
-        <p>
-          Код будет добавлен вместе с Angular-демонстрацией после подготовки необходимых
-          компонентов.
-        </p>
-      </aurora-example-block>
+      <aurora-code-block [snippet]="snippets.form"></aurora-code-block>
     </section>
   </div>
 </aurora-article-layout>

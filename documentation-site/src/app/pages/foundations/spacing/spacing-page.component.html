@@ -7,14 +7,43 @@
         Готовые компоненты оформляют свои внутренние отступы. Расстояния между компонентами задаёт
         родитель. Сравните одну форму с разными промежутками: содержимое остаётся тем же.
       </p>
-      <aurora-example-block class="migration-placeholder"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()"
-        role="note"
-        data-migration-placeholder>
-        Пример группировки формы появится при наполнении Angular-примеров.
+      <aurora-example-block id="spacing-form"
+        class="spacing-demo"
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <div class="field-actions" role="group" aria-label="Группировка формы">
+          <button dsButton
+            [tone]="grouped() ? 'subtle' : 'secondary'"
+            [attr.aria-pressed]="grouped()"
+            (click)="grouped.set(true)">
+            Группы различимы
+          </button>
+          <button dsButton
+            [tone]="grouped() ? 'secondary' : 'subtle'"
+            [attr.aria-pressed]="!grouped()"
+            (click)="grouped.set(false)">
+            Всё на одинаковом расстоянии
+          </button>
+        </div>
+        <div data-spacing-form
+          class="field-demo"
+          [style.gap]="grouped() ? 'var(--ds-gap-xl)' : 'var(--ds-gap-md)'">
+          <div class="field-demo">
+            <h3>Объект</h3>
+            <ds-form-field label="Название"><input dsInput value="МАЗ 5440" /></ds-form-field>
+            <ds-form-field label="Группа"><input dsInput value="Грузовые" /></ds-form-field>
+          </div>
+          <div class="field-demo">
+            <h3>Уведомления</h3>
+            <ds-form-field label="Email для отчёта">
+              <input dsInput type="email" placeholder="name@example.com" />
+            </ds-form-field>
+          </div>
+        </div>
       </aurora-example-block>
+      <aurora-code-block [snippet]="snippets.form" collapsible></aurora-code-block>
     </section>
     <section aria-labelledby="choosing">
       <h2 id="choosing" tabindex="-1">Краткая памятка</h2>

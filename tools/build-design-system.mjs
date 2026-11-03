@@ -1,4 +1,4 @@
-import { cpSync } from 'node:fs';
+import { copyFileSync, cpSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { writeTokenOutputs } from '../design-system/tools/tokens/build.mjs';
@@ -6,9 +6,15 @@ import { writeTokenOutputs } from '../design-system/tools/tokens/build.mjs';
 export function buildDesignSystem() {
   const root = fileURLToPath(new URL('../', import.meta.url));
   writeTokenOutputs({ root });
-  // Preserve the published layout: dist/styles.css references ../fonts and ../assets/fonts.
+  // The site consumes assembled CSS with the published relative font layout.
+  // Repository-first forbids compatibility copies in the repository root.
+  const resources = join(root, '.tmp/documentation-site-resources');
+  mkdirSync(join(resources, 'dist'), { recursive: true });
+  for (const file of ['styles.css', 'tokens.css']) {
+    copyFileSync(join(root, 'dist', file), join(resources, 'dist', file));
+  }
   for (const directory of ['fonts', 'assets/fonts']) {
-    cpSync(join(root, 'design-system', directory), join(root, directory), { recursive: true });
+    cpSync(join(root, 'design-system', directory), join(resources, directory), { recursive: true });
   }
 }
 

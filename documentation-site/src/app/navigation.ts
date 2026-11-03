@@ -119,7 +119,10 @@ export const componentNavigation: NavigationGroup[] = [
     section: 'components',
     level: 2,
     title: 'Поля и выбор',
-    items: [{ title: 'Checkbox', path: '/components/checkbox' }],
+    items: [
+      { title: 'Form field', path: '/components/form-field' },
+      { title: 'Checkbox', path: '/components/checkbox' },
+    ],
   },
   {
     id: 'buttons-icons',

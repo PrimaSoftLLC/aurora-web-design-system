@@ -1,0 +1,90 @@
+[data-ds-form-field] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  color: var(--ds-fg);
+  font: var(--ds-type-body);
+}
+[data-ds-form-field] > .ds-field-label-row {
+  min-height: 18px;
+  font: var(--ds-type-caption);
+  font-weight: var(--ds-weight-medium);
+  color: var(--ds-fg-muted);
+}
+[data-ds-form-field] .ds-field-required {
+  margin-left: 3px;
+  color: var(--ds-danger-solid);
+}
+[data-ds-form-field] > .ds-field-shell {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--ds-gap-sm);
+  min-width: 0;
+  min-height: var(--ds-field-h);
+  padding: 0 10px;
+  background: var(--ds-surface);
+  transition: var(--ds-transition-control);
+}
+[data-ds-form-field] > .ds-field-shell[data-ds-field-readonly] {
+  background: var(--ds-bg);
+}
+[data-ds-form-field] > .ds-field-shell[data-ds-field-disabled] {
+  background: var(--ds-surface-disabled);
+  color: var(--ds-fg-disabled);
+  cursor: not-allowed;
+}
+[data-ds-form-field] [data-ds-input] {
+  box-sizing: border-box;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: var(--ds-type-body);
+}
+[data-ds-form-field] [data-ds-input][data-ds-input-mono] {
+  font: var(--ds-type-mono);
+}
+[data-ds-form-field] [data-ds-input]::placeholder {
+  color: var(--ds-fg-subtle);
+  opacity: 1;
+}
+[data-ds-form-field] [data-ds-input]:disabled {
+  cursor: not-allowed;
+  -webkit-text-fill-color: var(--ds-fg-disabled);
+}
+[data-ds-form-field] > .ds-field-multiline {
+  align-items: flex-start;
+  padding: 8px 10px;
+}
+[data-ds-form-field] textarea[data-ds-input] {
+  resize: vertical;
+}
+[data-ds-form-field] .ds-field-adornment {
+  display: flex;
+  align-items: center;
+  flex: none;
+  max-width: 50%;
+  color: var(--ds-fg-subtle);
+  font: var(--ds-type-caption);
+}
+[data-ds-form-field] [data-ds-field-disabled] > .ds-field-adornment {
+  color: var(--ds-fg-disabled);
+}
+[data-ds-form-field] > .ds-field-messages {
+  min-width: 0;
+  min-height: 18px;
+  color: var(--ds-fg-subtle);
+  font: var(--ds-type-caption);
+  overflow-wrap: anywhere;
+}
+[data-ds-form-field] > .ds-field-messages.ds-field-error {
+  color: var(--ds-danger-fg);
+}

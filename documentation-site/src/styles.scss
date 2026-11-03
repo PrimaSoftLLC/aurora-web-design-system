@@ -1,6 +1,5 @@
 @use './app/shared/code-block/code-highlighting';
 @use './styles/article';
-@import '@primasoftllc/design-system/styles.css';
 @include code-highlighting.styles;
 @include article.related-links;
 

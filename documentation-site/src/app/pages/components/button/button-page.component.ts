@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuroraScopeDirective, DsButtonComponent } from '@primasoftllc/design-system/angular';
+import {
+  AuroraScopeDirective,
+  DsButtonComponent,
+  DsFormFieldComponent,
+  DsInputDirective,
+  DsErrorDirective,
+} from '@primasoftllc/design-system/angular';
 import type { DsButtonSize, DsButtonTone } from '@primasoftllc/design-system/angular';
 import { ArticleLayoutComponent } from '../../../shared/article-layout/article-layout.component';
 import { CodeBlockComponent } from '../../../shared/code-block/code-block.component';
@@ -11,6 +17,9 @@ import { buttonSnippets } from './button-page.snippets';
 @Component({
   selector: 'aurora-button-page',
   imports: [
+    DsErrorDirective,
+    DsFormFieldComponent,
+    DsInputDirective,
     ArticleLayoutComponent,
     CodeBlockComponent,
     ExampleBlockComponent,
@@ -45,6 +54,8 @@ export class ButtonPageComponent {
   protected readonly saves = signal(0);
   protected readonly saveMessage = signal('Изменения ещё не сохранялись.');
   protected readonly formMessage = signal('Форма ещё не отправлялась.');
+  protected readonly formName = signal('Новый объект');
+  protected readonly formTouched = signal(false);
   private saveTimer: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
@@ -65,11 +76,22 @@ export class ButtonPageComponent {
 
   protected submit(event: Event) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget as HTMLFormElement);
-    this.formMessage.set(`Отправлено: ${data.get('objectName')}`);
+    const form = event.currentTarget as HTMLFormElement;
+    const data = new FormData(form);
+    const name = String(data.get('objectName') ?? '');
+    this.formName.set(name);
+    this.formTouched.set(true);
+    if (!name.trim()) {
+      this.formMessage.set('Заполните обязательное поле.');
+      form.querySelector<HTMLInputElement>('[name="objectName"]')?.focus();
+      return;
+    }
+    this.formMessage.set(`Отправлено: ${name}`);
   }
 
   protected reset() {
+    this.formName.set('Новый объект');
+    this.formTouched.set(false);
     this.formMessage.set('Форма сброшена.');
   }
 }

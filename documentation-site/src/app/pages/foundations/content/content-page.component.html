@@ -10,27 +10,35 @@
       </p>
       <aurora-example-block class="scene"
         id="demo"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()">
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
         <div class="stack">
-          <p class="migration-placeholder" role="note" data-migration-placeholder>
-            Переключение ситуаций появится при наполнении Angular-примеров. Пока показан исходный
-            пример пустого результата поиска.
-          </p>
-          <div class="comparison">
+          <div class="situation-options" role="group" aria-label="Ситуация">
+            @for (situation of situations; track situation.id) {
+              <button dsButton
+                [tone]="mode() === situation.id ? 'subtle' : 'secondary'"
+                [attr.aria-pressed]="mode() === situation.id"
+                (click)="mode.set(situation.id)">
+                {{ situation.label }}
+              </button>
+            }
+          </div>
+          <div class="comparison" role="status">
             <div>
               <h3>Слишком общее</h3>
-              <p>Нет данных</p>
+              <p>{{ example()[0] }}</p>
             </div>
             <div>
               <h3>Понятно, что дальше</h3>
-              <p style="font: var(--ds-type-body-strong)">Объекты не найдены</p>
-              <p>Измените запрос или сбросьте фильтры.</p>
+              <p style="font: var(--ds-type-body-strong)">{{ example()[1] }}</p>
+              <p>{{ example()[2] }}</p>
             </div>
           </div>
         </div>
       </aurora-example-block>
+      <aurora-code-block [snippet]="snippets.situations" collapsible></aurora-code-block>
     </section>
     <section aria-labelledby="choosing">
       <h2 id="choosing" tabindex="-1">Краткая памятка</h2>

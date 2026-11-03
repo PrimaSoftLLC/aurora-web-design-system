@@ -175,32 +175,82 @@ export class ButtonLoadingComponent {
   form: {
     language: 'typescript',
     code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { DsButtonComponent } from '@primasoftllc/design-system/angular';
+import {
+  DsButtonComponent,
+  DsFormFieldComponent,
+  DsInputDirective,
+  DsErrorDirective,
+} from '@primasoftllc/design-system/angular';
 
 @Component({
-  selector: 'app-button-form',
-  imports: [DsButtonComponent],
+  selector: 'app-button-example',
+  imports: [DsButtonComponent, DsFormFieldComponent, DsInputDirective, DsErrorDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: \`
-    <form (submit)="submit($event)" (reset)="message.set('Форма сброшена.')">
-      <label for="object-name">Название объекта</label>
-      <input id="object-name" name="objectName" value="Новый объект" required>
-      <button dsButton type="submit" name="action" value="save">Отправить</button>
-      <button dsButton type="reset" tone="secondary">Сбросить</button>
-      <button dsButton tone="ghost" (click)="message.set('Обычное действие: форма не отправлена.')">
-        Обычное действие
-      </button>
+    <form novalidate (submit)="submit($event)" (reset)="reset()">
+      <ds-form-field class="form-field" label="Название объекта">
+        <input
+          dsInput
+          id="button-object-name"
+          name="objectName"
+          value="Новый объект"
+          (input)="formName.set($any($event.target).value)"
+          (blur)="formTouched.set(true)"
+          required />
+        @if (formTouched() && !formName().trim()) {
+          <span dsError>Обязательное поле.</span>
+        }
+      </ds-form-field>
+      <div class="row">
+        <button dsButton type="submit" name="action" value="save">Отправить</button>
+        <button dsButton type="reset" tone="secondary">Сбросить</button>
+        <button
+          dsButton
+          tone="ghost"
+          (click)="formMessage.set('Обычное действие: форма не отправлена.')">
+          Обычное действие
+        </button>
+      </div>
     </form>
-    <p role="status">{{ message() }}</p>
+    <p role="status">{{ formMessage() }}</p>
+  \`,
+  styles: \`
+    .form-field {
+      max-width: 320px;
+      margin-bottom: 16px;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    p {
+      margin: var(--ds-gap-sm) 0 0;
+    }
   \`,
 })
 export class ButtonFormComponent {
-  readonly message = signal('Форма ещё не отправлялась.');
-
-  submit(event: Event) {
+  protected readonly formMessage = signal('Форма ещё не отправлялась.');
+  protected readonly formName = signal('Новый объект');
+  protected readonly formTouched = signal(false);
+  protected submit(event: Event) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget as HTMLFormElement);
-    this.message.set(\`Отправлено: \${data.get('objectName')}\`);
+    const form = event.currentTarget as HTMLFormElement;
+    const data = new FormData(form);
+    const name = String(data.get('objectName') ?? '');
+    this.formName.set(name);
+    this.formTouched.set(true);
+    if (!name.trim()) {
+      this.formMessage.set('Заполните обязательное поле.');
+      form.querySelector<HTMLInputElement>('[name="objectName"]')?.focus();
+      return;
+    }
+    this.formMessage.set(\`Отправлено: \${name}\`);
+  }
+  protected reset() {
+    this.formName.set('Новый объект');
+    this.formTouched.set(false);
+    this.formMessage.set('Форма сброшена.');
   }
 }
 `,

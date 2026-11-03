@@ -81,12 +81,44 @@ summary:focus-visible {
 .nested.tight {
   padding: 2px;
 }
+#component-shapes {
+  container-type: inline-size;
+}
 .component-row {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: max-content max-content minmax(0, 320px);
+  // The first row reserves the field's caption; controls share the second row's centre.
+  grid-template-rows: 18px var(--ds-field-h);
+  column-gap: 16px;
+  row-gap: 6px;
   align-items: center;
   margin: 20px 0;
+}
+.component-row > ds-checkbox {
+  grid-column: 1;
+  grid-row: 2;
+}
+.component-row > button {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+}
+.component-row > ds-form-field {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+}
+@container (max-width: 520px) {
+  .component-row {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    row-gap: var(--ds-gap-md);
+  }
+  .component-row > ds-checkbox,
+  .component-row > button,
+  .component-row > ds-form-field {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 .mode-stage {
   padding: 20px;

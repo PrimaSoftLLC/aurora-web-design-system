@@ -14,6 +14,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'aurora-article-layout',
+  // The title input names the article; it must not become an inherited browser tooltip.
+  host: { '[attr.title]': 'null' },
   imports: [RouterLink],
   templateUrl: './article-layout.component.html',
   styleUrl: './article-layout.component.scss',

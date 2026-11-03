@@ -40,14 +40,10 @@ h2 {
 }
 .bar {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 20px;
   flex-wrap: wrap;
-  margin: 0 0 12px;
-  padding: 10px 12px;
-  border: 1px solid var(--ds-border);
-  border-radius: var(--ds-radius-lg);
-  background: var(--ds-bg);
+  margin: 0 0 16px;
 }
 .bar label {
   display: flex;
@@ -61,24 +57,27 @@ h2 {
   color: var(--ds-fg-subtle);
 }
 .bar input[type='color'] {
-  width: 34px;
-  height: var(--ds-control-h);
-  padding: 2px;
-  background: var(--ds-surface);
-  border: 1px solid var(--ds-border-field);
-  border-radius: var(--ds-radius-md);
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
   cursor: pointer;
 }
-.bar input[type='text'] {
-  width: 88px;
-  height: var(--ds-control-h);
-  padding: 0 8px;
-  font: var(--ds-type-mono);
-  color: var(--ds-fg);
-  background: var(--ds-surface);
-  border: 1px solid var(--ds-border-field);
-  border-radius: var(--ds-radius-md);
+.bar input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
 }
+.bar input[type='color']::-webkit-color-swatch {
+  border: 0;
+  border-radius: var(--ds-radius-xs);
+}
+.bar input[type='color']::-moz-color-swatch {
+  border: 0;
+  border-radius: var(--ds-radius-xs);
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -338,21 +337,10 @@ p {
 }
 @include article.paragraph-spacing;
 @include article.lead;
-.bar {
-  padding: 20px;
-  gap: 20px;
-  margin-bottom: 16px;
-}
-.field {
-  display: grid;
-  gap: 8px;
-}
-.field > label {
-  font: var(--ds-type-body-strong);
-}
-.inputs {
-  display: flex;
-  gap: 8px;
+
+.palette-field {
+  flex: 1 1 220px;
+  max-width: 360px;
 }
 .lab {
   text-transform: none;
@@ -397,7 +385,7 @@ details > div,
 details > pre {
   margin-top: 16px;
 }
-:where(input, a, summary):focus-visible {
+:where(a, summary):focus-visible {
   outline: var(--ds-focus-width) solid var(--ds-focus-color);
   outline-offset: var(--ds-focus-offset);
 }
@@ -454,7 +442,7 @@ table {
   grid-column: 1/-1;
   margin: 0;
 }
-.field .cap {
+.palette-field .cap {
   margin: 0;
 }
 .warn.g {

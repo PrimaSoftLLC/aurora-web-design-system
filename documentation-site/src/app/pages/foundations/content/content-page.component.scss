@@ -64,3 +64,13 @@ details p {
 .pending-code {
   margin: 20px 0;
 }
+
+.situation-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-gap-sm);
+}
+
+aurora-code-block {
+  margin: 20px 0;
+}

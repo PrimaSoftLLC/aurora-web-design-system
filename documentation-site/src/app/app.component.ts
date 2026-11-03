@@ -1,3 +1,4 @@
+import { DsFormFieldComponent, DsInputDirective } from '@primasoftllc/design-system/angular';
 import { HeadingAnchorsDirective } from './shared/heading-anchor/heading-anchors.directive';
 import {
   ChangeDetectionStrategy,
@@ -15,7 +16,14 @@ import { SiteSettingsService } from './site-settings.service';
 
 @Component({
   selector: 'aurora-documentation',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, HeadingAnchorsDirective],
+  imports: [
+    DsFormFieldComponent,
+    DsInputDirective,
+    RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
+    HeadingAnchorsDirective,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

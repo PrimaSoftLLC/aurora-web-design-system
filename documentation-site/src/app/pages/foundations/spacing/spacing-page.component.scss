@@ -63,3 +63,9 @@ aurora-code-block,
   color: var(--ds-fg-muted);
   font-weight: var(--ds-weight-semibold);
 }
+
+@include article.field-demo;
+
+.spacing-demo > .field-actions {
+  margin-bottom: var(--ds-gap-md);
+}

@@ -1,3 +1,5 @@
+import { CodeBlockComponent } from '../../../shared/code-block/code-block.component';
+import { colorsSnippets } from './colors-page.snippets';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +9,13 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { DsCheckboxComponent } from '@primasoftllc/design-system/angular';
+import {
+  DsCheckboxComponent,
+  AuroraScopeDirective,
+  DsFormFieldComponent,
+  DsInputDirective,
+  DsButtonComponent,
+} from '@primasoftllc/design-system/angular';
 import { RouterLink } from '@angular/router';
 import { neutralPalette } from '../../../data/reference-samples';
 import { ArticleLayoutComponent } from '../../../shared/article-layout/article-layout.component';
@@ -16,14 +24,48 @@ import { SiteSettingsService } from '../../../site-settings.service';
 
 @Component({
   selector: 'aurora-colors-page',
-  imports: [DsCheckboxComponent, RouterLink, ArticleLayoutComponent, ExampleBlockComponent],
+  imports: [
+    CodeBlockComponent,
+    DsButtonComponent,
+    AuroraScopeDirective,
+    DsFormFieldComponent,
+    DsInputDirective,
+    DsCheckboxComponent,
+    RouterLink,
+    ArticleLayoutComponent,
+    ExampleBlockComponent,
+  ],
   templateUrl: './colors-page.component.html',
   styleUrl: './colors-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NeutralColorsPageComponent {
+  protected readonly selected = signal(false);
+  // Demo feedback only; DsButton owns hover/pressed rendering and keyboard activation.
+  protected readonly phase = signal('Обычное');
+  protected readonly focused = signal(false);
+  protected enter(event: PointerEvent): void {
+    if (event.pointerType === 'mouse') this.phase.set('Наведение');
+  }
+  protected release(event: PointerEvent): void {
+    this.phase.set(event.pointerType === 'mouse' ? 'Наведение' : 'Обычное');
+  }
+  protected leave(): void {
+    this.phase.set('Обычное');
+  }
+  protected blur(): void {
+    this.focused.set(false);
+    this.leave();
+  }
+  protected keyDown(event: KeyboardEvent): void {
+    if (event.key === ' ' || event.key === 'Enter') this.phase.set('Нажатие');
+  }
+  protected keyUp(event: KeyboardEvent): void {
+    if (event.key === ' ' || event.key === 'Enter') this.leave();
+  }
   protected readonly showTracks = signal(false);
   protected readonly neutralPalette = neutralPalette;
+  protected readonly snippets = colorsSnippets;
   protected readonly settings = inject(SiteSettingsService);
   private readonly colorProbe = viewChild.required<ElementRef<HTMLElement>>('colorProbe');
   protected readonly contrastRows = signal<

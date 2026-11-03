@@ -5,6 +5,7 @@ for(const [entry,name]of[['./angular','core'],['./angular/echarts','echarts']])a
 const core=read('dist/angular/core.mjs');assert.doesNotMatch(core,/from\s*['"]echarts/);assert.match(core,/ɵɵngDeclareInjectable/);assert.match(core,/ɵɵngDeclareDirective/);
 await import('@angular/compiler');
 const publicApi=await import('../../dist/angular/core.mjs');
+for (const name of ['DsFormFieldComponent','DsInputDirective','DsPrefixDirective','DsSuffixDirective','DsHintDirective','DsErrorDirective']) assert.equal(typeof publicApi[name],'function',name);
 assert.equal(typeof publicApi.DsSpinnerComponent,'function','Angular entry must export Spinner');
 assert.equal(typeof publicApi.DsCheckboxComponent,'function','Angular entry must export Checkbox');
 assert.equal(typeof publicApi.DsFabComponent,'function','Angular entry must export FAB');

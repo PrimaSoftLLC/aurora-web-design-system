@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  max-width: 480px;
+}
+#form-field-consumer {
+  display: grid;
+  gap: var(--ds-gap-md);
+  padding: var(--ds-pad-md);
+  background: var(--ds-surface);
+  color: var(--ds-fg);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-gap-sm);
+}

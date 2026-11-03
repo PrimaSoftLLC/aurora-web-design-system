@@ -12,14 +12,65 @@
         Переключите компоновку и выберите объект: сведения и действие остаются доступны в обоих
         вариантах.
       </p>
-      <aurora-example-block class="migration-placeholder"
-        [attr.data-ds-theme]="settings.theme()"
-        [attr.data-ds-appearance]="settings.appearance()"
-        [attr.data-ds-density]="settings.density()"
-        role="note"
-        data-migration-placeholder>
-        Интерактивный пример одной и двух колонок с выбором объекта появится при наполнении
-        Angular-примеров.
+      <aurora-example-block id="layout-example"
+        background="subtle"
+        auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <div class="layout-options" role="group" aria-label="Компоновка примера">
+          <button dsButton
+            [tone]="layout() === 'narrow' ? 'subtle' : 'secondary'"
+            [attr.aria-pressed]="layout() === 'narrow'"
+            (click)="layout.set('narrow')">
+            Одна колонка
+          </button>
+          <button dsButton
+            [tone]="layout() === 'wide' ? 'subtle' : 'secondary'"
+            [attr.aria-pressed]="layout() === 'wide'"
+            (click)="layout.set('wide')">
+            Две колонки
+          </button>
+        </div>
+        <div class="scene"
+          id="responsive-example"
+          [attr.data-layout]="layout()"
+          [attr.data-ds-theme]="settings.theme()"
+          [attr.data-ds-appearance]="settings.appearance()"
+          [attr.data-ds-density]="settings.density()">
+          <div class="workspace" [attr.data-layout]="layout()">
+            <div class="object-list">
+              <h3>Объекты</h3>
+              <div role="group" aria-label="Выбор объекта">
+                @for (name of objects; track name) {
+                  <button dsButton
+                    fullWidth
+                    [tone]="selected() === name ? 'subtle' : 'secondary'"
+                    [attr.aria-pressed]="selected() === name"
+                    (click)="selectObject(name)">
+                    {{ name }}
+                  </button>
+                }
+              </div>
+            </div>
+            <div class="object-details">
+              <h3>{{ selected() }}</h3>
+              <p>
+                {{
+                  selected() === 'МАЗ 5440' ? 'Маршрут Минск — Брест.' : 'Маршрут Минск — Гродно.'
+                }}
+              </p>
+              <div>
+                <button dsButton
+                  tone="secondary"
+                  (click)="message.set('Данные ' + selected() + ' обновлены.')">
+                  Обновить
+                </button>
+              </div>
+              <p role="status" class="caption">{{ message() || 'Последнее сообщение — 14:32' }}</p>
+            </div>
+          </div>
+        </div>
       </aurora-example-block>
       <p class="caption" style="margin-top: 16px">
         Это демонстрация вариантов, а не измеритель ширины окна. Узкий вариант ограничен 390 px.
@@ -295,11 +346,7 @@
           использовать media query из примера выше, удалив правило
           <code>.workspace[data-layout=&quot;wide&quot;]</code>.
         </p>
-        <aurora-example-block class="pending-code migration-placeholder"
-          role="note"
-          data-migration-placeholder>
-          <p>Код интерактивного примера будет добавлен вместе с Angular-демонстрацией.</p>
-        </aurora-example-block>
+        <aurora-code-block [snippet]="snippets.interactive"></aurora-code-block>
         <p>
           Содержимое
           <code>layout-example.css</code>:

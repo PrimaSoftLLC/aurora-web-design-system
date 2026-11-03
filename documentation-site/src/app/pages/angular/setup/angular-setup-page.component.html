@@ -23,8 +23,9 @@
         Для Angular-входа также нужен стандартный пакет
         <code>&#64;angular/forms</code>
         той же версии, что
-        <code>&#64;angular/core</code>: Checkbox использует ControlValueAccessor. Для привязки формы импортируйте
-        ReactiveFormsModule в компонент приложения.
+        <code>&#64;angular/core</code>: Checkbox использует ControlValueAccessor, а dsInput — штатные value accessors нативного
+        input/textarea. Для реактивных форм импортируйте ReactiveFormsModule, для ngModel —
+        FormsModule в компонент приложения.
       </p>
       <ul>
         <li>

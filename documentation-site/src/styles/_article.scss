@@ -374,3 +374,21 @@
     margin: 32px 0;
   }
 }
+
+// Native-input demonstrations restored once Form field became available.
+@mixin field-demo {
+  .field-demo {
+    display: grid;
+    gap: var(--ds-gap-md);
+    max-width: 480px;
+  }
+  .field-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-gap-sm);
+  }
+  .field-demo h3,
+  .field-demo p {
+    margin: 0;
+  }
+}
