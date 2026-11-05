@@ -1,0 +1,162 @@
+<aurora-article-layout title="Switch"
+  subtitle="Переключатель настройки, которая применяется сразу.">
+  <div class="guide-content">
+    <h2 id="examples" tabindex="-1">Живые примеры</h2>
+    <section class="example" aria-labelledby="basic">
+      <h3 id="basic" tabindex="-1">Подпись справа и слева</h3>
+      <aurora-example-block auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <div class="stack">
+          <ds-switch label="Показывать треки" [(checked)]="showTracks"></ds-switch>
+          <ds-switch label="Автообновление"
+            description="Обновлять список каждую минуту"
+            labelPosition="left"
+            [(checked)]="autoRefresh"></ds-switch>
+        </div>
+      </aurora-example-block>
+      <aurora-code-block [snippet]="snippets.basic" collapsible></aurora-code-block>
+    </section>
+    <section class="example" aria-labelledby="forms">
+      <h3 id="forms" tabindex="-1">Angular Forms</h3>
+      <aurora-example-block auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <div class="stack">
+          <ds-switch label="Уведомления" [formControl]="notifications"></ds-switch>
+          <button dsButton (click)="reset()">Сбросить</button>
+          <button dsButton (click)="toggleDisabled()">
+            {{ notifications.disabled ? 'Разрешить' : 'Запретить' }}
+          </button>
+        </div>
+      </aurora-example-block>
+      <aurora-code-block [snippet]="snippets.forms" collapsible></aurora-code-block>
+    </section>
+    <section class="example" aria-labelledby="states">
+      <h3 id="states" tabindex="-1">Недоступные состояния</h3>
+      <aurora-example-block auroraScope
+        [theme]="settings.theme()"
+        [appearance]="settings.appearance()"
+        [density]="settings.density()">
+        <div class="stack">
+          <ds-switch label="Включено" checked disabled></ds-switch>
+          <ds-switch label="Выключено" disabled></ds-switch>
+        </div>
+      </aurora-example-block>
+      <aurora-code-block [snippet]="snippets.states" collapsible></aurora-code-block>
+    </section>
+    <h2 id="usage" tabindex="-1">Правила применения</h2>
+    <p>
+      Для настройки, которая применяется сразу, используйте Switch. Для выбора с общим
+      подтверждением используйте Checkbox.
+    </p>
+    <p>
+      Клик по дорожке или тексту и клавиша Space меняют значение. Подпись называет настройку в обоих
+      положениях.
+    </p>
+    <h2 id="code" tabindex="-1">Пример кода</h2>
+    <aurora-code-block [snippet]="snippets.basic"></aurora-code-block>
+    <section aria-labelledby="parameters">
+      <h2 id="parameters" tabindex="-1">Параметры</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Параметры Switch">
+        <table class="parameters-table">
+          <colgroup>
+            <col class="parameter-column" />
+            <col class="type-column" />
+            <col class="default-column" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Параметр</th>
+              <th scope="col">Тип</th>
+              <th scope="col">По умолчанию</th>
+              <th scope="col">Назначение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>checked</code></th>
+              <td><code>boolean</code></td>
+              <td>false</td>
+              <td>Значение вне Angular Forms.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>checkedChange</code></th>
+              <td><code>boolean</code></td>
+              <td>—</td>
+              <td>Событие пользовательского переключения.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>disabled</code></th>
+              <td><code>boolean</code></td>
+              <td>false</td>
+              <td>Недоступность контрола.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>label, description</code></th>
+              <td><code>string</code></td>
+              <td>—</td>
+              <td>Подпись и необязательное пояснение.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>labelPosition</code></th>
+              <td><code>'left' | 'right'</code></td>
+              <td>right</td>
+              <td>Сторона текстового блока.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>aria-label, aria-labelledby, aria-describedby</code></th>
+              <td><code>string</code></td>
+              <td>—</td>
+              <td>Доступное имя и внешнее описание нативного контрола.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section aria-labelledby="tokens">
+      <h2 id="tokens" tabindex="-1">Токены</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Токены Switch">
+        <table class="tokens-table">
+          <colgroup>
+            <col class="token-column" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Токены</th>
+              <th scope="col">Назначение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>--ds-brand, --ds-border-control, --ds-on-brand</code></th>
+              <td>Цвета дорожки и бегунка доступного контрола.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>--ds-surface-disabled, --ds-border-control-disabled</code></th>
+              <td>Заливка и граница дорожки в обоих недоступных состояниях.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>--ds-fg-control-disabled</code></th>
+              <td>Цвет недоступного бегунка. Положение бегунка показывает значение.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>--ds-control-h, --ds-gap-sm</code></th>
+              <td>Размер области нажатия и расстояние до подписи.</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <code>--ds-focus-width, --ds-focus-color, --ds-focus-offset</code>
+              </th>
+              <td>Кольцо клавиатурного фокуса.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</aurora-article-layout>

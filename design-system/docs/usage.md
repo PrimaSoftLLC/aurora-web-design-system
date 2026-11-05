@@ -82,7 +82,7 @@ CSS пакета должен идти перед стилями приложе�
 
 | Импорт от `@primasoftllc/design-system` | Что подключает |
 |---|---|
-| `/angular` | `provideAurora`, `AuroraThemeService`, `AuroraScopeDirective`, Button, Icon, FAB, Checkbox, Spinner, Form field/dsInput, директивы областей и их типы |
+| `/angular` | `provideAurora`, `AuroraThemeService`, `AuroraScopeDirective`, Button, Icon, FAB, Checkbox, Switch, Spinner, Form field/dsInput, директивы областей и их типы |
 | `/angular/echarts` | Angular-интеграция графиков; требует отдельной установки ECharts |
 | `/styles.css` | Общие стили, токены, шрифты и иконки; физический путь для `angular.json` показан выше |
 | `/tokens.css`, `/tokens.json` | Отдельные CSS-токены и JSON-справочник; для обычного UI kit достаточно `styles.css` |
@@ -196,6 +196,7 @@ Angular UI-компоненты разрабатываются централи�
 [Icon](../../ng-ui-kit/src/components/icon/README.md),
 [FAB](../../ng-ui-kit/src/components/fab/README.md),
 [Checkbox](../../ng-ui-kit/src/components/checkbox/README.md),
+[Switch](../../ng-ui-kit/src/components/switch/README.md),
 [Spinner](../../ng-ui-kit/src/components/spinner/README.md) и
 [Form field с dsInput](../../ng-ui-kit/src/components/form-field/README.md).
 Для примера кнопки добавьте её в `imports` standalone-компонента

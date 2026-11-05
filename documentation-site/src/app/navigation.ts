@@ -122,6 +122,7 @@ export const componentNavigation: NavigationGroup[] = [
     items: [
       { title: 'Form field', path: '/components/form-field' },
       { title: 'Checkbox', path: '/components/checkbox' },
+      { title: 'Switch', path: '/components/switch' },
     ],
   },
   {

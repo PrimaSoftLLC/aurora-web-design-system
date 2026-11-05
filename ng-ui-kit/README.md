@@ -10,7 +10,7 @@ Angular 19.2.25 и 20.3.34.
 | --- | --- |
 | `src/` | Компоненты, сервис темы, директива скоупа и интеграция ECharts |
 | `src/core.ts`, `src/echarts.ts` | Публичные экспорты |
-| `src/components/` | Button, Icon, FAB, Checkbox, Spinner, Form field/dsInput и документация их API |
+| `src/components/` | Button, Icon, FAB, Checkbox, Switch, Spinner, Form field/dsInput и документация их API |
 | `docs/development.md` | Правила разработки Angular-компонентов |
 | `tools/` | Сборка библиотеки и проверки установленного пакета |
 | `tests/` | Проверки API, темы, документации и браузерного поведения |
@@ -67,14 +67,15 @@ mise exec -- npm ci --prefix ng-ui-kit/tests/consumers/angular-legacy
 - [Иконка DsIconComponent](src/components/icon/README.md)
 - [FAB DsFabComponent](src/components/fab/README.md)
 - [Checkbox DsCheckboxComponent](src/components/checkbox/README.md)
+- [Switch DsSwitchComponent](src/components/switch/README.md)
 - [Form field и dsInput](src/components/form-field/README.md)
 - [Spinner DsSpinnerComponent](src/components/spinner/README.md)
 - [Подключение к приложению](../design-system/docs/usage.md)
 - [Разработка дизайн-системы](../CONTRIBUTING.md)
 
-На новом сайте доступны Icon, Button, FAB, Checkbox, Spinner и Form field:
+На новом сайте доступны Icon, Button, FAB, Checkbox, Switch, Spinner и Form field:
 `/components/icon`, `/components/button`, `/components/fab`, `/components/checkbox`,
-`/components/spinner`, `/components/form-field`. Оболочка и dsInput описаны вместе.
+`/components/switch`, `/components/spinner`, `/components/form-field`. Оболочка и dsInput описаны вместе.
 Button и FAB используют DsIconComponent и DsSpinnerComponent внутри; Checkbox
 поддерживает CVA и отдельные checked/indeterminate. DsInput сохраняет нативные
 value accessors Angular Forms; у оболочки Form field собственного CVA нет.

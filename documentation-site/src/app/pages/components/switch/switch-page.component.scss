@@ -1,0 +1,10 @@
+@use '../../../../styles/article';
+@include article.document;
+@include article.example-layout;
+@include article.component-tables;
+
+.stack {
+  display: grid;
+  justify-items: start;
+  gap: var(--ds-gap-sm);
+}

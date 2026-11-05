@@ -26,7 +26,7 @@ export async function checkAngular({root=toolRoot,tarball,workRoot,consumerNames
   for(const name of consumerNames){
    const consumer=join(work,name);copy(join(root,'ng-ui-kit/tests/consumers/angular-'+name),consumer);
    if(name==='19'||name==='base'){
-    for(const file of ['button-demo.ts','button-example.ts','icon-demo.ts','icon-demo.html','fab-demo.ts','checkbox-demo.ts','spinner-demo.ts','spinner-demo.html','form-field-demo.ts','form-field-demo.html','form-field-demo.css']){
+    for(const file of ['button-demo.ts','button-example.ts','icon-demo.ts','icon-demo.html','fab-demo.ts','checkbox-demo.ts','switch-demo.ts','spinner-demo.ts','spinner-demo.html','form-field-demo.ts','form-field-demo.html','form-field-demo.css']){
      copyFileSync(join(root,'ng-ui-kit/tests/consumers/shared',file),join(consumer,'src',file));
     }
    }
@@ -53,6 +53,7 @@ export async function assertConsumers(page,consumers){
  await assertAngularIcon(page,url);
  await assertAngularFab(page,url);
  await assertAngularCheckbox(page,url);
+ await assertAngularSwitch(page,url);
  await assertAngularSpinner(page,url);
  await assertAngularFormField(page,url);
  }
@@ -223,6 +224,24 @@ export async function assertAngularFab(page, url) {
   await expect(fab).toBeDisabled();
   await fab.evaluate(el => el.click());
   await expect(page.locator('#fab-count')).toHaveText('1');
+}
+
+export async function assertAngularSwitch(page, url) {
+  await page.goto(url + '/index.html');
+  const demo = page.locator('switch-demo');
+  const tracks = demo.getByRole('switch', { name: 'Треки' });
+  const notifications = demo.getByRole('switch', { name: 'Уведомления' });
+  await expect(tracks).not.toBeChecked();
+  await tracks.focus();
+  await tracks.press('Enter');
+  await expect(tracks).not.toBeChecked();
+  await tracks.press('Space');
+  await expect(tracks).toBeChecked();
+  await expect(demo.locator('#switch-tracks')).toHaveText('true');
+  await expect(notifications).toBeChecked();
+  await demo.locator('#switch-disable').click();
+  await expect(notifications).toBeDisabled();
+  await expect(notifications).toBeChecked();
 }
 
 export async function assertAngularCheckbox(page, url) {

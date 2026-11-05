@@ -66,10 +66,7 @@
         [attr.data-ds-appearance]="settings.appearance()"
         [attr.data-ds-density]="settings.density()">
         <div class="stack">
-          <p class="migration-placeholder" role="note" data-migration-placeholder>
-            Переключение направляющих появится при наполнении Angular-примеров. Пока показана
-            исходная схема каркаса.
-          </p>
+          <ds-switch label="Показать сетку" [(checked)]="showGuides"></ds-switch>
           <div class="frame-diagram">
             <div class="frame-header">Шапка приложения</div>
             <div class="frame-nav">Навигация и боковая панель</div>
@@ -78,9 +75,32 @@
               <div class="content-grid">
                 <div class="content-card">Карточка объектов</div>
                 <div class="content-card">Карточка уведомлений</div>
+                <div class="structure-actions">
+                  <button dsButton
+                    [attr.aria-pressed]="showGuides()"
+                    (click)="showGuides.set(!showGuides())">
+                    Направляющие
+                  </button>
+                  <span class="caption">Действия внутри контейнера</span>
+                </div>
+                @if (showGuides()) {
+                  <div class="column-sheet structure-guides" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                }
               </div>
             </div>
           </div>
+          <p role="status">
+            {{
+              showGuides()
+                ? 'Направляющие показаны только в основном регионе.'
+                : 'Направляющие скрыты.'
+            }}
+          </p>
         </div>
       </aurora-example-block>
       <p>

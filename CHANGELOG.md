@@ -5,6 +5,9 @@ Policy: [Versions and publishing](docs/release.md#versioning).
 
 ## [Unreleased]
 
+- Angular: добавлен Switch с поддержкой Angular Forms, двусторонней привязки
+  и размещением подписи с пояснением справа или слева.
+
 - Angular: в пакет включена документация FAB, Checkbox, Spinner и Form field;
   актуализированы список компонентов и инструкция запуска нового сайта.
 

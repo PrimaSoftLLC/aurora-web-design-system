@@ -7,6 +7,7 @@ await import('@angular/compiler');
 const publicApi=await import('../../dist/angular/core.mjs');
 for (const name of ['DsFormFieldComponent','DsInputDirective','DsPrefixDirective','DsSuffixDirective','DsHintDirective','DsErrorDirective']) assert.equal(typeof publicApi[name],'function',name);
 assert.equal(typeof publicApi.DsSpinnerComponent,'function','Angular entry must export Spinner');
+assert.equal(typeof publicApi.DsSwitchComponent,'function','Angular entry must export Switch');
 assert.equal(typeof publicApi.DsCheckboxComponent,'function','Angular entry must export Checkbox');
 assert.equal(typeof publicApi.DsFabComponent,'function','Angular entry must export FAB');
 assert.equal(typeof publicApi.DsButtonComponent,'function','Angular entry must export the button component');

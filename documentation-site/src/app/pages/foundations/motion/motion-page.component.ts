@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { DsButtonComponent, DsSpinnerComponent } from '@primasoftllc/design-system/angular';
+import {
+  DsButtonComponent,
+  DsSpinnerComponent,
+  DsSwitchComponent,
+} from '@primasoftllc/design-system/angular';
 import { RouterLink } from '@angular/router';
 import { ArticleLayoutComponent } from '../../../shared/article-layout/article-layout.component';
 import { CodeBlockComponent } from '../../../shared/code-block/code-block.component';
@@ -16,12 +20,14 @@ import { motionSnippets } from './motion-page.snippets';
     CodeBlockComponent,
     DsButtonComponent,
     DsSpinnerComponent,
+    DsSwitchComponent,
   ],
   templateUrl: './motion-page.component.html',
   styleUrl: './motion-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MotionPageComponent {
+  protected readonly showNames = signal(false);
   protected readonly loading = signal(false);
   protected readonly loadingMessage = signal('Готово к проверке.');
   private timer: ReturnType<typeof setTimeout> | undefined;

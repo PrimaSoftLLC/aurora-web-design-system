@@ -22,7 +22,7 @@ Peer range — `^19.2.25 || >=20.3.34`: поддержка ветки 19.2 до�
 Версия 5.1.0 была собрана на Angular 20; описанный переход относится к Unreleased.
 
 В исходниках экспортируются `DsButtonComponent`, `DsIconComponent`, `DsFabComponent`,
-`DsCheckboxComponent`, `DsSpinnerComponent`, `DsFormFieldComponent`, `DsInputDirective`,
+`DsCheckboxComponent`, `DsSwitchComponent`, `DsSpinnerComponent`, `DsFormFieldComponent`, `DsInputDirective`,
 директивы областей `DsPrefixDirective`, `DsSuffixDirective`, `DsHintDirective`,
 `DsErrorDirective`, сервис темы,
 директива скоупа и отдельная интеграция ECharts. Для иконки добавлены сценарии

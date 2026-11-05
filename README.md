@@ -68,6 +68,7 @@ CSS, шрифты, токены, конфиг stylelint и Angular-сервис 
 [Icon](ng-ui-kit/src/components/icon/README.md),
 [FAB](ng-ui-kit/src/components/fab/README.md),
 [Checkbox](ng-ui-kit/src/components/checkbox/README.md),
+[Switch](ng-ui-kit/src/components/switch/README.md),
 [Spinner](ng-ui-kit/src/components/spinner/README.md) и
 [Form field с dsInput](ng-ui-kit/src/components/form-field/README.md).
 Доступ к пакету в GitHub Packages и пошаговая настройка — в [руководстве](design-system/docs/usage.md).
