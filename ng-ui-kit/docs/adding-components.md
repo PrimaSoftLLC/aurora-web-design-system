@@ -38,7 +38,6 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'ds-example',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<ng-content />`,
   styles: [`
@@ -74,8 +73,10 @@ export class DsExampleComponent {}
   Тема, оформление и плотность наследуются через переменные и `auroraScope`.
 - Реализуйте применимые состояния: hover, pressed, focus, disabled, loading,
   ошибки и длинный текст. Доступное имя остаётся на интерактивном элементе.
-- Для полей значений добавьте ControlValueAccessor и проверьте value, touched,
-  disabled и reset в Angular Forms. Кнопке CVA не нужен.
+- Для полей значений обеспечьте интеграцию с Angular Forms и проверьте value, touched,
+  disabled и reset. Собственный виджет реализует ControlValueAccessor; директива
+  на нативном input/textarea использует штатный value accessor, как dsInput.
+  Оболочка Form field и кнопка собственного CVA не требуют.
 - Освобождайте обработчики и наблюдатели при уничтожении компонента.
 
 Базовый вход не должен импортировать React, ECharts или код приложения.
@@ -114,6 +115,12 @@ export * from './components/example/example.component';
 Не подменяйте Angular-пример React-превью или таблицей React props.
 Генератор API каталога пока читает React-контракты; Angular API документируется
 и проверяется отдельно.
+
+Проверочные примеры потребителей не заменяют публичные демонстрации сайта.
+Демонстрации добавляются в `documentation-site/src/app/` и импортируют компонент
+из `@primasoftllc/design-system/angular`, а не из исходников библиотеки.
+Команды разработки и проверки описаны в [README сайта](../../documentation-site/README.md).
+План перехода — [договорённости](../../docs/plans/angular-ui-kit-vision.md).
 
 ## 6. Проверьте путь от исходника до приложения
 

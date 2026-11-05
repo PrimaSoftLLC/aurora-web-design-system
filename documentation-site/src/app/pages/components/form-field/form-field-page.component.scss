@@ -1,0 +1,43 @@
+@use '../../../../styles/article';
+@include article.document;
+@include article.example-layout;
+@include article.component-tables;
+.demo > ds-form-field,
+.field-form {
+  max-width: 480px;
+}
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  align-items: start;
+  gap: var(--ds-gap-md);
+}
+.demo > .row + ds-form-field,
+.demo > .row + .field-grid {
+  margin-top: var(--ds-gap-md);
+}
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--ds-gap-sm);
+}
+.field-form > .row,
+.demo > ds-form-field + button {
+  margin-top: var(--ds-gap-md);
+}
+
+.parameters-table {
+  min-width: 760px;
+
+  .parameter-column {
+    width: 224px;
+  }
+  .type-column {
+    width: 112px;
+  }
+  th,
+  td {
+    overflow-wrap: anywhere;
+  }
+}

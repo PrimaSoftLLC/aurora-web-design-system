@@ -1,0 +1,146 @@
+export interface NavigationItem {
+  title: string;
+  path: string;
+}
+export interface NavigationGroup {
+  id: string;
+  section: keyof typeof navigationSectionTitles;
+  level: 1 | 2;
+  title: string;
+  items: NavigationItem[];
+}
+export const navigationSectionTitles = {
+  start: 'Начало',
+  foundations: 'Основы',
+  angular: 'Angular UI kit',
+  migration: 'Миграция',
+  components: 'Компоненты',
+};
+export const foundationNavigation: NavigationGroup[] = [
+  {
+    id: 'start',
+    section: 'start',
+    level: 1,
+    title: navigationSectionTitles.start,
+    items: [
+      { title: 'Прочитать первым', path: '/' },
+      { title: 'Токены', path: '/tokens' },
+    ],
+  },
+  {
+    id: 'general',
+    section: 'foundations',
+    level: 2,
+    title: 'Общие правила',
+    items: [
+      { title: 'Доступность', path: '/foundations/accessibility' },
+      { title: 'Тексты интерфейса', path: '/foundations/content' },
+    ],
+  },
+  {
+    id: 'visual',
+    section: 'foundations',
+    level: 2,
+    title: 'Визуальный язык',
+    items: [
+      { title: 'Типографика', path: '/foundations/typography' },
+      { title: 'Нейтральные цвета', path: '/foundations/colors' },
+      { title: 'Иконографика', path: '/foundations/iconography' },
+      { title: 'Форма и глубина', path: '/foundations/shape' },
+      { title: 'Цвета статусов', path: '/foundations/status' },
+    ],
+  },
+  {
+    id: 'modes',
+    section: 'foundations',
+    level: 2,
+    title: 'Режимы интерфейса',
+    items: [
+      { title: 'Светлый и тёмный режим', path: '/foundations/appearance' },
+      { title: 'Плотность интерфейса', path: '/foundations/density' },
+    ],
+  },
+  {
+    id: 'states',
+    section: 'foundations',
+    level: 2,
+    title: 'Состояния контролов',
+    items: [
+      { title: 'Наведение и нажатие', path: '/foundations/hover' },
+      { title: 'Фокус', path: '/foundations/focus' },
+      { title: 'Анимация и переходы', path: '/foundations/motion' },
+    ],
+  },
+  {
+    id: 'layout',
+    section: 'foundations',
+    level: 2,
+    title: 'Компоновка и данные',
+    items: [
+      { title: 'Сетка и компоновка', path: '/foundations/layout' },
+      { title: 'Отступы и группировка', path: '/foundations/spacing' },
+      { title: 'Адаптивность и брейкпоинты', path: '/foundations/breakpoints' },
+      { title: 'Сортировка вне таблицы', path: '/foundations/sorting' },
+      { title: 'Цвета и оформление графиков', path: '/foundations/charts' },
+    ],
+  },
+  {
+    id: 'brand',
+    section: 'foundations',
+    level: 2,
+    title: 'Бренд и темы',
+    items: [
+      { title: 'Цветовые темы', path: '/foundations/themes' },
+      { title: 'Подбор цветов темы', path: '/foundations/theme-colors' },
+      { title: 'Логотип бренда', path: '/foundations/logo' },
+    ],
+  },
+  {
+    id: 'angular-guides',
+    section: 'angular',
+    level: 1,
+    title: navigationSectionTitles.angular,
+    items: [
+      { title: 'Подключение Angular', path: '/angular/setup' },
+      { title: 'Добавление компонентов', path: '/angular/adding-components' },
+    ],
+  },
+  {
+    id: 'migration-guides',
+    section: 'migration',
+    level: 1,
+    title: navigationSectionTitles.migration,
+    items: [{ title: 'Брейкпоинты: решения по миграции', path: '/migration/breakpoints' }],
+  },
+];
+export const componentNavigation: NavigationGroup[] = [
+  {
+    id: 'selection',
+    section: 'components',
+    level: 2,
+    title: 'Поля и выбор',
+    items: [
+      { title: 'Form field', path: '/components/form-field' },
+      { title: 'Checkbox', path: '/components/checkbox' },
+      { title: 'Switch', path: '/components/switch' },
+    ],
+  },
+  {
+    id: 'buttons-icons',
+    section: 'components',
+    level: 2,
+    title: 'Кнопки и иконки',
+    items: [
+      { title: 'Button', path: '/components/button' },
+      { title: 'FAB', path: '/components/fab' },
+      { title: 'Icon', path: '/components/icon' },
+    ],
+  },
+  {
+    id: 'feedback',
+    section: 'components',
+    level: 2,
+    title: 'Обратная связь',
+    items: [{ title: 'Spinner', path: '/components/spinner' }],
+  },
+];

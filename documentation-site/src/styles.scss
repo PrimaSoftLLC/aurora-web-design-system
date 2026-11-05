@@ -1,0 +1,34 @@
+@use './app/shared/code-block/code-highlighting';
+@use './styles/article';
+@include code-highlighting.styles;
+@include article.related-links;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: var(--ds-type-body);
+  color: var(--ds-fg);
+  background: var(--ds-surface);
+}
+
+// Temporary review marker; override local demo colours without changing their spacing.
+body .migration-placeholder[data-migration-placeholder] {
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: var(--ds-focus-width) solid var(--ds-focus-color);
+  outline-offset: var(--ds-focus-offset);
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}

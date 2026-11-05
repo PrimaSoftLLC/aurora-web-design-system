@@ -1,4 +1,5 @@
 node_modules/
+/.idea/
 .angular/
 dist/
 *.tgz
@@ -27,3 +28,4 @@ site/
 /docs/design.md
 /docs/tokens.md
 /docs/migration.md
+coverage/

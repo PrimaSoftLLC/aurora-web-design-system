@@ -1,0 +1,27 @@
+@use '../../../../styles/article';
+@include article.document;
+@include article.example-layout;
+@include article.component-tables;
+.tone-sample {
+  display: inline-flex;
+  padding: 8px;
+  border-radius: var(--ds-radius-sm);
+}
+.inverse-surface {
+  background: var(--ds-surface-inverse);
+  color: var(--ds-fg-on-inverse);
+}
+.icon-only-samples {
+  margin-top: 24px;
+}
+.limited {
+  width: 100%;
+  max-width: 320px;
+}
+.limited + .limited {
+  margin-top: 16px;
+}
+.form-field {
+  max-width: 320px;
+  margin-bottom: 16px;
+}

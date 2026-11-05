@@ -10,7 +10,9 @@
 
 `npm run build` готовит npm-пакет в `.tmp/package/`, каталог — в `site/`.
 `npm run pack` создаёт tarball с прежними публичными импортами.
-Совместимые копии исходников, шрифтов и линтера в корне больше не создаются.
+Общая упаковка создаёт совместимые копии внутри пакета. Команды нового
+Angular-сайта подготавливают CSS и шрифты в `.tmp/documentation-site-resources/`,
+сохраняя относительные пути ресурсов. Корневые копии шрифтов не создаются.
 
 ## С чего начать
 
@@ -20,6 +22,7 @@
 | Сделать экран | [Дизайн-правила](design-system/docs/design.md) и примеры в каталоге компонентов |
 | Изменить саму систему | [Разработка](CONTRIBUTING.md) — исходники, команды, проверки и PR |
 | Разрабатывать Angular UI kit | [Angular UI kit](ng-ui-kit/README.md) — структура, команды и правила компонентов |
+| Посмотреть новый Angular-сайт | [Быстрый запуск](documentation-site/README.md#быстрый-запуск) — установка зависимостей, адреса и обновление примеров |
 
 По мере необходимости: [имена токенов](design-system/docs/tokens.md),
 [миграция старого приложения](design-system/docs/migration.md), [версии и релиз](docs/release.md),
@@ -38,12 +41,36 @@ mise exec -- npm run dev
 компоненты, их API, состояния и токены. Для раскладки экрана начните с карточек
 `Monitoring`, `Admin` и `AppShell`.
 
+## Новый Angular-сайт
+
+Разрабатывается отдельно в [documentation-site](documentation-site/README.md#быстрый-запуск).
+Для первого запуска из корня репозитория нужен Node 22:
+
+```sh
+mise exec -- npm ci
+mise exec -- npm run dev:site-angular
+```
+
+Локальный адрес — http://127.0.0.1:4200. Команды сами собирают дизайн-систему
+и Angular UI-kit. Примеры используют публичные импорты пакета.
+Главная страница показывает дизайн-систему; `/components` — Angular-компоненты.
+Изменения сайта, библиотеки и ресурсов дизайн-системы подхватываются в dev-режиме.
+Остановка — `Ctrl+C`. Отдельная production-сборка: `mise exec -- npm run build:site-angular`.
+Старый сайт и публикация пока не переключены. Новый сайт входит в `npm run verify`
+(группа `catalogue`); подробные команды проверки — в его README.
+
 ## Что поставляется приложению
 
 CSS, шрифты, токены, конфиг stylelint и Angular-сервис скоупов с директивой;
 интеграция ECharts подключается отдельно. React-компоненты поставляются готовыми
 и служат эталоном поведения. Angular UI kit поставляется из этого же пакета;
-первый компонент — [DsButtonComponent](ng-ui-kit/src/components/button/README.md), `button[dsButton]`.
+доступны [Button](ng-ui-kit/src/components/button/README.md),
+[Icon](ng-ui-kit/src/components/icon/README.md),
+[FAB](ng-ui-kit/src/components/fab/README.md),
+[Checkbox](ng-ui-kit/src/components/checkbox/README.md),
+[Switch](ng-ui-kit/src/components/switch/README.md),
+[Spinner](ng-ui-kit/src/components/spinner/README.md) и
+[Form field с dsInput](ng-ui-kit/src/components/form-field/README.md).
 Доступ к пакету в GitHub Packages и пошаговая настройка — в [руководстве](design-system/docs/usage.md).
 
 Angular-вход собран на 19.2.25 и проверяется в Angular 19.2.25 и 20.3.34;

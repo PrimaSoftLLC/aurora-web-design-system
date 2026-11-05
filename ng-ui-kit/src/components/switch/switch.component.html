@@ -1,0 +1,29 @@
+<label data-ds-switch
+  [class.label-left]="labelPosition() === 'left'"
+  [attr.data-checked]="currentChecked()"
+  [attr.data-disabled]="isDisabled()"
+  data-loading="false">
+  <input #control type="checkbox"
+    role="switch"
+    [id]="nativeId"
+    [checked]="currentChecked()"
+    [disabled]="isDisabled()"
+    [attr.aria-label]="ariaLabel() || null"
+    [attr.aria-labelledby]="labelledBy()"
+    [attr.aria-describedby]="describedBy()"
+    (change)="change($event)"
+    (blur)="onTouched()" />
+  <span data-ds-switch-hit aria-hidden="true">
+    <span data-ds-switch-track><span class="thumb"></span></span>
+  </span>
+  @if (label() || description()) {
+    <span class="text">
+      @if (label()) {
+        <span class="label" [id]="labelId">{{ label() }}</span>
+      }
+      @if (description()) {
+        <span class="description" [id]="descriptionId">{{ description() }}</span>
+      }
+    </span>
+  }
+</label>

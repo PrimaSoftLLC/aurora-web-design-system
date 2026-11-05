@@ -1,0 +1,98 @@
+:host {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  vertical-align: middle;
+}
+[data-ds-switch] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-gap-sm);
+  min-width: 0;
+  max-width: 100%;
+  cursor: pointer;
+}
+.label-left {
+  flex-direction: row-reverse;
+}
+input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+[data-ds-switch-hit] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: max(36px, var(--ds-control-h));
+  min-height: var(--ds-control-h);
+  border-radius: var(--ds-radius-pill);
+}
+[data-ds-switch-track] {
+  position: relative;
+  box-sizing: border-box;
+  width: 36px;
+  height: 20px;
+  border: 1px solid var(--ds-border-control);
+  border-radius: var(--ds-radius-pill);
+  background-color: var(--ds-border-control);
+  transition: background-color var(--ds-dur-fast) var(--ds-ease);
+}
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--ds-radius-circle);
+  background: var(--ds-on-brand);
+  box-shadow: var(--ds-shadow-xs);
+  transition: left var(--ds-dur-fast) var(--ds-ease);
+}
+[data-checked='true'] [data-ds-switch-track] {
+  background-color: var(--ds-brand);
+  border-color: var(--ds-brand);
+}
+[data-checked='true'] .thumb {
+  left: 18px;
+}
+[data-disabled='true'] {
+  cursor: not-allowed;
+}
+[data-disabled='true'] [data-ds-switch-track] {
+  background-color: var(--ds-surface-disabled);
+  border-color: var(--ds-border-control-disabled);
+}
+[data-disabled='true'] .thumb {
+  background: var(--ds-fg-control-disabled);
+}
+.text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.label {
+  display: block;
+  color: var(--ds-fg);
+  font: var(--ds-type-body);
+}
+.description {
+  display: block;
+  color: var(--ds-fg-subtle);
+  font: var(--ds-type-caption);
+}
+.label + .description {
+  margin-top: 2px;
+}
+[data-disabled='true'] .label {
+  color: var(--ds-fg-subtle);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-ds-switch-track],
+  .thumb {
+    transition: none;
+  }
+}

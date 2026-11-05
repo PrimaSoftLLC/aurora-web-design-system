@@ -10,7 +10,7 @@ Angular 19.2.25 и 20.3.34.
 | --- | --- |
 | `src/` | Компоненты, сервис темы, директива скоупа и интеграция ECharts |
 | `src/core.ts`, `src/echarts.ts` | Публичные экспорты |
-| `src/components/button/` | Кнопка и документация её API |
+| `src/components/` | Button, Icon, FAB, Checkbox, Switch, Spinner, Form field/dsInput и документация их API |
 | `docs/development.md` | Правила разработки Angular-компонентов |
 | `tools/` | Сборка библиотеки и проверки установленного пакета |
 | `tests/` | Проверки API, темы, документации и браузерного поведения |
@@ -18,6 +18,21 @@ Angular 19.2.25 и 20.3.34.
 | `tsconfig.lib.json` | Конфигурация partial compilation |
 
 ## Команды
+
+`npm run dev` запускает существующий сайт дизайн-системы с React-примерами.
+Новый Angular-сайт находится в `documentation-site/`: `npm run dev:site-angular`
+запускает его на http://127.0.0.1:4200, `npm run build:site-angular` собирает отдельно.
+Команды подготавливают стили и Angular-библиотеку; dev-режим отслеживает их исходники.
+Сайт использует публичный вход `@primasoftllc/design-system/angular`.
+Страницы компонентов содержат примеры, правила применения, API и токены.
+Оболочка ds-form-field и директива dsInput представлены вместе на `/components/form-field`;
+нативный ввод использует стандартные Angular Forms value accessors без отдельного CVA.
+Пример иконки включён в Angular 19 и 20 consumers; запуск проверок подтверждает
+его работу из tarball. Примеры сайта не входят в библиотеку и не заменяют эти проверки.
+
+[Устройство и команды сайта](../documentation-site/README.md).
+[Согласованное направление](../docs/plans/angular-ui-kit-vision.md).
+Существующие команды старого сайта и публикации сохранены.
 
 Выполняются из корня репозитория:
 
@@ -49,5 +64,24 @@ mise exec -- npm ci --prefix ng-ui-kit/tests/consumers/angular-legacy
 - [Правила разработки](docs/development.md)
 - [Добавление компонентов](docs/adding-components.md)
 - [Кнопка DsButtonComponent](src/components/button/README.md)
+- [Иконка DsIconComponent](src/components/icon/README.md)
+- [FAB DsFabComponent](src/components/fab/README.md)
+- [Checkbox DsCheckboxComponent](src/components/checkbox/README.md)
+- [Switch DsSwitchComponent](src/components/switch/README.md)
+- [Form field и dsInput](src/components/form-field/README.md)
+- [Spinner DsSpinnerComponent](src/components/spinner/README.md)
 - [Подключение к приложению](../design-system/docs/usage.md)
 - [Разработка дизайн-системы](../CONTRIBUTING.md)
+
+На новом сайте доступны Icon, Button, FAB, Checkbox, Switch, Spinner и Form field:
+`/components/icon`, `/components/button`, `/components/fab`, `/components/checkbox`,
+`/components/switch`, `/components/spinner`, `/components/form-field`. Оболочка и dsInput описаны вместе.
+Button и FAB используют DsIconComponent и DsSpinnerComponent внутри; Checkbox
+поддерживает CVA и отдельные checked/indeterminate. DsInput сохраняет нативные
+value accessors Angular Forms; у оболочки Form field собственного CVA нет.
+Angular-вход использует стандартный `@angular/forms` той же версии, что `@angular/core`.
+
+Текущая готовность и точный объём выполненных проверок находятся в
+[статусе миграции](../docs/plans/angular-ui-kit-status.md). Связка Form field/dsInput
+прошла офлайн-установку tarball, production AOT и браузерные сценарии в Angular
+19.2.25 и 20.3.34. Полный набор verify запускался; результаты и ограничения повторных проверок описаны в статусе миграции.

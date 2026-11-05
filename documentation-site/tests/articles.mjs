@@ -1,0 +1,731 @@
+import assert from 'node:assert/strict';
+import { expect } from '@playwright/test';
+import { pageViolations } from './accessibility.mjs';
+import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { parseFragment } from 'parse5';
+
+export async function checkArticles({ root, page, url, modes }, selectedPages) {
+  const migratedFoundations = [
+    ['colors', 'DsNeutrals', 'Нейтральные цвета'],
+    ['shape', 'DsShape', 'Форма и глубина'],
+    ['spacing', 'DsSpacing', 'Отступы и группировка'],
+    ['breakpoints', 'DsBreakpoints', 'Адаптивность и брейкпоинты'],
+    ['appearance', 'DsAppearance', 'Светлый и тёмный режим'],
+    ['density', 'DsDensity', 'Плотность интерфейса'],
+    ['hover', 'DsHover', 'Наведение и нажатие'],
+    ['focus', 'DsFocus', 'Фокус'],
+    ['iconography', 'DsIconography', 'Иконографика'],
+    ['status', 'DsStatus', 'Цвета статусов'],
+    ['motion', 'DsMotion', 'Анимация и переходы'],
+    ['accessibility', 'DsAccessibility', 'Доступность'],
+    ['content', 'DsContent', 'Тексты интерфейса'],
+    ['layout', 'DsLayout', 'Сетка и компоновка'],
+    ['sorting', 'DsSortingMenu', 'Сортировка вне таблицы'],
+    ['themes', 'DsBrandThemes', 'Цветовые темы'],
+    ['theme-colors', 'DsBrandPick', 'Подбор цветов темы'],
+    ['charts', 'DsCharts', 'Цвета и оформление графиков'],
+    ['logo', 'BrandLogoLockup', 'Логотип бренда'],
+  ];
+  if (selectedPages) {
+    for (const slug of selectedPages) {
+      assert.ok(
+        migratedFoundations.some(([name]) => name === slug),
+        'Unknown article: ' + slug,
+      );
+    }
+  }
+  const pages = selectedPages
+    ? migratedFoundations.filter(([slug]) => selectedPages.includes(slug))
+    : migratedFoundations;
+  let lightContrast;
+  for (const [slug, sourceId, title] of pages) {
+    const original = readFileSync(
+      join(root, 'design-system/components', sourceId, 'preview.html'),
+      'utf8',
+    );
+    const main = original.match(/<main[^>]*>([\s\S]*?)<\/main>/)[1];
+    const headings = [...main.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((match) => match[1]);
+    const supplementalHeadings = [
+      ...readFileSync(
+        join(root, 'design-system/components', sourceId, 'README.md'),
+        'utf8',
+      ).matchAll(/^## (.+)$/gm),
+    ].map((match) => match[1].trim());
+    const originalParagraphs = [];
+    const textOf = (node) =>
+      node.nodeName === '#text' ? node.value : (node.childNodes ?? []).map(textOf).join('');
+    const collectParagraphs = (node) => {
+      if (node.tagName === 'p') originalParagraphs.push(textOf(node));
+      for (const child of node.childNodes ?? []) collectParagraphs(child);
+    };
+    collectParagraphs(parseFragment(main));
+    for (const [theme, appearance, density] of modes) {
+      await page.goto(
+        url + `foundations/${slug}?theme=${theme}&appearance=${appearance}&density=${density}`,
+      );
+      await expect(page.locator('h1')).toHaveText(title);
+      await expect(page.locator('aurora-article-layout')).not.toHaveAttribute('title');
+      const related = page.locator('section[aria-labelledby="дальше"] > ul');
+      if (await related.count()) {
+        assert.equal(await related.evaluate((el) => getComputedStyle(el).paddingLeft), '40px');
+        for (const item of await related.locator(':scope > li').all()) {
+          assert.equal(await item.evaluate((el) => getComputedStyle(el).marginTop), '0px');
+        }
+      }
+      // The generated anchor icon is service content, not part of the section title.
+      await expect
+        .poll(() =>
+          page.locator('article h2').evaluateAll((elements) =>
+            elements.map((heading) => {
+              const copy = heading.cloneNode(true);
+              copy.querySelectorAll('aurora-heading-anchor').forEach((anchor) => anchor.remove());
+              return copy.textContent.trim().replace(/\s+/g, ' ');
+            }),
+          ),
+        )
+        .toEqual([...headings, ...supplementalHeadings]);
+      const codeSection = page.locator(
+        'section[aria-labelledby="' +
+          supplementalHeadings[0].toLowerCase().replaceAll(' ', '-') +
+          '"]',
+      );
+      assert.equal(await codeSection.evaluate((el) => getComputedStyle(el).marginTop), '40px');
+      assert.equal(await codeSection.evaluate((el) => getComputedStyle(el).paddingTop), '32px');
+      if (slug === 'colors') {
+        const selection = page.locator('#interaction-demo');
+        const select = selection.getByRole('button', { name: 'МАЗ 5440', exact: true });
+        await expect(select).toHaveAttribute('aria-pressed', 'false');
+        await select.hover();
+        await expect(selection.getByRole('status')).toContainText('Наведение');
+        await page.mouse.down();
+        await expect(selection.getByRole('status')).toContainText('Нажатие');
+        await page.mouse.up();
+        await expect(select).toHaveAttribute('aria-pressed', 'true');
+        await select.focus();
+        await page.keyboard.press('Space');
+        await expect(select).toHaveAttribute('aria-pressed', 'false');
+        await expect(selection.getByRole('status')).toContainText(
+          'Фокус с клавиатуры или указателя',
+        );
+        await expect(selection.getByRole('button', { name: 'Недоступный объект' })).toBeDisabled();
+        const checkbox = page
+          .locator('#checkbox-demo')
+          .getByRole('checkbox', { name: 'Показывать треки', exact: true });
+        await expect(checkbox).not.toBeChecked();
+        await checkbox.check();
+        await expect(checkbox).toBeChecked();
+        await expect(page.locator('#checkbox-demo')).not.toHaveAttribute(
+          'data-migration-placeholder',
+        );
+        assert.ok(
+          (await page.locator('section[aria-labelledby="usage"]').textContent()).includes(
+            '--ds-fg-disabled;',
+          ),
+          'No whitespace may separate the token and its semicolon',
+        );
+      }
+      const migratedText = (await page.locator('article').textContent()).replace(/\s/g, '');
+      // Copy is adapted for Angular; preserve the token contract, not legacy React API wording.
+      const documentedTokens = new Set(
+        originalParagraphs.flatMap((paragraph) => paragraph.match(/--ds-[a-z][a-z0-9-]*/g) ?? []),
+      );
+      for (const token of documentedTokens)
+        assert.ok(migratedText.includes(token), `${slug}: documented token must remain: ${token}`);
+      assert.doesNotMatch(
+        migratedText,
+        /React|DsAppHeader|DsUserMenu|DsPageLayout|DsFilterMenu|DsIconButton|onApply|onClear/,
+        `${slug}: do not expose legacy API or promise unapproved components`,
+      );
+      if (['hover', 'theme-colors', 'accessibility', 'spacing'].includes(slug)) {
+        await expect(page.locator('[data-migration-placeholder]')).toHaveCount(0);
+      } else {
+        await expect(page.locator('[data-migration-placeholder]').first()).toBeVisible();
+      }
+      assert.equal(await page.locator('iframe').count(), 0);
+      await page.evaluate(() => document.fonts.ready);
+      if (slug === 'colors') {
+        await expect(page.locator('#contrast-values td')).toHaveCount(12);
+        const ratio = await page.locator('[data-contrast="fg/surface"]').textContent();
+        if (appearance === 'light') lightContrast = ratio;
+        else {
+          assert.notEqual(ratio, lightContrast, 'Contrast must reflect the selected appearance');
+          await expect(page.locator('[data-contrast="fg-subtle/surface-raised"]')).toHaveAttribute(
+            'data-passes',
+            'false',
+          );
+        }
+        await page.locator('.reference-details').first().locator('summary').focus();
+        await page.keyboard.press('Enter');
+        await expect(page.locator('.palette li')).toHaveCount(13);
+        await expect(page.locator('.palette li').first()).toBeVisible();
+        await page.locator('.reference-details').nth(1).locator('summary').click();
+        await expect(page.locator('#alpha-values .alpha-row')).toHaveCount(7);
+      } else if (slug === 'shape') {
+        const checkbox = page
+          .locator('#component-shapes')
+          .getByRole('checkbox', { name: 'Показывать треки', exact: true });
+        await checkbox.focus();
+        await page.keyboard.press('Space');
+        await expect(checkbox).toBeChecked();
+        await expect(page.locator('#component-shapes button[dsButton]')).toHaveText(
+          'Кнопка · 8 px',
+        );
+        await expect(page.locator('#component-shapes')).not.toHaveAttribute(
+          'data-migration-placeholder',
+        );
+        await page.locator('#radius-reference summary').focus();
+        await page.keyboard.press('Enter');
+        await expect(page.locator('#radius-values li')).toHaveCount(7);
+        const circle = await page
+          .locator('#radius-values li')
+          .last()
+          .locator('.swatch')
+          .boundingBox();
+        assert.equal(circle.width, 64, 'Circle radius sample must keep its original width');
+        assert.equal(circle.height, 64, 'Circle radius sample must have equal sides');
+        await page.locator('#shadow-reference summary').click();
+        await expect(page.locator('#shadow-values li')).toHaveCount(5);
+        await expect(page.locator('aurora-code-block code')).toContainText(
+          'border-radius: var(--ds-radius-lg)',
+        );
+      }
+      if (slug === 'spacing' || slug === 'breakpoints') {
+        if (slug === 'breakpoints') {
+          const example = page.locator('#layout-example');
+          await example.getByRole('button', { name: 'Две колонки', exact: true }).click();
+          await expect(example.locator('.workspace')).toHaveAttribute('data-layout', 'wide');
+          await expect(example.locator('.workspace')).toHaveCSS(
+            'grid-template-columns',
+            /\d+(?:\.\d+)?px \d+(?:\.\d+)?px/,
+          );
+          await example.getByRole('button', { name: 'Volvo FH16', exact: true }).click();
+          await expect(example.locator('.object-details h3')).toHaveText('Volvo FH16');
+          await example.getByRole('button', { name: 'Обновить', exact: true }).click();
+          await expect(example.getByRole('status')).toHaveText('Данные Volvo FH16 обновлены.');
+          await example.getByRole('button', { name: 'Одна колонка', exact: true }).click();
+          await expect(example.locator('.workspace')).toHaveAttribute('data-layout', 'narrow');
+          assert.equal(
+            await page
+              .locator('h2[id="пример-кода"]')
+              .evaluate((el) => getComputedStyle(el).marginTop),
+            '32px',
+          );
+        }
+        const reference = page.locator(
+          slug === 'spacing'
+            ? 'section[aria-labelledby="для-разработчика"] > details'
+            : '#breakpoints-reference',
+        );
+        await expect(reference).not.toHaveAttribute('open');
+        await reference.locator('summary').focus();
+        await page.keyboard.press('Enter');
+        await expect(reference).toHaveAttribute('open');
+        await expect(reference.locator('tbody tr')).toHaveCount(slug === 'spacing' ? 4 : 6);
+        if (slug === 'spacing') {
+          const form = page.locator('[data-spacing-form]');
+          const groupedGap = await form.evaluate((el) => getComputedStyle(el).rowGap);
+          await page
+            .getByRole('button', { name: 'Всё на одинаковом расстоянии', exact: true })
+            .click();
+          assert.notEqual(await form.evaluate((el) => getComputedStyle(el).rowGap), groupedGap);
+          await expect(reference.locator('aurora-code-block code')).toContainText(
+            'gap: var(--ds-gap-xl)',
+          );
+        } else {
+          await expect(page.locator('aurora-code-block code').first()).toContainText(
+            '@media (min-width: 960px)',
+          );
+        }
+        await expect(page.locator('aurora-example-block').first()).toHaveAttribute(
+          'data-ds-theme',
+          theme,
+        );
+        await expect(page.locator('aurora-example-block').first()).toHaveAttribute(
+          'data-ds-appearance',
+          appearance,
+        );
+        await expect(page.locator('aurora-example-block').first()).toHaveAttribute(
+          'data-ds-density',
+          density,
+        );
+      }
+      if (slug === 'appearance' || slug === 'density') {
+        const reference = page.locator('#' + slug + '-reference');
+        await expect(reference).not.toHaveAttribute('open');
+        await reference.locator('summary').focus();
+        await page.keyboard.press('Enter');
+        await expect(reference).toHaveAttribute('open');
+        const ready = page.locator('#ready-interface');
+        await expect(ready).toHaveAttribute('data-ds-theme', theme);
+        await expect(ready).toHaveAttribute('data-ds-appearance', appearance);
+        await expect(ready).toHaveAttribute('data-ds-density', density);
+        const samples = page.locator(
+          '#' + (slug === 'appearance' ? 'mode' : 'density') + '-comparison > *',
+        );
+        await expect(samples).toHaveCount(2);
+        for (let i = 0; i < 2; i++) {
+          await expect(samples.nth(i)).toHaveAttribute('data-ds-theme', theme);
+          await expect(samples.nth(i)).toHaveAttribute(
+            'data-ds-appearance',
+            slug === 'appearance' ? ['light', 'dark'][i] : appearance,
+          );
+          await expect(samples.nth(i)).toHaveAttribute(
+            'data-ds-density',
+            slug === 'density' ? ['cozy', 'compact'][i] : density,
+          );
+        }
+        if (slug === 'density') {
+          await expect(reference.locator('tbody tr')).toHaveCount(5);
+          await expect(reference.locator('tbody tr').first()).toContainText('36');
+          await expect(reference.locator('tbody tr').first()).toContainText('30');
+        } else {
+          assert.notEqual(
+            await samples.nth(0).evaluate((el) => getComputedStyle(el).backgroundColor),
+            await samples.nth(1).evaluate((el) => getComputedStyle(el).backgroundColor),
+            'Comparison must keep distinct light and dark surfaces',
+          );
+        }
+      }
+      if (slug === 'hover' || slug === 'focus') {
+        const reference = page.locator('#' + slug + '-reference');
+        await expect(reference).not.toHaveAttribute('open');
+        await reference.locator('summary').focus();
+        await page.keyboard.press('Enter');
+        await expect(reference).toHaveAttribute('open');
+        await expect(reference.locator('tbody tr')).toHaveCount(slug === 'hover' ? 2 : 3);
+        for (const scene of await page.locator('.scene').all()) {
+          await expect(scene).toHaveAttribute('data-ds-theme', theme);
+          await expect(scene).toHaveAttribute('data-ds-appearance', appearance);
+          await expect(scene).toHaveAttribute('data-ds-density', density);
+        }
+        if (slug === 'hover') {
+          const action = page.locator('#ready-interface');
+          await action.getByRole('button', { name: 'Сохранить', exact: true }).click();
+          await expect(action.locator('[role="status"]')).toHaveText('Изменения сохранены.');
+          await action.getByRole('button', { name: 'Отмена', exact: true }).click();
+          await expect(action.locator('[role="status"]')).toHaveText('Изменения отменены.');
+          await expect(
+            action.getByRole('button', { name: 'Недоступно', exact: true }),
+          ).toBeDisabled();
+          await expect(page.locator('#state-comparison .state-label')).toHaveText([
+            'Обычно',
+            'Наведение',
+            'Нажатие',
+          ]);
+          const states = page.locator('#state-comparison .state-sample');
+          await expect(states).toHaveCount(3);
+          const images = await states.evaluateAll((elements) =>
+            elements.map((el) => getComputedStyle(el).backgroundImage),
+          );
+          assert.equal(images[0], 'none');
+          assert.notEqual(images[1], images[0]);
+          assert.notEqual(images[1], images[2]);
+          await expect(page.locator('#state-comparison button')).toHaveCount(0);
+        } else {
+          await expect(
+            page.locator('#keyboard-navigation[data-migration-placeholder]'),
+          ).toBeVisible();
+          await expect(page.locator('.try-it kbd').first()).toHaveText('Tab');
+        }
+      }
+      if (slug === 'shape') {
+        const centres = await page.locator('#component-shapes .component-row').evaluate((el) =>
+          ['ds-checkbox', 'button', '.ds-field-shell'].map((selector) => {
+            const rect = el.querySelector(selector).getBoundingClientRect();
+            return rect.y + rect.height / 2;
+          }),
+        );
+        assert.ok(
+          centres.every((value) => Math.abs(value - centres[0]) < 1),
+          'Control centres must align',
+        );
+        const focusButton = page.locator('#focus-demo button[dsButton]');
+        await focusButton.focus();
+        await expect(focusButton).toBeFocused();
+      }
+      if (slug === 'iconography') {
+        for (const id of ['correct-example', 'incorrect-example']) {
+          const example = page.locator('#' + id);
+          await example.getByRole('button', { name: 'Удалить объект', exact: true }).click();
+          await expect(example.locator('[role="status"]')).toContainText('удаление объекта');
+          await example.getByRole('button', { name: 'Удалить объект', exact: true }).click();
+          await expect(example.locator('[role="status"]')).toHaveCount(0);
+        }
+        const action = page.getByRole('button', {
+          name: 'Показать пояснение настроек',
+          exact: true,
+        });
+        const explanation = page.locator('#icon-settings-explanation');
+        await expect(explanation).toBeHidden();
+        await action.focus();
+        await page.keyboard.press('Enter');
+        await expect(action).toHaveAttribute('aria-expanded', 'true');
+        await expect(explanation).toBeVisible();
+        await page.keyboard.press('Space');
+        await expect(action).toHaveAttribute('aria-expanded', 'false');
+        await expect(explanation).toBeHidden();
+        const dictionary = page.locator('#icon-dictionary');
+        const groupSource = original.match(/const groups=(\[[\s\S]*?\]);/)[1];
+        const names = [...groupSource.matchAll(/'([a-z_ ]+)'/g)].flatMap((match) =>
+          match[1].split(' '),
+        );
+        await expect(dictionary.locator('.glyph code')).toHaveText(names);
+        await expect(dictionary.locator('.glyph ds-icon')).toHaveCount(names.length);
+        const search = dictionary.getByRole('searchbox');
+        await search.fill('delete');
+        await expect(dictionary.locator('.glyph code')).toHaveText(['delete']);
+        await search.fill('');
+        await expect(page.locator('#size-example ds-icon')).toHaveCount(4);
+        const sizes = await page
+          .locator('#size-example ds-icon')
+          .evaluateAll((icons) => icons.map((el) => parseFloat(getComputedStyle(el).width)));
+        assert.ok(sizes.every((size, index) => size > 0 && (!index || size > sizes[index - 1])));
+        await expect(
+          page.getByRole('img', { name: 'Доступ ограничен', exact: true }),
+        ).toBeVisible();
+        await expect(page.locator('#accessible-example ds-icon').first()).toHaveAttribute(
+          'aria-hidden',
+          'true',
+        );
+        await page.locator('section[aria-labelledby="sizes"] > details > summary').focus();
+        await page.keyboard.press('Enter');
+        await expect(page.locator('section[aria-labelledby="sizes"] > details')).toHaveAttribute(
+          'open',
+        );
+        await page.evaluate(() => document.fonts.ready);
+        assert.ok(
+          await page.evaluate(() => document.fonts.check('20px "Material Symbols Outlined"')),
+        );
+      }
+      if (slug === 'status') {
+        for (const id of ['status-roles', 'status-palette', 'status-custom']) {
+          await page.locator('#' + id + ' summary').focus();
+          await page.keyboard.press('Enter');
+          await expect(page.locator('#' + id)).toHaveAttribute('open');
+        }
+        await expect(page.locator('.palette-row')).toHaveCount(5);
+        await expect(page.locator('.status-dot')).toHaveCount(2);
+        await expect(page.locator('aurora-code-block code')).toContainText(
+          'color: var(--ds-success-fg)',
+        );
+        for (const sample of await page.locator('aurora-example-block[data-ds-theme]').all()) {
+          await expect(sample).toHaveAttribute('data-ds-theme', theme);
+          await expect(sample).toHaveAttribute('data-ds-appearance', appearance);
+          await expect(sample).toHaveAttribute('data-ds-density', density);
+        }
+      }
+      if (slug === 'motion') {
+        await page.locator('section[aria-labelledby="reduced"] summary').focus();
+        await page.keyboard.press('Enter');
+        const loadingDemo = page.locator('#loading-demo');
+        await expect(loadingDemo).toBeVisible();
+        await expect(loadingDemo).not.toHaveAttribute('data-migration-placeholder');
+        const startLoading = loadingDemo.getByRole('button', { name: 'Проверить загрузку' });
+        await expect(loadingDemo.getByRole('status')).toHaveText('Готово к проверке.');
+        await startLoading.click();
+        await expect(startLoading).toBeDisabled();
+        await expect(loadingDemo.locator('ds-spinner')).toHaveAttribute('aria-hidden', 'true');
+        await expect(loadingDemo.getByRole('status')).toHaveText('Загружаем объекты…');
+        await expect(loadingDemo.getByRole('status')).toHaveText('Объекты загружены.');
+        await expect(loadingDemo.locator('ds-spinner')).toHaveCount(0);
+        await expect(startLoading).toBeEnabled();
+        await expect(
+          page.locator('section[aria-labelledby="дальше"] a[href*="/components/spinner"]'),
+        ).toHaveText('Spinner');
+        await page.locator('section[aria-labelledby="для-разработчика"] summary').focus();
+        await page.keyboard.press('Enter');
+        await expect(page.locator('.reference-table tbody tr')).toHaveCount(4);
+        await expect(page.locator('aurora-code-block code')).toContainText(
+          '@media (prefers-reduced-motion: reduce)',
+        );
+        assert.equal(
+          await page
+            .locator('[data-motion-reduced]')
+            .evaluate((el) => getComputedStyle(el).getPropertyValue('--ds-dur-fast').trim()),
+          '0ms',
+        );
+      }
+      if (slug === 'accessibility' || slug === 'content') {
+        await expect(page.locator('#demo')).toHaveAttribute('data-ds-theme', theme);
+        await expect(page.locator('#demo')).toHaveAttribute('data-ds-appearance', appearance);
+        await expect(page.locator('#demo')).toHaveAttribute('data-ds-density', density);
+        for (const details of await page.locator('article details').all()) {
+          await expect(details).not.toHaveAttribute('open');
+          await details.locator('summary').focus();
+          await page.keyboard.press('Enter');
+          await expect(details).toHaveAttribute('open');
+        }
+        if (slug === 'accessibility') {
+          await expect(page.locator('article a[href^="https://www.w3.org/"]')).toHaveCount(3);
+          await expect(
+            page.locator('section[aria-labelledby="для-разработчика"] aurora-code-block'),
+          ).toHaveCount(1);
+          const form = page.locator('#demo form');
+          await expect(form).toHaveCount(1);
+          const input = form.getByRole('textbox', { name: 'Название объекта' });
+          await input.fill('');
+          await input.press('Tab');
+          await expect(form.locator('[dsError]')).toHaveText('Обязательное поле.');
+          await expect(input).toHaveAttribute('aria-invalid', 'true');
+          await input.fill('Тестовый объект');
+          await expect(form.locator('[dsError]')).toHaveCount(0);
+          await form.getByRole('button', { name: 'Сохранить', exact: true }).click();
+          await expect(form.getByRole('status')).toContainText('Тестовый объект');
+        } else {
+          await expect(page.locator('#demo h3')).toHaveText([
+            'Слишком общее',
+            'Понятно, что дальше',
+          ]);
+          await expect(page.locator('#demo .comparison p')).toHaveText([
+            'Нет данных',
+            'Объекты не найдены',
+            'Измените запрос или сбросьте фильтры.',
+          ]);
+          const demo = page.locator('#demo');
+          await demo.getByRole('button', { name: 'Ошибка', exact: true }).click();
+          await expect(demo.getByRole('status')).toContainText('Не удалось загрузить объекты');
+          await demo.getByRole('button', { name: 'Нет объектов', exact: true }).click();
+          await expect(demo.getByRole('status')).toContainText('Добавьте первый объект');
+          await demo.getByRole('button', { name: 'Ничего не найдено', exact: true }).click();
+          await expect(page.locator('section[aria-labelledby="data"] li')).toHaveCount(4);
+        }
+      }
+      if (slug === 'layout' || slug === 'sorting') {
+        for (const scene of await page.locator('aurora-example-block.scene').all()) {
+          await expect(scene).toHaveAttribute('data-ds-theme', theme);
+          await expect(scene).toHaveAttribute('data-ds-appearance', appearance);
+          await expect(scene).toHaveAttribute('data-ds-density', density);
+        }
+        for (const details of await page.locator('article details').all()) {
+          await expect(details).not.toHaveAttribute('open');
+          await details.locator('summary').focus();
+          await page.keyboard.press('Enter');
+          await expect(details).toHaveAttribute('open');
+        }
+        if (slug === 'layout') {
+          await expect(page.locator('aurora-code-block .language')).toHaveText([
+            'workspace.css',
+            'product-grid.css',
+          ]);
+          await expect(page.locator('#anatomy-example .column-sheet span')).toHaveCount(12);
+          await expect(page.locator('#spans-example .span-row')).toHaveCount(4);
+          await expect(page.locator('#spans-example .span-block')).toHaveText([
+            '12',
+            '6',
+            '6',
+            '4',
+            '4',
+            '4',
+            '8',
+            '4',
+          ]);
+          await expect(page.locator('#centering-example .span-block')).toHaveText([
+            '8 колонок',
+            '10 колонок',
+            '12 колонок',
+          ]);
+          const centered = await page
+            .locator('#centering-example .span-block')
+            .evaluateAll((blocks) =>
+              blocks.map((el) => {
+                const r = el.getBoundingClientRect();
+                return r.left + r.width / 2;
+              }),
+            );
+          assert.ok(centered.every((center) => Math.abs(center - centered[0]) < 1));
+          await expect(page.locator('.grid-standard tbody tr')).toHaveCount(4);
+          await expect(page.locator('aurora-code-block code').first()).toContainText(
+            '@container (max-width: 600px)',
+          );
+          await expect(page.locator('aurora-code-block code').nth(1)).toContainText(
+            'column-gap: var(--ds-gap-sm)',
+          );
+          assert.equal(
+            await page
+              .locator('#spans-example .span-row')
+              .first()
+              .evaluate((el) => getComputedStyle(el).columnGap),
+            density === 'cozy' ? '16px' : '12px',
+          );
+        } else {
+          await expect(page.locator('#sorting-reference')).toHaveAttribute('open');
+          await expect(page.locator('#sorting-reference h3')).toHaveText([
+            'Поле и направление',
+            'Порядок всего набора',
+            'Клавиатура и собственная кнопка',
+          ]);
+          await expect(page.locator('#sorting-reference')).toContainText(
+            'При постраничной загрузке передавайте выбор серверу',
+          );
+          await expect(
+            page.locator('section[aria-labelledby="пример-кода"] [data-migration-placeholder]'),
+          ).toBeVisible();
+          await expect(page.locator('#ready-interface button')).toHaveCount(0);
+        }
+      }
+      if (slug === 'themes' || slug === 'theme-colors') {
+        for (const details of await page.locator('article details').all()) {
+          await details.locator('summary').focus();
+          await page.keyboard.press('Enter');
+          await expect(details).toHaveAttribute('open');
+        }
+        if (slug === 'themes') {
+          await expect(page.locator('.token-row')).toHaveCount(10);
+          for (const value of await page.locator('.token-row .value').all()) {
+            await expect(value).not.toBeEmpty();
+          }
+          await expect(page.locator('#brand-comparison > *').first()).toHaveAttribute(
+            'data-ds-theme',
+            'DEFAULT',
+          );
+          await expect(page.locator('#brand-comparison > *').last()).toHaveAttribute(
+            'data-ds-theme',
+            'RED2',
+          );
+          for (const sample of await page.locator('#brand-comparison > *').all()) {
+            await expect(sample).toHaveAttribute('data-ds-appearance', appearance);
+            await expect(sample).toHaveAttribute('data-ds-density', density);
+          }
+          await expect(page.locator('#ready-interface')).toHaveAttribute('data-ds-theme', theme);
+          await expect(page.locator('#token-values .token-row').first()).toHaveAttribute(
+            'data-ds-theme',
+            theme,
+          );
+        } else {
+          for (const prefix of ['p', 'd']) {
+            const button = page.locator('#' + prefix + '-btn');
+            await button.click();
+            await expect(page.locator('#' + prefix + '-result')).toHaveText(
+              'Отчёт построен. Объектов: 4. Запуск: 1.',
+            );
+          }
+          await expect(page.locator('.contrast-pair')).toHaveCount(6);
+          await expect(page.locator('#out .language')).toHaveText('CSS');
+          await expect(page.locator('#palette-reference .tok')).toHaveCount(15);
+          await expect(page.locator('#pl')).toHaveAttribute('data-ds-appearance', 'light');
+          await expect(page.locator('#pd')).toHaveAttribute('data-ds-appearance', 'dark');
+          await expect(page.locator('#pl')).toHaveAttribute('data-ds-density', density);
+          await expect(page.locator('#r-brand .hex')).toHaveText('#2b5f9e');
+          await page.locator('#bt').focus();
+          await expect(page.locator('#bt')).toHaveCSS('outline-style', 'none');
+          await expect(page.locator('#bt')).toHaveCSS('border-top-width', '0px');
+          await expect(page.locator('#bs')).toHaveCSS('border-top-width', '0px');
+          await expect(page.locator('.bar').first()).toHaveCSS('border-top-width', '0px');
+          await page.locator('#bt').fill('#ffffff');
+          await expect(page.locator('#r-brand .hex')).not.toHaveText('#ffffff');
+          await expect(page.locator('#bs')).toHaveValue('#ffffff');
+          const validCode = await page.locator('aurora-code-block code').textContent();
+          await page.locator('#bt').fill('invalid');
+          await expect(page.locator('#bt')).toHaveAttribute('aria-invalid', 'true');
+          await expect(page.locator('#input-error')).toContainText('Введите цвет');
+          assert.equal(await page.locator('aurora-code-block code').textContent(), validCode);
+          await expect(page.locator('#bs')).toHaveValue('#ffffff');
+          await page.locator('#bs').fill('#2b5f9e');
+          await expect(page.locator('#bt')).toHaveValue('#2b5f9e');
+          await expect(page.locator('#input-error')).toBeEmpty();
+          await page.locator('#at').fill('#c1291f');
+          await expect(page.locator('#warns')).toContainText('danger');
+          await page.locator('#nm').fill('a b:1');
+          await expect(page.locator('aurora-code-block code')).toContainText(
+            '[data-ds-theme="AB1"]',
+          );
+          await page.locator('#at').fill('#efd63c');
+        }
+      }
+      if (slug === 'charts' || slug === 'logo') {
+        for (const details of await page.locator('article details').all()) {
+          await expect(details).not.toHaveAttribute('open');
+          await details.locator('summary').focus();
+          await page.keyboard.press('Enter');
+          await expect(details).toHaveAttribute('open');
+        }
+        await expect(page.locator('#ready-interface')).toHaveAttribute('data-ds-theme', theme);
+        await expect(page.locator('#ready-interface')).toHaveAttribute(
+          'data-ds-appearance',
+          appearance,
+        );
+        await expect(page.locator('#ready-interface')).toHaveAttribute('data-ds-density', density);
+        if (slug === 'charts') {
+          await expect(page.locator('#data-rows tr')).toHaveCount(7);
+          await expect(page.locator('#data-rows tr').nth(3).locator('th,td')).toHaveText([
+            '11:00',
+            'Нет данных',
+            '64',
+          ]);
+          await expect(page.locator('#series-palette code')).toHaveText(
+            Array.from({ length: 8 }, (_, i) => 'series-' + (i + 1)),
+          );
+          await expect(page.locator('#series-palette')).toHaveAttribute(
+            'data-ds-appearance',
+            appearance,
+          );
+          const swatches = await page
+            .locator('#series-palette .swatch')
+            .evaluateAll((items) => items.map((el) => getComputedStyle(el).backgroundColor));
+          assert.equal(new Set(swatches).size, 8);
+          assert.ok(swatches.every((color) => color !== 'rgba(0, 0, 0, 0)'));
+        } else {
+          await expect(page.locator('article img')).toHaveCount(5);
+          for (const image of await page.locator('article img').all()) {
+            assert.ok(await image.evaluate((el) => el.complete && el.naturalWidth > 0));
+            await expect(image).toHaveAttribute('alt', /.+/);
+          }
+          await expect(page.locator('.sample')).toHaveCount(2);
+          for (const sample of await page.locator('.sample').all()) {
+            await expect(sample).toHaveAttribute('data-ds-appearance', 'light');
+            await expect(sample).toHaveAttribute('data-ds-theme', theme);
+          }
+          await expect(page.locator('#background-scene')).toHaveAttribute(
+            'data-ds-appearance',
+            appearance,
+          );
+          assert.equal(
+            await page.locator('.plate img').evaluate((el) => getComputedStyle(el).width),
+            '26px',
+          );
+          assert.equal(
+            await page.locator('.plate').evaluate((el) => getComputedStyle(el).width),
+            '34px',
+          );
+        }
+      }
+      assert.deepEqual(
+        await pageViolations(page),
+        [],
+        `${slug}/${theme}/${appearance}/${density}: accessibility`,
+      );
+      await page.locator('.page-contents a').last().click();
+      await expect(
+        page.locator(
+          'h2[id="' + supplementalHeadings.at(-1).toLowerCase().replaceAll(' ', '-') + '"]',
+        ),
+      ).toBeFocused();
+      await page.reload();
+      await expect(
+        page.locator(
+          'h2[id="' + supplementalHeadings.at(-1).toLowerCase().replaceAll(' ', '-') + '"]',
+        ),
+      ).toBeFocused();
+      if (theme === 'DEFAULT' && appearance === 'light') {
+        await page.locator('#catalog-main').evaluate((el) => el.scrollTo(0, 0));
+        await expect(page.locator('.page-contents a[aria-current="location"]')).toHaveText(
+          headings[0],
+        );
+        await page.screenshot({ path: join(root, `.tmp/${slug}-wide.png`) });
+      }
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(url + `foundations/${slug}?theme=RED2&appearance=dark&density=compact`);
+    await expect(page.locator('h1')).toHaveText(title);
+    for (const summary of await page.locator('article summary').all()) await summary.click();
+    assert.deepEqual(await pageViolations(page), [], `${slug}: mobile accessibility`);
+    assert.equal(
+      await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
+      false,
+    );
+    await page.locator('#catalog-main').evaluate((el) => el.scrollTo(0, 0));
+    await page.screenshot({ path: join(root, `.tmp/${slug}-mobile.png`) });
+    await page.setViewportSize({ width: 1472, height: 1000 });
+  }
+}
